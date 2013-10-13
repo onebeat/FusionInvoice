@@ -28,7 +28,7 @@ class SessionController extends BaseController {
 			return Redirect::route('session.login')->with('errors', [trans('fi.invalid_login')]);
 		}
 
-		return Redirect::route('dashboard');
+		return Redirect::route('dashboard.index');
 	}
 
 	public function logout()
