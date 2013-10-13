@@ -33,7 +33,9 @@ class SessionController extends BaseController {
 
 	public function logout()
 	{
-		
+		Auth::logout();
+
+		return Redirect::route('session.login');
 	}
 
 }
