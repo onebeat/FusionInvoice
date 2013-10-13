@@ -396,4 +396,7 @@ return [
 	
 	/** New or changed for 1.3.3 tag * */
 	'documentation' => 'Documentation',
+
+	/** New or changed for 2.0 **/
+	'invalid_login' => 'Invalid login credentials'
 ];
