@@ -9,10 +9,10 @@ class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositor
 		return ItemLookup::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = 15)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return ItemLookup::paginate($numPerPage);
+		return ItemLookup::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)

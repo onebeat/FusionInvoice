@@ -9,10 +9,10 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 		return InvoiceGroup::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = 15)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return InvoiceGroup::paginate($numPerPage);
+		return InvoiceGroup::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)

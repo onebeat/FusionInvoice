@@ -9,22 +9,22 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 		return Client::all();
 	}
 
-	public function getPagedActive($page = 1, $numPerPage = 15)
+	public function getPagedActive($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->where('active', 1)->paginate($numPerPage);
+		return Client::orderBy('name')->where('active', 1)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
-	public function getPagedInactive($page = 1, $numPerPage = 15)
+	public function getPagedInactive($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->where('active', 0)->paginate($numPerPage);
+		return Client::orderBy('name')->where('active', 0)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
-	public function getPagedAll($page = 1, $numPerPage = 15)
+	public function getPagedAll($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->paginate($numPerPage);
+		return Client::orderBy('name')->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)

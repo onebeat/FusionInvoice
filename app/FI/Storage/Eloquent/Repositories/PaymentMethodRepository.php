@@ -9,10 +9,10 @@ class PaymentMethodRepository implements \FI\Storage\Interfaces\PaymentMethodRep
 		return PaymentMethod::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = 15)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return PaymentMethod::paginate($numPerPage);
+		return PaymentMethod::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)

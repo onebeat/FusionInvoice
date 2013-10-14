@@ -9,10 +9,10 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 		return User::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = 15)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return User::paginate($numPerPage);
+		return User::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)

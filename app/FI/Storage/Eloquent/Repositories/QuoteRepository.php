@@ -9,10 +9,10 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		return Quote::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = 15)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Quote::paginate($numPerPage);
+		return Quote::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	public function find($id)
