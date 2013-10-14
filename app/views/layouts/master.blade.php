@@ -139,7 +139,7 @@
 					@if (isset($filter_display) and $filter_display == true) }}
 					@include('filter.jquery_filter')
 					<form class="navbar-search pull-left">
-						<input type="text" class="search-query" id="filter" placeholder="<?php echo $filter_placeholder; ?>">
+						<input type="text" class="search-query" id="filter" placeholder="{{ $filter_placeholder }}">
 					</form>
 					@endif
 
