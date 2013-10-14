@@ -138,31 +138,6 @@ $(function() {
         
     </div>
 
-   	TODO: Custom Fields
-    @if (1 === 5)
-    <div class="row-fluid">
-            
-        <div class="span12">
-
-            <fieldset>
-                    
-                    <legend>{{ trans('fi.custom_fields') }}</legend>
-                    
-                    @foreach ($custom_fields as $custom_field) {
-                    <div class="control-group">
-                        <label class="control-label">{{ $custom_field->custom_field_label }}: </label>
-                        <div class="controls">
-                            <input type="text" name="custom[{{ $custom_field->custom_field_column }}]" id="{{ $custom_field->custom_field_column }}" value="{{ form_prep($this->mdl_clients->form_value('custom[' . $custom_field->custom_field_column . ']')) }}">
-                        </div>
-                    </div>
-                    @endforeach
-            </fieldset>
-
-        </div>
-
-    </div>
-    @endif
-
 </div>
 
 {{ Form::close() }}
