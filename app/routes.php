@@ -21,7 +21,6 @@ Route::group(array('before' => 'auth'), function()
 	*/
 	Route::get('clients/status/{status?}', array('uses' => 'ClientController@index', 'as' => 'clients.index'));
 	Route::get('clients/create', array('uses' => 'ClientController@create', 'as' => 'clients.create'));
-	Route::get('clients/view/{client}', array('uses' => 'ClientController@show', 'as' => 'clients.view'));
 	Route::get('clients/{client}/edit', array('uses' => 'ClientController@edit', 'as' => 'clients.edit'));
 	Route::get('clients/{client}', array('uses' => 'ClientController@show', 'as' => 'clients.show'));
 	Route::get('clients/{client}/delete', array('uses' => 'ClientController@delete', 'as' => 'clients.delete'));
