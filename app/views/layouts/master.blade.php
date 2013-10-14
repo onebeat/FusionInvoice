@@ -193,12 +193,12 @@
 
 		</div>
 
-		<script defer src="{{ asset('js/plugins.js') }}"></script>
-		<script defer src="{{ asset('js/script.js') }}"></script>
-		<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+		<script defer src="{{ asset('assets/js/plugins.js') }}"></script>
+		<script defer src="{{ asset('assets/js/script.js') }}"></script>
+		<script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
 
 		<!--[if lt IE 7 ]>
-			<script src="{{ asset('js/dd_belatedpng.js') }}"></script>
+			<script src="{{ asset('assets/js/dd_belatedpng.js') }}"></script>
 			<script type="text/javascript"> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
 		<![endif]-->
 
