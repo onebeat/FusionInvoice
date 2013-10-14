@@ -144,7 +144,7 @@
 					@endif
 
 					<ul class="nav pull-right settings">
-                        <li><a href="#">{{ trans('fi.welcome') . ' ' . Session::get('user_name') }}</a></li>
+                        <li><a href="#">{{ trans('fi.welcome') . ' ' . Auth::user()->name; }}</a></li>
                         <li class="divider-vertical"></li>
                         <li><a href="http://docs.fusioninvoice.com/1.3/" target="_blank" class="tip icon" data-original-title="Documentation" data-placement="bottom"><i class="icon-question-sign"></i></a></li>
 						<li class="divider-vertical"></li>
