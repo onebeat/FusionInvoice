@@ -19,12 +19,12 @@ class TaxRateController extends \BaseController {
 	 * @param  string $status
 	 * @return \Illuminate\View\View
 	 */
-	public function index($status = 'active')
+	public function index()
 	{
 		$taxRates = $this->taxRate->getPaged(Input::get('page'));
 
 		return View::make('tax_rates.index')
-		->with(array('taxRates' => $taxRates, 'status' => $status));
+		->with('taxRates', $taxRates);
 	}
 
 	/**
@@ -33,7 +33,8 @@ class TaxRateController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('tax_rates.form')->with('edit_mode', false);
+		return View::make('tax_rates.form')
+		->with('edit_mode', false);
 	}
 
 	/**
@@ -47,13 +48,15 @@ class TaxRateController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('taxRates.create')
-			->with(['edit_mode' => false])
-			->withErrors($this->validator->errors())->withInput();
+			->with('edit_mode', false)
+			->withErrors($this->validator->errors())
+			->withInput();
 		}
 
 		$this->taxRate->create($input);
 		
-		return Redirect::route('taxRates.index')->with(['alert' => trans('fi.record_successfully_created')]);
+		return Redirect::route('taxRates.index')
+		->with('alert_success', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -76,8 +79,18 @@ class TaxRateController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		if (!$this->validator->validate(Input::all()))
+		{
+			return Redirect::route('taxRates.edit', [$id])
+			->with('edit_mode', true)
+			->withErrors($this->validator->errors())
+			->withInput();
+		}
+
 		$this->taxRate->update(Input::all(), $id);
-		return Redirect::route('taxRates.index');
+
+		return Redirect::route('taxRates.index')
+		->with('alert_info', trans('fi.record_successfully_updated'));
 	}
 
 	/**
@@ -88,7 +101,9 @@ class TaxRateController extends \BaseController {
 	public function delete($id)
 	{
 		$this->taxRate->delete($id);
-		return Redirect::route('taxRates.index');
+
+		return Redirect::route('taxRates.index')
+		->with('alert', trans('fi.record_successfully_deleted'));
 	}
 
 }
