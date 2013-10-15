@@ -34,7 +34,7 @@ class ClientController extends \BaseController {
 		}
 		
 		return View::make('clients.index')
-		->with(array('clients' => $clients, 'status' => $status));
+		->with(['clients' => $clients, 'status' => $status]);
 	}
 
 	/**
@@ -43,7 +43,8 @@ class ClientController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('clients.form')->with('edit_mode', false);
+		return View::make('clients.form')
+		->with('edit_mode', false);
 	}
 
 	/**
@@ -57,13 +58,15 @@ class ClientController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('clients.create')
-			->with(['edit_mode' => false])
-			->withErrors($this->validator->errors())->withInput();
+			->with('edit_mode', false)
+			->withErrors($this->validator->errors())
+			->withInput();
 		}
 
 		$this->client->create($input);
 		
-		return Redirect::route('clients.index')->with(['alert' => trans('fi.record_successfully_created')]);
+		return Redirect::route('clients.index')
+		->with('alert_success', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -74,7 +77,7 @@ class ClientController extends \BaseController {
 	public function show($id)
 	{
 		return View::make('clients.view')
-		->with(['client' => $this->client->find($id)]);
+		->with('client', $this->client->find($id));
 	}
 
 	/**
@@ -97,8 +100,20 @@ class ClientController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$this->client->update(Input::all(), $id);
-		return Redirect::route('clients.index');
+		$input = Input::all();
+
+		if (!$this->validator->validate($input))
+		{	
+			return Redirect::route('clients.edit', [$id])
+			->with('edit_mode', true)
+			->withErrors($this->validator->errors())
+			->withInput();
+		}
+
+		$this->client->update($input, $id);
+
+		return Redirect::route('clients.index')
+		->with('alert_info', trans('fi.record_successfully_updated'));;
 	}
 
 	/**
@@ -109,7 +124,9 @@ class ClientController extends \BaseController {
 	public function delete($id)
 	{
 		$this->client->delete($id);
-		return Redirect::route('clients.index');
+
+		return Redirect::route('clients.index')
+		->with('alert', trans('fi.record_successfully_deleted'));;
 	}
 
 }

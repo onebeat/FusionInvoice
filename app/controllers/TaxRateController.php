@@ -79,7 +79,9 @@ class TaxRateController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		if (!$this->validator->validate(Input::all()))
+		$input = Input::all();
+
+		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('taxRates.edit', [$id])
 			->with('edit_mode', true)
@@ -87,7 +89,7 @@ class TaxRateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->taxRate->update(Input::all(), $id);
+		$this->taxRate->update($input, $id);
 
 		return Redirect::route('taxRates.index')
 		->with('alert_info', trans('fi.record_successfully_updated'));
