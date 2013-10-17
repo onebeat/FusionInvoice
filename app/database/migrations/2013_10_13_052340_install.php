@@ -43,6 +43,17 @@ class Install extends Migration {
 			$table->index('client_id');
 		});
 
+		Schema::create('fi_email_templates', function($table)
+		{
+			$table->increments('id');
+			$table->timestamps();
+			$table->string('name');
+			$table->string('subject');
+			$table->text('body');
+
+			$table->index('name');
+		});
+
 		Schema::create('fi_invoices', function($table)
 		{
 			$table->increments('id');
@@ -60,7 +71,6 @@ class Install extends Migration {
 			$table->index('client_id');
 			$table->index('invoice_group_id');
 			$table->index('invoice_status_id');
-
 		});
 
 		Schema::create('fi_invoice_amounts', function($table)
@@ -285,6 +295,7 @@ class Install extends Migration {
 	{
 		Schema::drop('fi_clients');
 		Schema::drop('fi_client_notes');
+		Schema::drop('fi_email_templates');
 		Schema::drop('fi_invoices');
 		Schema::drop('fi_invoice_amounts');
 		Schema::drop('fi_invoice_groups');

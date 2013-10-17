@@ -83,6 +83,12 @@ Route::group(array('before' => 'auth'), function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::get('email_templates', array('uses' => 'EmailTemplateController@index', 'as' => 'emailTemplates.index'));
+	Route::get('email_templates/create', array('uses' => 'EmailTemplateController@create', 'as' => 'emailTemplates.create'));
+	Route::get('email_templates/{emailTemplate}/edit', array('uses' => 'EmailTemplateController@edit', 'as' => 'emailTemplates.edit'));
+	Route::get('email_templates/{emailTemplate}/delete', array('uses' => 'EmailTemplateController@delete', 'as' => 'emailTemplates.delete'));
+
+	Route::post('email_templates', array('uses' => 'EmailTemplateController@store', 'as' => 'emailTemplates.store'));
+	Route::post('email_templates/{emailTemplate}', array('uses' => 'EmailTemplateController@update', 'as' => 'emailTemplates.update'));
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,6 +103,12 @@ Route::group(array('before' => 'auth'), function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::get('invoice_groups', array('uses' => 'InvoiceGroupController@index', 'as' => 'invoiceGroups.index'));
+	Route::get('invoice_groups/create', array('uses' => 'InvoiceGroupController@create', 'as' => 'invoiceGroups.create'));
+	Route::get('invoice_groups/{invoiceGroup}/edit', array('uses' => 'InvoiceGroupController@edit', 'as' => 'invoiceGroups.edit'));
+	Route::get('invoice_groups/{invoiceGroup}/delete', array('uses' => 'InvoiceGroupController@delete', 'as' => 'invoiceGroups.delete'));
+
+	Route::post('invoice_groups', array('uses' => 'InvoiceGroupController@store', 'as' => 'invoiceGroups.store'));
+	Route::post('invoice_groups/{invoiceGroup}', array('uses' => 'InvoiceGroupController@update', 'as' => 'invoiceGroups.update'));
 
 	/*
 	|--------------------------------------------------------------------------
@@ -111,6 +123,12 @@ Route::group(array('before' => 'auth'), function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::get('payment_methods', array('uses' => 'PaymentMethodController@index', 'as' => 'paymentMethods.index'));
+	Route::get('payment_methods/create', array('uses' => 'PaymentMethodController@create', 'as' => 'paymentMethods.create'));
+	Route::get('payment_methods/{paymentMethod}/edit', array('uses' => 'PaymentMethodController@edit', 'as' => 'paymentMethods.edit'));
+	Route::get('payment_methods/{paymentMethod}/delete', array('uses' => 'PaymentMethodController@delete', 'as' => 'paymentMethods.delete'));
+
+	Route::post('payment_methods', array('uses' => 'PaymentMethodController@store', 'as' => 'paymentMethods.store'));
+	Route::post('payment_methods/{paymentMethod}', array('uses' => 'PaymentMethodController@update', 'as' => 'paymentMethods.update'));
 
 	/*
 	|--------------------------------------------------------------------------
@@ -127,7 +145,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('tax_rates', array('uses' => 'TaxRateController@index', 'as' => 'taxRates.index'));
 	Route::get('tax_rates/create', array('uses' => 'TaxRateController@create', 'as' => 'taxRates.create'));
 	Route::get('tax_rates/{taxRate}/edit', array('uses' => 'TaxRateController@edit', 'as' => 'taxRates.edit'));
-	Route::get('tax_rates/{id}/delete', array('uses' => 'TaxRateController@delete', 'as' => 'taxRates.delete'));
+	Route::get('tax_rates/{taxRate}/delete', array('uses' => 'TaxRateController@delete', 'as' => 'taxRates.delete'));
 
 	Route::post('tax_rates', array('uses' => 'TaxRateController@store', 'as' => 'taxRates.store'));
 	Route::post('tax_rates/{taxRate}', array('uses' => 'TaxRateController@update', 'as' => 'taxRates.update'));
