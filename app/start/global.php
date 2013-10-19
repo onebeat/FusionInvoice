@@ -81,3 +81,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+$settings = App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
+$settings->setAll();
