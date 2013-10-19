@@ -3,32 +3,46 @@
 use \FI\Storage\Eloquent\Models\Setting;
 
 class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInterface {
-	
-	public function all()
+
+	/**
+	 * Used during app start to place settings in Config
+	 * @return void
+	 */
+	public function setAll()
 	{
-		return Setting::all();
+		$settings = Setting::all();
+		
+		foreach ($settings as $setting)
+		{
+			\Config::set('fi.' . $setting->setting_key, $setting->setting_value);
+		}
 	}
 
-	public function find($id)
+	/**
+	 * Saves settings submitted by the setting form
+	 * @param  array $input 
+	 * @return void
+	 */
+	public function save($input)
 	{
-		return Setting::find($id);
+		foreach ($input as $key=>$value)
+		{
+			if (substr($key, 0, 8) == 'setting_')
+			{
+				$key = substr($key, 8);
+
+				if ($setting = Setting::where('setting_key', $key)->first())
+				{
+					$setting->setting_key = $key;
+					$setting->setting_value = $value;
+					$setting->save();
+				}
+				else
+				{
+					Setting::create(array('setting_key' => $key, 'setting_value' => $value));
+				}
+			}
+		}
 	}
-	
-	public function create($input)
-	{
-		Setting::create($input);
-	}
-	
-	public function update($input, $id)
-	{
-		$setting = Setting::find($id);
-		$setting->fill($input);
-		$setting->save();
-	}
-	
-	public function delete($id)
-	{
-		Setting::destroy($id);
-	}
-	
+
 }

@@ -7,6 +7,8 @@ interface InvoiceGroupRepositoryInterface {
 	public function getPaged($page, $numPerPage);
 	
 	public function find($id);
+
+	public function lists($column, $key);
 	
 	public function create($input);
 	

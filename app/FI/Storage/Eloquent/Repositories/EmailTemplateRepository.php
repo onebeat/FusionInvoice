@@ -19,6 +19,11 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 	{
 		return EmailTemplate::find($id);
 	}
+
+	public function lists($column, $key)
+	{
+		return EmailTemplate::lists($column, $key);
+	}
 	
 	public function create($input)
 	{
