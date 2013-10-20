@@ -20,9 +20,9 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 		return EmailTemplate::find($id);
 	}
 
-	public function lists($column, $key)
+	public function lists()
 	{
-		return EmailTemplate::lists($column, $key);
+		return EmailTemplate::lists('name', 'id');
 	}
 	
 	public function create($input)

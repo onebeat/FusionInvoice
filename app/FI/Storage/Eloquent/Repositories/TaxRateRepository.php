@@ -9,7 +9,7 @@ class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInter
 		return TaxRate::all();
 	}
 
-public function getPaged($page = 1, $numPerPage = null)
+	public function getPaged($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
 		return TaxRate::orderBy('name')->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
@@ -18,6 +18,11 @@ public function getPaged($page = 1, $numPerPage = null)
 	public function find($id)
 	{
 		return TaxRate::find($id);
+	}
+
+	public function lists()
+	{
+		return TaxRate::lists('name', 'id');
 	}
 	
 	public function create($input)

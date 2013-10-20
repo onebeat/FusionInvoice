@@ -20,9 +20,9 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 		return InvoiceGroup::find($id);
 	}
 
-	public function lists($column, $key)
+	public function lists()
 	{
-		return InvoiceGroup::lists($column, $key);
+		return InvoiceGroup::lists('name', 'id');
 	}
 	
 	public function create($input)

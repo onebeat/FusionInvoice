@@ -8,7 +8,7 @@ interface InvoiceGroupRepositoryInterface {
 	
 	public function find($id);
 
-	public function lists($column, $key);
+	public function lists();
 	
 	public function create($input);
 	

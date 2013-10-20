@@ -6,18 +6,25 @@ use FI\Libraries\Templates;
 use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
 use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;
+use FI\Storage\Interfaces\TaxRateRepositoryInterface as TaxRates;
 
 class SettingController extends BaseController {
 
 	protected $settings;
 	protected $emailTemplates;
 	protected $invoiceGroups;
+	protected $taxRates;
 
-	public function __construct(Settings $settings, EmailTemplates $emailTemplates, InvoiceGroups $invoiceGroups)
+	public function __construct(
+		Settings $settings, 
+		EmailTemplates $emailTemplates, 
+		InvoiceGroups $invoiceGroups,
+		TaxRates $taxRates)
 	{
 		$this->settings       = $settings;
 		$this->emailTemplates = $emailTemplates;
 		$this->invoiceGroups  = $invoiceGroups;
+		$this->taxRates       = $taxRates;
 	}
 	
 	/**
@@ -34,8 +41,9 @@ class SettingController extends BaseController {
 		$invoicePublicTemplates   = Templates::listInvoicePublicTemplates();
 		$quotePdfTemplates        = Templates::listQuotePdfTemplates();
 		$quotePublicTemplates     = Templates::listQuotePublicTemplates();
-		$emailTemplates           = $this->emailTemplates->lists('name', 'id');
-		$invoiceGroups            = $this->invoiceGroups->lists('name', 'id');
+		$emailTemplates           = $this->emailTemplates->lists();
+		$invoiceGroups            = $this->invoiceGroups->lists();
+		$taxRates                 = $this->taxRates->lists();
 
 		return View::make('settings.index')
 		->with([
@@ -48,7 +56,8 @@ class SettingController extends BaseController {
 			'quotePdfTemplates'        => $quotePdfTemplates,
 			'quotePublicTemplates'     => $quotePublicTemplates,
 			'emailTemplates'           => $emailTemplates,
-			'invoiceGroups'            => $invoiceGroups
+			'invoiceGroups'            => $invoiceGroups,
+			'taxRates'                 => $taxRates
 		]);
 	}
 
