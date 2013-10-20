@@ -3,6 +3,7 @@
 use FI\Libraries\Languages;
 use FI\Libraries\Date;
 use FI\Libraries\Templates;
+use FI\Libraries\Email;
 use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
 use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;
@@ -44,6 +45,11 @@ class SettingController extends BaseController {
 		$emailTemplates           = $this->emailTemplates->lists();
 		$invoiceGroups            = $this->invoiceGroups->lists();
 		$taxRates                 = $this->taxRates->lists();
+		$emailSendMethods         = Email::listSendMethods();
+		$emailEncryptions         = Email::listEncryptions();
+		$yesNoArray                = ['0' => trans('fi.no'), '1' => trans('fi.yes')];
+
+
 
 		return View::make('settings.index')
 		->with([
@@ -57,7 +63,10 @@ class SettingController extends BaseController {
 			'quotePublicTemplates'     => $quotePublicTemplates,
 			'emailTemplates'           => $emailTemplates,
 			'invoiceGroups'            => $invoiceGroups,
-			'taxRates'                 => $taxRates
+			'taxRates'                 => $taxRates,
+			'emailSendMethods'         => $emailSendMethods,
+			'emailEncryptions'         => $emailEncryptions,
+			'yesNoArray'               => $yesNoArray
 		]);
 	}
 
