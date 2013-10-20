@@ -22,7 +22,7 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 
 	public function lists()
 	{
-		return EmailTemplate::lists('name', 'id');
+		return array_merge(['0' => trans('fi.none')], EmailTemplate::lists('name', 'id'));
 	}
 	
 	public function create($input)
