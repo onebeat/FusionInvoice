@@ -64,7 +64,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.quotes') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">{{ trans('fi.create_quote') }}</a></li>
-								<li><a href="#">{{ trans('fi.view_quotes') }}</a></li>
+								<li><a href="{{ route('quotes.index', array('all')) }}">{{ trans('fi.view_quotes') }}</a></li>
 							</ul>
 						</li>
 

@@ -9,10 +9,33 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		return Quote::all();
 	}
 
-	public function getPaged($page = 1, $numPerPage = null)
+	public function getPagedByStatus($page = 1, $numPerPage = null, $status = 'all')
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Quote::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+
+		switch ($status)
+		{
+			case 'draft':
+				return Quote::draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'sent':
+				return Quote::sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'viewed':
+				return Quote::viewed()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'approved':
+				return Quote::approved()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'rejected':
+				return Quote::rejected()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'canceled':
+				return Quote::canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			default:
+				return Quote::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+		}
 	}
 
 	public function find($id)
