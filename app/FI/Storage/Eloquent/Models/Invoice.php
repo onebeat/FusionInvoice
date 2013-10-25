@@ -2,8 +2,6 @@
 
 class Invoice extends \Eloquent {
 	
-	protected $table = 'fi_invoices';
-	
 	protected $guarded = array('id');
 	
 	public function client()
