@@ -1,6 +1,6 @@
 <?php
 
-$lang = array(
+return array(
 	'account_information'                => 'Account Information',
 	'active'                             => 'Active',
 	'active_client'                      => 'Active Client',
