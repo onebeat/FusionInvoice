@@ -1,6 +1,6 @@
 <?php
 
-return [
+return (
 	'account_information'                => 'Account Information',
 	'active_client'                      => 'Active Client',
 	'active'                             => 'Active',
@@ -373,4 +373,4 @@ return [
 	'documentation'                      => 'Documentation',
 	'invalid_login'                      => 'Invalid login credentials',
 	'sendmail_path'                      => 'Sendmail Path'
-];
+);
