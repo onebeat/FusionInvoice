@@ -9,13 +9,13 @@ class UserTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		$user = [
-			'name' => 'Administrator',
-			'email' => 'admin@admin.com',
+		$user = array(
+			'name'     => 'Administrator',
+			'email'    => 'admin@admin.com',
 			'password' => Hash::make('password')
-		];
+		);
 
-		DB::table('fi_users')->insert($user);
+		DB::table('users')->insert($user);
 	}
 
 }

@@ -11,7 +11,7 @@ class Install extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('fi_clients', function($table)
+		Schema::create('clients', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -33,7 +33,7 @@ class Install extends Migration {
 			$table->index('active');
 		});
 
-		Schema::create('fi_client_notes', function($table)
+		Schema::create('client_notes', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -43,7 +43,7 @@ class Install extends Migration {
 			$table->index('client_id');
 		});
 
-		Schema::create('fi_email_templates', function($table)
+		Schema::create('email_templates', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -54,7 +54,7 @@ class Install extends Migration {
 			$table->index('name');
 		});
 
-		Schema::create('fi_invoices', function($table)
+		Schema::create('invoices', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -73,7 +73,7 @@ class Install extends Migration {
 			$table->index('invoice_status_id');
 		});
 
-		Schema::create('fi_invoice_amounts', function($table)
+		Schema::create('invoice_amounts', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -88,7 +88,7 @@ class Install extends Migration {
 			$table->index('invoice_id');
 		});
 
-		Schema::create('fi_invoice_groups', function($table)
+		Schema::create('invoice_groups', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -100,7 +100,7 @@ class Install extends Migration {
 			$table->boolean('prefix_month')->default(0);
 		});
 
-		Schema::create('fi_invoice_items', function($table)
+		Schema::create('invoice_items', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -117,7 +117,7 @@ class Install extends Migration {
 			$table->index('display_order');
 		});
 
-		Schema::create('fi_invoice_item_amounts', function($table)
+		Schema::create('invoice_item_amounts', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -129,7 +129,7 @@ class Install extends Migration {
 			$table->index('item_id');
 		});
 
-		Schema::create('fi_invoice_tax_rates', function($table)
+		Schema::create('invoice_tax_rates', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -142,7 +142,7 @@ class Install extends Migration {
 			$table->index('tax_rate_id');
 		});
 
-		Schema::create('fi_item_lookups', function($table)
+		Schema::create('item_lookups', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -151,7 +151,7 @@ class Install extends Migration {
 			$table->decimal('price', 10, 2)->default(0.00);
 		});
 
-		Schema::create('fi_payments', function($table)
+		Schema::create('payments', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -166,14 +166,14 @@ class Install extends Migration {
 			$table->index('amount');
 		});
 
-		Schema::create('fi_payment_methods', function($table)
+		Schema::create('payment_methods', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name');
 		});
 
-		Schema::create('fi_quotes', function($table)
+		Schema::create('quotes', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -192,7 +192,7 @@ class Install extends Migration {
 			$table->index('number');
 		});
 
-		Schema::create('fi_quote_amounts', function($table)
+		Schema::create('quote_amounts', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -205,7 +205,7 @@ class Install extends Migration {
 			$table->index('quote_id');
 		});
 
-		Schema::create('fi_quote_items', function($table)
+		Schema::create('quote_items', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -222,7 +222,7 @@ class Install extends Migration {
 			$table->index('tax_rate_id');
 		});
 
-		Schema::create('fi_quote_item_amounts', function($table)
+		Schema::create('quote_item_amounts', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -234,7 +234,7 @@ class Install extends Migration {
 			$table->index('item_id');
 		});
 
-		Schema::create('fi_quote_tax_rates', function($table)
+		Schema::create('quote_tax_rates', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -247,7 +247,7 @@ class Install extends Migration {
 			$table->index('tax_rate_id');
 		});
 
-		Schema::create('fi_settings', function($table)
+		Schema::create('settings', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -257,7 +257,7 @@ class Install extends Migration {
 			$table->index('setting_key');
 		});
 
-		Schema::create('fi_tax_rates', function($table)
+		Schema::create('tax_rates', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -265,7 +265,7 @@ class Install extends Migration {
 			$table->decimal('percent', 5, 2)->default(0.00);
 		});
 
-		Schema::create('fi_users', function($table)
+		Schema::create('users', function($table)
 		{
 			$table->increments('id');
 			$table->timestamps();
@@ -293,26 +293,26 @@ class Install extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('fi_clients');
-		Schema::drop('fi_client_notes');
-		Schema::drop('fi_email_templates');
-		Schema::drop('fi_invoices');
-		Schema::drop('fi_invoice_amounts');
-		Schema::drop('fi_invoice_groups');
-		Schema::drop('fi_invoice_items');
-		Schema::drop('fi_invoice_item_amounts');
-		Schema::drop('fi_invoice_tax_rates');
-		Schema::drop('fi_item_lookups');
-		Schema::drop('fi_payments');
-		Schema::drop('fi_payment_methods');
-		Schema::drop('fi_quotes');
-		Schema::drop('fi_quote_amounts');
-		Schema::drop('fi_quote_items');
-		Schema::drop('fi_quote_item_amounts');
-		Schema::drop('fi_quote_tax_rates');
-		Schema::drop('fi_settings');
-		Schema::drop('fi_tax_rates');
-		Schema::drop('fi_users');
+		Schema::drop('clients');
+		Schema::drop('client_notes');
+		Schema::drop('email_templates');
+		Schema::drop('invoices');
+		Schema::drop('invoice_amounts');
+		Schema::drop('invoice_groups');
+		Schema::drop('invoice_items');
+		Schema::drop('invoice_item_amounts');
+		Schema::drop('invoice_tax_rates');
+		Schema::drop('item_lookups');
+		Schema::drop('payments');
+		Schema::drop('payment_methods');
+		Schema::drop('quotes');
+		Schema::drop('quote_amounts');
+		Schema::drop('quote_items');
+		Schema::drop('quote_item_amounts');
+		Schema::drop('quote_tax_rates');
+		Schema::drop('settings');
+		Schema::drop('tax_rates');
+		Schema::drop('users');
 	}
 
 }
