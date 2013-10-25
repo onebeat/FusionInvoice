@@ -39,12 +39,12 @@
 						<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="{{ route('emailTemplates.edit', [$emailTemplate->id]) }}">
+								<a href="{{ route('emailTemplates.edit', array($emailTemplate->id)) }}">
 									<i class="icon-pencil"></i> {{ trans('fi.edit') }}
 								</a>
 							</li>
 							<li>
-								<a href="{{ route('emailTemplates.delete', [$emailTemplate->id]) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
+								<a href="{{ route('emailTemplates.delete', array($emailTemplate->id)) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
 									<i class="icon-trash"></i> {{ trans('fi.delete') }}
 								</a>
 							</li>

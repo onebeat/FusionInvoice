@@ -2,8 +2,8 @@
 
 class PaymentMethodValidator extends Validator {
 
-	static $rules = [
+	static $rules = array(
 		'name'	=> 'required'
-	];
+	);
 
 }

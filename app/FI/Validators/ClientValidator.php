@@ -2,8 +2,8 @@
 
 class ClientValidator extends Validator {
 
-	static $rules = [
+	static $rules = array(
 		'name'	=> 'required'
-	];
+	);
 
 }

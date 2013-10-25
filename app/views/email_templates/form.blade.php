@@ -26,21 +26,21 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.name') }}: </label>
 		<div class="controls">
-			{{ Form::text('name', null, ['id' => 'name']) }}
+			{{ Form::text('name', null, array('id' => 'name')) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.subject') }}: </label>
 		<div class="controls">
-			{{ Form::text('subject', null, ['id' => 'subject']) }}
+			{{ Form::text('subject', null, array('id' => 'subject')) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.body') }}: </label>
 		<div class="controls">
-			{{ Form::textarea('body', null, ['id' => 'email_template_body', 'style' => 'height: 200px;', 'class' => 'span8']) }}
+			{{ Form::textarea('body', null, array('id' => 'email_template_body', 'style' => 'height: 200px;', 'class' => 'span8')) }}
 		</div>
 	</div>
 

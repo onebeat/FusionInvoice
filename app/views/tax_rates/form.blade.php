@@ -26,14 +26,14 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.tax_rate_name') }}: </label>
 		<div class="controls">
-			{{ Form::text('name', null, ['id' => 'name']) }}
+			{{ Form::text('name', null, array('id' => 'name')) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.tax_rate_percent') }}: </label>
 		<div class="controls">
-			{{ Form::text('percent', null, ['id' => 'percent']) }}
+			{{ Form::text('percent', null, array('id' => 'percent')) }}
 		</div>
 	</div>
 

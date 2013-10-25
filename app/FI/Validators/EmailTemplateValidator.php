@@ -2,10 +2,10 @@
 
 class EmailTemplateValidator extends Validator {
 
-	static $rules = [
-		'name'	=> 'required',
+	static $rules = array(
+		'name'    => 'required',
 		'subject' => 'required',
-		'body' => 'required'
-	];
+		'body'    => 'required'
+	);
 
 }

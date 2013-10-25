@@ -69,7 +69,7 @@ class EmailTemplateController extends \BaseController {
 		$emailTemplate = $this->emailTemplate->find($id);
 		
 		return View::make('email_templates.form')
-		->with(['edit_mode' => true, 'emailTemplate' => $emailTemplate]);
+		->with(array('edit_mode' => true, 'emailTemplate' => $emailTemplate));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class EmailTemplateController extends \BaseController {
 
 		if (!$this->validator->validate($input))
 		{
-			return Redirect::route('emailTemplates.edit', [$id])
+			return Redirect::route('emailTemplates.edit', array($id))
 			->with('edit_mode', true)
 			->withErrors($this->validator->errors())
 			->withInput();

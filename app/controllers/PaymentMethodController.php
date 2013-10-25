@@ -69,7 +69,7 @@ class PaymentMethodController extends \BaseController {
 		$paymentMethod = $this->paymentMethod->find($id);
 		
 		return View::make('payment_methods.form')
-		->with(['edit_mode' => true, 'paymentMethod' => $paymentMethod]);
+		->with(array('edit_mode' => true, 'paymentMethod' => $paymentMethod));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class PaymentMethodController extends \BaseController {
 
 		if (!$this->validator->validate($input))
 		{
-			return Redirect::route('paymentMethods.edit', [$id])
+			return Redirect::route('paymentMethods.edit', array($id))
 			->with('edit_mode', true)
 			->withErrors($this->validator->errors())
 			->withInput();

@@ -8,48 +8,48 @@ class Date {
 	 */
 	static function formats()
 	{
-		return [
-			'm/d/Y' => [
+		return array(
+			'm/d/Y' => array(
 				'setting'    => 'm/d/Y',
 				'datepicker' => 'mm/dd/yyyy'
-			],
-			'm-d-Y' => [
+			),
+			'm-d-Y' => array(
 				'setting'    => 'm-d-Y',
 				'datepicker' => 'mm-dd-yyyy'
-			],
-			'm.d.Y' => [
+			),
+			'm.d.Y' => array(
 				'setting'    => 'm.d.Y',
 				'datepicker' => 'mm.dd.yyyy'
-			],
-			'Y/m/d' => [
+			),
+			'Y/m/d' => array(
 				'setting'    => 'Y/m/d',
 				'datepicker' => 'yyyy/mm/dd'
-			],
-			'Y-m-d' => [
+			),
+			'Y-m-d' => array(
 				'setting'    => 'Y-m-d',
 				'datepicker' => 'yyyy-mm-dd'
-			],
-			'Y.m.d' => [
+			),
+			'Y.m.d' => array(
 				'setting'    => 'Y.m.d',
 				'datepicker' => 'yyyy.mm.dd'
-			],
-			'd/m/Y' => [
+			),
+			'd/m/Y' => array(
 				'setting'    => 'd/m/Y',
 				'datepicker' => 'dd/mm/yyyy'
-			],
-			'd-m-Y' => [
+			),
+			'd-m-Y' => array(
 				'setting'    => 'd-m-Y',
 				'datepicker' => 'dd-mm-yyyy'
-			],
-			'd-M-Y' => [
+			),
+			'd-M-Y' => array(
 				'setting'    => 'd-M-Y',
 				'datepicker' => 'dd-M-yyyy'
-			],
-			'd.m.Y' => [
+			),
+			'd.m.Y' => array(
 				'setting'    => 'd.m.Y',
 				'datepicker' => 'dd.mm.yyyy'
-			]
-		];
+			)
+		);
 	}
 
 	/**

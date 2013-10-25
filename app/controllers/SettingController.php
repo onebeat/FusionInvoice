@@ -35,8 +35,8 @@ class SettingController extends BaseController {
 	public function index()
 	{
 		$languages                = Languages::listLanguages();
-		$currencySymbolPlacements = ['before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount')];
-		$taxRateDecimalPlaces     = ['2' => '2', '3' => '3'];
+		$currencySymbolPlacements = array('before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount'));
+		$taxRateDecimalPlaces     = array('2' => '2', '3' => '3');
 		$dateFormats              = Date::dropdownArray();
 		$invoicePdfTemplates      = Templates::listInvoicePdfTemplates();
 		$invoicePublicTemplates   = Templates::listInvoicePublicTemplates();
@@ -47,12 +47,12 @@ class SettingController extends BaseController {
 		$taxRates                 = $this->taxRates->lists();
 		$emailSendMethods         = Email::listSendMethods();
 		$emailEncryptions         = Email::listEncryptions();
-		$yesNoArray                = ['0' => trans('fi.no'), '1' => trans('fi.yes')];
+		$yesNoArray               = array('0' => trans('fi.no'), '1' => trans('fi.yes'));
 
 
 
 		return View::make('settings.index')
-		->with([
+		->with(array(
 			'languages'                => $languages,
 			'currencySymbolPlacements' => $currencySymbolPlacements,
 			'taxRateDecimalPlaces'     => $taxRateDecimalPlaces,
@@ -67,7 +67,7 @@ class SettingController extends BaseController {
 			'emailSendMethods'         => $emailSendMethods,
 			'emailEncryptions'         => $emailEncryptions,
 			'yesNoArray'               => $yesNoArray
-		]);
+		));
 	}
 
 	/**

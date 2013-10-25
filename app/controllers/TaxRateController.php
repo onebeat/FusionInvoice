@@ -69,7 +69,7 @@ class TaxRateController extends \BaseController {
 		$taxRate = $this->taxRate->find($id);
 		
 		return View::make('tax_rates.form')
-		->with(['edit_mode' => true, 'taxRate' => $taxRate]);
+		->with(array('edit_mode' => true, 'taxRate' => $taxRate));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class TaxRateController extends \BaseController {
 
 		if (!$this->validator->validate($input))
 		{
-			return Redirect::route('taxRates.edit', [$id])
+			return Redirect::route('taxRates.edit', array($id))
 			->with('edit_mode', true)
 			->withErrors($this->validator->errors())
 			->withInput();

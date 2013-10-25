@@ -24,7 +24,7 @@
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.quotes_expire_after') }}: </label>
 		<div class="controls">
-			{{ Form::text('setting_quotesExpireAfter', Config::get('fi.quotesExpireAfter'), ['class' => 'input-small'])}}
+			{{ Form::text('setting_quotesExpireAfter', Config::get('fi.quotesExpireAfter'), array('class' => 'input-small')) }}
 		</div>
 	</div>
 
@@ -38,7 +38,7 @@
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.mark_quotes_sent_pdf') }}: </label>
 		<div class="controls">
-			{{ Form::select('setting_markQuotesSentPdf', ['0' => trans('fi.no'), '1' => trans('fi.yes')], Config::get('fi.markQuotesSentPdf')) }}
+			{{ Form::select('setting_markQuotesSentPdf', array('0' => trans('fi.no'), '1' => trans('fi.yes')), Config::get('fi.markQuotesSentPdf')) }}
 		</div>
 	</div>
 

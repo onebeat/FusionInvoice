@@ -52,7 +52,7 @@
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.invoices_due_after') }}: </label>
 		<div class="controls">
-			{{ Form::text('setting_invoicesDueAfter', Config::get('fi.invoicesDueAfter'), ['class' => 'input-small'])}}
+			{{ Form::text('setting_invoicesDueAfter', Config::get('fi.invoicesDueAfter'), array('class' => 'input-small')) }}
 		</div>
 	</div>
 
@@ -66,21 +66,21 @@
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.default_terms') }}: </label>
 		<div class="controls">
-			{{ Form::textarea('setting_invoiceTerms', Config::get('fi.invoiceTerms'), ['style' => 'width: 400px; height: 150px;']) }}
+			{{ Form::textarea('setting_invoiceTerms', Config::get('fi.invoiceTerms'), array('style' => 'width: 400px; height: 150px;')) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.automatic_email_on_recur') }}: </label>
 		<div class="controls">
-			{{ Form::select('setting_automaticEmailOnRecur', ['0' => trans('fi.no'), '1' => trans('fi.yes')], Config::get('fi.automaticEmailOnRecur')) }}
+			{{ Form::select('setting_automaticEmailOnRecur', array('0' => trans('fi.no'), '1' => trans('fi.yes')), Config::get('fi.automaticEmailOnRecur')) }}
 		</div>
 	</div>
     
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.mark_invoices_sent_pdf') }}: </label>
 		<div class="controls">
-			{{ Form::select('setting_markInvoicesSentPdf', ['0' => trans('fi.no'), '1' => trans('fi.yes')], Config::get('fi.markInvoicesSentPdf')) }}
+			{{ Form::select('setting_markInvoicesSentPdf', array('0' => trans('fi.no'), '1' => trans('fi.yes')), Config::get('fi.markInvoicesSentPdf')) }}
 		</div>
 	</div>
 

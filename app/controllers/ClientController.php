@@ -34,7 +34,7 @@ class ClientController extends \BaseController {
 		}
 		
 		return View::make('clients.index')
-		->with(['clients' => $clients, 'status' => $status]);
+		->with(array('clients' => $clients, 'status' => $status));
 	}
 
 	/**
@@ -90,7 +90,7 @@ class ClientController extends \BaseController {
 		$client = $this->client->find($id);
 		
 		return View::make('clients.form')
-		->with(['edit_mode' => true, 'client' => $client]);
+		->with(array('edit_mode' => true, 'client' => $client));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class ClientController extends \BaseController {
 
 		if (!$this->validator->validate($input))
 		{	
-			return Redirect::route('clients.edit', [$id])
+			return Redirect::route('clients.edit', array($id))
 			->with('edit_mode', true)
 			->withErrors($this->validator->errors())
 			->withInput();

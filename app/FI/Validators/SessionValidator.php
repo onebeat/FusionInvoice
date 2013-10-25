@@ -2,9 +2,9 @@
 
 class SessionValidator extends Validator {
 
-	static $rules = [
-		'email'	=> 'required',
+	static $rules = array(
+		'email'    => 'required',
 		'password' => 'required'
-	];
+	);
 
 }

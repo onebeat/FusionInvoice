@@ -26,7 +26,7 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.payment_method') }}: </label>
 		<div class="controls">
-			{{ Form::text('name', null, ['id' => 'name']) }}
+			{{ Form::text('name', null, array('id' => 'name')) }}
 		</div>
 	</div>
 

@@ -69,7 +69,7 @@ class InvoiceGroupController extends \BaseController {
 		$invoiceGroup = $this->invoiceGroup->find($id);
 		
 		return View::make('invoice_groups.form')
-		->with(['edit_mode' => true, 'invoiceGroup' => $invoiceGroup]);
+		->with(array('edit_mode' => true, 'invoiceGroup' => $invoiceGroup));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class InvoiceGroupController extends \BaseController {
 
 		if (!$this->validator->validate($input))
 		{
-			return Redirect::route('invoiceGroups.edit', [$id])
+			return Redirect::route('invoiceGroups.edit', array($id))
 			->with('edit_mode', true)
 			->withErrors($this->validator->errors())
 			->withInput();

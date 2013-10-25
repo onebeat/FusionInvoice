@@ -47,12 +47,12 @@
 						<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="{{ route('invoiceGroups.edit', [$invoiceGroup->id]) }}">
+								<a href="{{ route('invoiceGroups.edit', array($invoiceGroup->id)) }}">
 									<i class="icon-pencil"></i> {{ trans('fi.edit') }}
 								</a>
 							</li>
 							<li>
-								<a href="{{ route('invoiceGroups.delete', [$invoiceGroup->id]) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
+								<a href="{{ route('invoiceGroups.delete', array($invoiceGroup->id)) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
 									<i class="icon-trash"></i> {{ trans('fi.delete') }}
 								</a>
 							</li>

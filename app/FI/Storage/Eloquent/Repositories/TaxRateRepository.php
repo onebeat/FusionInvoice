@@ -22,7 +22,7 @@ class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInter
 
 	public function lists()
 	{
-		return array_merge(['0' => trans('fi.none')], TaxRate::lists('name', 'id'));
+		return array_merge(array('0' => trans('fi.none')), TaxRate::lists('name', 'id'));
 	}
 	
 	public function create($input)

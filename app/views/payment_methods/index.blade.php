@@ -37,12 +37,12 @@
 						<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="{{ route('paymentMethods.edit', [$paymentMethod->id]) }}">
+								<a href="{{ route('paymentMethods.edit', array($paymentMethod->id)) }}">
 									<i class="icon-pencil"></i> {{ trans('fi.edit') }}
 								</a>
 							</li>
 							<li>
-								<a href="{{ route('paymentMethods.delete', [$paymentMethod->id]) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
+								<a href="{{ route('paymentMethods.delete', array($paymentMethod->id)) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
 									<i class="icon-trash"></i> {{ trans('fi.delete') }}
 								</a>
 							</li>

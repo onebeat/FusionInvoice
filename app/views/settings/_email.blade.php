@@ -37,7 +37,7 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.email_send_method') }}: </label>
 		<div class="controls">
-            {{ Form::select('setting_emailSendMethod', $emailSendMethods, Config::get('fi.emailSendMethod'), ['id' => 'emailSendMethod']) }}
+            {{ Form::select('setting_emailSendMethod', $emailSendMethods, Config::get('fi.emailSendMethod'), array('id' => 'emailSendMethod')) }}
 		</div>
 	</div>
 
@@ -65,7 +65,7 @@ $(function() {
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_password') }}: </label>
         <div class="controls">
-            {{ Form::password('setting_emailSmtpPassword', ['id' => 'emailSmtpPassword']) }}
+            {{ Form::password('setting_emailSmtpPassword', array('id' => 'emailSmtpPassword')) }}
         </div>
     </div>
 

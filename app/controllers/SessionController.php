@@ -25,7 +25,7 @@ class SessionController extends BaseController {
 
 		if (!Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
 		{
-			return Redirect::route('session.login')->with('errors', [trans('fi.invalid_login')]);
+			return Redirect::route('session.login')->with('errors', array(trans('fi.invalid_login')));
 		}
 
 		return Redirect::route('dashboard.index');

@@ -2,9 +2,9 @@
 
 class TaxRateValidator extends Validator {
 
-	static $rules = [
-		'name'	=> 'required',
+	static $rules = array(
+		'name'    => 'required',
 		'percent' => 'required|numeric'
-	];
+	);
 
 }
