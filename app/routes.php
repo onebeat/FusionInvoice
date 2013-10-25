@@ -1,10 +1,17 @@
 <?php
 
+// @TODO - Yeah this doesn't belong here either but come on
 App::before(function($request)
 {
 	$settings = App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
 	$settings->setAll();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Routes: Sessions
+|--------------------------------------------------------------------------
+*/
 
 Route::get('login', array('uses' => 'SessionController@login', 'as' => 'session.login'));
 Route::post('login', array('uses' => 'SessionController@attempt', 'as' => 'session.attempt'));
@@ -17,6 +24,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Dashboard
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('/', 'DashboardController@index');
 	Route::get('dashboard', array('uses' => 'DashboardController@index', 'as' => 'dashboard.index'));
 
@@ -25,6 +33,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Clients
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('clients/status/{status?}', array('uses' => 'ClientController@index', 'as' => 'clients.index'));
 	Route::get('clients/create', array('uses' => 'ClientController@create', 'as' => 'clients.create'));
 	Route::get('clients/{client}/edit', array('uses' => 'ClientController@edit', 'as' => 'clients.edit'));
@@ -41,6 +50,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Email Templates
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('email_templates', array('uses' => 'EmailTemplateController@index', 'as' => 'emailTemplates.index'));
 	Route::get('email_templates/create', array('uses' => 'EmailTemplateController@create', 'as' => 'emailTemplates.create'));
 	Route::get('email_templates/{emailTemplate}/edit', array('uses' => 'EmailTemplateController@edit', 'as' => 'emailTemplates.edit'));
@@ -54,6 +64,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Invoice Groups
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('invoice_groups', array('uses' => 'InvoiceGroupController@index', 'as' => 'invoiceGroups.index'));
 	Route::get('invoice_groups/create', array('uses' => 'InvoiceGroupController@create', 'as' => 'invoiceGroups.create'));
 	Route::get('invoice_groups/{invoiceGroup}/edit', array('uses' => 'InvoiceGroupController@edit', 'as' => 'invoiceGroups.edit'));
@@ -67,6 +78,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Payment Methods
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('payment_methods', array('uses' => 'PaymentMethodController@index', 'as' => 'paymentMethods.index'));
 	Route::get('payment_methods/create', array('uses' => 'PaymentMethodController@create', 'as' => 'paymentMethods.create'));
 	Route::get('payment_methods/{paymentMethod}/edit', array('uses' => 'PaymentMethodController@edit', 'as' => 'paymentMethods.edit'));
@@ -80,6 +92,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Settings
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('settings', array('uses' => 'SettingController@index', 'as' => 'settings.index'));
 	Route::post('settings', array('uses' => 'SettingController@update', 'as' => 'settings.update'));
 
@@ -88,6 +101,7 @@ Route::group(array('before' => 'auth'), function()
 	| Routes: Tax Rates
 	|--------------------------------------------------------------------------
 	*/
+
 	Route::get('tax_rates', array('uses' => 'TaxRateController@index', 'as' => 'taxRates.index'));
 	Route::get('tax_rates/create', array('uses' => 'TaxRateController@create', 'as' => 'taxRates.create'));
 	Route::get('tax_rates/{taxRate}/edit', array('uses' => 'TaxRateController@edit', 'as' => 'taxRates.edit'));

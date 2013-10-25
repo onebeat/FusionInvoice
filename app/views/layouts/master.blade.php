@@ -34,46 +34,6 @@
 				
 				// @TODO - Figure out what to do here
                 // $('.datepicker').datepicker({ format: '<?php // echo date_format_datepicker(); ?>'});
-		
-		        $('.create-invoice').click(function() {
-                    $('#modal-placeholder').load("{{ route('invoices.ajax.modalCreate') }}");
-                });
-				
-                $('.create-quote').click(function() {
-                    $('#modal-placeholder').load("{{ route('quotes.ajax.modalCreate') }}");
-                });
-				
-                $('#btn-quote-to-invoice').click(function() {
-                    quote_id = $(this).data('quote-id');
-                    $('#modal-placeholder').load("{{ route('quotes.ajax.modalQuoteToInvoice') }}" + quote_id);
-                });
-				
-                $('#btn-copy-invoice').click(function() {
-                    invoice_id = $(this).data('invoice-id');
-                    $('#modal-placeholder').load("{{ route('invoices.ajax.modalCopy') }}", {invoice_id: invoice_id});
-                });
-                
-                $('#btn-copy-quote').click(function() {
-                    quote_id = $(this).data('quote-id');
-                    $('#modal-placeholder').load("{{ route('quotes.ajax.modalCopy') }}", {quote_id: quote_id});
-                });
-                
-                $('.client-create-invoice').click(function() {
-                    $('#modal-placeholder').load("{{ route('invoices.ajax.modalCreateByClient') }}", {
-                        client_name: $(this).data('client-name')
-                    });
-                });
-                $('.client-create-quote').click(function() {
-                    $('#modal-placeholder').load("{{ route('quotes.ajax.modalCreateByClient') }}", {
-                        client_name: $(this).data('client-name')
-                    });
-                });
-				$(document).on('click', '.invoice-add-payment', function() {
-                    invoice_id = $(this).data('invoice-id');
-                    invoice_balance = $(this).data('invoice-balance');
-                    $('#modal-placeholder').load("{{ route('payments.ajax.modalCreate') }}", {invoice_id: invoice_id, invoice_balance: invoice_balance });
-                });
-
             });
 
         </script>
@@ -103,34 +63,34 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.quotes') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#" class="create-quote">{{ trans('fi.create_quote') }}</a></li>
-								<li>{{ link_to_route('quotes.index', trans('fi.view_quotes')) }}</li>
+								<li><a href="#">{{ trans('fi.create_quote') }}</a></li>
+								<li><a href="#">{{ trans('fi.view_quotes') }}</a></li>
 							</ul>
 						</li>
 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.invoices') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#" class="create-invoice">{{ trans('fi.create_invoice') }}</a></li>
-								<li>{{ link_to_route('invoices.index', trans('fi.view_invoices')) }}</li>
-                                <li>{{ link_to_route('invoices.recurring.index', trans('fi.view_recurring_invoices')) }}</li>
+								<li><a href="#">{{ trans('fi.create_invoice') }}</a></li>
+								<li><a href="#">{{ trans('fi.view_invoices') }}</a></li>
+                                <li><a href="#">{{ trans('fi.view_recurring_invoices') }}</a></li>
 							</ul>
 						</li>
 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.payments') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li>{{ link_to_route('payments.create', trans('fi.enter_payment')) }}</li>
-								<li>{{ link_to_route('payments.index', trans('fi.view_payments')) }}</li>
+								<li><a href="#">{{ trans('fi.enter_payment') }}</a></li>
+								<li><a href="#">{{ trans('fi.view_payments') }}</a></li>
 							</ul>
 						</li>
 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.reports') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li>{{ link_to_route('reports.invoiceAging', trans('fi.invoice_aging')) }}</li>
-								<li>{{ link_to_route('reports.paymentHistory', trans('fi.payment_history')) }}</li>
-								<li>{{ link_to_route('reports.salesByClient', trans('fi.sales_by_client')) }}</li>
+								<li><a href="#">{{ trans('fi.invoice_aging') }}</a></li>
+								<li><a href="#">{{ trans('fi.payment_history') }}</a></li>
+								<li><a href="#">{{ trans('fi.sales_by_client') }}</a></li>
 							</ul>
 						</li>
 
@@ -151,14 +111,14 @@
 						<li class="dropdown">
 							<a href="#" class="tip icon dropdown-toggle" data-toggle="dropdown" data-original-title="{{ trans('fi.settings') }}" data-placement="bottom"><i class="icon-cog"></i></a>
 							<ul class="dropdown-menu">
-                                <li>{{ link_to_route('customFields.index', trans('fi.custom_fields')) }}</li>
+                                <li><a href="#">{{ trans('fi.custom_fields') }}</a></li>
 								<li>{{ link_to_route('emailTemplates.index', trans('fi.email_templates')) }}</li>
-                                <li>{{ link_to_route('import.index', trans('fi.import_data')) }}</li>
+                                <li><a href="#">{{ trans('fi.import_data') }}</a></li>
 								<li>{{ link_to_route('invoiceGroups.index', trans('fi.invoice_groups')) }}</li>
-                                <li>{{ link_to_route('itemLookups.index', trans('fi.item_lookups')) }}</li>
+                                <li><a href="#">{{ trans('fi.item_lookups') }}</a></li>
 								<li>{{ link_to_route('paymentMethods.index', trans('fi.payment_methods')) }}</li>
 								<li>{{ link_to_route('taxRates.index', trans('fi.tax_rates')) }}</li>
-								<li>{{ link_to_route('users.index', trans('fi.user_accounts')) }}</li>
+								<li><a href="#">{{ trans('fi.user_accounts') }}</a></li>
                                 <li class="divider"></li>
                                 <li>{{ link_to_route('settings.index', trans('fi.system_settings')) }}</li>
 							</ul>
@@ -178,9 +138,9 @@
 			<ul>
 				<li><a href="{{ route('dashboard.index') }}"><img alt="" src="{{ asset('assets/img/icons/dashboard24x24.png') }}" title="{{ trans('fi.dashboard') }}" /></a></li>
 				<li><a href="{{ route('clients.index') }}"><img alt="" src="{{ asset('assets/img/icons/clients24x24.png') }}" title="{{ trans('fi.clients') }}" /></a></li>
-				<li><a href="{{ route('quotes.index') }}"><img alt="" src="{{ asset('assets/img/icons/quotes24x24.png') }}" title="{{ trans('fi.quotes') }}" /></a></li>
-				<li><a href="{{ route('invoices.index') }}"><img alt="" src="{{ asset('assets/img/icons/invoices24x24.png') }}" title="{{ trans('fi.invoices') }}" /></a></li>
-				<li><a href="{{ route('payments.index') }}"><img alt="" src="{{ asset('assets/img/icons/payments24x24.png') }}" title="{{ trans('fi.payments') }}" /></a></li>
+				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/quotes24x24.png') }}" title="{{ trans('fi.quotes') }}" /></a></li>
+				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/invoices24x24.png') }}" title="{{ trans('fi.invoices') }}" /></a></li>
+				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/payments24x24.png') }}" title="{{ trans('fi.payments') }}" /></a></li>
 			</ul>
 
 		</div>
