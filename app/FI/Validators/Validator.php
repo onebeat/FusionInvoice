@@ -4,9 +4,9 @@ abstract class Validator {
 	
 	protected $errors;
 	
-	public function validate($input)
+	public function validate($input, $rulesVar = 'rules')
 	{
-		$validator = \Validator::make($input, static::$rules);
+		$validator = \Validator::make($input, static::$$rulesVar);
 		
 		if ($validator->fails())
 		{
