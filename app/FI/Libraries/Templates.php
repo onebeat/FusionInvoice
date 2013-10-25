@@ -4,22 +4,30 @@ class Templates {
 
 	static function listInvoicePdfTemplates()
 	{
-		return Directory::listContents(app_path() . '/views/templates/invoices/pdf');
+		$templates = Directory::listContents(app_path() . '/views/templates/invoices/pdf');
+
+		return array_combine($templates, $templates);
 	}
 
 	static function listInvoicePublicTemplates()
 	{
-		return Directory::listContents(app_path() . '/views/templates/invoices/public');
+		$templates = Directory::listContents(app_path() . '/views/templates/invoices/public');
+
+		return array_combine($templates, $templates);
 	}
 
 	static function listQuotePdfTemplates()
 	{
-		return Directory::listContents(app_path() . '/views/templates/quotes/pdf');
+		$templates = Directory::listContents(app_path() . '/views/templates/quotes/pdf');
+
+		return array_combine($templates, $templates);
 	}
 
 	static function listQuotePublicTemplates()
 	{
-		return Directory::listContents(app_path() . '/views/templates/invoices/public');
+		$templates = Directory::listContents(app_path() . '/views/templates/invoices/public');
+
+		return array_combine($templates, $templates);
 	}
 
 }
