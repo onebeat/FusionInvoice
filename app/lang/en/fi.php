@@ -1,6 +1,6 @@
 <?php
 
-return (
+return array(
 	'account_information'                => 'Account Information',
 	'active_client'                      => 'Active Client',
 	'active'                             => 'Active',
