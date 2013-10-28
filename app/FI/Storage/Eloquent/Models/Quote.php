@@ -1,8 +1,58 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
+use FI\Libraries\Date;
+
 class Quote extends \Eloquent {
 
 	protected $guarded = array('id');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    public function client()
+    {
+        return $this->belongsTo('FI\Storage\Eloquent\Models\Client');
+    }
+
+    public function amount()
+    {
+        return $this->hasOne('FI\Storage\Eloquent\Models\QuoteAmount');
+    }
+
+    public function items()
+    {
+        return $this->hasMany('FI\Storage\Eloquent\Models\QuoteItem');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+   
+    public function getCreatedAtAttribute($value)
+    {
+        return Date::customizeDate($value);
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Date::customizeDate($value);
+    }
+
+    public function getExpiresAtAttribute($value)
+    {
+        return Date::customizeDate($value);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
 
     public function scopeDraft($query)
     {
@@ -33,20 +83,4 @@ class Quote extends \Eloquent {
     {
         return $query->where('quote_status_id', '=', 6);
     }
-
-	public function client()
-	{
-		return $this->hasOne('FI\Storage\Eloquent\Models\Client');
-	}
-
-	public function amount()
-	{
-		return $this->hasOne('FI\Storage\Eloquent\Models\QuoteAmount');
-	}
-
-	public function items()
-	{
-		return $this->hasMany('FI\Storage\Eloquent\Models\QuoteItem');
-	}
-
 }

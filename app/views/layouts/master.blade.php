@@ -32,8 +32,12 @@
                 $('.nav-tabs').tab();
                 $('.tip').tooltip();
 				
-				// @TODO - Figure out what to do here
-                // $('.datepicker').datepicker({ format: '<?php // echo date_format_datepicker(); ?>'});
+                $('.datepicker').datepicker({autoclose: true, format: '{{ Config::get('fi.datepickerFormat') }}' });
+
+                $('.create-quote').click(function() {
+                	$('#modal-placeholder').load("{{ route('quotes.ajax.modalCreate') }}");
+                });
+
             });
 
         </script>
@@ -63,7 +67,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.quotes') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">{{ trans('fi.create_quote') }}</a></li>
+								<li><a href="javascript:void(0)" class="create-quote">{{ trans('fi.create_quote') }}</a></li>
 								<li><a href="{{ route('quotes.index', array('all')) }}">{{ trans('fi.view_quotes') }}</a></li>
 							</ul>
 						</li>

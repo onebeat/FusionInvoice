@@ -1,9 +1,9 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\Quote;
+use FI\Storage\Eloquent\Models\Quote;
 
 class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface {
-	
+
 	public function all()
 	{
 		return Quote::all();
@@ -45,7 +45,11 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	
 	public function create($input)
 	{
-		Quote::create($input);
+		$quote = Quote::create($input);
+
+		\Event::fire('quote.created', array($quote));
+
+		return $quote->id;
 	}
 	
 	public function update($input, $id)

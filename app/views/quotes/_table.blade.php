@@ -13,16 +13,16 @@
 	</thead>
 
 	<tbody>
-		@foreach ($quotes as $quote) {
+		@foreach ($quotes as $quote)
 		<tr>
 			<td>
                 <span class="label {{ $statuses[$quote->quote_status_id]['class'] }}">{{ $statuses[$quote->quote_status_id]['label'] }}</span>
 			</td>
-			<td><a href="#" title="{{ trans('fi.edit') }}">{{ $quote->quote_number }}</a></td>
-			<td>{{ $quote->quote_created_at }}</td>
-			<td>{{ $quote->quote_expires_at }}</td>
-			<td><a href="route('clients.show', array($quote->client_id)) }}" title="{{ trans('fi.view_client') }}">{{ $quote->client->name }}</a></td>
-			<td style="text-align: right; padding-right: 25px;">{{ $quote->quote_amount->quote_total }}</td>
+			<td><a href="#" title="{{ trans('fi.edit') }}">{{ $quote->number }}</a></td>
+			<td>{{ $quote->created_at }}</td>
+			<td>{{ $quote->expires_at }}</td>
+			<td><a href="route('clients.show', array($quote->client->id)) }}" title="{{ trans('fi.view_client') }}">{{ $quote->client->name }}</a></td>
+			<td style="text-align: right; padding-right: 25px;">{{ $quote->amount->total }}</td>
 			<td>
 				<div class="options btn-group">
 					<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
