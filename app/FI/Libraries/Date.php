@@ -57,7 +57,7 @@ class Date {
 	 * as dropdown options
 	 * @return array
 	 */
-	static function dropdownArray()
+	public static function dropdownArray()
 	{
 		$formats = self::formats();
 
@@ -71,91 +71,38 @@ class Date {
 		return $return;
 	}
 
-// 	static function date_from_mysql($date)
-// 	{
-// 		if ($date <> '0000-00-00')
-// 		{
-// 			if (!$_POST or $ignore_post_check)
-// 			{
-// 				$CI = & get_instance();
+	/**
+	 * Converts a user submitted date back to standard yyyy-mm-dd format
+	 * @param  date $date 	The user submitted date
+	 * @return date 		The yyyy-mm-dd standardized date
+	 */
+	public static function standardizeDate($userDate)
+	{
+		$date = \DateTime::createFromFormat(\Config::get('fi.dateFormat'), $userDate);
 
-// 				$date = DateTime::createFromFormat('Y-m-d', $date);
-// 				return $date->format($CI->mdl_settings->setting('date_format'));
-// 			}
-// 			return $date;
-// 		}
-// 		return '';
-// 	}
+		return $date->format('Y-m-d');
+	}
 
-// 	static function date_from_timestamp($timestamp)
-// 	{
-// 		$CI = & get_instance();
+	/**
+	 * Adds a specified number of days to a user submitted date and returns
+	 * the new date standardized as yyyy-m-dd
+	 * @param  date $userDate 	The user submitted date
+	 * @param  int $numDays  	The number od days to increment
+	 * @return date 			The yyyy-mm-dd standardized incremented date
+	 */
+	public static function incrementDateByDays($userDate, $numDays)
+	{
+		$date = \DateTime::createFromFormat(\Config::get('fi.dateFormat'), $userDate);
 
-// 		$date = new DateTime();
-// 		$date->setTimestamp($timestamp);
-// 		return $date->format($CI->mdl_settings->setting('date_format'));
-// 	}
+		$date->add(new \DateInterval('P' . $numDays . 'D'));
 
-// 	static function date_to_mysql($date)
-// 	{
-// 		$CI = & get_instance();
+		return $date->format('Y-m-d');
+	}
 
-// 		$date = DateTime::createFromFormat($CI->mdl_settings->setting('date_format'), $date);
-// 		return $date->format('Y-m-d');
-// 	}
+	public static function customizeDate($date)
+	{
+		$date = new \DateTime($date);
 
-// 	static function date_format_setting()
-// 	{
-// 		$CI = & get_instance();
-
-// 		$date_format = $CI->mdl_settings->setting('date_format');
-
-// 		$date_formats = date_formats();
-
-// 		return $date_formats[$date_format]['setting'];
-// 	}
-
-// 	static function date_format_datepicker()
-// 	{
-// 		$CI = & get_instance();
-
-// 		$date_format = $CI->mdl_settings->setting('date_format');
-
-// 		$date_formats = date_formats();
-
-// 		return $date_formats[$date_format]['datepicker'];
-// 	}
-
-// /**
-//  * Adds interval to user formatted date and returns user formatted date
-//  * To be used when date is being output back to user
-//  * @param $date - user formatted date
-//  * @param $increment - interval (1D, 2M, 1Y, etc)
-//  * @return user formatted date
-//  */
-// static function increment_user_date($date, $increment)
-// {
-// 	$CI = & get_instance();
-
-// 	$mysql_date = date_to_mysql($date);
-
-// 	$new_date = new DateTime($mysql_date);
-// 	$new_date->add(new DateInterval('P' . $increment));
-
-// 	return $new_date->format($CI->mdl_settings->setting('date_format'));
-// }
-
-// /**
-//  * Adds interval to yyyy-mm-dd date and returns in same format
-//  * @param $date
-//  * @param $increment
-//  * @return date
-//  */
-// static function increment_date($date, $increment)
-// {
-// 	$new_date = new DateTime($date);
-// 	$new_date->add(new DateInterval('P' . $increment));
-// 	return $new_date->format('Y-m-d');
-// }
-
+		return $date->format(\Config::get('fi.dateFormat'));
+	}
 }
