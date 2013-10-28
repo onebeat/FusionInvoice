@@ -68,14 +68,25 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	{
 		return Client::find($id);
 	}
+
+	public function findIdByName($name)
+	{
+		if ($client = Client::select('id')->where('name', $name)->first())
+		{
+			return $client->id;
+		}
+
+		return null;
+	}
 	
 	/**
 	 * Create a new client record
 	 * @param  array $input
+	 * @return  int
 	 */
 	public function create($input)
 	{
-		Client::create($input);
+		return Client::create($input)->id;
 	}
 	
 	/**

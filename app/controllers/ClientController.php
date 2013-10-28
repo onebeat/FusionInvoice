@@ -129,4 +129,9 @@ class ClientController extends \BaseController {
 		->with('alert', trans('fi.record_successfully_deleted'));;
 	}
 
+	public function ajaxNameLookup()
+	{
+		return $this->client->lookupByName(Input::get('query'));
+	}
+
 }
