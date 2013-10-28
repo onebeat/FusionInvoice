@@ -1,6 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\Setting;
+use FI\Storage\Eloquent\Models\Setting;
+use FI\Libraries\Date;
 
 class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInterface {
 
@@ -16,6 +17,10 @@ class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInter
 		{
 			\Config::set('fi.' . $setting->setting_key, $setting->setting_value);
 		}
+
+		// @TODO - find a better place for this to live
+		$dateFormats = Date::formats();
+		\Config::set('fi.datepickerFormat', $dateFormats[\Config::get('fi.dateFormat')]['datepicker']);
 	}
 
 	/**
