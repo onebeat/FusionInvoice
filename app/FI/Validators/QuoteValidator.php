@@ -2,8 +2,10 @@
 
 class QuoteValidator extends Validator {
 
-	static $rules = array(
-		'name'	=> 'required'
+	static $createRules = array(
+		'created_at'       => 'required',
+		'client_name'      => 'required',
+		'invoice_group_id' => 'required'
 	);
 
 }
