@@ -6,7 +6,7 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 	
 	public function all()
 	{
-		return InvoiceGroup::all();
+		return InvoiceGroup::orderBy('name')->all();
 	}
 
 	public function getPaged($page = 1, $numPerPage = null)
@@ -20,9 +20,30 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 		return InvoiceGroup::find($id);
 	}
 
+	public function generateNumber($id)
+	{
+		$group = InvoiceGroup::find($id);
+
+		$number = $group->next_id;
+
+		if ($group->prefix) $number       .= $group->prefix . $number;
+		if ($group->prefix_year) $number  .= date('Y');
+		if ($group->prefix_month) $number .= date('m');
+		if ($group->left_pad) $number      = str_pad($number, $group->left_pad, '0', STR_PAD_LEFT);
+
+		return $number;
+	}
+
+	public function incrementNextId($id)
+	{
+		$group          = InvoiceGroup::find($id);
+		$group->next_id = $group->next_id ++;
+		$group->save();
+	}
+
 	public function lists()
 	{
-		return InvoiceGroup::lists('name', 'id');
+		return InvoiceGroup::orderBy('name')->lists('name', 'id');
 	}
 	
 	public function create($input)
