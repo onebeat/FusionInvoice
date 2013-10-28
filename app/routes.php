@@ -40,6 +40,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('clients/{client}', array('uses' => 'ClientController@show', 'as' => 'clients.show'));
 	Route::get('clients/{client}/delete', array('uses' => 'ClientController@delete', 'as' => 'clients.delete'));
 
+	Route::post('clients/ajax/name_lookup', array('uses' => 'ClientController@ajaxNameLookup', 'as' => 'clients.ajax.nameLookup'));
+
 	Route::post('clients/ajax/save_note', array('uses' => 'ClientController@ajaxSaveNote', 'as' => 'clients.ajax.saveNote'));
 	Route::post('clients/ajax/load_notes', array('uses' => 'ClientController@ajaxLoadNotes', 'as' => 'clients.ajax.loadNotes'));
 	Route::post('clients', array('uses' => 'ClientController@store', 'as' => 'clients.store'));
@@ -52,6 +54,9 @@ Route::group(array('before' => 'auth'), function()
 	*/
 
 	Route::get('quotes/status/{status?}', array('uses' => 'QuoteController@index', 'as' => 'quotes.index'));
+	Route::get('quotes/modal/create', array('uses' => 'QuoteController@modalCreate', 'as' => 'quotes.ajax.modalCreate'));
+
+	Route::post('quotes/create', array('uses' => 'QuoteController@store', 'as' => 'quotes.store'));
 
 	/*
 	|--------------------------------------------------------------------------
