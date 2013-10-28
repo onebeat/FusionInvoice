@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Phoenix',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -114,7 +114,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'FI\Storage\ServiceProviders\StorageServiceProviders'
+		'FI\Providers\StorageProvider',
+		'FI\Providers\QuoteEventProvider'
 
 	),
 

@@ -1,8 +1,8 @@
-<?php namespace FI\Storage\ServiceProviders;
+<?php namespace FI\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class StorageServiceProviders extends ServiceProvider {
+class StorageProvider extends ServiceProvider {
 
     /**
      * Register Storage app bindings
