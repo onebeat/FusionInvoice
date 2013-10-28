@@ -177,7 +177,7 @@ class Install extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('invoice_id');
+			$table->integer('invoice_id')->default('0');
 			$table->integer('user_id');
 			$table->integer('client_id');
 			$table->integer('invoice_group_id');
