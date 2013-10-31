@@ -1,29 +1,33 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\QuoteAmount;
+use \FI\Storage\Eloquent\Models\QuoteItem;
 
-class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountRepositoryInterface {
+class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryInterface {
 
 	public function find($id)
 	{
-		return QuoteAmount::find($id);
+		return QuoteItem::find($id);
 	}
 	
 	public function create($input)
 	{
-		QuoteAmount::create($input);
+		$quoteItem = QuoteItem::create($input);
+
+		\Event::fire('quoteItem.created', array($quoteItem));
+
+		return $quoteItem->id;
 	}
 	
 	public function update($input, $id)
 	{
-		$quoteAmount = QuoteAmount::find($id);
-		$quoteAmount->fill($input);
-		$quoteAmount->save();
+		$quoteItem = QuoteItem::find($id);
+		$quoteItem->fill($input);
+		$quoteItem->save();
 	}
 	
 	public function delete($id)
 	{
-		QuoteAmount::destroy($id);
+		QuoteItem::destroy($id);
 	}
 	
 }

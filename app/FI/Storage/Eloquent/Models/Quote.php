@@ -27,6 +27,11 @@ class Quote extends \Eloquent {
         return $this->hasMany('FI\Storage\Eloquent\Models\QuoteItem');
     }
 
+    public function taxRates()
+    {
+        return $this->hasMany('FI\Storage\Eloquent\Models\QuoteTaxRate');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Accessors

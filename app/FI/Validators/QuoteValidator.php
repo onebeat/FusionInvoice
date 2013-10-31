@@ -8,4 +8,11 @@ class QuoteValidator extends Validator {
 		'invoice_group_id' => 'required'
 	);
 
+	static $updateRules = array(
+		'created_at'      => 'required',
+		'expires_at'      => 'required',
+		'number'          => 'required',
+		'quote_status_id' => 'required'
+	);
+
 }

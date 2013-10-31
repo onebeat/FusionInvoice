@@ -21,5 +21,18 @@ class QuoteEventProvider extends ServiceProvider {
 				)
 			);
 		});
+
+		\Event::listen('quoteItem.created', function($quoteItem)
+		{
+			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
+
+			$quoteItemAmount->create(array(
+				'item_id'   => $quoteItem->id,
+				'subtotal'  => 0,
+				'tax_total' => 0,
+				'total'     => 0
+				)
+			);
+		});
 	}
 }

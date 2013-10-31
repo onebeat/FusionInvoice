@@ -2,6 +2,10 @@
 
 class Quotes {
 
+    /**
+     * Returns the array of quote statuses
+     * @return array
+     */
     public static function statuses()
     {
         return array(
@@ -41,6 +45,24 @@ class Quotes {
                 'href'  => route('quotes.index', array('canceled'))
             )
         );
+    }
+
+    /**
+     * Return a flattened array of quote statuses
+     * @return array
+     */
+    public static function listsStatuses()
+    {
+        $statuses = array();
+
+        foreach (self::statuses() as $key => $status)
+        {
+            $statuses[$key] = $status['label'];
+        }
+
+        unset($statuses[0]);
+
+        return $statuses;
     }
 	
 }

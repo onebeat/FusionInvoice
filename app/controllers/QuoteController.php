@@ -1,8 +1,10 @@
 <?php
 
 use FI\Storage\Interfaces\QuoteRepositoryInterface;
+use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\ClientRepositoryInterface;
+use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\QuoteValidator;
 use FI\Libraries\Quotes;
 use FI\Libraries\Date;
@@ -10,26 +12,32 @@ use FI\Libraries\Date;
 class QuoteController extends BaseController {
 
 	protected $quote;
+	protected $quoteItem;
 	protected $validator;
 	protected $invoiceGroup;
 	protected $client;
+	protected $taxRate;
 	
 	public function __construct(
-		QuoteRepositoryInterface $quote, 
+		QuoteRepositoryInterface $quote,
+		QuoteItemRepositoryInterface $quoteItem,
 		QuoteValidator $validator,
 		InvoiceGroupRepositoryInterface $invoiceGroup,
-		ClientRepositoryInterface $client)
+		ClientRepositoryInterface $client,
+		TaxRateRepositoryInterface $taxRate)
 	{
 		$this->quote        = $quote;
+		$this->quoteItem    = $quoteItem;
 		$this->validator    = $validator;
 		$this->invoiceGroup = $invoiceGroup;
 		$this->client       = $client;
+		$this->taxRate      = $taxRate;
 	}
 
 	/**
 	 * Display paginated list
 	 * @param  string $status
-	 * @return \Illuminate\View\View
+	 * @return View
 	 */
 	public function index($status = 'all')
 	{
@@ -40,11 +48,15 @@ class QuoteController extends BaseController {
 		->with(array('quotes' => $quotes, 'status' => $status, 'statuses' => $statuses));
 	}
 
+	/**
+	 * Accept post data to create quote
+	 * @return JSON array
+	 */
 	public function store()
 	{
 		if (!$this->validator->validate(Input::all(), 'createRules'))
 		{
-			return json_encode(array('success' => '0'));
+			return json_encode(array('success' => 0));
 		}
 
 		$clientId = $this->client->findIdByName(Input::get('client_name'));
@@ -73,13 +85,103 @@ class QuoteController extends BaseController {
 	}
 
 	/**
-	 * Displays modal from ajax request
-	 * @return \Illuminate\View\View
+	 * Accept post data to update quote
+	 * @return JSON array
+	 */
+	public function update($id)
+	{
+		if (!$this->validator->validate(Input::all(), 'updateRules'))
+		{
+			return json_encode(array('success' => 0));
+		}
+
+		$input = Input::all();
+
+		$quote = array(
+			'number'          => $input['number'],
+			'created_at'      => Date::standardizeDate($input['created_at']),
+			'expires_at'      => Date::standardizeDate($input['expires_at']),
+			'quote_status_id' => $input['quote_status_id']
+		);
+
+		$this->quote->update($quote, $id);
+
+		$items = json_decode(Input::get('items'));
+
+		foreach ($items as $item)
+		{
+			// [save_item_as_lookup] => 0
+
+			$itemRecord = array(
+            	'quote_id'      => $item->quote_id,
+            	'name'          => $item->item_name,
+            	'description'   => $item->item_description,
+            	'quantity'      => $item->item_quantity,
+            	'price'         => $item->item_price,
+            	'tax_rate_id'   => $item->item_tax_rate_id,
+            	'display_order' => $item->item_order
+            );
+
+            if (!$item->item_id)
+            {
+            	$this->quoteItem->create($itemRecord);
+            }
+            else
+            {
+            	$this->quoteItem->update($itemRecord, $item->item_id);
+            }
+		}
+
+		return json_encode(array('success' => 1));
+	}
+
+	/**
+	 * Display the quote
+	 * @param  int $id [description]
+	 * @return View
+	 */
+	public function show($id)
+	{
+		$quote    = $this->quote->find($id);
+		$statuses = Quotes::listsStatuses();
+		$taxRates = $this->taxRate->lists();
+
+		return View::make('quotes.show')
+		->with('quote', $quote)
+		->with('statuses', $statuses)
+		->with('taxRates', $taxRates);
+	}
+
+	/**
+	 * Delete an item from a quote
+	 * @param  int $quoteId
+	 * @param  int $itemId
+	 * @return Redirect
+	 */
+	public function deleteItem($quoteId, $itemId)
+	{
+		$this->quoteItem->delete($itemId);
+
+		return Redirect::route('quotes.show', array($quoteId));
+	}
+
+	/**
+	 * Displays create quote modal from ajax request
+	 * @return View
 	 */
 	public function modalCreate()
 	{
 		return View::make('quotes._modal_create')
 		->with('invoiceGroups', $this->invoiceGroup->lists());
+	}
+
+	/**
+	 * Displays add lookup item modal from ajax request
+	 * @return View
+	 */
+	public function modalAddLookupItem()
+	{
+		return View::make('quotes._modal_add_lookup_item');
 	}
 	
 }

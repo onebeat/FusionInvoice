@@ -28,7 +28,7 @@
 					<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#">
+							<a href="{{ route('quotes.show', array($quote->id)) }}">
 								<i class="icon-pencil"></i> {{ trans('fi.edit') }}
 							</a>
 						</li>
