@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
-use FI\Libraries\Date;
+use FI\Classes\Date;
 
 class Quote extends \Eloquent {
 

@@ -1,9 +1,9 @@
 <?php
 
-use FI\Libraries\Languages;
-use FI\Libraries\Date;
-use FI\Libraries\Templates;
-use FI\Libraries\Email;
+use FI\Classes\Languages;
+use FI\Classes\Date;
+use FI\Classes\Templates;
+use FI\Classes\Email;
 use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
 use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;

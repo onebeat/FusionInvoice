@@ -1,4 +1,4 @@
-<?php namespace FI\Libraries;
+<?php namespace FI\Classes;
 
 class Languages {
 	

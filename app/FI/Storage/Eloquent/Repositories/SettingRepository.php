@@ -1,7 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Setting;
-use FI\Libraries\Date;
+use FI\Classes\Date;
 
 class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInterface {
 

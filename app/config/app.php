@@ -182,7 +182,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'Pager'           => 'FI\Libraries\Pager'
+		'Pager'           => 'FI\Classes\Pager'
 
 	),
 

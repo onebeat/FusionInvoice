@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
-use FI\Libraries\Currency;
+use FI\Classes\Currency;
 
 class QuoteAmount extends \Eloquent {
 
