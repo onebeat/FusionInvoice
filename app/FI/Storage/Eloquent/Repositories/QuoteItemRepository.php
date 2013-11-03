@@ -8,6 +8,11 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 	{
 		return QuoteItem::find($id);
 	}
+
+	public function findByQuoteId($quote_id)
+	{
+		return QuoteItem::where('quote_id', $quote_id)->get();
+	}
 	
 	public function create($input)
 	{
@@ -23,6 +28,8 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 		$quoteItem = QuoteItem::find($id);
 		$quoteItem->fill($input);
 		$quoteItem->save();
+
+		\Event::fire('quoteItem.updated', array($quoteItem));
 	}
 	
 	public function delete($id)

@@ -9,5 +9,7 @@ interface QuoteAmountRepositoryInterface {
 	public function update($input, $id);
 	
 	public function delete($id);
+
+	public function calculateQuoteAmount($quote_id);
 	
 }
