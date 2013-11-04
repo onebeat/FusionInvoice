@@ -1,6 +1,7 @@
 <?php namespace FI\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use FI\Classes\QuoteAmounts;
 
 class QuoteEventProvider extends ServiceProvider {
 
@@ -29,25 +30,22 @@ class QuoteEventProvider extends ServiceProvider {
 			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
 			$taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
 
-			$subtotal = $quoteItem->quantity * $quoteItem->price;
-
 			if ($quoteItem->tax_rate_id)
 			{
-				$tax       = $taxRate->find($quoteItem->tax_rate_id);
-				$tax_total = $subtotal * (($tax->percent) / 100);
+				$taxRatePercent = $taxRate->find($quoteItem->tax_rate_id)->percent;
 			}
 			else
 			{
-				$tax_total = 0;
+				$taxRatePercent = 0;
 			}
 
-			$total = $subtotal + $tax_total;
+			$quoteItemAmounts = QuoteAmounts::calculateQuoteItemAmount($quoteItem->quantity, $quoteItem->price, $taxRatePercent);
 
 			$quoteItemAmount->create(array(
 				'item_id'   => $quoteItem->id,
-				'subtotal'  => $subtotal,
-				'tax_total' => $tax_total,
-				'total'     => $total
+				'subtotal'  => $quoteItemAmounts['subtotal'],
+				'tax_total' => $quoteItemAmounts['tax_total'],
+				'total'     => $quoteItemAmounts['total']
 				)
 			);
 
@@ -60,35 +58,33 @@ class QuoteEventProvider extends ServiceProvider {
 			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
 			$taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
 
-			$subtotal = $quoteItem->quantity * $quoteItem->price;
-
 			if ($quoteItem->tax_rate_id)
 			{
-				$tax       = $taxRate->find($quoteItem->tax_rate_id);
-				$tax_total = $subtotal * (($tax->percent) / 100);
+				$taxRatePercent = $taxRate->find($quoteItem->tax_rate_id)->percent;
 			}
 			else
 			{
-				$tax_total = 0;
+				$taxRatePercent = 0;
 			}
 
-			$total = $subtotal + $tax_total;
+			$quoteItemAmounts = QuoteAmounts::calculateQuoteItemAmount($quoteItem->quantity, $quoteItem->price, $taxRatePercent);
 
-			$quoteItemAmount->update(array(
-				'subtotal'  => $subtotal,
-				'tax_total' => $tax_total,
-				'total'     => $total
-				), $quoteItem->id
-			);
+			$quoteItemAmount->update($quoteItemAmounts, $quoteItem->id);
 
 			\Event::fire('quoteItemAmount.updated', $quoteItem->quote_id);
 		});
 
+		// Update the calculated quote amount record
 		\Event::listen('quoteItemAmount.updated', function($quote_id)
 		{
 			$quoteAmount = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
+			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
 
-			$quoteAmount->calculateQuoteAmount($quote_id);
+			$quoteItemAmounts = $quoteItemAmount->findByQuoteId($quote_id);
+
+			$quoteAmounts = QuoteAmounts::calculateQuoteAmount($quoteItemAmounts);
+
+			$quoteAmount->updateByQuoteId($quoteAmounts, $quote_id);
 		});
 
 	}

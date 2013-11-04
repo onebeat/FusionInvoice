@@ -3,6 +3,8 @@
 interface QuoteItemAmountRepositoryInterface {
 	
 	public function find($id);
+
+	public function findByQuoteId($quote_id);
 	
 	public function create($input);
 	
