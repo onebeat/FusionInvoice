@@ -10,6 +10,10 @@
             $('#modal-placeholder').load("{{ route('quotes.ajax.modalAddLookupItem') }}");
         });
 
+        $('#btn-add-quote-tax').click(function() {
+            $('#modal-placeholder').load("{{ route('quotes.ajax.modalAddQuoteTax') }}", { quote_id: {{ $quote->id }} });
+        });
+
         $('#btn-add-item').click(function() {
             $('#new-item').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         });
@@ -92,7 +96,7 @@
 		<div class="options btn-group pull-left">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" style="margin-right: 5px;"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 			<ul class="dropdown-menu">
-				<li><a href="#add-quote-tax" data-toggle="modal"><i class="icon-plus-sign"></i> {{ trans('fi.add_quote_tax') }}</a></li>
+				<li><a href="javascript:void(0)" id="btn-add-quote-tax"><i class="icon-plus-sign"></i> {{ trans('fi.add_quote_tax') }}</a></li>
 				<li><a href="javascript:void(0)" id="btn_generate_pdf" data-quote-id="{{ $quote->id }}"><i class="icon-print"></i> {{ trans('fi.download_pdf') }}</a></li>
 				<li><a href="javascript:void(0)"><i class="icon-envelope"></i> {{ trans('fi.send_email') }}</a></li>
                 <li><a href="javascript:void(0)" id="btn_quote_to_invoice" data-quote-id="{{ $quote->id }}"><i class="icon-upload"></i> {{ trans('fi.quote_to_invoice') }}</a></li>

@@ -2,6 +2,7 @@
 
 use FI\Storage\Interfaces\QuoteRepositoryInterface;
 use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
+use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\ClientRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
@@ -13,6 +14,7 @@ class QuoteController extends BaseController {
 
 	protected $quote;
 	protected $quoteItem;
+	protected $quoteTaxRate;
 	protected $validator;
 	protected $invoiceGroup;
 	protected $client;
@@ -21,6 +23,7 @@ class QuoteController extends BaseController {
 	public function __construct(
 		QuoteRepositoryInterface $quote,
 		QuoteItemRepositoryInterface $quoteItem,
+		QuoteTaxRateRepositoryInterface $quoteTaxRate,
 		QuoteValidator $validator,
 		InvoiceGroupRepositoryInterface $invoiceGroup,
 		ClientRepositoryInterface $client,
@@ -28,6 +31,7 @@ class QuoteController extends BaseController {
 	{
 		$this->quote        = $quote;
 		$this->quoteItem    = $quoteItem;
+		$this->quoteTaxRate = $quoteTaxRate;
 		$this->validator    = $validator;
 		$this->invoiceGroup = $invoiceGroup;
 		$this->client       = $client;
@@ -142,14 +146,16 @@ class QuoteController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$quote    = $this->quote->find($id);
-		$statuses = Quotes::listsStatuses();
-		$taxRates = $this->taxRate->lists();
+		$quote         = $this->quote->find($id);
+		$statuses      = Quotes::listsStatuses();
+		$taxRates      = $this->taxRate->lists();
+		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId($id);
 
 		return View::make('quotes.show')
 		->with('quote', $quote)
 		->with('statuses', $statuses)
-		->with('taxRates', $taxRates);
+		->with('taxRates', $taxRates)
+		->with('quoteTaxRates', $quoteTaxRates);
 	}
 
 	/**
@@ -182,6 +188,34 @@ class QuoteController extends BaseController {
 	public function modalAddLookupItem()
 	{
 		return View::make('quotes._modal_add_lookup_item');
+	}
+
+	/**
+	 * Displays modal to add quote taxes from ajax request
+	 * @return View
+	 */
+	public function modalAddQuoteTax()
+	{
+		return View::make('quotes._modal_add_quote_tax')
+		->with('quote_id', Input::get('quote_id'))
+		->with('taxRates', $this->taxRate->lists());
+	}
+
+	public function saveQuoteTax()
+	{
+		$this->quoteTaxRate->create(array(
+			'quote_id'         => Input::get('quote_id'),
+			'tax_rate_id'      => Input::get('tax_rate_id'),
+			'include_item_tax' => Input::get('include_item_tax')
+			)
+		);
+	}
+
+	public function deleteQuoteTax($quoteId, $quoteTaxRateId)
+	{
+		$this->quoteTaxRate->delete($quoteTaxRateId);
+
+		return Redirect::route('quotes.show', array($quoteId));
 	}
 	
 }

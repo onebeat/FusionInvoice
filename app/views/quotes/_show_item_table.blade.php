@@ -75,7 +75,10 @@
 			<td>{{ $quote->amount->item_subtotal }}</td>
 			<td>{{ $quote->amount->item_tax_total }}</td>
 			<td>
-			@TODO
+			@foreach ($quoteTaxRates as $quoteTaxRate)
+			{{ $quoteTaxRate->taxRate->name . ' - ' . $quoteTaxRate->tax_total }}
+			<a href="{{ route('quotes.ajax.deleteQuoteTax', array($quote->id, $quoteTaxRate->id)) }}">x</a><br>
+			@endforeach
 			</td>
 			<td>{{ $quote->amount->total }}</td>
 		</tr>

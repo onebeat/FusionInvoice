@@ -56,9 +56,12 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('quotes/status/{status?}', array('uses' => 'QuoteController@index', 'as' => 'quotes.index'));
 	Route::get('quotes/modal/create', array('uses' => 'QuoteController@modalCreate', 'as' => 'quotes.ajax.modalCreate'));
 	Route::get('quotes/modal/lookup_item', array('uses' => 'QuoteController@modalAddLookupItem', 'as' => 'quotes.ajax.modalAddLookupItem'));
+	Route::get('quotes/{quote}/tax_rates/{tax_rate}/delete', array('uses' => 'QuoteController@deleteQuoteTax', 'as' => 'quotes.ajax.deleteQuoteTax'));
 	Route::get('quotes/{quote}', array('uses' => 'QuoteController@show', 'as' => 'quotes.show'));
 	Route::get('quotes/{quote}/items/{item}/delete', array('uses' => 'QuoteController@deleteItem', 'as' => 'quotes.items.delete'));
 
+	Route::post('quotes/modal/add_quote_tax', array('uses' => 'QuoteController@modalAddQuoteTax', 'as' => 'quotes.ajax.modalAddQuoteTax'));
+	Route::post('quotes/modal/save_quote_tax', array('uses' => 'QuoteController@saveQuoteTax', 'as' => 'quotes.ajax.saveQuoteTax'));
 	Route::post('quotes/create', array('uses' => 'QuoteController@store', 'as' => 'quotes.store'));
 	Route::post('quotes/{quote}/update', array('uses' => 'QuoteController@update', 'as' => 'quotes.update'));
 
