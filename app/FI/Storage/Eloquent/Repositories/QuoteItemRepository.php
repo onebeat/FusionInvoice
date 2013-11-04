@@ -16,11 +16,7 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 	
 	public function create($input)
 	{
-		$quoteItem = QuoteItem::create($input);
-
-		\Event::fire('quoteItem.created', array($quoteItem));
-
-		return $quoteItem->id;
+		return QuoteItem::create($input)->id;
 	}
 	
 	public function update($input, $id)
@@ -28,8 +24,6 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 		$quoteItem = QuoteItem::find($id);
 		$quoteItem->fill($input);
 		$quoteItem->save();
-
-		\Event::fire('quoteItem.updated', array($quoteItem));
 	}
 	
 	public function delete($id)

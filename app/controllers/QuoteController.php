@@ -85,6 +85,9 @@ class QuoteController extends BaseController {
 
 		$this->invoiceGroup->incrementNextId(Input::get('invoice_group_id'));
 
+		// Delegate quote amount record creation
+		\Event::fire('quote.created', $id);
+
 		return json_encode(array('success' => 1, 'id' => $id));
 	}
 
@@ -114,7 +117,7 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			// [save_item_as_lookup] => 0
+			// @TODO - save item as lookup
 
 			$itemRecord = array(
             	'quote_id'      => $item->quote_id,
@@ -128,13 +131,18 @@ class QuoteController extends BaseController {
 
             if (!$item->item_id)
             {
-            	$this->quoteItem->create($itemRecord);
+            	$itemId = $this->quoteItem->create($itemRecord);
+
+            	// Delegate item amount record creation
+            	\Event::fire('quote.item.created', $itemId);
             }
             else
             {
             	$this->quoteItem->update($itemRecord, $item->item_id);
             }
 		}
+
+		\Event::fire('quote.modified', $id);
 
 		return json_encode(array('success' => 1));
 	}
@@ -201,6 +209,9 @@ class QuoteController extends BaseController {
 		->with('taxRates', $this->taxRate->lists());
 	}
 
+	/**
+	 * Saves quote tax from ajax request
+	 */
 	public function saveQuoteTax()
 	{
 		$this->quoteTaxRate->create(array(
@@ -211,9 +222,17 @@ class QuoteController extends BaseController {
 		);
 	}
 
+	/**
+	 * Deletes quote tax
+	 * @param  int $quoteId
+	 * @param  int $quoteTaxRateId
+	 * @return Redirect
+	 */
 	public function deleteQuoteTax($quoteId, $quoteTaxRateId)
 	{
 		$this->quoteTaxRate->delete($quoteTaxRateId);
+
+		\Event::fire('quote.modified', $quoteId);
 
 		return Redirect::route('quotes.show', array($quoteId));
 	}

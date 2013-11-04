@@ -45,11 +45,7 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	
 	public function create($input)
 	{
-		$quote = Quote::create($input);
-
-		\Event::fire('quote.created', array($quote));
-
-		return $quote->id;
+		return Quote::create($input)->id;
 	}
 	
 	public function update($input, $id)

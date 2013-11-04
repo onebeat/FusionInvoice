@@ -9,6 +9,8 @@ interface QuoteTaxRateRepositoryInterface {
 	public function create($input);
 	
 	public function update($input, $id);
+
+	public function updateByQuoteIdAndTaxRateId($input, $quoteId, $taxRateId);
 	
 	public function delete($id);
 	

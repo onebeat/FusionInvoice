@@ -23,9 +23,16 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 	
 	public function update($input, $id)
 	{
-		$quoteAmount = QuoteItemAmount::find($id);
-		$quoteAmount->fill($input);
-		$quoteAmount->save();
+		$quoteItemAmount = QuoteItemAmount::find($id);
+		$quoteItemAmount->fill($input);
+		$quoteItemAmount->save();
+	}
+
+	public function updateByItemId($input, $itemId)
+	{
+		$quoteItemAmount = QuoteItemAmount::where('item_id', $itemId)->first();
+		$quoteItemAmount->fill($input);
+		$quoteItemAmount->save();
 	}
 	
 	public function delete($id)

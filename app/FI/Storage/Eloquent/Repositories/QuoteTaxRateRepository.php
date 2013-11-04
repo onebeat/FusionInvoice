@@ -25,6 +25,13 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 		$quoteTaxRate->fill($input);
 		$quoteTaxRate->save();
 	}
+
+	public function updateByQuoteIdAndTaxRateId($input, $quoteId, $taxRateId)
+	{
+		$quoteTaxRate = QuoteTaxRate::where('quote_id', $quoteId)->where('tax_rate_id', $taxRateId)->first();
+		$quoteTaxRate->fill($input);
+		$quoteTaxRate->save();
+	}
 	
 	public function delete($id)
 	{
