@@ -10,18 +10,21 @@ class QuoteEventProvider extends ServiceProvider {
 	public function boot()
 	{
 		// Create the empty quote amount record
-		\Event::listen('quote.created', function($quote)
+		\Event::listen('quote.created', function($quoteId, $invoiceGroupId)
 		{
-			$quoteAmount = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
+			$quoteAmount  = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
+			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 
 			$quoteAmount->create(array(
-				'quote_id'       => $quote->id,
+				'quote_id'       => $quoteId,
 				'item_subtotal'  => 0,
 				'item_tax_total' => 0,
 				'tax_total'      => 0,
 				'total'          => 0
 				)
 			);
+
+			$invoiceGroup->incrementNextId($invoiceGroupId);
 		});
 
 		// Create the quote item amount record

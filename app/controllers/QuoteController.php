@@ -81,14 +81,11 @@ class QuoteController extends BaseController {
 			'url_key'          => str_random(32)
 		);
 
-		$id = $this->quote->create($input);
+		$quoteId = $this->quote->create($input);
 
-		$this->invoiceGroup->incrementNextId(Input::get('invoice_group_id'));
+		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
 
-		// Delegate quote amount record creation
-		\Event::fire('quote.created', $id);
-
-		return json_encode(array('success' => 1, 'id' => $id));
+		return json_encode(array('success' => 1, 'id' => $quoteId));
 	}
 
 	/**

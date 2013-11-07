@@ -26,7 +26,7 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 
 		$number = $group->next_id;
 
-		if ($group->prefix) $number       .= $group->prefix . $number;
+		if ($group->prefix) $number        = $group->prefix . $number;
 		if ($group->prefix_year) $number  .= date('Y');
 		if ($group->prefix_month) $number .= date('m');
 		if ($group->left_pad) $number      = str_pad($number, $group->left_pad, '0', STR_PAD_LEFT);
@@ -37,7 +37,7 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 	public function incrementNextId($id)
 	{
 		$group          = InvoiceGroup::find($id);
-		$group->next_id = $group->next_id ++;
+		$group->next_id = $group->next_id + 1;
 		$group->save();
 	}
 
