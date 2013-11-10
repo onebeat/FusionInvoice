@@ -78,7 +78,7 @@ class QuoteController extends BaseController {
 			'user_id'          => Auth::user()->id,
 			'quote_status_id'  => 1,
 			'url_key'          => str_random(32)
-		);
+			);
 
 		$quoteId = $this->quote->create($input);
 
@@ -105,7 +105,7 @@ class QuoteController extends BaseController {
 			'created_at'      => Date::standardizeDate($input['created_at']),
 			'expires_at'      => Date::standardizeDate($input['expires_at']),
 			'quote_status_id' => $input['quote_status_id']
-		);
+			);
 
 		$this->quote->update($quote, $id);
 
@@ -113,39 +113,43 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			$itemRecord = array(
-            	'quote_id'      => $item->quote_id,
-            	'name'          => $item->item_name,
-            	'description'   => $item->item_description,
-            	'quantity'      => $item->item_quantity,
-            	'price'         => $item->item_price,
-            	'tax_rate_id'   => $item->item_tax_rate_id,
-            	'display_order' => $item->item_order
-            );
+			// @TODO - Items need to validate properly
+			if ($item->item_name)
+			{
+				$itemRecord = array(
+					'quote_id'      => $item->quote_id,
+					'name'          => $item->item_name,
+					'description'   => $item->item_description,
+					'quantity'      => $item->item_quantity,
+					'price'         => $item->item_price,
+					'tax_rate_id'   => $item->item_tax_rate_id,
+					'display_order' => $item->item_order
+					);
 
-            if (!$item->item_id)
-            {
-            	$itemId = $this->quoteItem->create($itemRecord);
+				if (!$item->item_id)
+				{
+					$itemId = $this->quoteItem->create($itemRecord);
 
-            	\Event::fire('quote.item.created', $itemId);
-            }
-            else
-            {
-            	$this->quoteItem->update($itemRecord, $item->item_id);
-            }
+					\Event::fire('quote.item.created', $itemId);
+				}
+				else
+				{
+					$this->quoteItem->update($itemRecord, $item->item_id);
+				}
 
-            if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
-            {
-            	$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
+				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
+				{
+					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
 
-            	$itemLookupRecord = array(
-            		'name'        => $item->item_name,
-            		'description' => $item->item_description,
-            		'price'       => $item->item_price
-            	);
+					$itemLookupRecord = array(
+						'name'        => $item->item_name,
+						'description' => $item->item_description,
+						'price'       => $item->item_price
+						);
 
-            	$itemLookup->create($itemLookupRecord);
-            }
+					$itemLookup->create($itemLookupRecord);
+				}
+			}
 		}
 
 		\Event::fire('quote.modified', $id);
