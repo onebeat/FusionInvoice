@@ -57,12 +57,7 @@
                     window.location = "{{ route('quotes.show', array($quote->id)) }}"
                 }
                 else {
-                    alert('fail');
-                    // @TODO - need to decorate the fields on error
-                    // $('.control-group').removeClass('error');
-                    // for (var key in response.validation_errors) {
-                    //     $('#' + key).parent().parent().addClass('error');
-                    // }
+                    alert(response.message);
                 }
             });
         });

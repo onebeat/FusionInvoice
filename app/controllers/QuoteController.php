@@ -59,7 +59,7 @@ class QuoteController extends BaseController {
 
 		if (!$this->validator->validate(Input::all(), 'createRules'))
 		{
-			return json_encode(array('success' => 0));
+			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
 		$clientId = $client->findIdByName(Input::get('client_name'));
@@ -95,7 +95,14 @@ class QuoteController extends BaseController {
 	{
 		if (!$this->validator->validate(Input::all(), 'updateRules'))
 		{
-			return json_encode(array('success' => 0));
+			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
+		}
+
+		$itemValidator = App::make('FI\Validators\ItemValidator');
+
+		if (!$itemValidator->validateMulti(json_decode(Input::get('items'))))
+		{
+			return json_encode(array('success' => 0, 'message' => $itemValidator->errors()->first()));
 		}
 
 		$input = Input::all();
@@ -113,7 +120,6 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			// @TODO - Items need to validate properly
 			if ($item->item_name)
 			{
 				$itemRecord = array(

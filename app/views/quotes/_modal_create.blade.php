@@ -37,10 +37,7 @@
 					window.location = "{{ url('quotes') }}/" + response.id;
 				}
 				else {
-					$('.control-group').removeClass('error');
-					for (var key in response.validation_errors) {
-						$('#' + key).parent().parent().addClass('error');
-					}
+					alert(response.message);
 				}
 			});
 		});
