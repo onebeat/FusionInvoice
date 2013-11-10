@@ -254,6 +254,11 @@ class QuoteController extends BaseController {
 		return Redirect::route('quotes.show', array($quoteId));
 	}
 
+	/**
+	 * Deletes a quote
+	 * @param  int
+	 * @return Redirect
+	 */
 	public function delete($quoteId)
 	{
 		$this->quoteTaxRate->delete($quoteId);
