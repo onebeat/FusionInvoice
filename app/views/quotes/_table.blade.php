@@ -43,7 +43,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#" onclick="return confirm('{{ trans('fi.delete_quote_warning') }}');">
+							<a href="{{ route('quotes.delete', array($quote->id)) }}" onclick="return confirm('{{ trans('fi.delete_quote_warning') }}');">
 								<i class="icon-trash"></i> {{ trans('fi.delete') }}
 							</a>
 						</li>

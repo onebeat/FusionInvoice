@@ -12,6 +12,8 @@ class QuoteEventProvider extends ServiceProvider {
 		// Create the empty quote amount record
 		\Event::listen('quote.created', function($quoteId, $invoiceGroupId)
 		{
+			\Log::info('Event Handler: quote.created');
+
 			$quoteAmount  = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
 			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 
@@ -28,10 +30,15 @@ class QuoteEventProvider extends ServiceProvider {
 		});
 
 		// Create the quote item amount record
-		\Event::listen('quote.item.created', function($quoteItem)
+		\Event::listen('quote.item.created', function($itemId)
 		{
+			\Log::info('Event Handler: quote.item.created');
+
+			$quoteItem       = \App::make('FI\Storage\Interfaces\QuoteItemRepositoryInterface');
             $quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
             $taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
+
+            $quoteItem = $quoteItem->find($itemId);
 
             if ($quoteItem->tax_rate_id)
             {
@@ -47,6 +54,7 @@ class QuoteEventProvider extends ServiceProvider {
             $total    = $subtotal + $taxTotal;
 
             $quoteItemAmount->create(array(
+            		'quote_id'  => $quoteItem->quote_id,
                     'item_id'   => $quoteItem->id,
                     'subtotal'  => $subtotal,
                     'tax_total' => $taxTotal,
@@ -58,6 +66,8 @@ class QuoteEventProvider extends ServiceProvider {
 		// Calculate all quote amounts
 		\Event::listen('quote.modified', function($quoteId)
 		{
+			\Log::info('Event Handler: quote.modified');
+
 			$quoteAmounts = new QuoteAmounts;
 			$quoteAmounts->setQuoteId($quoteId);
 

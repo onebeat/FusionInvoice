@@ -179,7 +179,7 @@
 
             @include('quotes._show_item_table')
             
-            <p class="padded">{{ trans('fi.guest_url') }}: @TODO - place guest url</p>
+            <p class="padded">{{ trans('fi.guest_url') }}: <a href="{{ route('guest.quote.show', array($quote->url_key)) }}">{{ route('guest.quote.show', array($quote->url_key)) }}</a></p>
             
 		</div>
 		

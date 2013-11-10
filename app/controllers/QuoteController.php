@@ -4,7 +4,6 @@ use FI\Storage\Interfaces\QuoteRepositoryInterface;
 use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
 use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
-use FI\Storage\Interfaces\ClientRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\QuoteValidator;
 use FI\Classes\Quotes;
@@ -26,7 +25,6 @@ class QuoteController extends BaseController {
 		QuoteTaxRateRepositoryInterface $quoteTaxRate,
 		QuoteValidator $validator,
 		InvoiceGroupRepositoryInterface $invoiceGroup,
-		ClientRepositoryInterface $client,
 		TaxRateRepositoryInterface $taxRate)
 	{
 		$this->quote        = $quote;
@@ -34,7 +32,6 @@ class QuoteController extends BaseController {
 		$this->quoteTaxRate = $quoteTaxRate;
 		$this->validator    = $validator;
 		$this->invoiceGroup = $invoiceGroup;
-		$this->client       = $client;
 		$this->taxRate      = $taxRate;
 	}
 
@@ -58,16 +55,18 @@ class QuoteController extends BaseController {
 	 */
 	public function store()
 	{
+		$client = \App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+
 		if (!$this->validator->validate(Input::all(), 'createRules'))
 		{
 			return json_encode(array('success' => 0));
 		}
 
-		$clientId = $this->client->findIdByName(Input::get('client_name'));
+		$clientId = $client->findIdByName(Input::get('client_name'));
 
 		if (!$clientId)
 		{
-			$clientId = $this->client->create(array('name' => Input::get('client_name')));
+			$clientId = $client->create(array('name' => Input::get('client_name')));
 		}
 
 		$input = array(
@@ -173,6 +172,8 @@ class QuoteController extends BaseController {
 	{
 		$this->quoteItem->delete($itemId);
 
+		\Event::fire('quote.modified', $quoteId);
+
 		return Redirect::route('quotes.show', array($quoteId));
 	}
 
@@ -217,6 +218,8 @@ class QuoteController extends BaseController {
 			'include_item_tax' => Input::get('include_item_tax')
 			)
 		);
+
+		\Event::fire('quote.modified', Input::get('quote_id'));
 	}
 
 	/**
@@ -232,6 +235,13 @@ class QuoteController extends BaseController {
 		\Event::fire('quote.modified', $quoteId);
 
 		return Redirect::route('quotes.show', array($quoteId));
+	}
+
+	public function delete($quoteId)
+	{
+		$this->quoteTaxRate->delete($quoteId);
+
+		return Redirect::route('quotes.index');
 	}
 	
 }

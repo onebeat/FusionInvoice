@@ -17,6 +17,14 @@ Route::get('login', array('uses' => 'SessionController@login', 'as' => 'session.
 Route::post('login', array('uses' => 'SessionController@attempt', 'as' => 'session.attempt'));
 Route::get('logout', array('uses' => 'SessionController@logout', 'as' => 'session.logout'));
 
+/*
+|--------------------------------------------------------------------------
+| Routes: Guests
+|--------------------------------------------------------------------------
+*/
+
+Route::get('guest/quote/{quoteKey}', array('uses' => 'GuestQuoteController@show', 'as' => 'guest.quote.show'));
+
 Route::group(array('before' => 'auth'), function()
 {
 	/*
@@ -59,6 +67,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('quotes/{quote}/tax_rates/{tax_rate}/delete', array('uses' => 'QuoteController@deleteQuoteTax', 'as' => 'quotes.ajax.deleteQuoteTax'));
 	Route::get('quotes/{quote}', array('uses' => 'QuoteController@show', 'as' => 'quotes.show'));
 	Route::get('quotes/{quote}/items/{item}/delete', array('uses' => 'QuoteController@deleteItem', 'as' => 'quotes.items.delete'));
+	Route::get('quotes/{quote}/delete', array('uses' => 'QuoteController@delete', 'as' => 'quotes.delete'));
 
 	Route::post('quotes/modal/add_quote_tax', array('uses' => 'QuoteController@modalAddQuoteTax', 'as' => 'quotes.ajax.modalAddQuoteTax'));
 	Route::post('quotes/modal/save_quote_tax', array('uses' => 'QuoteController@saveQuoteTax', 'as' => 'quotes.ajax.saveQuoteTax'));

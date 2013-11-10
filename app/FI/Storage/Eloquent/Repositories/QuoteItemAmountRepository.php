@@ -39,5 +39,10 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 	{
 		QuoteItemAmount::destroy($id);
 	}
+
+	public function deleteByItemId($itemId)
+	{
+		QuoteItemAmount::where('item_id', $itemId)->delete();
+	}
 	
 }

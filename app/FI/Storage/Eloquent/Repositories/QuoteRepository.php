@@ -13,34 +13,36 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	{
 		\DB::getPaginator()->setCurrentPage($page);
 
+		$quote = Quote::with(array('amount', 'client'));
+
 		switch ($status)
 		{
 			case 'draft':
-				return Quote::draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'sent':
-				return Quote::sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'viewed':
-				return Quote::viewed()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->viewed()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'approved':
-				return Quote::approved()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->approved()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'rejected':
-				return Quote::rejected()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->rejected()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'canceled':
-				return Quote::canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			default:
-				return Quote::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 
 	public function find($id)
 	{
-		return Quote::find($id);
+		return Quote::with('items.amount')->find($id);
 	}
 	
 	public function create($input)
