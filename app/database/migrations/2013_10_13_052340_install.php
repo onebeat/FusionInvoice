@@ -121,6 +121,7 @@ class Install extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+			$table->integer('invoice_id');
 			$table->integer('item_id');
 			$table->decimal('subtotal', 10, 2)->default(0.00);
 			$table->decimal('tax_total', 10, 2)->default(0.00);
@@ -226,6 +227,7 @@ class Install extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+			$table->integer('quote_id');
 			$table->integer('item_id');
 			$table->decimal('subtotal', 10, 2)->default(0.00);
 			$table->decimal('tax_total', 10, 2)->default(0.00);
