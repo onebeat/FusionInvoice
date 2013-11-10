@@ -1,5 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
+use FI\Classes\Currency;
+
 class QuoteTaxRate extends \Eloquent {
 
 	protected $guarded = array('id');
@@ -7,6 +9,11 @@ class QuoteTaxRate extends \Eloquent {
 	public function taxRate()
 	{
 		return $this->belongsTo('\FI\Storage\Eloquent\Models\TaxRate');
+	}
+
+	public function getTaxTotalAttribute($value)
+	{
+		return Currency::format($value);
 	}
 
 }
