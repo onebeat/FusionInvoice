@@ -113,8 +113,6 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			// @TODO - save item as lookup
-
 			$itemRecord = array(
             	'quote_id'      => $item->quote_id,
             	'name'          => $item->item_name,
@@ -129,12 +127,24 @@ class QuoteController extends BaseController {
             {
             	$itemId = $this->quoteItem->create($itemRecord);
 
-            	// Delegate item amount record creation
             	\Event::fire('quote.item.created', $itemId);
             }
             else
             {
             	$this->quoteItem->update($itemRecord, $item->item_id);
+            }
+
+            if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
+            {
+            	$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
+
+            	$itemLookupRecord = array(
+            		'name'        => $item->item_name,
+            		'description' => $item->item_description,
+            		'price'       => $item->item_price
+            	);
+
+            	$itemLookup->create($itemLookupRecord);
             }
 		}
 

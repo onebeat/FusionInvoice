@@ -24,7 +24,8 @@ class Quote extends \Eloquent {
 
     public function items()
     {
-        return $this->hasMany('FI\Storage\Eloquent\Models\QuoteItem');
+        return $this->hasMany('FI\Storage\Eloquent\Models\QuoteItem')
+        ->orderBy('display_order');
     }
 
     public function taxRates()

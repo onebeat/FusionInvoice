@@ -12,7 +12,7 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 
 	public function findByQuoteId($quote_id)
 	{
-		return QuoteItem::where('quote_id', '=', $quote_id)->get();
+		return QuoteItem::orderBy('display_order')->where('quote_id', '=', $quote_id)->get();
 	}
 	
 	public function create($input)
