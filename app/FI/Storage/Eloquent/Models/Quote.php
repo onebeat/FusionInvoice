@@ -33,6 +33,11 @@ class Quote extends \Eloquent {
         return $this->hasMany('FI\Storage\Eloquent\Models\QuoteTaxRate');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('FI\Storage\Eloquent\Models\User');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Accessors
