@@ -75,23 +75,8 @@ class Quote extends \Eloquent {
         return $query->where('quote_status_id', '=', 2);
     }
 
-    public function scopeViewed($query)
-    {
-        return $query->where('quote_status_id', '=', 3);
-    }
-
-    public function scopeApproved($query)
-    {
-        return $query->where('quote_status_id', '=', 4);
-    }
-
-    public function scopeRejected($query)
-    {
-        return $query->where('quote_status_id', '=', 5);
-    }
-
     public function scopeCanceled($query)
     {
-        return $query->where('quote_status_id', '=', 6);
+        return $query->where('quote_status_id', '=', 4);
     }
 }

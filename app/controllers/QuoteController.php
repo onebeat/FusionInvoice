@@ -6,7 +6,7 @@ use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\QuoteValidator;
-use FI\Classes\Quotes;
+use FI\Quotes\QuoteStatuses;
 use FI\Classes\Date;
 
 class QuoteController extends BaseController {
@@ -43,7 +43,7 @@ class QuoteController extends BaseController {
 	public function index($status = 'all')
 	{
 		$quotes   = $this->quote->getPagedByStatus(Input::get('page'), null, $status);
-		$statuses = Quotes::statuses();
+		$statuses = QuoteStatuses::statuses();
 
 		return View::make('quotes.index')
 		->with(array('quotes' => $quotes, 'status' => $status, 'statuses' => $statuses));
@@ -168,7 +168,7 @@ class QuoteController extends BaseController {
 	public function show($id)
 	{
 		$quote         = $this->quote->find($id);
-		$statuses      = Quotes::listsStatuses();
+		$statuses      = QuoteStatuses::lists();
 		$taxRates      = $this->taxRate->lists();
 		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId($id);
 

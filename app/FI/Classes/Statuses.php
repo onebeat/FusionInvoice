@@ -1,9 +1,9 @@
 <?php namespace FI\Classes;
 
-class Quotes {
+abstract class Statuses {
 
     /**
-     * Returns the array of quote statuses
+     * Returns the array of statuses
      * @return array
      */
     public static function statuses()
@@ -25,21 +25,11 @@ class Quotes {
                 'href'  => route('quotes.index', array('sent'))
             ),
             '3' => array(
-                'label' => trans('fi.viewed'),
-                'class' => 'viewed',
-                'href'  => route('quotes.index', array('viewed'))
+                'label' => trans('fi.paid'),
+                'class' => 'paid',
+                'href'  => route('quotes.index', array('paid'))
             ),
             '4' => array(
-                'label' => trans('fi.approved'),
-                'class' => 'approved',
-                'href'  => route('quotes.index', array('approved'))
-            ),
-            '5' => array(
-                'label' => trans('fi.rejected'),
-                'class' => 'rejected',
-                'href'  => route('quotes.index', array('rejected'))
-            ),
-            '6' => array(
                 'label' => trans('fi.canceled'),
                 'class' => 'canceled',
                 'href'  => route('quotes.index', array('canceled'))
@@ -48,21 +38,19 @@ class Quotes {
     }
 
     /**
-     * Return a flattened array of quote statuses
+     * Return a flattened array of statuses
      * @return array
      */
-    public static function listsStatuses()
+    public static function getList($statuses)
     {
-        $statuses = array();
+    	$return = array();
 
-        foreach (self::statuses() as $key => $status)
+        foreach ($statuses as $key => $status)
         {
-            $statuses[$key] = $status['label'];
+            $return[$key] = $status['label'];
         }
 
-        unset($statuses[0]);
-
-        return $statuses;
+        return $return;
     }
-	
+
 }

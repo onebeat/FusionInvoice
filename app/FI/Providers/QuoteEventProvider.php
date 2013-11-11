@@ -1,7 +1,7 @@
 <?php namespace FI\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use FI\Classes\QuoteAmounts;
+use FI\Quotes\QuoteAmounts;
 
 class QuoteEventProvider extends ServiceProvider {
 

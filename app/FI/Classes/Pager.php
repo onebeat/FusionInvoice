@@ -4,10 +4,10 @@ class Pager {
 
 	public static function create($object)
 	{
-		$currentPage = $object->getCurrentPage();
+		$currentPage  = $object->getCurrentPage();
 		$previousPage = $currentPage - 1;
-		$nextPage = $currentPage + 1;
-		$lastPage = $object->getLastPage();
+		$nextPage     = $currentPage + 1;
+		$lastPage     = $object->getLastPage();
 
 		$pager = '<div class="btn-group">';
 		

@@ -2,8 +2,9 @@
 
 use FI\Classes\Languages;
 use FI\Classes\Date;
-use FI\Classes\Templates;
 use FI\Classes\Email;
+use FI\Quotes\QuoteTemplates;
+use FI\Invoices\InvoiceTemplates;
 use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
 use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;
@@ -38,8 +39,8 @@ class SettingController extends BaseController {
 		$currencySymbolPlacements = array('before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount'));
 		$taxRateDecimalPlaces     = array('2' => '2', '3' => '3');
 		$dateFormats              = Date::dropdownArray();
-		$invoiceTemplates         = Templates::listInvoiceTemplates();
-		$quoteTemplates           = Templates::listQuoteTemplates();
+		$invoiceTemplates         = InvoiceTemplates::lists();
+		$quoteTemplates           = QuoteTemplates::lists();
 		$emailTemplates           = $this->emailTemplates->lists();
 		$invoiceGroups            = $this->invoiceGroups->lists();
 		$taxRates                 = $this->taxRates->lists();

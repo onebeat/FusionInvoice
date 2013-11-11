@@ -1,25 +1,14 @@
 <?php namespace FI\Classes;
 
-class Templates {
+abstract class Templates {
 
 	/**
-	 * Returns an array of invoice templates
+	 * Returns an array of templates
 	 * @return array
 	 */
-	public static function listInvoiceTemplates()
+	public static function listTemplates($path)
 	{
-		$templates = Directory::listContents(app_path() . '/views/templates/invoices');
-
-		return array_combine($templates, $templates);
-	}
-
-	/**
-	 * Returns an array of quote templates
-	 * @return array
-	 */
-	public static function listQuoteTemplates()
-	{
-		$templates = Directory::listContents(app_path() . '/views/templates/quotes');
+		$templates = Directory::listContents($path);
 
 		return array_combine($templates, $templates);
 	}

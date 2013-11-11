@@ -1,4 +1,4 @@
-<?php namespace FI\Classes;
+<?php namespace FI\Quotes;
 
 class QuoteAmounts {
 
