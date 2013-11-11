@@ -6,19 +6,19 @@ class QuoteItemAmount extends \Eloquent {
 
 	protected $guarded = array('id');
 
-	public function getSubtotalAttribute($value)
+	public function getFormattedSubtotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['subtotal']);
 	}
 
-	public function getTaxTotalAttribute($value)
+	public function getFormattedTaxTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['tax_total']);
 	}
 
-	public function getTotalAttribute($value)
+	public function getFormattedTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['total']);
 	}
 
 }

@@ -44,19 +44,19 @@ class Quote extends \Eloquent {
     |--------------------------------------------------------------------------
     */
    
-    public function getCreatedAtAttribute($value)
+    public function getFormattedCreatedAtAttribute()
     {
-        return Date::customizeDate($value);
+        return Date::customizeDate($this->attributes['created_at']);
     }
 
-    public function getUpdatedAtAttribute($value)
+    public function getFormattedUpdatedAtAttribute()
     {
-        return Date::customizeDate($value);
+        return Date::customizeDate($this->attributes['updated_at']);
     }
 
-    public function getExpiresAtAttribute($value)
+    public function getFormattedExpiresAtAttribute($value)
     {
-        return Date::customizeDate($value);
+        return Date::customizeDate($this->attributes['expires_at']);
     }
 
     /*

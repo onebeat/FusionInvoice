@@ -12,24 +12,24 @@ class QuoteAmount extends \Eloquent {
     |--------------------------------------------------------------------------
     */
 
-	public function getItemSubtotalAttribute($value)
+	public function getFormattedItemSubtotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['item_subtotal']);
 	}
 
-	public function getItemTaxTotalAttribute($value)
+	public function getFormattedItemTaxTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['item_tax_total']);
 	}
 
-	public function getTaxTotalAttribute($value)
+	public function getFormattedTaxTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['tax_total']);
 	}
 
-	public function getTotalAttribute($value)
+	public function getFormattedTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['total']);
 	}
 
 }

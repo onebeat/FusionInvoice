@@ -11,9 +11,9 @@ class QuoteTaxRate extends \Eloquent {
 		return $this->belongsTo('\FI\Storage\Eloquent\Models\TaxRate');
 	}
 
-	public function getTaxTotalAttribute($value)
+	public function getFormattedTaxTotalAttribute()
 	{
-		return Currency::format($value);
+		return Currency::format($this->attributes['tax_total']);
 	}
 
 }
