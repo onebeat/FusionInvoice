@@ -38,10 +38,8 @@ class SettingController extends BaseController {
 		$currencySymbolPlacements = array('before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount'));
 		$taxRateDecimalPlaces     = array('2' => '2', '3' => '3');
 		$dateFormats              = Date::dropdownArray();
-		$invoicePdfTemplates      = Templates::listInvoicePdfTemplates();
-		$invoicePublicTemplates   = Templates::listInvoicePublicTemplates();
-		$quotePdfTemplates        = Templates::listQuotePdfTemplates();
-		$quotePublicTemplates     = Templates::listQuotePublicTemplates();
+		$invoiceTemplates         = Templates::listInvoiceTemplates();
+		$quoteTemplates           = Templates::listQuoteTemplates();
 		$emailTemplates           = $this->emailTemplates->lists();
 		$invoiceGroups            = $this->invoiceGroups->lists();
 		$taxRates                 = $this->taxRates->lists();
@@ -57,10 +55,8 @@ class SettingController extends BaseController {
 			'currencySymbolPlacements' => $currencySymbolPlacements,
 			'taxRateDecimalPlaces'     => $taxRateDecimalPlaces,
 			'dateFormats'              => $dateFormats,
-			'invoicePdfTemplates'      => $invoicePdfTemplates,
-			'invoicePublicTemplates'   => $invoicePublicTemplates,
-			'quotePdfTemplates'        => $quotePdfTemplates,
-			'quotePublicTemplates'     => $quotePublicTemplates,
+			'invoiceTemplates'         => $invoiceTemplates,
+			'quoteTemplates'           => $quoteTemplates,
 			'emailTemplates'           => $emailTemplates,
 			'invoiceGroups'            => $invoiceGroups,
 			'taxRates'                 => $taxRates,

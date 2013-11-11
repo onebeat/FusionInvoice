@@ -2,32 +2,25 @@
 
 class Templates {
 
-	static function listInvoicePdfTemplates()
+	/**
+	 * Returns an array of invoice templates
+	 * @return array
+	 */
+	public static function listInvoiceTemplates()
 	{
-		$templates = Directory::listContents(app_path() . '/views/templates/invoices/pdf');
+		$templates = Directory::listContents(app_path() . '/views/templates/invoices');
 
 		return array_combine($templates, $templates);
 	}
 
-	static function listInvoicePublicTemplates()
+	/**
+	 * Returns an array of quote templates
+	 * @return array
+	 */
+	public static function listQuoteTemplates()
 	{
-		$templates = Directory::listContents(app_path() . '/views/templates/invoices/public');
+		$templates = Directory::listContents(app_path() . '/views/templates/quotes');
 
 		return array_combine($templates, $templates);
 	}
-
-	static function listQuotePdfTemplates()
-	{
-		$templates = Directory::listContents(app_path() . '/views/templates/quotes/pdf');
-
-		return array_combine($templates, $templates);
-	}
-
-	static function listQuotePublicTemplates()
-	{
-		$templates = Directory::listContents(app_path() . '/views/templates/invoices/public');
-
-		return array_combine($templates, $templates);
-	}
-
 }

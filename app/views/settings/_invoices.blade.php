@@ -1,30 +1,9 @@
 <div class="tab-info">
 
 	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_pdf_template') }}: </label>
+		<label class="control-label">{{ trans('fi.default_invoice_template') }}: </label>
 		<div class="controls">
-			{{ Form::select('setting_invoicePdfTemplate', $invoicePdfTemplates, Config::get('fi.invoicePdfTemplate')) }}
-		</div>
-	</div>
-   
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.pdf_template_paid') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoicePdfTemplatePaid', $invoicePdfTemplates, Config::get('fi.invoicePdfTemplatePaid')) }}
-		</div>
-	</div>
-    
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.pdf_template_overdue') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoicePdfTemplateOverdue', $invoicePdfTemplates, Config::get('fi.invoicePdfTemplateOverdue')) }}
-		</div>
-	</div>
-    
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_public_template') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoicePublicTemplate', $invoicePublicTemplates, Config::get('fi.invoicePublicTemplateOverdue')) }}
+			{{ Form::select('setting_invoiceTemplate', $invoiceTemplates, Config::get('fi.invoiceTemplate')) }}
 		</div>
 	</div>
 

@@ -1,16 +1,9 @@
 <div class="tab-info">
 
 	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_pdf_template') }}: </label>
+		<label class="control-label">{{ trans('fi.default_quote_template') }}: </label>
 		<div class="controls">
-			{{ Form::select('setting_quotePdfTemplate', $quotePdfTemplates, Config::get('fi.quotePdfTemplate')) }}
-		</div>
-	</div>
-    
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_public_template') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_quotePublicTemplate', $quotePublicTemplates, Config::get('fi.quotePublicTemplate')) }}
+			{{ Form::select('setting_quoteTemplate', $quoteTemplates, Config::get('fi.quoteTemplate')) }}
 		</div>
 	</div>
     

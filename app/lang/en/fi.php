@@ -73,10 +73,10 @@ return array(
 	'default_invoice_group'              => 'Default Invoice Group',
 	'default_invoice_tax_rate'           => 'Default Invoice Tax Rate',
 	'default_invoice_tax_rate_placement' => 'Default Invoice Tax Rate Placement',
+	'default_invoice_template'           => 'Default Invoice Template',
 	'default_item_tax_rate'              => 'Default Item Tax Rate',
-	'default_pdf_template'               => 'Default PDF Template',
-	'default_public_template'            => 'Default Public Template',
 	'default_quote_group'                => 'Default Quote Group',
+	'default_quote_template'             => 'Default Quote Template',
 	'default_terms'                      => 'Default Terms',
 	'delete'                             => 'Delete',
 	'delete_client'                      => 'Delete Client',
@@ -362,8 +362,10 @@ return array(
 	'view_all'                           => 'View All',
 	'view_client'                        => 'View Client',
 	'view_clients'                       => 'View Clients',
+	'view_invoice'                       => 'View Invoice',
 	'view_invoices'                      => 'View Invoices',
 	'view_payments'                      => 'View Payments',
+	'view_quote'                         => 'View Quote',
 	'view_quotes'                        => 'View Quotes',
 	'view_recurring_invoices'            => 'View Recurring Invoices',
 	'viewed'                             => 'Viewed',
@@ -375,4 +377,4 @@ return array(
 	'years'                              => 'Years',
 	'yes'                                => 'Yes',
 	'zip_code'                           => 'Zip Code'
-);
+	);

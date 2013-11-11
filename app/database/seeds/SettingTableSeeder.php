@@ -34,20 +34,8 @@ class SettingTableSeeder extends Seeder {
 				'setting_value' => '2'
 			),
 			array(
-				'setting_key'   => 'invoicePdfTemplate',
-				'setting_value' => 'default.php'
-			),
-			array(
-				'setting_key'   => 'invoicePdfTemplatePaid',
-				'setting_value' => 'default.php'
-			),
-			array(
-				'setting_key'   => 'invoicePdfTemplateOverdue',
-				'setting_value' => 'default.php'
-			),
-			array(
-				'setting_key'   => 'invoicePublicTemplate',
-				'setting_value' => 'default.php'
+				'setting_key'   => 'invoiceTemplate',
+				'setting_value' => 'default.blade.php'
 			),
 			array(
 				'setting_key'   => 'invoicesDueAfter',
@@ -58,12 +46,8 @@ class SettingTableSeeder extends Seeder {
 				'setting_value' => '1'
 			),
 			array(
-				'setting_key'   => 'quotePdfTemplate',
-				'setting_value' => 'default.php'
-			),
-			array(
-				'setting_key'   => 'quotePublicTemplate',
-				'setting_value' => 'default.php'
+				'setting_key'   => 'quoteTemplate',
+				'setting_value' => 'default.blade.php'
 			),
 			array(
 				'setting_key'   => 'quotesExpireAfter',
