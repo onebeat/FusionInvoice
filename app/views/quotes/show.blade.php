@@ -92,7 +92,7 @@
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" style="margin-right: 5px;"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
 			<ul class="dropdown-menu">
 				<li><a href="javascript:void(0)" id="btn-add-quote-tax"><i class="icon-plus-sign"></i> {{ trans('fi.add_quote_tax') }}</a></li>
-				<li><a href="javascript:void(0)" id="btn_generate_pdf" data-quote-id="{{ $quote->id }}"><i class="icon-print"></i> {{ trans('fi.download_pdf') }}</a></li>
+				<li><a href="{{ route('quotes.preview', array($quote->id)) }}" id="btn-view-quote" target="_blank"><i class="icon-file-alt"></i> {{ trans('fi.view_quote') }}</a></li>
 				<li><a href="javascript:void(0)"><i class="icon-envelope"></i> {{ trans('fi.send_email') }}</a></li>
                 <li><a href="javascript:void(0)" id="btn_quote_to_invoice" data-quote-id="{{ $quote->id }}"><i class="icon-upload"></i> {{ trans('fi.quote_to_invoice') }}</a></li>
 				<li><a href="javascript:void(0)" id="btn_copy_quote" data-quote-id="{{ $quote->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_quote') }}</a></li>
@@ -149,13 +149,13 @@
                                 <div class="control-group invoice-properties">
                                     <label class="control-label">{{ trans('fi.date') }}</label>
                                     <div class="controls">
-                                        {{ Form::text('created_at', $quote->created_at, array('id' => 'created_at', 'class' => 'input-small', 'style' => 'margin: 0px;')) }}
+                                        {{ Form::text('created_at', $quote->formatted_created_at, array('id' => 'created_at', 'class' => 'input-small', 'style' => 'margin: 0px;')) }}
                                     </div>
                                 </div>
                                 <div class="control-group invoice-properties">
                                     <label class="control-label">{{ trans('fi.expires') }}</label>
                                     <div class="controls">
-                                        {{ Form::text('expires_at', $quote->expires_at, array('id' => 'expires_at', 'class' => 'input-small', 'style' => 'margin: 0px;')) }}
+                                        {{ Form::text('expires_at', $quote->formatted_expires_at, array('id' => 'expires_at', 'class' => 'input-small', 'style' => 'margin: 0px;')) }}
                                     </div>
                                 </div>
                                 <div class="control-group invoice-properties">
@@ -173,8 +173,6 @@
 			</div>
 
             @include('quotes._show_item_table')
-            
-            <p class="padded">{{ trans('fi.guest_url') }}: <a href="{{ route('guest.quote.show', array($quote->url_key)) }}">{{ route('guest.quote.show', array($quote->url_key)) }}</a></p>
             
 		</div>
 		

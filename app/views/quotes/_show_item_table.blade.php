@@ -46,9 +46,9 @@
 			<td style="vertical-align: top;">
 				{{ Form::select('item_tax_rate_id', $taxRates, $item->tax_rate_id, array('class' => 'input-small')) }}
 			</td>
-			<td style="vertical-align: top;"><span name="subtotal">{{ $item->amount->subtotal }}</span></td>
-			<td style="vertical-align: top;"><span name="item_tax_total">{{ $item->amount->tax_total }}</span></td>
-			<td style="vertical-align: top;"><span name="item_total">{{ $item->amount->total }}</span></td>
+			<td style="vertical-align: top;"><span name="subtotal">{{ $item->amount->formatted_subtotal }}</span></td>
+			<td style="vertical-align: top;"><span name="item_tax_total">{{ $item->amount->formatted_tax_total }}</span></td>
+			<td style="vertical-align: top;"><span name="item_total">{{ $item->amount->formatted_total }}</span></td>
 			<td style="vertical-align: top;">
 				<a href="{{ route('quotes.items.delete', array($quote->id, $item->id)) }}" title="{{ trans('fi.delete') }}">
 					<i class="icon-remove"></i>
@@ -72,15 +72,15 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>{{ $quote->amount->item_subtotal }}</td>
-			<td>{{ $quote->amount->item_tax_total }}</td>
+			<td>{{ $quote->amount->formatted_item_subtotal }}</td>
+			<td>{{ $quote->amount->formatted_item_tax_total }}</td>
 			<td>
 			@foreach ($quoteTaxRates as $quoteTaxRate)
-			{{ $quoteTaxRate->taxRate->name . ' - ' . $quoteTaxRate->tax_total }}
+			{{ $quoteTaxRate->taxRate->name . ' - ' . $quoteTaxRate->formatted_tax_total }}
 			<a href="{{ route('quotes.ajax.deleteQuoteTax', array($quote->id, $quoteTaxRate->id)) }}">x</a><br>
 			@endforeach
 			</td>
-			<td>{{ $quote->amount->total }}</td>
+			<td>{{ $quote->amount->formatted_total }}</td>
 		</tr>
 	</tbody>
 </table>
