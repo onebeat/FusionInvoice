@@ -180,6 +180,19 @@ class QuoteController extends BaseController {
 	}
 
 	/**
+	 * Displays the quote in preview format
+	 * @param  int $id
+	 * @return View
+	 */
+	public function preview($id)
+	{
+		$quote = $this->quote->find($id);
+
+		return View::make('templates.quotes.' . str_replace('.blade.php', '', Config::get('fi.quoteTemplate')))
+		->with('quote', $quote);
+	}
+
+	/**
 	 * Delete an item from a quote
 	 * @param  int $quoteId
 	 * @param  int $itemId
