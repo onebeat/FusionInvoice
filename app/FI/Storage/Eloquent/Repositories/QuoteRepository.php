@@ -44,6 +44,11 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	{
 		return Quote::with('items.amount')->find($id);
 	}
+
+	public function findByUrlKey($urlKey)
+	{
+		return Quote::where('url_key', $urlKey)->first();
+	}
 	
 	public function create($input)
 	{
