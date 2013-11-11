@@ -2,10 +2,10 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class StorageProvider extends ServiceProvider {
+class StartProvider extends ServiceProvider {
 
     /**
-     * Register Storage app bindings
+     * Register app bindings
      *
      * @return void
      */
@@ -13,6 +13,9 @@ class StorageProvider extends ServiceProvider {
     {
     	$app = $this->app;
 
+        /**
+         * Storage Bindings
+         */
         $app->bind('FI\Storage\Interfaces\ClientNoteRepositoryInterface', 'FI\Storage\Eloquent\Repositories\ClientNoteRepository');
     	$app->bind('FI\Storage\Interfaces\ClientRepositoryInterface', 'FI\Storage\Eloquent\Repositories\ClientRepository');
         $app->bind('FI\Storage\Interfaces\EmailTemplateRepositoryInterface', 'FI\Storage\Eloquent\Repositories\EmailTemplateRepository');

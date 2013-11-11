@@ -114,7 +114,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'FI\Providers\StorageProvider',
+		'FI\Providers\StartProvider',
 		'FI\Providers\QuoteEventProvider',
 
 		'Profiler\ProfilerServiceProvider'
