@@ -3,8 +3,8 @@
 use FI\Classes\Languages;
 use FI\Classes\Date;
 use FI\Classes\Email;
-use FI\Quotes\QuoteTemplates;
-use FI\Invoices\InvoiceTemplates;
+use FI\Templates\QuoteTemplates;
+use FI\Templates\InvoiceTemplates;
 use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
 use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;

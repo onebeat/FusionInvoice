@@ -1,6 +1,6 @@
-<?php namespace FI\Invoices;
+<?php namespace FI\Templates;
 
-class InvoiceTemplates extends \FI\Classes\Templates {
+class InvoiceTemplates extends Templates {
 
 	public static function lists()
 	{

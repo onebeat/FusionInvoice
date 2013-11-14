@@ -1,4 +1,4 @@
-<?php namespace FI\Classes;
+<?php namespace FI\Templates;
 
 abstract class Templates {
 

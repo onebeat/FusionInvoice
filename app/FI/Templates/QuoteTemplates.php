@@ -1,6 +1,6 @@
-<?php namespace FI\Quotes;
+<?php namespace FI\Templates;
 
-class QuoteTemplates extends \FI\Classes\Templates {
+class QuoteTemplates extends Templates {
 
 	public static function lists()
 	{
