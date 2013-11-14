@@ -1,7 +1,7 @@
 <?php namespace FI\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use FI\Quotes\QuoteAmounts;
+use FI\Calculators\QuoteCalculator;
 
 class QuoteEventProvider extends ServiceProvider {
 
@@ -68,9 +68,6 @@ class QuoteEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: quote.modified');
 
-			$quoteAmounts = new QuoteAmounts;
-			$quoteAmounts->setQuoteId($quoteId);
-
 			// Resolve ALL THE THINGS
 			$quoteItem       = \App::make('FI\Storage\Interfaces\QuoteItemRepositoryInterface');
 			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
@@ -78,9 +75,13 @@ class QuoteEventProvider extends ServiceProvider {
 			$quoteTaxRate    = \App::make('FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface');
 			$taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
 
-			// Retrieve related records
+			// Retrieve the required records
 			$items         = $quoteItem->findByQuoteId($quoteId);
 			$quoteTaxRates = $quoteTaxRate->findByQuoteId($quoteId);
+
+			// Set up the calculator
+			$calculator = new QuoteCalculator;
+			$calculator->setId($quoteId);
 
 			// Add the items to be calculated
 			foreach ($items as $item)
@@ -94,7 +95,7 @@ class QuoteEventProvider extends ServiceProvider {
 					$taxRatePercent = 0;
 				}
 
-				$quoteAmounts->addQuoteItem($item->id, $item->quantity, $item->price, $taxRatePercent);
+				$calculator->addItem($item->id, $item->quantity, $item->price, $taxRatePercent);
 			}
 
 			// Add the quote tax rates to be calculated
@@ -102,16 +103,16 @@ class QuoteEventProvider extends ServiceProvider {
 			{
 				$taxRatePercent = $taxRate->find($quoteTax->tax_rate_id)->percent;
 
-				$quoteAmounts->addQuoteTaxRate($quoteTax->tax_rate_id, $taxRatePercent, $quoteTax->include_item_tax);
+				$calculator->addTaxRate($quoteTax->tax_rate_id, $taxRatePercent, $quoteTax->include_item_tax);
 			}
 
 			// Run the calculations
-			$quoteAmounts->calculate();
+			$calculator->calculate();
 
 			// Get the calculated values
-			$calculatedItemAmounts   = $quoteAmounts->getCalculatedItemAmounts();
-			$calculatedQuoteTaxRates = $quoteAmounts->getCalculatedQuoteTaxRates();
-			$calculatedQuoteAmount   = $quoteAmounts->getCalculatedQuoteAmount();
+			$calculatedItemAmounts   = $calculator->getCalculatedItemAmounts();
+			$calculatedQuoteTaxRates = $calculator->getCalculatedTaxRates();
+			$calculatedQuoteAmount   = $calculator->getCalculatedAmount();
 
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
