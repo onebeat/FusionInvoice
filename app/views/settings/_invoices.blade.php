@@ -50,6 +50,14 @@
 	</div>
 
 	<div class="control-group">
+		<label class="control-label">{{ trans('fi.invoice_logo') }}: </label>
+		<div class="controls">
+			{{ __DIR__ }}
+			{{ Form::file('invoice_logo') }}
+		</div>
+	</div>	
+
+	<div class="control-group">
 		<label class="control-label">{{ trans('fi.automatic_email_on_recur') }}: </label>
 		<div class="controls">
 			{{ Form::select('setting_automaticEmailOnRecur', array('0' => trans('fi.no'), '1' => trans('fi.yes')), Config::get('fi.automaticEmailOnRecur')) }}
