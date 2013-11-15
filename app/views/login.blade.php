@@ -44,7 +44,7 @@
 			<div class="control-group">
 				<label class="control-label">{{ trans('fi.password') }}</label>
 				<div class="controls">
-					{{ Form::password('password', null, array('id' => 'password', 'placeholder' => trans('fi.password'))) }}
+					{{ Form::password('password', array('id' => 'password', 'placeholder' => trans('fi.password'))) }}
 				</div>
 			</div>
 
