@@ -274,7 +274,7 @@ class QuoteController extends BaseController {
 	 */
 	public function delete($quoteId)
 	{
-		$this->quoteTaxRate->delete($quoteId);
+		$this->quote->delete($quoteId);
 
 		return Redirect::route('quotes.index');
 	}
