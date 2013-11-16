@@ -54,7 +54,6 @@ class QuoteEventProvider extends ServiceProvider {
             $total    = $subtotal + $taxTotal;
 
             $quoteItemAmount->create(array(
-            		'quote_id'  => $quoteItem->quote_id,
                     'item_id'   => $quoteItem->id,
                     'subtotal'  => $subtotal,
                     'tax_total' => $taxTotal,
