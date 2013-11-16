@@ -55,7 +55,17 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	
 	public function delete($id)
 	{
-		Quote::destroy($id);
+		$quote = Quote::find($id);
+
+		foreach ($quote->items as $item)
+		{
+			$item->amount->delete();
+			$item->delete();
+		}
+
+		$quote->amount->delete();
+
+		$quote->delete();
 	}
 	
 }
