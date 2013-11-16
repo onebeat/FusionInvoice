@@ -96,7 +96,7 @@
 				<li><a href="javascript:void(0)"><i class="icon-envelope"></i> {{ trans('fi.send_email') }}</a></li>
                 <li><a href="javascript:void(0)" id="btn_quote_to_invoice" data-quote-id="{{ $quote->id }}"><i class="icon-upload"></i> {{ trans('fi.quote_to_invoice') }}</a></li>
 				<li><a href="javascript:void(0)" id="btn_copy_quote" data-quote-id="{{ $quote->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_quote') }}</a></li>
-				<li><a href="#delete-quote" data-toggle="modal"><i class="icon-remove"></i> {{ trans('fi.delete') }}</a></li>
+				<li><a href="{{ route('quotes.delete', array($quote->id)) }}" onclick="return confirm('{{ trans('fi.delete_quote_warning') }}');"><i class="icon-remove"></i> {{ trans('fi.delete') }}</a></li>
 			</ul>
 		</div>
 		
