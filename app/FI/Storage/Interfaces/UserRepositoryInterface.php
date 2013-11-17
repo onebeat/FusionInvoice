@@ -2,8 +2,6 @@
 
 interface UserRepositoryInterface {
 	
-	public function all();
-
 	public function getPaged($page, $numPerPage);
 	
 	public function find($id);

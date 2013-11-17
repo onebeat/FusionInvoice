@@ -122,7 +122,7 @@
                                 <li><a href="{{ route('itemLookups.index') }}">{{ trans('fi.item_lookups') }}</a></li>
 								<li>{{ link_to_route('paymentMethods.index', trans('fi.payment_methods')) }}</li>
 								<li>{{ link_to_route('taxRates.index', trans('fi.tax_rates')) }}</li>
-								<li><a href="#">{{ trans('fi.user_accounts') }}</a></li>
+								<li><a href="{{ route('users.index') }}">{{ trans('fi.user_accounts') }}</a></li>
                                 <li class="divider"></li>
                                 <li>{{ link_to_route('settings.index', trans('fi.system_settings')) }}</li>
 							</ul>

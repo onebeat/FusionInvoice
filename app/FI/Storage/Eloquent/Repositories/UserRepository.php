@@ -3,11 +3,6 @@
 use \FI\Storage\Eloquent\Models\User;
 
 class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
-	
-	public function all()
-	{
-		return User::all();
-	}
 
 	public function getPaged($page = 1, $numPerPage = null)
 	{
@@ -22,7 +17,10 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 	
 	public function create($input)
 	{
-		User::create($input);
+		$user = new User;
+		$user->fill($input);
+		$user->password = $input['password'];
+		$user->save();
 	}
 	
 	public function update($input, $id)
