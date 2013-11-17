@@ -5,6 +5,8 @@ interface ItemLookupRepositoryInterface {
 	public function all();
 
 	public function getPaged($page, $numPerPage);
+
+	public function getByIds($ids);
 	
 	public function find($id);
 	

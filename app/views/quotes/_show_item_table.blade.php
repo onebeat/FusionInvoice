@@ -1,4 +1,4 @@
-<table id="item_table" class="items table table-striped table-bordered">
+<table id="item-table" class="items table table-striped table-bordered">
 	<thead>
 		<tr>
 			<th>{{ trans('fi.item') }}</th>

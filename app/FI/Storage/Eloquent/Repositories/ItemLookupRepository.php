@@ -15,6 +15,11 @@ class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositor
 		return ItemLookup::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
+	public function getByIds($ids)
+	{
+		return ItemLookup::whereIn('id', $ids)->get();
+	}
+
 	public function find($id)
 	{
 		return ItemLookup::find($id);

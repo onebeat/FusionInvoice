@@ -7,7 +7,7 @@
     $(function() {
 
         $('#btn-add-item-from-lookup').click(function() {
-            $('#modal-placeholder').load("{{ route('quotes.ajax.modalAddLookupItem') }}");
+            $('#modal-placeholder').load("{{ route('itemLookups.ajax.modalAddLookupItem') }}");
         });
 
         $('#btn-add-quote-tax').click(function() {

@@ -63,7 +63,6 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('quotes/status/{status?}', array('uses' => 'QuoteController@index', 'as' => 'quotes.index'));
 	Route::get('quotes/modal/create', array('uses' => 'QuoteController@modalCreate', 'as' => 'quotes.ajax.modalCreate'));
-	Route::get('quotes/modal/lookup_item', array('uses' => 'QuoteController@modalAddLookupItem', 'as' => 'quotes.ajax.modalAddLookupItem'));
 	Route::get('quotes/{quote}', array('uses' => 'QuoteController@show', 'as' => 'quotes.show'));
 	Route::get('quotes/{quote}/preview', array('uses' => 'QuoteController@preview', 'as' => 'quotes.preview'));
 	Route::get('quotes/{quote}/tax_rates/{tax_rate}/delete', array('uses' => 'QuoteController@deleteQuoteTax', 'as' => 'quotes.ajax.deleteQuoteTax'));
@@ -139,5 +138,13 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('tax_rates', array('uses' => 'TaxRateController@store', 'as' => 'taxRates.store'));
 	Route::post('tax_rates/{taxRate}', array('uses' => 'TaxRateController@update', 'as' => 'taxRates.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Routes: Item Lookups
+	|--------------------------------------------------------------------------
+	*/
+	Route::post('item_lookups/ajax/process', array('uses' => 'ItemLookupController@process', 'as' => 'itemLookups.ajax.process'));
+	Route::get('item_lookups/modal/add_lookup_item', array('uses' => 'ItemLookupController@modalAddLookupItem', 'as' => 'itemLookups.ajax.modalAddLookupItem'));
 
 });
