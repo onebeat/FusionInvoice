@@ -16,7 +16,6 @@ class TaxRateController extends \BaseController {
 
 	/**
 	 * Display paginated list
-	 * @param  string $status
 	 * @return \Illuminate\View\View
 	 */
 	public function index()
