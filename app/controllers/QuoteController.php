@@ -218,15 +218,6 @@ class QuoteController extends BaseController {
 	}
 
 	/**
-	 * Displays add lookup item modal from ajax request
-	 * @return View
-	 */
-	public function modalAddLookupItem()
-	{
-		return View::make('quotes._modal_add_lookup_item');
-	}
-
-	/**
 	 * Displays modal to add quote taxes from ajax request
 	 * @return View
 	 */

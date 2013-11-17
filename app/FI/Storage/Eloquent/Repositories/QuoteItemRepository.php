@@ -26,18 +26,13 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 		$quoteItem->fill($input);
 		$quoteItem->save();
 	}
-
-	public function deleteByQuoteId($quoteId)
-	{
-		QuoteItemAmount::where('quote_id', $quoteId)->delete();
-		QuoteItem::where('quote_id', '=', $quoteId)->delete();
-		
-	}
 	
 	public function delete($id)
 	{
-		QuoteItemAmount::where('item_id', '=', $id)->delete();
-		QuoteItem::destroy($id);
+		$quoteItem = QuoteItem::find($id);
+
+		$quoteItem->amount->delete();
+		$quoteItem->delete();
 	}
 	
 }
