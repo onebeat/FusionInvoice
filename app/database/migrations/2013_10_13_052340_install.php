@@ -64,7 +64,7 @@ class Install extends Migration {
 			$table->integer('invoice_status_id');
 			$table->date('due_at');
 			$table->string('number');
-			$table->text('terms');
+			$table->text('terms')->nullable();
 			$table->string('url_key');
 
 			$table->index('user_id');
@@ -136,7 +136,7 @@ class Install extends Migration {
 			$table->integer('invoice_id');
 			$table->integer('tax_rate_id');
 			$table->boolean('include_item_tax')->default(0);
-			$table->decimal('amount', 10, 2)->default(0.00);
+			$table->decimal('tax_total', 10, 2)->default(0.00);
 
 			$table->index('invoice_id');
 			$table->index('tax_rate_id');
