@@ -8,7 +8,7 @@ abstract class Templates {
 	 */
 	public static function listTemplates($path)
 	{
-		$templates = Directory::listContents($path);
+		$templates = \FI\Classes\Directory::listContents($path);
 
 		return array_combine($templates, $templates);
 	}
