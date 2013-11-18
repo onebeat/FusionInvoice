@@ -38,6 +38,10 @@
                 	$('#modal-placeholder').load("{{ route('quotes.ajax.modalCreate') }}");
                 });
 
+                $('.create-invoice').click(function() {
+                	$('#modal-placeholder').load("{{ route('invoices.ajax.modalCreate') }}");
+                });
+
             });
 
         </script>
@@ -75,8 +79,8 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.invoices') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">{{ trans('fi.create_invoice') }}</a></li>
-								<li><a href="#">{{ trans('fi.view_invoices') }}</a></li>
+								<li><a href="javascript:void(0)" class="create-invoice">{{ trans('fi.create_invoice') }}</a></li>
+								<li><a href="{{ route('invoices.index', array('all')) }}">{{ trans('fi.view_invoices') }}</a></li>
                                 <li><a href="#">{{ trans('fi.view_recurring_invoices') }}</a></li>
 							</ul>
 						</li>

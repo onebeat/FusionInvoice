@@ -75,6 +75,25 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
+	| Routes: Invoices
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('invoices/status/{status?}', array('uses' => 'InvoiceController@index', 'as' => 'invoices.index'));
+	Route::get('invoices/modal/create', array('uses' => 'InvoiceController@modalCreate', 'as' => 'invoices.ajax.modalCreate'));
+	Route::get('invoices/{invoice}', array('uses' => 'InvoiceController@show', 'as' => 'invoices.show'));
+	Route::get('invoices/{invoice}/preview', array('uses' => 'InvoiceController@preview', 'as' => 'invoices.preview'));
+	Route::get('invoices/{invoice}/tax_rates/{tax_rate}/delete', array('uses' => 'InvoiceController@deleteInvoiceTax', 'as' => 'invoices.ajax.deleteInvoiceTax'));
+	Route::get('invoices/{invoice}/items/{item}/delete', array('uses' => 'InvoiceController@deleteItem', 'as' => 'invoices.items.delete'));
+	Route::get('invoices/{invoice}/delete', array('uses' => 'InvoiceController@delete', 'as' => 'invoices.delete'));
+
+	Route::post('invoices/modal/add_invoice_tax', array('uses' => 'InvoiceController@modalAddInvoiceTax', 'as' => 'invoices.ajax.modalAddInvoiceTax'));
+	Route::post('invoices/modal/save_invoice_tax', array('uses' => 'InvoiceController@saveInvoiceTax', 'as' => 'invoices.ajax.saveInvoiceTax'));
+	Route::post('invoices/create', array('uses' => 'InvoiceController@store', 'as' => 'invoices.store'));
+	Route::post('invoices/{invoice}/update', array('uses' => 'InvoiceController@update', 'as' => 'invoices.update'));
+
+	/*
+	|--------------------------------------------------------------------------
 	| Routes: Email Templates
 	|--------------------------------------------------------------------------
 	*/
