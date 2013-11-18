@@ -5,6 +5,8 @@ interface PaymentRepositoryInterface {
 	public function all();
 
 	public function getPaged($page, $numPerPage);
+
+	public function getTotalPaidByInvoiceId($invoiceId);
 	
 	public function find($id);
 	

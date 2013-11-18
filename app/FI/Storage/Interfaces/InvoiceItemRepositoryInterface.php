@@ -3,6 +3,8 @@
 interface InvoiceItemRepositoryInterface {
 	
 	public function find($id);
+
+	public function findByInvoiceId($invoiceId);
 	
 	public function create($input);
 	

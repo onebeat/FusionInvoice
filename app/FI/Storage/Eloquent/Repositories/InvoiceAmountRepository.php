@@ -20,10 +20,16 @@ class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRep
 		$invoiceAmount->fill($input);
 		$invoiceAmount->save();
 	}
+
+	public function updateByInvoiceId($input, $invoiceId)
+	{
+		$invoiceAmount = InvoiceAmount::where('invoice_id', $invoiceId)->first();
+		$invoiceAmount->fill($input);
+		$invoiceAmount->save();
+	}
 	
 	public function delete($id)
 	{
 		InvoiceAmount::destroy($id);
 	}
-	
 }

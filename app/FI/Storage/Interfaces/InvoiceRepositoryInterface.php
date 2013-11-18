@@ -4,7 +4,7 @@ interface InvoiceRepositoryInterface {
 	
 	public function all();
 
-	public function getPaged($page, $numPerPage);
+	public function getPagedByStatus($page, $numPerPage, $status);
 	
 	public function find($id);
 	

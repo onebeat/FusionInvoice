@@ -15,6 +15,11 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 		return Payment::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
+	public function getTotalPaidByInvoiceId($invoiceId)
+	{
+		return Payment::where('invoice_id', $invoiceId)->sum('amount');
+	}
+
 	public function find($id)
 	{
 		return Payment::find($id);
