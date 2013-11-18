@@ -17,7 +17,7 @@
 	<div class="pull-right">
 		<ul class="nav nav-pills index-options">
 		@foreach ($statuses as $liStatus)
-			<li <?php if ($status == $liStatus['class']) { ?>class="active"<?php } ?>><a href="{{ $liStatus['href'] }}">{{ $liStatus['label'] }}</a></li>
+			<li <?php if ($status == $liStatus['status']) { ?>class="active"<?php } ?>><a href="{{ route('quotes.index', array($liStatus['status'])) }}">{{ $liStatus['label'] }}</a></li>
 		@endforeach
 		</ul>
 	</div>

@@ -10,29 +10,24 @@ abstract class Statuses {
     {
         return array(
             '0' => array(
-                'label' => trans('fi.all'),
-                'class' => 'all',
-                'href'  => route('quotes.index', array('all'))
+                'status' => 'all',
+                'label'  => trans('fi.all')
             ),
             '1' => array(
-                'label' => trans('fi.draft'),
-                'class' => 'draft',
-                'href'  => route('quotes.index', array('draft'))
+                'status' => 'draft',
+                'label'  => trans('fi.draft')
             ),
             '2' => array(
-                'label' => trans('fi.sent'),
-                'class' => 'sent',
-                'href'  => route('quotes.index', array('sent'))
+                'status' => 'sent',
+                'label'  => trans('fi.sent')
             ),
             '3' => array(
-                'label' => trans('fi.paid'),
-                'class' => 'paid',
-                'href'  => route('quotes.index', array('paid'))
+                'status' => 'paid',
+                'label'  => trans('fi.paid')
             ),
             '4' => array(
-                'label' => trans('fi.canceled'),
-                'class' => 'canceled',
-                'href'  => route('quotes.index', array('canceled'))
+                'status' => 'canceled',
+                'label'  => trans('fi.canceled')
             )
         );
     }

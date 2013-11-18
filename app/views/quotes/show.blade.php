@@ -15,11 +15,11 @@
         });
 
         $('#btn-add-item').click(function() {
-            $('#new-item').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
+            $('#new-item').clone().appendTo('#item-table').removeAttr('id').addClass('item').show();
         });
 
         <?php if (!count($quote->items)) { ?>
-            $('#new-item').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
+            $('#new-item').clone().appendTo('#item-table').removeAttr('id').addClass('item').show();
         <?php } ?>
 
         $('#btn-save-quote').click(function() {
@@ -75,7 +75,7 @@
             return $helper;
         };
 
-        $("#item_table tbody").sortable({
+        $("#item-table tbody").sortable({
             helper: fixHelper
         });
 
