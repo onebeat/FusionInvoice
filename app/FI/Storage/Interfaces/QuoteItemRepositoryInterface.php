@@ -4,7 +4,7 @@ interface QuoteItemRepositoryInterface {
 	
 	public function find($id);
 
-	public function findByQuoteId($quote_id);
+	public function findByQuoteId($quoteId);
 	
 	public function create($input);
 	
