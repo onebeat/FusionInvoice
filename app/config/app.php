@@ -116,6 +116,7 @@ return array(
 
 		'FI\Providers\StartProvider',
 		'FI\Providers\QuoteEventProvider',
+		'FI\Providers\InvoiceEventProvider',
 
 		'Profiler\ProfilerServiceProvider'
 
