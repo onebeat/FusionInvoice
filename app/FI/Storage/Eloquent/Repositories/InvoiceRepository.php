@@ -13,24 +13,24 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	{
 		\DB::getPaginator()->setCurrentPage($page);
 
-		$quote = Invoice::with(array('amount', 'client'));
+		$invoice = Invoice::with(array('amount', 'client'));
 
 		switch ($status)
 		{
 			case 'draft':
-				return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'sent':
-				return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'paid':
-				return $quote->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			case 'canceled':
-				return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
 			default:
-				return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 
@@ -51,24 +51,24 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	
 	public function update($input, $id)
 	{
-		$quote = Invoice::find($id);
-		$quote->fill($input);
-		$quote->save();
+		$invoice = Invoice::find($id);
+		$invoice->fill($input);
+		$invoice->save();
 	}
 	
 	public function delete($id)
 	{
-		$quote = Invoice::find($id);
+		$invoice = Invoice::find($id);
 
-		foreach ($quote->items as $item)
+		foreach ($invoice->items as $item)
 		{
 			$item->amount->delete();
 			$item->delete();
 		}
 
-		$quote->amount->delete();
+		$invoice->amount->delete();
 
-		$quote->delete();
+		$invoice->delete();
 	}
 	
 }
