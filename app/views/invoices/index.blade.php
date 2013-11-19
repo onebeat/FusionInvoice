@@ -7,7 +7,7 @@
 	<h1>{{ trans('fi.invoices') }}</h1>
 	
 	<div class="pull-right">
-		<a class="create-quote btn btn-primary" href="#"><i class="icon-plus icon-white"></i> {{ trans('fi.new') }}</a>
+		<a class="create-invoice btn btn-primary" href="#"><i class="icon-plus icon-white"></i> {{ trans('fi.new') }}</a>
 	</div>
 
 	<div class="pull-right">
