@@ -63,6 +63,11 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 			$item->delete();
 		}
 
+		foreach ($quote->taxRates as $taxRate)
+		{
+			$taxRate->delete();
+		}
+
 		$quote->amount->delete();
 
 		$quote->delete();

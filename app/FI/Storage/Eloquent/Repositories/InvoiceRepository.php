@@ -66,6 +66,11 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 			$item->delete();
 		}
 
+		foreach ($invoice->taxRates as $taxRate)
+		{
+			$taxRate->delete();
+		}
+
 		$invoice->amount->delete();
 
 		$invoice->delete();
