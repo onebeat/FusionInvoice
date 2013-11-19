@@ -120,38 +120,41 @@ class InvoiceController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			$itemRecord = array(
-				'invoice_id'      => $item->invoice_id,
-				'name'          => $item->item_name,
-				'description'   => $item->item_description,
-				'quantity'      => $item->item_quantity,
-				'price'         => $item->item_price,
-				'tax_rate_id'   => $item->item_tax_rate_id,
-				'display_order' => $item->item_order
-				);
-
-			if (!$item->item_id)
+			if ($item->item_name)
 			{
-				$itemId = $this->invoiceItem->create($itemRecord);
-
-				\Event::fire('invoice.item.created', $itemId);
-			}
-			else
-			{
-				$this->invoiceItem->update($itemRecord, $item->item_id);
-			}
-
-			if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
-			{
-				$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
-
-				$itemLookupRecord = array(
-					'name'        => $item->item_name,
-					'description' => $item->item_description,
-					'price'       => $item->item_price
+				$itemRecord = array(
+					'invoice_id'      => $item->invoice_id,
+					'name'          => $item->item_name,
+					'description'   => $item->item_description,
+					'quantity'      => $item->item_quantity,
+					'price'         => $item->item_price,
+					'tax_rate_id'   => $item->item_tax_rate_id,
+					'display_order' => $item->item_order
 					);
 
-				$itemLookup->create($itemLookupRecord);
+				if (!$item->item_id)
+				{
+					$itemId = $this->invoiceItem->create($itemRecord);
+
+					\Event::fire('invoice.item.created', $itemId);
+				}
+				else
+				{
+					$this->invoiceItem->update($itemRecord, $item->item_id);
+				}
+
+				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
+				{
+					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
+
+					$itemLookupRecord = array(
+						'name'        => $item->item_name,
+						'description' => $item->item_description,
+						'price'       => $item->item_price
+						);
+
+					$itemLookup->create($itemLookupRecord);
+				}
 			}
 		}
 
