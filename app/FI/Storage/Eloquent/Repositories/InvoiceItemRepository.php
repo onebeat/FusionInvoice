@@ -2,6 +2,7 @@
 
 use \FI\Storage\Eloquent\Models\InvoiceItem;
 use \FI\Storage\Eloquent\Models\InvoiceItemAmount;
+use \FI\Classes\NumberFormatter;
 
 class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemRepositoryInterface {
 
@@ -17,12 +18,21 @@ class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemReposit
 	
 	public function create($input)
 	{
+		// Unformat these numbers before they're stored
+		$input['price']    = NumberFormatter::unformat($input['price']);
+		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
+				
 		return InvoiceItem::create($input)->id;
 	}
 	
 	public function update($input, $id)
 	{
 		$invoiceItem = InvoiceItem::find($id);
+
+		// Unformat these numbers before they're stored
+		$input['price']    = NumberFormatter::unformat($input['price']);
+		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
+
 		$invoiceItem->fill($input);
 		$invoiceItem->save();
 	}

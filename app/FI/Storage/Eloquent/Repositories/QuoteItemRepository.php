@@ -2,6 +2,7 @@
 
 use \FI\Storage\Eloquent\Models\QuoteItem;
 use \FI\Storage\Eloquent\Models\QuoteItemAmount;
+use \FI\Classes\NumberFormatter;
 
 class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryInterface {
 
@@ -17,12 +18,21 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 	
 	public function create($input)
 	{
+		// Unformat these numbers before they're stored
+		$input['price']    = NumberFormatter::unformat($input['price']);
+		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
+		
 		return QuoteItem::create($input)->id;
 	}
 	
 	public function update($input, $id)
 	{
 		$quoteItem = QuoteItem::find($id);
+
+		// Unformat these numbers before they're stored
+		$input['price']    = NumberFormatter::unformat($input['price']);
+		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
+
 		$quoteItem->fill($input);
 		$quoteItem->save();
 	}

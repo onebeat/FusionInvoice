@@ -1,5 +1,7 @@
 <?php namespace FI\Validators;
 
+use FI\Classes\NumberFormatter;
+
 class ItemValidator extends Validator {
 	
 	static $rules = array(
@@ -13,6 +15,11 @@ class ItemValidator extends Validator {
 		foreach ($inputs as $input)
 		{
 			$input = (array) $input;
+
+			// We need to unformat these before attempting validation
+			$input['item_price']    = NumberFormatter::unformat($input['item_quantity']);
+			$input['item_quantity'] = NumberFormatter::unformat($input['item_quantity']);
+
 			$validator = \Validator::make($input, static::$$rulesVar);
 
 			// @TODO - revisit these later to come up with a better way...
