@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
-use FI\Classes\Currency;
+use FI\Classes\CurrencyFormatter;
 
 class InvoiceTaxRate extends \Eloquent {
 
@@ -13,7 +13,7 @@ class InvoiceTaxRate extends \Eloquent {
 
 	public function getFormattedTaxTotalAttribute()
 	{
-		return Currency::format($this->attributes['tax_total']);
+		return CurrencyFormatter::format($this->attributes['tax_total']);
 	}
 
 }

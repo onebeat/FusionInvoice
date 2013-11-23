@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
-use FI\Classes\Currency;
+use FI\Classes\CurrencyFormatter;
 
 class InvoiceItemAmount extends \Eloquent {
 
@@ -8,17 +8,17 @@ class InvoiceItemAmount extends \Eloquent {
 
 	public function getFormattedSubtotalAttribute()
 	{
-		return Currency::format($this->attributes['subtotal']);
+		return CurrencyFormatter::format($this->attributes['subtotal']);
 	}
 
 	public function getFormattedTaxTotalAttribute()
 	{
-		return Currency::format($this->attributes['tax_total']);
+		return CurrencyFormatter::format($this->attributes['tax_total']);
 	}
 
 	public function getFormattedTotalAttribute()
 	{
-		return Currency::format($this->attributes['total']);
+		return CurrencyFormatter::format($this->attributes['total']);
 	}
 
 }
