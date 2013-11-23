@@ -3,12 +3,12 @@
 abstract class Calculator {
 
 	protected $id;
-	protected $items = array();
+	protected $items    = array();
 	protected $taxRates = array();
 	
 	protected $calculatedItemAmounts = array();
-	protected $calculatedTaxRates = array();
-	protected $calculatedAmount = array();
+	protected $calculatedTaxRates    = array();
+	protected $calculatedAmount      = array();
 
 	public function __construct()
 	{
