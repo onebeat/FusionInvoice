@@ -41,8 +41,8 @@
 				<input type="text" name="item_name" style="width: 90%;" value="{{ $item->name }}">
 			</td>
             <td><textarea name="item_description" style="width: 90%;">{{ $item->description }}</textarea></td>
-			<td style="vertical-align: top;"><input type="text" name="item_quantity" style="width: 90%;" value="{{ $item->quantity }}"></td>
-			<td style="vertical-align: top;"><input type="text" name="item_price" style="width: 90%;" value="{{ $item->price }}"></td>
+			<td style="vertical-align: top;"><input type="text" name="item_quantity" style="width: 90%;" value="{{ $item->formatted_quantity }}"></td>
+			<td style="vertical-align: top;"><input type="text" name="item_price" style="width: 90%;" value="{{ $item->formatted_numeric_price }}"></td>
 			<td style="vertical-align: top;">
 				{{ Form::select('item_tax_rate_id', $taxRates, $item->tax_rate_id, array('class' => 'input-small')) }}
 			</td>

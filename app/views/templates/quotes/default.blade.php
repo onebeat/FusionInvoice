@@ -37,8 +37,8 @@
             {{ $quote->client->zip }}</p>
 
             <h1>{{ trans('fi.quote') }} #{{ $quote->number }}</h1>
-            <p class="terms"><strong>{{ $quote->created_at }}</strong><br/>
-                {{ trans('fi.expires') }} {{ $quote->expires_at }}</p>
+            <p class="terms"><strong>{{ $quote->formatted_created_at }}</strong><br/>
+                {{ trans('fi.expires') }} {{ $quote->formatted_expires_at }}</p>
 
                 <img src="images/company-logo.png" alt="yourlogo" class="company-logo" />
                 <p class="company-address">
@@ -62,7 +62,7 @@
                     <tbody>
                         @foreach ($quote->items as $item)
                         <tr>
-                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->formatted_quantity }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->description }}</td>
                             <td>{{ $item->formatted_price }}</td>
