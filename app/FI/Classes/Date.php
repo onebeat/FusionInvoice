@@ -99,7 +99,7 @@ class Date {
 		return $date->format('Y-m-d');
 	}
 
-	public static function customizeDate($date)
+	public static function customizeDate($date = null)
 	{
 		$date = new \DateTime($date);
 
