@@ -94,6 +94,14 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
+	| Routes: Payments
+	|--------------------------------------------------------------------------
+	*/
+	Route::post('payments/modal/enter_payment', array('uses' => 'PaymentController@modalEnterPayment', 'as' => 'payments.ajax.modalEnterPayment'));
+	Route::post('payments/ajax/create', array('uses' => 'PaymentController@ajaxStore', 'as' => 'payments.ajax.store'));
+
+	/*
+	|--------------------------------------------------------------------------
 	| Routes: Email Templates
 	|--------------------------------------------------------------------------
 	*/
