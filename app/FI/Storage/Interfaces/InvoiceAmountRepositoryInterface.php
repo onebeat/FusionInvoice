@@ -8,7 +8,9 @@ interface InvoiceAmountRepositoryInterface {
 	
 	public function update($input, $id);
 
-	public function updateByInvoiceId($input, $quoteId);
+	public function updateByInvoiceId($input, $invoiceId);
+
+	public function applyPaymentToBalance($paymentAmount, $invoiceId);
 	
 	public function delete($id);
 	

@@ -1,6 +1,8 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use \FI\Storage\Eloquent\Models\Payment;
+use \FI\Classes\NumberFormatter;
+use \FI\Classes\Date;
 
 class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInterface {
 	
@@ -27,7 +29,15 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 	
 	public function create($input)
 	{
-		Payment::create($input);
+		$record = array(
+			'invoice_id'        => $input['invoice_id'],
+			'payment_method_id' => $input['payment_method_id'],
+			'paid_at'           => Date::unformat($input['paid_at']),
+			'amount'            => NumberFormatter::unformat($input['amount']),
+			'note'              => $input['note']
+		);
+
+		Payment::create($record);
 	}
 	
 	public function update($input, $id)

@@ -68,6 +68,8 @@
 			<th>{{ trans('fi.item_tax') }}</th>
 			<th>{{ trans('fi.invoice_tax') }}</th>
 			<th>{{ trans('fi.total') }}</th>
+			<th>{{ trans('fi.paid') }}</th>
+			<th>{{ trans('fi.balance') }}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -81,6 +83,8 @@
 			@endforeach
 			</td>
 			<td>{{ $invoice->amount->formatted_total }}</td>
+			<td>{{ $invoice->amount->formatted_paid }}</td>
+			<td>{{ $invoice->amount->formatted_balance }}</td>
 		</tr>
 	</tbody>
 </table>
