@@ -45,6 +45,10 @@
 							</a>
 						</li>
 						<li>
+							<a href="javascript:void(0)" class="enter-payment" data-invoice-id="{{ $invoice->id }}" data-invoice-balance="{{ $invoice->amount->formatted_numeric_balance }}">
+							<i class="icon-shopping-cart"></i> {{ trans('fi.enter_payment') }}
+						</li>
+						<li>
 							<a href="{{ route('invoices.delete', array($invoice->id)) }}" onclick="return confirm('{{ trans('fi.delete_invoice_warning') }}');">
 								<i class="icon-trash"></i> {{ trans('fi.delete') }}
 							</a>

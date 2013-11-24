@@ -1,6 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Models;
 
 use FI\Classes\CurrencyFormatter;
+use FI\Classes\NumberFormatter;
 
 class InvoiceAmount extends \Eloquent {
 
@@ -40,6 +41,11 @@ class InvoiceAmount extends \Eloquent {
 	public function getFormattedBalanceAttribute()
 	{
 		return CurrencyFormatter::format($this->attributes['balance']);
+	}
+
+	public function getFormattedNumericBalanceAttribute()
+	{
+		return NumberFormatter::format($this->attributes['balance']);
 	}
 
 }
