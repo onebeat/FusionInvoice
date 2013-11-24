@@ -71,7 +71,7 @@ class InvoiceController extends BaseController {
 
 		$input = array(
 			'client_id'         => $clientId,
-			'created_at'        => Date::standardizeDate(Input::get('created_at')),
+			'created_at'        => Date::unformat(Input::get('created_at')),
 			'due_at'            => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.invoicesDueAfter')),
 			'invoice_group_id'  => Input::get('invoice_group_id'),
 			'number'            => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
@@ -109,8 +109,8 @@ class InvoiceController extends BaseController {
 
 		$invoice = array(
 			'number'            => $input['number'],
-			'created_at'        => Date::standardizeDate($input['created_at']),
-			'due_at'            => Date::standardizeDate($input['due_at']),
+			'created_at'        => Date::unformat($input['created_at']),
+			'due_at'            => Date::unformat($input['due_at']),
 			'invoice_status_id' => $input['invoice_status_id']
 			);
 

@@ -71,7 +71,7 @@ class QuoteController extends BaseController {
 
 		$input = array(
 			'client_id'        => $clientId,
-			'created_at'       => Date::standardizeDate(Input::get('created_at')),
+			'created_at'       => Date::unformat(Input::get('created_at')),
 			'expires_at'       => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.quotesExpireAfter')),
 			'invoice_group_id' => Input::get('invoice_group_id'),
 			'number'           => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
@@ -109,8 +109,8 @@ class QuoteController extends BaseController {
 
 		$quote = array(
 			'number'          => $input['number'],
-			'created_at'      => Date::standardizeDate($input['created_at']),
-			'expires_at'      => Date::standardizeDate($input['expires_at']),
+			'created_at'      => Date::unformat($input['created_at']),
+			'expires_at'      => Date::unformat($input['expires_at']),
 			'quote_status_id' => $input['quote_status_id']
 			);
 

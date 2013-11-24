@@ -46,17 +46,17 @@ class Invoice extends \Eloquent {
    
     public function getFormattedCreatedAtAttribute()
     {
-        return Date::customizeDate($this->attributes['created_at']);
+        return Date::format($this->attributes['created_at']);
     }
 
     public function getFormattedUpdatedAtAttribute()
     {
-        return Date::customizeDate($this->attributes['updated_at']);
+        return Date::format($this->attributes['updated_at']);
     }
 
     public function getFormattedDueAtAttribute($value)
     {
-        return Date::customizeDate($this->attributes['due_at']);
+        return Date::format($this->attributes['due_at']);
     }
 
     /*

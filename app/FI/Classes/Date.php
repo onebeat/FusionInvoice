@@ -71,12 +71,19 @@ class Date {
 		return $return;
 	}
 
+	public static function format($date = null)
+	{
+		$date = new \DateTime($date);
+
+		return $date->format(\Config::get('fi.dateFormat'));
+	}
+
 	/**
 	 * Converts a user submitted date back to standard yyyy-mm-dd format
 	 * @param  date $date 	The user submitted date
 	 * @return date 		The yyyy-mm-dd standardized date
 	 */
-	public static function standardizeDate($userDate)
+	public static function unformat($userDate)
 	{
 		$date = \DateTime::createFromFormat(\Config::get('fi.dateFormat'), $userDate);
 
@@ -97,12 +104,5 @@ class Date {
 		$date->add(new \DateInterval('P' . $numDays . 'D'));
 
 		return $date->format('Y-m-d');
-	}
-
-	public static function customizeDate($date = null)
-	{
-		$date = new \DateTime($date);
-
-		return $date->format(\Config::get('fi.dateFormat'));
 	}
 }
