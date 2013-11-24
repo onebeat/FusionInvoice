@@ -133,5 +133,12 @@ class InvoiceEventProvider extends ServiceProvider {
 			// Update the invoice amount record
 			$invoiceAmount->updateByInvoiceId($calculatedAmount, $invoiceId);
 		});
+
+		\Event::listen('invoice.payment.created', function($paymentAmount, $invoiceId)
+		{
+			$invoiceAmount = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
+
+			$invoiceAmount->applyPaymentToBalance($paymentAmount, $invoiceId);
+		});
 	}
 }
