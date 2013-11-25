@@ -50,6 +50,13 @@
                 	});
                 });
 
+                $('.quote-to-invoice').click(function() {
+                	$('#modal-placeholder').load("{{ route('quotes.ajax.modalQuoteToInvoice') }}", {
+                		quote_id: $(this).data('quote-id'),
+                		client_id: $(this).data('client-id')
+                	});
+                });
+
             });
 
         </script>

@@ -15,4 +15,10 @@ class QuoteValidator extends Validator {
 		'quote_status_id' => 'required'
 	);
 
+	static $toInvoiceRules = array(
+		'client_id'        => 'required',
+		'created_at'       => 'required',
+		'invoice_group_id' => 'required'
+	);
+
 }

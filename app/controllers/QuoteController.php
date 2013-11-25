@@ -232,6 +232,75 @@ class QuoteController extends BaseController {
 	}
 
 	/**
+	 * Displays modal to convert quote to invoice
+	 * @return view
+	 */
+	public function modalQuoteToInvoice()
+	{
+		return View::make('quotes._modal_quote_to_invoice')
+		->with('quote_id', Input::get('quote_id'))
+		->with('client_id', Input::get('client_id'))
+		->with('invoiceGroups', $this->invoiceGroup->lists())
+		->with('user_id', Auth::user()->id)
+		->with('created_at', Date::format());
+	}
+
+	/**
+	 * Attempt to save quote to invoice
+	 * @return view
+	 */
+	public function quoteToInvoice()
+	{
+		$input = Input::all();
+
+		if (!$this->validator->validate($input, 'toInvoiceRules'))
+		{
+			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
+		}
+
+		$record = array(
+			'client_id'         => $input['client_id'],
+			'created_at'        => Date::unformat($input['created_at']),
+			'due_at'            => Date::incrementDateByDays($input['created_at'], Config::get('fi.invoicesDueAfter')),
+			'invoice_group_id'  => $input['invoice_group_id'],
+			'number'            => $this->invoiceGroup->generateNumber($input['invoice_group_id']),
+			'user_id'           => Auth::user()->id,
+			'invoice_status_id' => 1,
+			'url_key'           => str_random(32)
+			);
+
+		$invoice = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+		$invoiceItem = App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
+
+		$invoiceId = $invoice->create($record);
+
+		\Event::fire('invoice.created', array($invoiceId, $input['invoice_group_id']));
+
+		$items = $this->quoteItem->findByQuoteId($input['quote_id']);
+
+		foreach ($items as $item)
+		{
+			$itemRecord = array(
+				'invoice_id'    => $invoiceId,
+				'name'          => $item->name,
+				'description'   => $item->description,
+				'quantity'      => $item->quantity,
+				'price'         => $item->price,
+				'tax_rate_id'   => $item->tax_rate_id,
+				'display_order' => $item->display_order
+				);
+
+			$itemId = $invoiceItem->create($itemRecord);
+
+			\Event::fire('invoice.item.created', $itemId);
+		}
+
+		\Event::fire('invoice.modified', $invoiceId);
+
+		return json_encode(array('success' => 1, 'redirectTo' => route('invoices.show', array('invoice' => $invoiceId))));
+	}
+
+	/**
 	 * Saves quote tax from ajax request
 	 */
 	public function saveQuoteTax()
