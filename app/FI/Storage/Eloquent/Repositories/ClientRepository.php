@@ -19,7 +19,10 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	public function getPagedActive($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->where('active', 1)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+
+		$client = $this->initClient();
+
+		return $client->orderBy('name')->where('active', 1)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	/**
@@ -28,7 +31,10 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	public function getPagedInactive($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->where('active', 0)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+
+		$client = $this->initClient();
+
+		return $client->orderBy('name')->where('active', 0)->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	/**
@@ -37,7 +43,10 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	public function getPagedAll($page = 1, $numPerPage = null)
 	{
 		\DB::getPaginator()->setCurrentPage($page);
-		return Client::orderBy('name')->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+
+		$client = $this->initClient();
+
+		return $client->orderBy('name')->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
 	/**
@@ -108,6 +117,16 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	public function delete($id)
 	{
 		Client::destroy($id);
+	}
+
+	/**
+	 * Prebuild the query including any necessary subqueries
+	 * @return Client
+	 */
+	public function initClient()
+	{
+		$client = Client::select('clients.*', \DB::raw('(SELECT SUM(balance) FROM invoice_amounts WHERE invoice_id IN (SELECT id FROM invoices WHERE invoices.client_id = clients.id)) AS balance'));
+		return $client;
 	}
 	
 }
