@@ -4,6 +4,15 @@ use Illuminate\Support\ServiceProvider;
 
 class StartProvider extends ServiceProvider {
 
+    public function boot()
+    {
+        \App::before(function($request)
+        {
+            $settings = \App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
+            $settings->setAll();
+        });
+    }
+
     /**
      * Register app bindings
      *
@@ -17,7 +26,7 @@ class StartProvider extends ServiceProvider {
          * Storage Bindings
          */
         $app->bind('FI\Storage\Interfaces\ClientNoteRepositoryInterface', 'FI\Storage\Eloquent\Repositories\ClientNoteRepository');
-    	$app->bind('FI\Storage\Interfaces\ClientRepositoryInterface', 'FI\Storage\Eloquent\Repositories\ClientRepository');
+        $app->bind('FI\Storage\Interfaces\ClientRepositoryInterface', 'FI\Storage\Eloquent\Repositories\ClientRepository');
         $app->bind('FI\Storage\Interfaces\EmailTemplateRepositoryInterface', 'FI\Storage\Eloquent\Repositories\EmailTemplateRepository');
         $app->bind('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface', 'FI\Storage\Eloquent\Repositories\InvoiceAmountRepository');
         $app->bind('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface', 'FI\Storage\Eloquent\Repositories\InvoiceGroupRepository');

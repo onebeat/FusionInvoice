@@ -1,12 +1,5 @@
 <?php
 
-// @TODO - Yeah this doesn't belong here either but come on
-App::before(function($request)
-{
-	$settings = App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
-	$settings->setAll();
-});
-
 /*
 |--------------------------------------------------------------------------
 | Routes: Sessions
