@@ -6,6 +6,12 @@ class Client extends \Eloquent {
 	
 	protected $guarded = array('id');
 	
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
 	public function invoices()
 	{
 		return $this->hasMany('FI\Storage\Eloquent\Models\Invoice');
@@ -21,9 +27,25 @@ class Client extends \Eloquent {
 		return $this->hasMany('FI\Storage\Eloquent\Models\ClientNote');
 	}
 
-	public function getBalanceAttribute($value)
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
+	public function getFormattedBalanceAttribute()
 	{
-		return CurrencyFormatter::format($value);
+		return CurrencyFormatter::format($this->attributes['balance']);
+	}
+
+	public function getFormattedPaidAttribute()
+	{
+		return CurrencyFormatter::format($this->attributes['paid']);
+	}
+
+	public function getFormattedTotalAttribute()
+	{
+		return CurrencyFormatter::format($this->attributes['total']);
 	}
 	
 }

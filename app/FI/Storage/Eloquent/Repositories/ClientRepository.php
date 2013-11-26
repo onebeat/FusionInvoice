@@ -75,7 +75,9 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 */
 	public function find($id)
 	{
-		return Client::find($id);
+		$client = $this->initClient();
+
+		return $client->where('id', $id)->first();
 	}
 
 	public function findIdByName($name)
@@ -125,7 +127,12 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 */
 	public function initClient()
 	{
-		$client = Client::select('clients.*', \DB::raw('(SELECT SUM(balance) FROM invoice_amounts WHERE invoice_id IN (SELECT id FROM invoices WHERE invoices.client_id = clients.id)) AS balance'));
+		$client = Client::select('clients.*', 
+			\DB::raw('(SELECT SUM(balance) FROM invoice_amounts WHERE invoice_id IN (SELECT id FROM invoices WHERE invoices.client_id = clients.id)) AS balance'),
+			\DB::raw('(SELECT SUM(total) FROM invoice_amounts WHERE invoice_id IN (SELECT id FROM invoices WHERE invoices.client_id = clients.id)) AS total'),
+			\DB::raw('(SELECT SUM(paid) FROM invoice_amounts WHERE invoice_id IN (SELECT id FROM invoices WHERE invoices.client_id = clients.id)) AS paid')
+		);
+		
 		return $client;
 	}
 	

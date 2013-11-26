@@ -75,9 +75,9 @@
 					</div>
 
 					<div class="pull-right" style="text-align: right;">
-						<span><strong>{{ trans('fi.total_billed') }}:</strong> @TODO: INV TOTAL</span><br>
-						<span><strong>{{ trans('fi.total_paid') }}:</strong> @TODO: INV PAID</span><br>
-						<span><strong>{{ trans('fi.total_balance') }}:</strong> @TODO: BALANCE</span>
+						<span><strong>{{ trans('fi.total_billed') }}:</strong> {{ $client->formatted_total }}</span><br>
+						<span><strong>{{ trans('fi.total_paid') }}:</strong> {{ $client->formatted_paid }}</span><br>
+						<span><strong>{{ trans('fi.total_balance') }}:</strong> {{ $client->formatted_balance }}</span>
 					</div>
 
 				</div>
