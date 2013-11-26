@@ -33,7 +33,7 @@ class ItemLookupController extends \BaseController {
 	public function create()
 	{
 		return View::make('item_lookups.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class ItemLookupController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('itemLookups.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -55,7 +55,7 @@ class ItemLookupController extends \BaseController {
 		$this->itemLookup->create($input);
 		
 		return Redirect::route('itemLookups.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -68,7 +68,7 @@ class ItemLookupController extends \BaseController {
 		$itemLookup = $this->itemLookup->find($id);
 		
 		return View::make('item_lookups.form')
-		->with(array('edit_mode' => true, 'itemLookup' => $itemLookup));
+		->with(array('editMode' => true, 'itemLookup' => $itemLookup));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class ItemLookupController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('itemLookups.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -91,7 +91,7 @@ class ItemLookupController extends \BaseController {
 		$this->itemLookup->update($input, $id);
 
 		return Redirect::route('itemLookups.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**

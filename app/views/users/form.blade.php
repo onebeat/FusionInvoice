@@ -8,7 +8,7 @@
 	});
 </script>
 
-@if ($edit_mode == true)
+@if ($editMode == true)
 {{ Form::model($user, array('route' => array('users.update', $user->id), 'class' => 'form-horizontal')) }}
 @else
 {{ Form::open(array('route' => 'users.store', 'class' => 'form-horizontal')) }}
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	@if (!$edit_mode)
+	@if (!$editMode)
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.password') }}: </label>
 		<div class="controls">

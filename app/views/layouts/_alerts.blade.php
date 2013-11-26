@@ -6,10 +6,10 @@
 <div class="alert">{{ Session::get('alert') }}</div>
 @endif
 
-@if (Session::has('alert_success'))
-<div class="alert alert-success">{{ Session::get('alert_success') }}</div>
+@if (Session::has('alertSuccess'))
+<div class="alert alert-success">{{ Session::get('alertSuccess') }}</div>
 @endif
 
-@if (Session::has('alert_info'))
-<div class="alert alert-info">{{ Session::get('alert_info') }}</div>
+@if (Session::has('alertInfo'))
+<div class="alert alert-info">{{ Session::get('alertInfo') }}</div>
 @endif

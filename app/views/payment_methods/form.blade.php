@@ -8,7 +8,7 @@ $(function() {
 });
 </script>
 
-@if ($edit_mode == true)
+@if ($editMode == true)
 {{ Form::model($paymentMethod, array('route' => array('paymentMethods.update', $paymentMethod->id), 'class' => 'form-horizontal')) }}
 @else
 {{ Form::open(array('route' => 'paymentMethods.store', 'class' => 'form-horizontal')) }}

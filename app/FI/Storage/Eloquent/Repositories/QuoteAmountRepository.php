@@ -21,9 +21,9 @@ class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountReposit
 		$quoteAmount->save();
 	}
 
-	public function updateByQuoteId($input, $quote_id)
+	public function updateByQuoteId($input, $quoteId)
 	{
-		$quoteAmount = QuoteAmount::where('quote_id', $quote_id)->first();
+		$quoteAmount = QuoteAmount::where('quote_id', $quoteId)->first();
 		$quoteAmount->fill($input);
 		$quoteAmount->save();
 	}

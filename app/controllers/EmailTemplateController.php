@@ -34,7 +34,7 @@ class EmailTemplateController extends \BaseController {
 	public function create()
 	{
 		return View::make('email_templates.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class EmailTemplateController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('emailTemplates.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -56,7 +56,7 @@ class EmailTemplateController extends \BaseController {
 		$this->emailTemplate->create($input);
 		
 		return Redirect::route('emailTemplates.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -69,7 +69,7 @@ class EmailTemplateController extends \BaseController {
 		$emailTemplate = $this->emailTemplate->find($id);
 		
 		return View::make('email_templates.form')
-		->with(array('edit_mode' => true, 'emailTemplate' => $emailTemplate));
+		->with(array('editMode' => true, 'emailTemplate' => $emailTemplate));
 	}
 
 	/**
@@ -84,7 +84,7 @@ class EmailTemplateController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('emailTemplates.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -92,7 +92,7 @@ class EmailTemplateController extends \BaseController {
 		$this->emailTemplate->update($input, $id);
 
 		return Redirect::route('emailTemplates.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**

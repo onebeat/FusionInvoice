@@ -80,12 +80,10 @@ class SettingController extends BaseController {
 			$ext = Input::file('invoice_logo')->getClientOriginalExtension();
 
 			Input::file('invoice_logo')->move(Config::get('fi.logoUploadPath'), 'invoice_logo.' . $ext);
-
-			// $this->settings->save(array(''))
 		}
 
 		return Redirect::route('settings.index')
-		->with('alert_success', trans('fi.settings_successfully_saved'));
+		->with('alertSuccess', trans('fi.settings_successfully_saved'));
 	}
 
 }

@@ -33,7 +33,7 @@ class TaxRateController extends \BaseController {
 	public function create()
 	{
 		return View::make('tax_rates.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class TaxRateController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('taxRates.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -55,7 +55,7 @@ class TaxRateController extends \BaseController {
 		$this->taxRate->create($input);
 		
 		return Redirect::route('taxRates.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -68,7 +68,7 @@ class TaxRateController extends \BaseController {
 		$taxRate = $this->taxRate->find($id);
 		
 		return View::make('tax_rates.form')
-		->with(array('edit_mode' => true, 'taxRate' => $taxRate));
+		->with(array('editMode' => true, 'taxRate' => $taxRate));
 	}
 
 	/**
@@ -83,7 +83,7 @@ class TaxRateController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('taxRates.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -91,7 +91,7 @@ class TaxRateController extends \BaseController {
 		$this->taxRate->update($input, $id);
 
 		return Redirect::route('taxRates.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**

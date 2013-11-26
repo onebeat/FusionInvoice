@@ -9,10 +9,10 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 		return QuoteItemAmount::find($id);
 	}
 
-	public function findByQuoteId($quote_id)
+	public function findByQuoteId($quoteId)
 	{
 		return \DB::table('quote_item_amounts')
-		->whereRaw('item_id IN (SELECT id FROM quote_items WHERE quote_id = ' . $quote_id . ')')
+		->whereRaw('item_id IN (SELECT id FROM quote_items WHERE quote_id = ' . $quoteId . ')')
 		->get();
 	}
 	

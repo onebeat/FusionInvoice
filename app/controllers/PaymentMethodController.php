@@ -34,7 +34,7 @@ class PaymentMethodController extends \BaseController {
 	public function create()
 	{
 		return View::make('payment_methods.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class PaymentMethodController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('paymentMethods.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -56,7 +56,7 @@ class PaymentMethodController extends \BaseController {
 		$this->paymentMethod->create($input);
 		
 		return Redirect::route('paymentMethods.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -69,7 +69,7 @@ class PaymentMethodController extends \BaseController {
 		$paymentMethod = $this->paymentMethod->find($id);
 		
 		return View::make('payment_methods.form')
-		->with(array('edit_mode' => true, 'paymentMethod' => $paymentMethod));
+		->with(array('editMode' => true, 'paymentMethod' => $paymentMethod));
 	}
 
 	/**
@@ -84,7 +84,7 @@ class PaymentMethodController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('paymentMethods.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -92,7 +92,7 @@ class PaymentMethodController extends \BaseController {
 		$this->paymentMethod->update($input, $id);
 
 		return Redirect::route('paymentMethods.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**

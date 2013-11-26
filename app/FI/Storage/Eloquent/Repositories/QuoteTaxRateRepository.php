@@ -9,9 +9,9 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 		return QuoteTaxRate::find($id);
 	}
 
-	public function findByQuoteId($quote_id)
+	public function findByQuoteId($quoteId)
 	{
-		return QuoteTaxRate::where('quote_id', $quote_id)->get();
+		return QuoteTaxRate::where('quote_id', $quoteId)->get();
 	}
 	
 	public function create($input)

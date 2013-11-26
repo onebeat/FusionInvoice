@@ -33,7 +33,7 @@ class UserController extends \BaseController {
 	public function create()
 	{
 		return View::make('users.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class UserController extends \BaseController {
 		if (!$this->validator->validate($input, 'createRules'))
 		{
 			return Redirect::route('users.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -59,7 +59,7 @@ class UserController extends \BaseController {
 		$this->user->create($input);
 		
 		return Redirect::route('users.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class UserController extends \BaseController {
 		$user = $this->user->find($id);
 		
 		return View::make('users.form')
-		->with(array('edit_mode' => true, 'user' => $user));
+		->with(array('editMode' => true, 'user' => $user));
 	}
 
 	/**
@@ -87,7 +87,7 @@ class UserController extends \BaseController {
 		if (!$this->validator->validate($input, 'updateRules'))
 		{
 			return Redirect::route('users.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -95,7 +95,7 @@ class UserController extends \BaseController {
 		$this->user->update($input, $id);
 
 		return Redirect::route('users.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**

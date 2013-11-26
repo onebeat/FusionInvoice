@@ -11,9 +11,9 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 		return QuoteItem::find($id);
 	}
 
-	public function findByQuoteId($quote_id)
+	public function findByQuoteId($quoteId)
 	{
-		return QuoteItem::orderBy('display_order')->where('quote_id', '=', $quote_id)->get();
+		return QuoteItem::orderBy('display_order')->where('quote_id', '=', $quoteId)->get();
 	}
 	
 	public function create($input)

@@ -8,7 +8,7 @@ $(function() {
 });
 </script>
 
-@if ($edit_mode == true)
+@if ($editMode == true)
 {{ Form::model($taxRate, array('route' => array('taxRates.update', $taxRate->id), 'class' => 'form-horizontal')) }}
 @else
 {{ Form::open(array('route' => 'taxRates.store', 'class' => 'form-horizontal')) }}

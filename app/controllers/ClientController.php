@@ -44,7 +44,7 @@ class ClientController extends \BaseController {
 	public function create()
 	{
 		return View::make('clients.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -58,7 +58,7 @@ class ClientController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('clients.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -66,7 +66,7 @@ class ClientController extends \BaseController {
 		$this->client->create($input);
 		
 		return Redirect::route('clients.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -90,7 +90,7 @@ class ClientController extends \BaseController {
 		$client = $this->client->find($id);
 		
 		return View::make('clients.form')
-		->with(array('edit_mode' => true, 'client' => $client));
+		->with(array('editMode' => true, 'client' => $client));
 	}
 
 	/**
@@ -105,7 +105,7 @@ class ClientController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{	
 			return Redirect::route('clients.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -113,7 +113,7 @@ class ClientController extends \BaseController {
 		$this->client->update($input, $id);
 
 		return Redirect::route('clients.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));;
+		->with('alertInfo', trans('fi.record_successfully_updated'));;
 	}
 
 	/**

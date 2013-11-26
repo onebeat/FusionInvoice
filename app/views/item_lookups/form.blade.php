@@ -8,7 +8,7 @@ $(function() {
 });
 </script>
 
-@if ($edit_mode == true)
+@if ($editMode == true)
 {{ Form::model($itemLookup, array('route' => array('itemLookups.update', $itemLookup->id), 'class' => 'form-horizontal')) }}
 @else
 {{ Form::open(array('route' => 'itemLookups.store', 'class' => 'form-horizontal')) }}

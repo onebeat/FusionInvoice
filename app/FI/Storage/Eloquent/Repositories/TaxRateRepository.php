@@ -32,9 +32,9 @@ class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInter
 	
 	public function update($input, $id)
 	{
-		$tax_rate = TaxRate::find($id);
-		$tax_rate->fill($input);
-		$tax_rate->save();
+		$taxRate = TaxRate::find($id);
+		$taxRate->fill($input);
+		$taxRate->save();
 	}
 	
 	public function delete($id)

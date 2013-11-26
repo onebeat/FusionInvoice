@@ -8,7 +8,7 @@ $(function() {
 });
 </script>
 
-@if ($edit_mode == true)
+@if ($editMode == true)
 {{ Form::model($emailTemplate, array('route' => array('emailTemplates.update', $emailTemplate->id), 'class' => 'form-horizontal')) }}
 @else
 {{ Form::open(array('route' => 'emailTemplates.store', 'class' => 'form-horizontal')) }}

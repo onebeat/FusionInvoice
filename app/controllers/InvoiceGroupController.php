@@ -34,7 +34,7 @@ class InvoiceGroupController extends \BaseController {
 	public function create()
 	{
 		return View::make('invoice_groups.form')
-		->with('edit_mode', false);
+		->with('editMode', false);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class InvoiceGroupController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('invoiceGroups.create')
-			->with('edit_mode', false)
+			->with('editMode', false)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -56,7 +56,7 @@ class InvoiceGroupController extends \BaseController {
 		$this->invoiceGroup->create($input);
 		
 		return Redirect::route('invoiceGroups.index')
-		->with('alert_success', trans('fi.record_successfully_created'));
+		->with('alertSuccess', trans('fi.record_successfully_created'));
 	}
 
 	/**
@@ -69,7 +69,7 @@ class InvoiceGroupController extends \BaseController {
 		$invoiceGroup = $this->invoiceGroup->find($id);
 		
 		return View::make('invoice_groups.form')
-		->with(array('edit_mode' => true, 'invoiceGroup' => $invoiceGroup));
+		->with(array('editMode' => true, 'invoiceGroup' => $invoiceGroup));
 	}
 
 	/**
@@ -84,7 +84,7 @@ class InvoiceGroupController extends \BaseController {
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('invoiceGroups.edit', array($id))
-			->with('edit_mode', true)
+			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
@@ -92,7 +92,7 @@ class InvoiceGroupController extends \BaseController {
 		$this->invoiceGroup->update($input, $id);
 
 		return Redirect::route('invoiceGroups.index')
-		->with('alert_info', trans('fi.record_successfully_updated'));
+		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
 
 	/**
