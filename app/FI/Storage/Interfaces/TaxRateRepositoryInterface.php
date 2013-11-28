@@ -7,8 +7,6 @@ interface TaxRateRepositoryInterface {
 	public function getPaged($page, $numPerPage);
 	
 	public function find($id);
-
-	public function lists();
 	
 	public function create($input);
 	

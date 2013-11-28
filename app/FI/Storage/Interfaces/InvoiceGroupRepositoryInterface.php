@@ -11,8 +11,6 @@ interface InvoiceGroupRepositoryInterface {
 	public function generateNumber($id);
 
 	public function incrementNextId($id);
-
-	public function lists();
 	
 	public function create($input);
 	
