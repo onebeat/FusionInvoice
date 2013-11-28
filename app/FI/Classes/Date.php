@@ -12,44 +12,44 @@ class Date {
 			'm/d/Y' => array(
 				'setting'    => 'm/d/Y',
 				'datepicker' => 'mm/dd/yyyy'
-			),
+				),
 			'm-d-Y' => array(
 				'setting'    => 'm-d-Y',
 				'datepicker' => 'mm-dd-yyyy'
-			),
+				),
 			'm.d.Y' => array(
 				'setting'    => 'm.d.Y',
 				'datepicker' => 'mm.dd.yyyy'
-			),
+				),
 			'Y/m/d' => array(
 				'setting'    => 'Y/m/d',
 				'datepicker' => 'yyyy/mm/dd'
-			),
+				),
 			'Y-m-d' => array(
 				'setting'    => 'Y-m-d',
 				'datepicker' => 'yyyy-mm-dd'
-			),
+				),
 			'Y.m.d' => array(
 				'setting'    => 'Y.m.d',
 				'datepicker' => 'yyyy.mm.dd'
-			),
+				),
 			'd/m/Y' => array(
 				'setting'    => 'd/m/Y',
 				'datepicker' => 'dd/mm/yyyy'
-			),
+				),
 			'd-m-Y' => array(
 				'setting'    => 'd-m-Y',
 				'datepicker' => 'dd-mm-yyyy'
-			),
+				),
 			'd-M-Y' => array(
 				'setting'    => 'd-M-Y',
 				'datepicker' => 'dd-M-yyyy'
-			),
+				),
 			'd.m.Y' => array(
 				'setting'    => 'd.m.Y',
 				'datepicker' => 'dd.mm.yyyy'
-			)
-		);
+				)
+			);
 	}
 
 	/**
@@ -83,11 +83,16 @@ class Date {
 	 * @param  date $date 	The user submitted date
 	 * @return date 		The yyyy-mm-dd standardized date
 	 */
-	public static function unformat($userDate)
+	public static function unformat($userDate = null)
 	{
-		$date = \DateTime::createFromFormat(\Config::get('fi.dateFormat'), $userDate);
+		if ($userDate)
+		{
+			$date = \DateTime::createFromFormat(\Config::get('fi.dateFormat'), $userDate);
 
-		return $date->format('Y-m-d');
+			return $date->format('Y-m-d');
+		}
+
+		return null;
 	}
 
 	/**
