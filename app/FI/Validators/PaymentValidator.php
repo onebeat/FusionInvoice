@@ -6,6 +6,7 @@ class PaymentValidator extends Validator {
 	
 	static $rules = array(
 		'invoice_id'        => 'required',
+		'paid_at'           => 'required',
 		'amount'            => 'required|numeric',
 		'payment_method_id' => 'required'
 	);

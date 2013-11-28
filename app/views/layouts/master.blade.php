@@ -103,8 +103,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.payments') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">{{ trans('fi.enter_payment') }}</a></li>
-								<li><a href="#">{{ trans('fi.view_payments') }}</a></li>
+								<li><a href="{{ route('payments.index') }}">{{ trans('fi.view_payments') }}</a></li>
 							</ul>
 						</li>
 

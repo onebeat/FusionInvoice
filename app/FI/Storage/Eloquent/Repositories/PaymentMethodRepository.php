@@ -19,6 +19,11 @@ class PaymentMethodRepository implements \FI\Storage\Interfaces\PaymentMethodRep
 	{
 		return PaymentMethod::find($id);
 	}
+
+	public function lists()
+	{
+		return PaymentMethod::lists('name', 'id');
+	}
 	
 	public function create($input)
 	{

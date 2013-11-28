@@ -28,14 +28,6 @@ class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRep
 		$invoiceAmount->save();
 	}
 
-	public function applyPaymentToBalance($paymentAmount, $invoiceId)
-	{
-		$invoiceAmount          = InvoiceAmount::where('invoice_id', $invoiceId)->first();
-		$invoiceAmount->paid    = $invoiceAmount->paid + $paymentAmount;
-		$invoiceAmount->balance = $invoiceAmount->total - $invoiceAmount->paid;
-		$invoiceAmount->save();
-	}
-	
 	public function delete($id)
 	{
 		InvoiceAmount::destroy($id);

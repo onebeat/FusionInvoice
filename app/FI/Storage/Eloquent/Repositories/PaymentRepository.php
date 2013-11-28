@@ -42,8 +42,15 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 	
 	public function update($input, $id)
 	{
+		$record = array(
+			'payment_method_id' => $input['payment_method_id'],
+			'paid_at'           => Date::unformat($input['paid_at']),
+			'amount'            => NumberFormatter::unformat($input['amount']),
+			'note'              => $input['note']
+		);
+
 		$payment = Payment::find($id);
-		$payment->fill($input);
+		$payment->fill($record);
 		$payment->save();
 	}
 	
