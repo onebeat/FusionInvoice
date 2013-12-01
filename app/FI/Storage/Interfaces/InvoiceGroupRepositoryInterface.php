@@ -12,9 +12,9 @@ interface InvoiceGroupRepositoryInterface {
 
 	public function incrementNextId($id);
 	
-	public function create($input);
+	public function create($name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth);
 	
-	public function update($input, $id);
+	public function update($id, $name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth);
 	
 	public function delete($id);
 	

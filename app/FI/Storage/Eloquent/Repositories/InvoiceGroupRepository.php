@@ -46,15 +46,35 @@ class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepos
 		return InvoiceGroup::orderBy('name')->lists('name', 'id');
 	}
 	
-	public function create($input)
+	public function create($name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth)
 	{
-		InvoiceGroup::create($input);
+		InvoiceGroup::create(
+			array(
+				'name'         => $name,
+				'next_id'      => $nextId,
+				'left_pad'     => $leftPad,
+				'prefix'       => $prefix,
+				'prefix_year'  => $prefixYear,
+				'prefix_month' => $prefixMonth
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($id, $name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth)
 	{
 		$invoiceGroup = InvoiceGroup::find($id);
-		$invoiceGroup->fill($input);
+
+		$invoiceGroup->fill(
+			array(
+				'name'         => $name,
+				'next_id'      => $nextId,
+				'left_pad'     => $leftPad,
+				'prefix'       => $prefix,
+				'prefix_year'  => $prefixYear,
+				'prefix_month' => $prefixMonth
+			)
+		);
+
 		$invoiceGroup->save();
 	}
 	

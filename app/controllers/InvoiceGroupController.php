@@ -53,7 +53,7 @@ class InvoiceGroupController extends \BaseController {
 			->withInput();
 		}
 
-		$this->invoiceGroup->create($input);
+		$this->invoiceGroup->create($input['name'], $input['next_id'], $input['left_pad'], $input['prefix'], $input['prefix_year'], $input['prefix_month']);
 		
 		return Redirect::route('invoiceGroups.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -89,7 +89,7 @@ class InvoiceGroupController extends \BaseController {
 			->withInput();
 		}
 
-		$this->invoiceGroup->update($input, $id);
+		$this->invoiceGroup->update($id, $input['name'], $input['next_id'], $input['left_pad'], $input['prefix'], $input['prefix_year'], $input['prefix_month']);
 
 		return Redirect::route('invoiceGroups.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));
