@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('jscript')
 
 <script type="text/javascript">
 
@@ -24,7 +24,7 @@
 
         $('#btn-save-quote').click(function() {
             var items = [];
-			var item_order = 1;
+            var item_order = 1;
             $('table tr.item').each(function() {
                 var row = {};
                 $(this).find('input,select,textarea').each(function() {
@@ -40,8 +40,8 @@
                         row[$(this).attr('name')] = $(this).val();
                     }
                 });
-				row['item_order'] = item_order;
-				item_order++;
+                row['item_order'] = item_order;
+                item_order++;
                 items.push(row);
             });
             $.post("{{ route('quotes.update', array($quote->id)) }}", {
@@ -83,6 +83,14 @@
 
 </script>
 
+@include('quotes._copy_quote')
+
+@stop
+
+@section('content')
+
+
+
 <div class="headerbar">
 	<h1>{{ trans('fi.quote') }} #{{ $quote->number }}</h1>
 
@@ -95,7 +103,7 @@
 				<li><a href="{{ route('quotes.preview', array($quote->id)) }}" id="btn-view-quote" target="_blank"><i class="icon-file-alt"></i> {{ trans('fi.view_quote') }}</a></li>
 				<li><a href="javascript:void(0)"><i class="icon-envelope"></i> {{ trans('fi.send_email') }}</a></li>
                 <li><a href="javascript:void(0)" class="quote-to-invoice" data-quote-id="{{ $quote->id }}" data-client-id="{{ $quote->client_id }}"><i class="icon-upload"></i> {{ trans('fi.quote_to_invoice') }}</a></li>
-				<li><a href="javascript:void(0)" id="copy-quote" data-quote-id="{{ $quote->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_quote') }}</a></li>
+				<li><a href="javascript:void(0)" id="btn-copy-quote" data-quote-id="{{ $quote->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_quote') }}</a></li>
 				<li><a href="{{ route('quotes.delete', array($quote->id)) }}" onclick="return confirm('{{ trans('fi.delete_quote_warning') }}');"><i class="icon-remove"></i> {{ trans('fi.delete') }}</a></li>
 			</ul>
 		</div>

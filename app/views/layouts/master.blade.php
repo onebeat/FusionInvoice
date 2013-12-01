@@ -61,6 +61,10 @@
 
         </script>
 
+        @section('jscript')
+
+        @show
+
 	</head>
 
 	<body>
