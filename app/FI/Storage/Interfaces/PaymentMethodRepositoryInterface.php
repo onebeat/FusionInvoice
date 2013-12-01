@@ -8,9 +8,9 @@ interface PaymentMethodRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($name);
 	
-	public function update($input, $id);
+	public function update($id, $name);
 	
 	public function delete($id);
 	
