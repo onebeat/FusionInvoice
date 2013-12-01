@@ -4,12 +4,10 @@ interface QuoteAmountRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($quoteId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total);
 	
-	public function update($input, $id);
+	public function update($quoteId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total);
 
-	public function updateByQuoteId($input, $quoteId);
-	
 	public function delete($id);
 
 }

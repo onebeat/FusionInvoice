@@ -16,15 +16,8 @@ class QuoteEventProvider extends ServiceProvider {
 
 			$quoteAmount  = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
 			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
-
-			$quoteAmount->create(array(
-				'quote_id'       => $quoteId,
-				'item_subtotal'  => 0,
-				'item_tax_total' => 0,
-				'tax_total'      => 0,
-				'total'          => 0
-				)
-			);
+			
+			$quoteAmount->create($quoteId, 0, 0, 0, 0);
 
 			$invoiceGroup->incrementNextId($invoiceGroupId);
 		});
@@ -109,9 +102,9 @@ class QuoteEventProvider extends ServiceProvider {
 			$calculator->calculate();
 
 			// Get the calculated values
-			$calculatedItemAmounts   = $calculator->getCalculatedItemAmounts();
-			$calculatedQuoteTaxRates = $calculator->getCalculatedTaxRates();
-			$calculatedQuoteAmount   = $calculator->getCalculatedAmount();
+			$calculatedItemAmounts = $calculator->getCalculatedItemAmounts();
+			$calculatedTaxRates    = $calculator->getCalculatedTaxRates();
+			$calculatedAmount      = $calculator->getCalculatedAmount();
 
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
@@ -120,13 +113,13 @@ class QuoteEventProvider extends ServiceProvider {
 			}
 
 			// Update the quote tax rate records
-			foreach ($calculatedQuoteTaxRates as $calculatedQuoteTaxRate)
+			foreach ($calculatedTaxRates as $calculatedQuoteTaxRate)
 			{
 				$quoteTaxRate->updateByQuoteIdAndTaxRateId($calculatedQuoteTaxRate, $quoteId, $calculatedQuoteTaxRate['tax_rate_id']);
 			}
 
 			// Update the quote amount record
-			$quoteAmount->updateByQuoteId($calculatedQuoteAmount, $quoteId);
+			$quoteAmount->update($quoteId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total']);
 		});
 	}
 }
