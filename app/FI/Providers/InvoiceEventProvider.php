@@ -116,7 +116,7 @@ class InvoiceEventProvider extends ServiceProvider {
 			}
 
 			// Update the invoice amount record
-			$invoiceAmount->updateByInvoiceId($invoiceId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total'], $calculatedAmount['paid'], $calculatedAmount['balance']);
+			$invoiceAmount->update($invoiceId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total'], $calculatedAmount['paid'], $calculatedAmount['balance']);
 		});
 
 	}
