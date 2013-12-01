@@ -50,14 +50,14 @@ $(function() {
                 <legend>{{ trans('fi.address') }}</legend>
 
                 <div class="control-group">
-                    <label class="control-label">{{ trans('fi.street_address') }}: </label>
+                    <label class="control-label">{{ trans('fi.address') }}: </label>
                     <div class="controls">
                         {{ Form::text('address_1', null, array('id' => 'address_1')) }}
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">{{ trans('fi.street_address_2') }}: </label>
+                    <label class="control-label">{{ trans('fi.address_2') }}: </label>
                     <div class="controls">
                         {{ Form::text('address_2', null, array('id' => 'address_2')) }}
                     </div>
