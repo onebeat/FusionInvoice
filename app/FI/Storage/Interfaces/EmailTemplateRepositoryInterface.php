@@ -6,12 +6,12 @@ interface EmailTemplateRepositoryInterface {
 
 	public function getPaged($page, $numPerPage);
 	
-	public function find($id);
+	public function find($emailTemplateId);
 	
-	public function create($input);
+	public function create($name, $subject, $body);
 	
-	public function update($input, $id);
+	public function update($emailTemplateId, $name, $subject, $body);
 	
-	public function delete($id);
+	public function delete($emailTemplateId);
 	
 }

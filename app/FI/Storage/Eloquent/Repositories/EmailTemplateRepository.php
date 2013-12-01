@@ -15,9 +15,9 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 		return EmailTemplate::paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 	}
 
-	public function find($id)
+	public function find($emailTemplateId)
 	{
-		return EmailTemplate::find($id);
+		return EmailTemplate::find($emailTemplateId);
 	}
 
 	public function lists()
@@ -25,21 +25,35 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 		return array_merge(array('0' => trans('fi.none')), EmailTemplate::lists('name', 'id'));
 	}
 	
-	public function create($input)
+	public function create($name, $subject, $body)
 	{
-		EmailTemplate::create($input);
+		EmailTemplate::create(
+			array(
+				'name'    => $name,
+				'subject' => $subject,
+				'body'    => $body
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($emailTemplateId, $name, $subject, $body)
 	{
-		$emailTemplate = EmailTemplate::find($id);
-		$emailTemplate->fill($input);
+		$emailTemplate = EmailTemplate::find($emailTemplateId);
+
+		$emailTemplate->fill(
+			array(
+				'name'    => $name,
+				'subject' => $subject,
+				'body'    => $body
+			)
+		);
+
 		$emailTemplate->save();
 	}
 	
-	public function delete($id)
+	public function delete($emailTemplateId)
 	{
-		EmailTemplate::destroy($id);
+		EmailTemplate::destroy($emailTemplateId);
 	}
 	
 }

@@ -53,7 +53,7 @@ class EmailTemplateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->emailTemplate->create($input);
+		$this->emailTemplate->create($input['name'], $input['subject'], $input['body']);
 		
 		return Redirect::route('emailTemplates.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -61,12 +61,12 @@ class EmailTemplateController extends \BaseController {
 
 	/**
 	 * Display form for existing record
-	 * @param  int $id
+	 * @param  int $emailTemplateId
 	 * @return \Illuminate\View\View
 	 */
-	public function edit($id)
+	public function edit($emailTemplateId)
 	{
-		$emailTemplate = $this->emailTemplate->find($id);
+		$emailTemplate = $this->emailTemplate->find($emailTemplateId);
 		
 		return View::make('email_templates.form')
 		->with(array('editMode' => true, 'emailTemplate' => $emailTemplate));
@@ -74,22 +74,22 @@ class EmailTemplateController extends \BaseController {
 
 	/**
 	 * Validate and handle existing record form submission
-	 * @param  int $id
+	 * @param  int $emailTemplateId
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function update($id)
+	public function update($emailTemplateId)
 	{
 		$input = Input::all();
 
 		if (!$this->validator->validate($input))
 		{
-			return Redirect::route('emailTemplates.edit', array($id))
+			return Redirect::route('emailTemplates.edit', array($emailTemplateId))
 			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
 
-		$this->emailTemplate->update($input, $id);
+		$this->emailTemplate->update($emailTemplateId, $input['name'], $input['subject'], $input['body']);
 
 		return Redirect::route('emailTemplates.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));
@@ -97,12 +97,12 @@ class EmailTemplateController extends \BaseController {
 
 	/**
 	 * Delete a record
-	 * @param  int $id
+	 * @param  int $emailTemplateId
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function delete($id)
+	public function delete($emailTemplateId)
 	{
-		$this->emailTemplate->delete($id);
+		$this->emailTemplate->delete($emailTemplateId);
 
 		return Redirect::route('emailTemplates.index')
 		->with('alert', trans('fi.record_successfully_deleted'));
