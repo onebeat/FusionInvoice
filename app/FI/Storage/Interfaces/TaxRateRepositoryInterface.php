@@ -8,9 +8,9 @@ interface TaxRateRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($name, $percent);
 	
-	public function update($input, $id);
+	public function update($id, $name, $percent);
 	
 	public function delete($id);
 	

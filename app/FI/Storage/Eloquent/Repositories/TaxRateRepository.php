@@ -25,15 +25,27 @@ class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInter
 		return array_merge(array('0' => trans('fi.none')), TaxRate::lists('name', 'id'));
 	}
 	
-	public function create($input)
+	public function create($name, $percent)
 	{
-		TaxRate::create($input);
+		TaxRate::create(
+			array(
+				'name'    => $name,
+				'percent' => $percent
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($id, $name, $percent)
 	{
 		$taxRate = TaxRate::find($id);
-		$taxRate->fill($input);
+
+		$taxRate->fill(
+			array(
+				'name'    => $name,
+				'percent' => $percent
+			)
+		);
+
 		$taxRate->save();
 	}
 	

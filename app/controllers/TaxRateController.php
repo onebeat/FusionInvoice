@@ -52,7 +52,7 @@ class TaxRateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->taxRate->create($input);
+		$this->taxRate->create($input['name'], $input['percent']);
 		
 		return Redirect::route('taxRates.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -88,7 +88,7 @@ class TaxRateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->taxRate->update($input, $id);
+		$this->taxRate->update($id, $input['name'], $input['percent']);
 
 		return Redirect::route('taxRates.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));
