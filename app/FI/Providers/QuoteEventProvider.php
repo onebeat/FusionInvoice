@@ -46,13 +46,7 @@ class QuoteEventProvider extends ServiceProvider {
             $taxTotal = $subtotal * ($taxRatePercent / 100);
             $total    = $subtotal + $taxTotal;
 
-            $quoteItemAmount->create(array(
-                    'item_id'   => $quoteItem->id,
-                    'subtotal'  => $subtotal,
-                    'tax_total' => $taxTotal,
-                    'total'     => $total
-                )
-            );
+			$quoteItemAmount->create($quoteItem->id, $subtotal, $taxTotal, $total);
 		});
 
 		// Calculate all quote amounts
@@ -109,7 +103,7 @@ class QuoteEventProvider extends ServiceProvider {
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
 			{
-				$quoteItemAmount->updateByItemId($calculatedItemAmount, $calculatedItemAmount['item_id']);
+				$quoteItemAmount->update($calculatedItemAmount['item_id'], $calculatedItemAmount['subtotal'], $calculatedItemAmount['tax_total'], $calculatedItemAmount['total']);
 			}
 
 			// Update the quote tax rate records

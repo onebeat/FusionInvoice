@@ -16,22 +16,30 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 		->get();
 	}
 	
-	public function create($input)
+	public function create($itemId, $subtotal, $taxTotal, $total)
 	{
-		QuoteItemAmount::create($input);
+		QuoteItemAmount::create(
+			array(
+				'item_id'   => $itemId,
+				'subtotal'  => $subtotal,
+				'tax_total' => $taxTotal,
+				'total'     => $total
+			)
+		);
 	}
 	
-	public function update($input, $id)
-	{
-		$quoteItemAmount = QuoteItemAmount::find($id);
-		$quoteItemAmount->fill($input);
-		$quoteItemAmount->save();
-	}
-
-	public function updateByItemId($input, $itemId)
+	public function update($itemId, $subtotal, $taxTotal, $total)
 	{
 		$quoteItemAmount = QuoteItemAmount::where('item_id', $itemId)->first();
-		$quoteItemAmount->fill($input);
+
+		$quoteItemAmount->fill(
+			array(
+				'subtotal'  => $subtotal,
+				'tax_total' => $taxTotal,
+				'total'     => $total
+			)
+		);
+
 		$quoteItemAmount->save();
 	}
 	
