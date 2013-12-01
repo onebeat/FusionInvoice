@@ -16,24 +16,36 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 		return QuoteItem::orderBy('display_order')->where('quote_id', '=', $quoteId)->get();
 	}
 	
-	public function create($input)
+	public function create($quoteId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
 	{
-		// Unformat these numbers before they're stored
-		$input['price']    = NumberFormatter::unformat($input['price']);
-		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
-		
-		return QuoteItem::create($input)->id;
+		return QuoteItem::create(
+			array(
+				'quote_id'      => $quoteId,
+				'name'          => $name,
+				'description'   => $description,
+				'quantity'      => NumberFormatter::unformat($quantity),
+				'price'         => NumberFormatter::unformat($price),
+				'tax_rate_id'   => $taxRateId,
+				'display_order' => $displayOrder
+				)
+			)->id;
 	}
 	
-	public function update($input, $id)
+	public function update($quoteItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
 	{
-		$quoteItem = QuoteItem::find($id);
+		$quoteItem = QuoteItem::find($quoteItemId);
 
-		// Unformat these numbers before they're stored
-		$input['price']    = NumberFormatter::unformat($input['price']);
-		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
-
-		$quoteItem->fill($input);
+		$quoteItem->fill(
+			array(
+				'name'          => $name,
+				'description'   => $description,
+				'quantity'      => NumberFormatter::unformat($quantity),
+				'price'         => NumberFormatter::unformat($price),
+				'tax_rate_id'   => $taxRateId,
+				'display_order' => $displayOrder
+			)
+		);
+		
 		$quoteItem->save();
 	}
 	

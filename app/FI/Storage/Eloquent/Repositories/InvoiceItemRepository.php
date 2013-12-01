@@ -15,25 +15,37 @@ class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemReposit
 	{
 		return InvoiceItem::orderBy('display_order')->where('invoice_id', '=', $invoiceId)->get();
 	}
-	
-	public function create($input)
+
+	public function create($invoiceId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
 	{
-		// Unformat these numbers before they're stored
-		$input['price']    = NumberFormatter::unformat($input['price']);
-		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
-				
-		return InvoiceItem::create($input)->id;
+		return InvoiceItem::create(
+			array(
+				'invoice_id'    => $invoiceId,
+				'name'          => $name,
+				'description'   => $description,
+				'quantity'      => NumberFormatter::unformat($quantity),
+				'price'         => NumberFormatter::unformat($price),
+				'tax_rate_id'   => $taxRateId,
+				'display_order' => $displayOrder
+				)
+			)->id;
 	}
-	
-	public function update($input, $id)
+
+	public function update($invoiceItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
 	{
-		$invoiceItem = InvoiceItem::find($id);
+		$invoiceItem = InvoiceItem::find($invoiceItemId);
 
-		// Unformat these numbers before they're stored
-		$input['price']    = NumberFormatter::unformat($input['price']);
-		$input['quantity'] = NumberFormatter::unformat($input['quantity']);
-
-		$invoiceItem->fill($input);
+		$invoiceItem->fill(
+			array(
+				'name'          => $name,
+				'description'   => $description,
+				'quantity'      => NumberFormatter::unformat($quantity),
+				'price'         => NumberFormatter::unformat($price),
+				'tax_rate_id'   => $taxRateId,
+				'display_order' => $displayOrder
+				)
+			);
+		
 		$invoiceItem->save();
 	}
 	

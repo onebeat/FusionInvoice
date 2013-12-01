@@ -1,6 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Quote;
+use FI\Classes\Date;
 
 class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface {
 
@@ -18,16 +19,16 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		switch ($status)
 		{
 			case 'draft':
-				return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			case 'sent':
-				return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			case 'canceled':
-				return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			default:
-				return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 
@@ -40,19 +41,41 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	{
 		return Quote::where('url_key', $urlKey)->first();
 	}
-	
-	public function create($input)
+
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $quoteStatusId)
 	{
-		return Quote::create($input)->id;
+		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+		
+		return Quote::create(
+			array(
+				'client_id'        => $clientId,
+				'created_at'       => Date::unformat($createdAt),
+				'expires_at'       => Date::incrementDateByDays($createdAt, \Config::get('fi.quotesExpireAfter')),
+				'invoice_group_id' => $invoiceGroupId,
+				'number'           => $invoiceGroup->generateNumber($invoiceGroupId),
+				'user_id'          => $userId,
+				'quote_status_id'  => $quoteStatusId,
+				'url_key'          => str_random(32)
+				)
+			)->id;
 	}
 	
-	public function update($input, $id)
+	public function update($quoteId, $createdAt, $expiresAt, $number, $quoteStatusId)
 	{
-		$quote = Quote::find($id);
-		$quote->fill($input);
+		$quote = Quote::find($quoteId);
+
+		$quote->fill(
+			array(
+				'number'          => $number,
+				'created_at'      => Date::unformat($createdAt),
+				'expires_at'      => Date::unformat($expiresAt),
+				'quote_status_id' => $quoteStatusId
+			)
+		);
+
 		$quote->save();
 	}
-	
+
 	public function delete($id)
 	{
 		$quote = Quote::find($id);
@@ -72,5 +95,5 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 
 		$quote->delete();
 	}
-	
+
 }

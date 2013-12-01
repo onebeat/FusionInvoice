@@ -6,9 +6,9 @@ interface InvoiceItemRepositoryInterface {
 
 	public function findByInvoiceId($invoiceId);
 	
-	public function create($input);
+	public function create($invoiceId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
 	
-	public function update($input, $id);
+	public function update($invoiceItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
 	
 	public function delete($id);
 	

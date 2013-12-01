@@ -8,9 +8,9 @@ interface InvoiceRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId);
 	
-	public function update($input, $id);
+	public function update($invoiceId, $createdAt, $expiresAt, $number, $invoiceStatusId);
 	
 	public function delete($id);
 	

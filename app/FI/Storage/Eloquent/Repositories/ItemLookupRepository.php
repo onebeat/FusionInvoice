@@ -1,6 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\ItemLookup;
+use FI\Storage\Eloquent\Models\ItemLookup;
+use FI\Classes\NumberFormatter;
 
 class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositoryInterface {
 	
@@ -25,15 +26,29 @@ class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositor
 		return ItemLookup::find($id);
 	}
 	
-	public function create($input)
+	public function create($name, $description, $price)
 	{
-		ItemLookup::create($input);
+		ItemLookup::create(
+			array(
+				'name'        => $name,
+				'description' => $description,
+				'price'       => NumberFormatter::unformat($price)
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($itemLookupId, $name, $description, $price)
 	{
-		$itemLookup = ItemLookup::find($id);
-		$itemLookup->fill($input);
+		$itemLookup = ItemLookup::find($itemLookupId);
+
+		$itemLookup->fill(
+			array(
+				'name'        => $name,
+				'description' => $description,
+				'price'       => NumberFormatter::unformat($price)
+			)
+		);
+		
 		$itemLookup->save();
 	}
 	

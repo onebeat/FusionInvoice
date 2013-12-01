@@ -1,6 +1,7 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Invoice;
+use FI\Classes\Date;
 
 class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInterface {
 
@@ -18,19 +19,19 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 		switch ($status)
 		{
 			case 'draft':
-				return $invoice->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $invoice->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			case 'sent':
-				return $invoice->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $invoice->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			case 'paid':
-				return $invoice->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $invoice->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			case 'canceled':
-				return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-				break;
+			return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			break;
 			default:
-				return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+			return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 
@@ -44,15 +45,37 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 		return Invoice::where('url_key', $urlKey)->first();
 	}
 	
-	public function create($input)
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId)
 	{
-		return Invoice::create($input)->id;
+		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+
+		return Invoice::create(
+			array(
+				'client_id'         => $clientId,
+				'created_at'        => Date::unformat($createdAt),
+				'due_at'            => Date::incrementDateByDays($createdAt, \Config::get('fi.invoicesDueAfter')),
+				'invoice_group_id'  => $invoiceGroupId,
+				'number'            => $invoiceGroup->generateNumber($invoiceGroupId),
+				'user_id'           => $userId,
+				'invoice_status_id' => $invoiceStatusId,
+				'url_key'           => str_random(32)
+				)
+			)->id;
 	}
 	
-	public function update($input, $id)
+	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId)
 	{
-		$invoice = Invoice::find($id);
-		$invoice->fill($input);
+		$invoice = Invoice::find($invoiceId);
+
+		$invoice->fill(
+			array(
+				'created_at'        => Date::unformat($createdAt),
+				'due_at'            => Date::unformat($dueAt),
+				'number'            => $number,
+				'invoice_status_id' => $invoiceStatusId
+			)
+		);
+
 		$invoice->save();
 	}
 	

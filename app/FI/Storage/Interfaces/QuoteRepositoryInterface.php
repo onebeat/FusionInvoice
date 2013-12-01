@@ -8,9 +8,9 @@ interface QuoteRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $quoteStatusId);
 	
-	public function update($input, $id);
+	public function update($quoteId, $createdAt, $expiresAt, $number, $quoteStatusId);
 	
 	public function delete($id);
 	

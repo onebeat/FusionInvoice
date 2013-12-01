@@ -10,9 +10,9 @@ interface ItemLookupRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($name, $description, $price);
 	
-	public function update($input, $id);
+	public function update($itemLookupId, $name, $description, $price);
 	
 	public function delete($id);
 	

@@ -6,10 +6,9 @@ interface QuoteItemRepositoryInterface {
 
 	public function findByQuoteId($quoteId);
 	
-	public function create($input);
+	public function create($quoteId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
 	
-	public function update($input, $id);
+	public function update($quoteItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
 	
 	public function delete($id);
-	
 }
