@@ -14,19 +14,10 @@ class InvoiceEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: invoice.created');
 
-			$invoiceAmount  = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
-			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+			$invoiceAmount = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
+			$invoiceGroup  = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 
-			$invoiceAmount->create(array(
-				'invoice_id'     => $invoiceId,
-				'item_subtotal'  => 0,
-				'item_tax_total' => 0,
-				'tax_total'      => 0,
-				'total'          => 0,
-				'paid'           => 0,
-				'balance'        => 0
-				)
-			);
+			$invoiceAmount->create($invoiceId, 0, 0, 0, 0, 0, 0);
 
 			$invoiceGroup->incrementNextId($invoiceGroupId);
 		});
@@ -131,7 +122,7 @@ class InvoiceEventProvider extends ServiceProvider {
 			}
 
 			// Update the invoice amount record
-			$invoiceAmount->updateByInvoiceId($calculatedAmount, $invoiceId);
+			$invoiceAmount->updateByInvoiceId($invoiceId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total'], $calculatedAmount['paid'], $calculatedAmount['balance']);
 		});
 
 	}
