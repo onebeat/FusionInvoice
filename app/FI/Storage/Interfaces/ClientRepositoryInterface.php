@@ -12,9 +12,9 @@ interface ClientRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
-	
-	public function update($input, $id);
+	public function create($name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active);
+
+	public function update($clientId, $name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active);
 	
 	public function delete($id);
 	

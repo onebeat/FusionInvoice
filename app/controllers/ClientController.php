@@ -10,7 +10,7 @@ class ClientController extends \BaseController {
 	
 	public function __construct(ClientRepositoryInterface $client, ClientValidator $validator)
 	{
-		$this->client = $client;
+		$this->client    = $client;
 		$this->validator = $validator;
 	}
 
@@ -63,7 +63,7 @@ class ClientController extends \BaseController {
 			->withInput();
 		}
 
-		$this->client->create($input);
+		$this->client->create($input['name'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['email'], $input['web'], $input['active']);
 		
 		return Redirect::route('clients.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -71,23 +71,23 @@ class ClientController extends \BaseController {
 
 	/**
 	 * Display a single record
-	 * @param  int $id
+	 * @param  int $clientId
 	 * @return \Illuminate\View\View
 	 */
-	public function show($id)
+	public function show($clientId)
 	{
 		return View::make('clients.view')
-		->with('client', $this->client->find($id));
+		->with('client', $this->client->find($clientId));
 	}
 
 	/**
 	 * Display form for existing record
-	 * @param  int $id
+	 * @param  int $clientId
 	 * @return \Illuminate\View\View
 	 */
-	public function edit($id)
+	public function edit($clientId)
 	{
-		$client = $this->client->find($id);
+		$client = $this->client->find($clientId);
 		
 		return View::make('clients.form')
 		->with(array('editMode' => true, 'client' => $client));
@@ -95,22 +95,22 @@ class ClientController extends \BaseController {
 
 	/**
 	 * Validate and handle existing record form submission
-	 * @param  int $id
+	 * @param  int $clientId
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function update($id)
+	public function update($clientId)
 	{
 		$input = Input::all();
 
 		if (!$this->validator->validate($input))
 		{	
-			return Redirect::route('clients.edit', array($id))
+			return Redirect::route('clients.edit', array($clientId))
 			->with('editMode', true)
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
 
-		$this->client->update($input, $id);
+		$this->client->update($clientId, $input['name'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['email'], $input['web'], $input['active']);
 
 		return Redirect::route('clients.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));;
@@ -118,12 +118,12 @@ class ClientController extends \BaseController {
 
 	/**
 	 * Delete a record
-	 * @param  int $id
+	 * @param  int $clientId
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function delete($id)
+	public function delete($clientId)
 	{
-		$this->client->delete($id);
+		$this->client->delete($clientId);
 
 		return Redirect::route('clients.index')
 		->with('alert', trans('fi.record_successfully_deleted'));;

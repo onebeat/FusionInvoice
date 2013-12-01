@@ -95,9 +95,25 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 * @param  array $input
 	 * @return  int
 	 */
-	public function create($input)
+	public function create($name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active)
 	{
-		return Client::create($input)->id;
+		return Client::create(
+			array(
+				'name'      => $name,
+				'address_1' => $address1,
+				'address_2' => $address2,
+				'city'      => $city,
+				'state'     => $state,
+				'zip'       => $zip,
+				'country'   => $country,
+				'phone'     => $phone,
+				'fax'       => $fax,
+				'mobile'    => $mobile,
+				'email'     => $email,
+				'web'       => $web,
+				'active'    => $active
+			)
+		)->id;
 	}
 	
 	/**
@@ -105,10 +121,28 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 * @param  array $input
 	 * @param  int $id
 	 */
-	public function update($input, $id)
+	public function update($clientId, $name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active)
 	{
-		$client = Client::find($id);
-		$client->fill($input);
+		$client = Client::find($clientId);
+
+		$client->fill(
+			array(
+				'name'      => $name,
+				'address_1' => $address1,
+				'address_2' => $address2,
+				'city'      => $city,
+				'state'     => $state,
+				'zip'       => $zip,
+				'country'   => $country,
+				'phone'     => $phone,
+				'fax'       => $fax,
+				'mobile'    => $mobile,
+				'email'     => $email,
+				'web'       => $web,
+				'active'    => $active
+			)
+		);
+		
 		$client->save();
 	}
 	
