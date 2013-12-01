@@ -69,18 +69,7 @@ class InvoiceController extends BaseController {
 			$clientId = $client->create(array('name' => Input::get('client_name')));
 		}
 
-		$input = array(
-			'client_id'         => $clientId,
-			'created_at'        => Date::unformat(Input::get('created_at')),
-			'due_at'            => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.invoicesDueAfter')),
-			'invoice_group_id'  => Input::get('invoice_group_id'),
-			'number'            => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
-			'user_id'           => Auth::user()->id,
-			'invoice_status_id' => 1,
-			'url_key'           => str_random(32)
-			);
-
-		$invoiceId = $this->invoice->create($input);
+		$invoiceId = $this->invoice->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);
 
 		\Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
 
@@ -107,14 +96,7 @@ class InvoiceController extends BaseController {
 
 		$input = Input::all();
 
-		$invoice = array(
-			'number'            => $input['number'],
-			'created_at'        => Date::unformat($input['created_at']),
-			'due_at'            => Date::unformat($input['due_at']),
-			'invoice_status_id' => $input['invoice_status_id']
-			);
-
-		$this->invoice->update($invoice, $id);
+		$this->invoice->update($id, $input['created_at'], $input['due_at'], $input['number'], $input['invoice_status_id']);
 
 		$items = json_decode(Input::get('items'));
 
@@ -122,38 +104,22 @@ class InvoiceController extends BaseController {
 		{
 			if ($item->item_name)
 			{
-				$itemRecord = array(
-					'invoice_id'      => $item->invoice_id,
-					'name'          => $item->item_name,
-					'description'   => $item->item_description,
-					'quantity'      => $item->item_quantity,
-					'price'         => $item->item_price,
-					'tax_rate_id'   => $item->item_tax_rate_id,
-					'display_order' => $item->item_order
-					);
-
 				if (!$item->item_id)
 				{
-					$itemId = $this->invoiceItem->create($itemRecord);
+					$itemId = $this->invoiceItem->create($item->invoice_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
 
 					\Event::fire('invoice.item.created', $itemId);
 				}
 				else
 				{
-					$this->invoiceItem->update($itemRecord, $item->item_id);
+					$this->invoiceItem->update($item->item_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
 				}
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
 					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
 
-					$itemLookupRecord = array(
-						'name'        => $item->item_name,
-						'description' => $item->item_description,
-						'price'       => $item->item_price
-						);
-
-					$itemLookup->create($itemLookupRecord);
+					$itemLookup->create($item->item_name, $item->item_description, $item->item_price);
 				}
 			}
 		}
