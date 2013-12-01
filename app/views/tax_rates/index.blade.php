@@ -33,7 +33,7 @@
 			@foreach ($taxRates as $taxRate)
 			<tr>
 				<td>{{ $taxRate->name }}</td>
-				<td>{{ $taxRate->percent }}%</td>
+				<td>{{ $taxRate->formatted_percent }}</td>
 				<td>
 					<div class="options btn-group">
 						<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
