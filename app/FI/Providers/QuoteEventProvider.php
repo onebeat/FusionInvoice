@@ -109,7 +109,7 @@ class QuoteEventProvider extends ServiceProvider {
 			// Update the quote tax rate records
 			foreach ($calculatedTaxRates as $calculatedQuoteTaxRate)
 			{
-				$quoteTaxRate->updateByQuoteIdAndTaxRateId($calculatedQuoteTaxRate, $quoteId, $calculatedQuoteTaxRate['tax_rate_id']);
+				$quoteTaxRate->update($quoteId, $calculatedQuoteTaxRate['tax_rate_id'], $calculatedQuoteTaxRate['include_item_tax'], $calculatedQuoteTaxRate['tax_total']);
 			}
 
 			// Update the quote amount record

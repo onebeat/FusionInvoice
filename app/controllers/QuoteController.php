@@ -303,12 +303,7 @@ class QuoteController extends BaseController {
 	 */
 	public function saveQuoteTax()
 	{
-		$this->quoteTaxRate->create(array(
-			'quote_id'         => Input::get('quote_id'),
-			'tax_rate_id'      => Input::get('tax_rate_id'),
-			'include_item_tax' => Input::get('include_item_tax')
-			)
-		);
+		$this->quoteTaxRate->create(Input::get('quote_id'), Input::get('tax_rate_id'), Input::get('include_item_tax'), 0);
 
 		\Event::fire('quote.modified', Input::get('quote_id'));
 	}

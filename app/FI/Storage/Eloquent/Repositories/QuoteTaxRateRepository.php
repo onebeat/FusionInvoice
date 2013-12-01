@@ -13,26 +13,33 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 	{
 		return QuoteTaxRate::where('quote_id', $quoteId)->get();
 	}
-	
-	public function create($input)
+
+	public function create($quoteId, $taxRateId, $includeItemTax, $taxTotal)
 	{
-		QuoteTaxRate::create($input);
+		QuoteTaxRate::create(
+			array(
+				'quote_id'         => $quoteId,
+				'tax_rate_id'      => $taxRateId,
+				'include_item_tax' => $includeItemTax,
+				'tax_total'        => $taxTotal
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($quoteId, $taxRateId, $includeItemTax, $taxTotal)
 	{
-		$quoteTaxRate = QuoteTaxRate::find($id);
-		$quoteTaxRate->fill($input);
+		$quoteTaxRate = QuoteTaxRate::where('quote_id', $quoteId)->where('tax_rate_id', $taxRateId)->first();
+
+		$quoteTaxRate->fill(
+			array(
+				'include_item_tax' => $includeItemTax,
+				'tax_total'        => $taxTotal
+			)
+		);
+
 		$quoteTaxRate->save();
 	}
 
-	public function updateByQuoteIdAndTaxRateId($input, $quoteId, $taxRateId)
-	{
-		$quoteTaxRate = QuoteTaxRate::where('quote_id', $quoteId)->where('tax_rate_id', $taxRateId)->first();
-		$quoteTaxRate->fill($input);
-		$quoteTaxRate->save();
-	}
-	
 	public function delete($id)
 	{
 		QuoteTaxRate::destroy($id);

@@ -6,12 +6,10 @@ interface QuoteTaxRateRepositoryInterface {
 
 	public function findByQuoteId($quoteId);
 	
-	public function create($input);
+	public function create($invoiceId, $taxRateId, $includeItemTax, $taxTotal);
 	
-	public function update($input, $id);
+	public function update($invoiceId, $taxRateId, $includeItemTax, $taxTotal);
 
-	public function updateByQuoteIdAndTaxRateId($input, $quoteId, $taxRateId);
-	
 	public function delete($id);
 	
 }
