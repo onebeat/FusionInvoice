@@ -15,18 +15,55 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 		return User::find($id);
 	}
 	
-	public function create($input)
+	public function create($email, $password, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web)
 	{
 		$user = new User;
-		$user->fill($input);
-		$user->password = $input['password'];
+
+		$user->fill(
+			array(
+				'email'     => $email,
+				'name'      => $name,
+				'company'   => $company,
+				'address_1' => $address1,
+				'address_2' => $address2,
+				'city'      => $city,
+				'state'     => $state,
+				'zip'       => $zip,
+				'country'   => $country,
+				'phone'     => $phone,
+				'fax'       => $fax,
+				'mobile'    => $mobile,
+				'web'       => $web
+			)
+		);
+
+		$user->password = \Hash::make($password);
+
 		$user->save();
 	}
 	
-	public function update($input, $id)
+	public function update($id, $email, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web)
 	{
 		$user = User::find($id);
-		$user->fill($input);
+
+		$user->fill(
+			array(
+				'email'     => $email,
+				'name'      => $name,
+				'company'   => $company,
+				'address_1' => $address1,
+				'address_2' => $address2,
+				'city'      => $city,
+				'state'     => $state,
+				'zip'       => $zip,
+				'country'   => $country,
+				'phone'     => $phone,
+				'fax'       => $fax,
+				'mobile'    => $mobile,
+				'web'       => $web
+			)
+		);
+
 		$user->save();
 	}
 	

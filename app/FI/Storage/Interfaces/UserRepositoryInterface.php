@@ -6,9 +6,9 @@ interface UserRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($email, $password, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web);
 	
-	public function update($input, $id);
+	public function update($id, $email, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web);
 	
 	public function delete($id);
 	
