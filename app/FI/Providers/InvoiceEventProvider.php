@@ -46,13 +46,7 @@ class InvoiceEventProvider extends ServiceProvider {
             $taxTotal = $subtotal * ($taxRatePercent / 100);
             $total    = $subtotal + $taxTotal;
 
-            $invoiceItemAmount->create(array(
-                    'item_id'   => $invoiceItem->id,
-                    'subtotal'  => $subtotal,
-                    'tax_total' => $taxTotal,
-                    'total'     => $total
-                )
-            );
+            $invoiceItemAmount->create($invoiceItem->id, $subtotal, $taxTotal, $total);
 		});
 
 		// Calculate all invoice amounts
@@ -112,7 +106,7 @@ class InvoiceEventProvider extends ServiceProvider {
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
 			{
-				$invoiceItemAmount->updateByItemId($calculatedItemAmount, $calculatedItemAmount['item_id']);
+				$invoiceItemAmount->update($calculatedItemAmount['item_id'], $calculatedItemAmount['subtotal'], $calculatedItemAmount['tax_total'], $calculatedItemAmount['total']);
 			}
 
 			// Update the invoice tax rate records
