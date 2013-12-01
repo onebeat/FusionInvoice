@@ -65,6 +65,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('quotes/modal/save_quote_tax', array('uses' => 'QuoteController@saveQuoteTax', 'as' => 'quotes.ajax.saveQuoteTax'));
 	Route::post('quotes/modal/quote_to_invoice', array('uses' => 'QuoteController@modalQuoteToInvoice', 'as' => 'quotes.ajax.modalQuoteToInvoice'));
 	Route::post('quotes/quote_to_invoice', array('uses' => 'QuoteController@quoteToInvoice', 'as' => 'quotes.ajax.quoteToInvoice'));
+	Route::post('quotes/modal/copy_quote', array('uses' => 'QuoteController@modalCopyQuote', 'as' => 'quotes.ajax.modalCopyQuote'));
+	Route::post('quotes/ajax/copy_quote', array('uses' => 'QuoteController@copyQuote', 'as' => 'quotes.ajax.copyQuote'));
 	Route::post('quotes/create', array('uses' => 'QuoteController@store', 'as' => 'quotes.store'));
 	Route::post('quotes/{quote}/update', array('uses' => 'QuoteController@update', 'as' => 'quotes.update'));
 
