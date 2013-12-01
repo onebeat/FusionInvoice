@@ -69,7 +69,7 @@ class PaymentController extends BaseController {
 			->withInput();
 		}
 
-		$this->payment->update($input, $paymentId);
+		$this->payment->update($paymentId, $input['amount'], $input['paid_at'], $input['payment_method_id'], $input['note']);
 
 		\Event::fire('invoice.modified', array($invoiceId));
 
@@ -117,7 +117,7 @@ class PaymentController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$this->payment->create($input);
+		$this->payment->create($input['invoice_id'], $input['amount'], $input['paid_at'], $input['payment_method_id'], $input['note']);
 
 		\Event::fire('invoice.modified', array($input['invoice_id']));
 

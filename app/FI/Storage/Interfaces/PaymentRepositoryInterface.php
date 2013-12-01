@@ -10,9 +10,9 @@ interface PaymentRepositoryInterface {
 	
 	public function find($id);
 	
-	public function create($input);
+	public function create($invoiceId, $amount, $paidAt, $paymentMethodId, $note);
 	
-	public function update($input, $id);
+	public function update($paymentId, $amount, $paidAt, $paymentMethodId, $note);
 	
 	public function delete($id);
 	

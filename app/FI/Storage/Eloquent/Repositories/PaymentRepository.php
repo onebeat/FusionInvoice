@@ -26,31 +26,33 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 	{
 		return Payment::find($id);
 	}
-	
-	public function create($input)
-	{
-		$record = array(
-			'invoice_id'        => $input['invoice_id'],
-			'payment_method_id' => $input['payment_method_id'],
-			'paid_at'           => Date::unformat($input['paid_at']),
-			'amount'            => NumberFormatter::unformat($input['amount']),
-			'note'              => $input['note']
-		);
 
-		Payment::create($record);
+	public function create($invoiceId, $amount, $paidAt, $paymentMethodId, $note)
+	{
+		Payment::create(
+			array(
+				'invoice_id'        => $invoiceId,
+				'payment_method_id' => $paymentMethodId,
+				'paid_at'           => Date::unformat($paidAt),
+				'amount'            => NumberFormatter::unformat($amount),
+				'note'              => $note
+			)
+		);
 	}
 	
-	public function update($input, $id)
+	public function update($id, $amount, $paidAt, $paymentMethodId, $note)
 	{
-		$record = array(
-			'payment_method_id' => $input['payment_method_id'],
-			'paid_at'           => Date::unformat($input['paid_at']),
-			'amount'            => NumberFormatter::unformat($input['amount']),
-			'note'              => $input['note']
+		$payment = Payment::find($id);
+
+		$payment->fill(
+			array(
+				'payment_method_id' => $paymentMethodId,
+				'paid_at'           => Date::unformat($paidAt),
+				'amount'            => NumberFormatter::unformat($amount),
+				'note'              => $note
+			)
 		);
 
-		$payment = Payment::find($id);
-		$payment->fill($record);
 		$payment->save();
 	}
 	
