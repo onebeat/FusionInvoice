@@ -202,12 +202,7 @@ class InvoiceController extends BaseController {
 	 */
 	public function saveInvoiceTax()
 	{
-		$this->invoiceTaxRate->create(array(
-			'invoice_id'         => Input::get('invoice_id'),
-			'tax_rate_id'      => Input::get('tax_rate_id'),
-			'include_item_tax' => Input::get('include_item_tax')
-			)
-		);
+		$this->invoiceTaxRate->create(Input::get('invoice_id'), Input::get('tax_rate_id'), Input::get('include_item_tax'), 0);
 
 		\Event::fire('invoice.modified', Input::get('invoice_id'));
 	}

@@ -14,22 +14,29 @@ class InvoiceTaxRateRepository implements \FI\Storage\Interfaces\InvoiceTaxRateR
 		return InvoiceTaxRate::where('invoice_id', $invoiceId)->get();
 	}
 	
-	public function create($input)
+	public function create($invoiceId, $taxRateId, $includeItemTax, $taxTotal)
 	{
-		InvoiceTaxRate::create($input);
+		InvoiceTaxRate::create(
+			array(
+				'invoice_id'       => $invoiceId,
+				'tax_rate_id'      => $taxRateId,
+				'include_item_tax' => $includeItemTax,
+				'tax_total'        => $taxTotal
+			)
+		);
 	}
 	
-	public function update($input, $id)
-	{
-		$invoiceTaxRate = InvoiceTaxRate::find($id);
-		$invoiceTaxRate->fill($input);
-		$invoiceTaxRate->save();
-	}
-
-	public function updateByInvoiceIdAndTaxRateId($input, $invoiceId, $taxRateId)
+	public function update($invoiceId, $taxRateId, $includeItemTax, $taxTotal)
 	{
 		$invoiceTaxRate = InvoiceTaxRate::where('invoice_id', $invoiceId)->where('tax_rate_id', $taxRateId)->first();
-		$invoiceTaxRate->fill($input);
+
+		$invoiceTaxRate->fill(
+			array(
+				'include_item_tax' => $includeItemTax,
+				'tax_total'        => $taxTotal
+			)
+		);
+
 		$invoiceTaxRate->save();
 	}
 	

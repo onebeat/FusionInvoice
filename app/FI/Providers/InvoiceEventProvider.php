@@ -112,7 +112,7 @@ class InvoiceEventProvider extends ServiceProvider {
 			// Update the invoice tax rate records
 			foreach ($calculatedTaxRates as $calculatedInvoiceTaxRate)
 			{
-				$invoiceTaxRate->updateByInvoiceIdAndTaxRateId($calculatedInvoiceTaxRate, $invoiceId, $calculatedInvoiceTaxRate['tax_rate_id']);
+				$invoiceTaxRate->update($invoiceId, $calculatedInvoiceTaxRate['tax_rate_id'], $calculatedInvoiceTaxRate['include_item_tax'], $calculatedInvoiceTaxRate['tax_total']);
 			}
 
 			// Update the invoice amount record
