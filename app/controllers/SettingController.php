@@ -77,6 +77,8 @@ class SettingController extends BaseController {
 		{
 			if (substr($key, 0, 8) == 'setting_')
 			{
+				$key = substr($key, 8);
+				
 				$this->settings->save($key, $value);
 			}
 		}
