@@ -66,7 +66,7 @@ class QuoteController extends BaseController {
 
 		if (!$clientId)
 		{
-			$clientId = $client->create(array('name' => Input::get('client_name')));
+			$clientId = $client->create(Input::get('client_name'));
 		}
 
 		$quoteId = $this->quote->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);
@@ -243,7 +243,7 @@ class QuoteController extends BaseController {
 
 		if (!$clientId)
 		{
-			$clientId = $client->create(array('name' => Input::get('client_name')));
+			$clientId = $client->create(Input::get('client_name'));
 		}
 
 		$quoteId = $this->quote->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);

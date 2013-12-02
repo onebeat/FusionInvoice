@@ -95,7 +95,7 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 * @param  array $input
 	 * @return  int
 	 */
-	public function create($name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active)
+	public function create($name, $active = 1, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $email = null, $web = null)
 	{
 		return Client::create(
 			array(
@@ -121,7 +121,7 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	 * @param  array $input
 	 * @param  int $id
 	 */
-	public function update($clientId, $name, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $email, $web, $active)
+	public function update($clientId, $name, $active, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $email = null, $web = null)
 	{
 		$client = Client::find($clientId);
 
