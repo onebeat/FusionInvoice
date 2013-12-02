@@ -73,7 +73,13 @@ class SettingController extends BaseController {
 	 */
 	public function update()
 	{
-		$this->settings->save(Input::all());
+		foreach (Input::all() as $key => $value)
+		{
+			if (substr($key, 0, 8) == 'setting_')
+			{
+				$this->settings->save($key, $value);
+			}
+		}
 
 		if (Input::hasFile('invoice_logo'))
 		{

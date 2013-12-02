@@ -4,5 +4,5 @@ interface SettingRepositoryInterface {
 	
 	public function setAll();
 
-	public function save($input);
+	public function save($key, $value);
 }

@@ -28,24 +28,21 @@ class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInter
 	 * @param  array $input 
 	 * @return void
 	 */
-	public function save($input)
+	public function save($key, $value)
 	{
-		foreach ($input as $key=>$value)
+		if (substr($key, 0, 8) == 'setting_')
 		{
-			if (substr($key, 0, 8) == 'setting_')
-			{
-				$key = substr($key, 8);
+			$key = substr($key, 8);
 
-				if ($setting = Setting::where('setting_key', $key)->first())
-				{
-					$setting->setting_key = $key;
-					$setting->setting_value = $value;
-					$setting->save();
-				}
-				else
-				{
-					Setting::create(array('setting_key' => $key, 'setting_value' => $value));
-				}
+			if ($setting = Setting::where('setting_key', $key)->first())
+			{
+				$setting->setting_key   = $key;
+				$setting->setting_value = $value;
+				$setting->save();
+			}
+			else
+			{
+				Setting::create(array('setting_key' => $key, 'setting_value' => $value));
 			}
 		}
 	}
