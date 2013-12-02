@@ -11,14 +11,12 @@ class UserTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		$email = 'admin@admin.com';
+		$user = App::make('FI\Storage\Interfaces\UserRepositoryInterface');
+
+		$email    = 'admin@admin.com';
 		$password = 'password';
 
-		User::create(array(
-			'name'    => 'Administrator',
-			'email'   => $email,
-			'password'=> Hash::make($password),
-		));
+		$user->create($email, Hash::make($password), 'Administrator');
 
 		echo "Created a user with these credentials:\n";
 		echo "\tEmail:\t\t$email\n";

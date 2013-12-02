@@ -15,7 +15,7 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 		return User::find($id);
 	}
 	
-	public function create($email, $password, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web)
+	public function create($email, $password, $name, $company = null, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $web = null)
 	{
 		$user = new User;
 
@@ -42,7 +42,7 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 		$user->save();
 	}
 	
-	public function update($id, $email, $name, $company, $address1, $address2, $city, $state, $zip, $country, $phone, $fax, $mobile, $web)
+	public function update($id, $email, $name, $company = null, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $web = null)
 	{
 		$user = User::find($id);
 
