@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder {
 		$email    = 'admin@admin.com';
 		$password = 'password';
 
-		$user->create($email, Hash::make($password), 'Administrator');
+		$user->create($email, $password, 'Administrator');
 
 		echo "Created a user with these credentials:\n";
 		echo "\tEmail:\t\t$email\n";
