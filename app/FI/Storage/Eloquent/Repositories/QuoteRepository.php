@@ -5,11 +5,22 @@ use FI\Classes\Date;
 
 class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface {
 
+	/**
+	 * Get a list of all records
+	 * @return Quote
+	 */
 	public function all()
 	{
 		return Quote::all();
 	}
 
+	/**
+	 * Get a paged list of records
+	 * @param  int $page
+	 * @param  int  $numPerPage
+	 * @param  string $status
+	 * @return Quote
+	 */
 	public function getPagedByStatus($page = 1, $numPerPage = null, $status = 'all')
 	{
 		\DB::getPaginator()->setCurrentPage($page);
@@ -32,16 +43,35 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		}
 	}
 
+	/**
+	 * Get a single record
+	 * @param  int $id
+	 * @return Quote
+	 */
 	public function find($id)
 	{
 		return Quote::with('items.amount')->find($id);
 	}
 
+	/**
+	 * Get a record by url key
+	 * @param  string $urlKey
+	 * @return Quote
+	 */
 	public function findByUrlKey($urlKey)
 	{
 		return Quote::where('url_key', $urlKey)->first();
 	}
 
+	/**
+	 * Create a record
+	 * @param  int $clientId
+	 * @param  string $createdAt
+	 * @param  int $invoiceGroupId
+	 * @param  int $userId
+	 * @param  int $quoteStatusId
+	 * @return int
+	 */
 	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $quoteStatusId)
 	{
 		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
@@ -60,6 +90,15 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 			)->id;
 	}
 	
+	/**
+	 * Update a record
+	 * @param  int $quoteId
+	 * @param  string $createdAt
+	 * @param  string $expiresAt
+	 * @param  string $number
+	 * @param  int $quoteStatusId
+	 * @return void
+	 */
 	public function update($quoteId, $createdAt, $expiresAt, $number, $quoteStatusId)
 	{
 		$quote = Quote::find($quoteId);
@@ -76,6 +115,11 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		$quote->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		$quote = Quote::find($id);

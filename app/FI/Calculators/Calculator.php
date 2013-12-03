@@ -32,9 +32,9 @@ abstract class Calculator {
 	/**
 	 * Adds a item for calculation
 	 * @param int $itemId
-	 * @param float $quantity       [description]
-	 * @param float $price          [description]
-	 * @param float $taxRatePercent [description]
+	 * @param float $quantity
+	 * @param float $price
+	 * @param float $taxRatePercent
 	 */
 	public function addItem($itemId, $quantity, $price, $taxRatePercent)
 	{

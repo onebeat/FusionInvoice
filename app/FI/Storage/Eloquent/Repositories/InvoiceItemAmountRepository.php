@@ -4,11 +4,21 @@ use \FI\Storage\Eloquent\Models\InvoiceItemAmount;
 
 class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemAmountRepositoryInterface {
 	
+	/**
+	 * Get a single record
+	 * @param  int $id
+	 * @return InvoiceItemAmount
+	 */
 	public function find($id)
 	{
 		return InvoiceItemAmount::find($id);
 	}
 
+	/**
+	 * Get a list of records by invoice id
+	 * @param  int $invoiceId
+	 * @return InvoiceItemAmount
+	 */
 	public function findByInvoiceId($invoiceId)
 	{
 		return \DB::table('invoice_item_amounts')
@@ -16,6 +26,14 @@ class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemA
 		->get();
 	}
 	
+	/**
+	 * Create a record
+	 * @param  int $itemId
+	 * @param  float $subtotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @return void
+	 */
 	public function create($itemId, $subtotal, $taxTotal, $total)
 	{
 		InvoiceItemAmount::create(
@@ -28,6 +46,14 @@ class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemA
 		);
 	}
 	
+	/**
+	 * Update a record
+	 * @param  int $itemId
+	 * @param  float $subtotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @return void
+	 */
 	public function update($itemId, $subtotal, $taxTotal, $total)
 	{
 		$invoiceItemAmount = InvoiceItemAmount::where('item_id', $itemId)->first();
@@ -43,11 +69,21 @@ class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemA
 		$invoiceItemAmount->save();
 	}
 	
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		InvoiceItemAmount::destroy($id);
 	}
 
+	/**
+	 * Delete a record based on the item id
+	 * @param  int $itemId
+	 * @return void
+	 */
 	public function deleteByItemId($itemId)
 	{
 		InvoiceItemAmount::where('item_id', $itemId)->delete();

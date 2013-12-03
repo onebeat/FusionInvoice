@@ -80,6 +80,11 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 		return $client->where('id', $id)->first();
 	}
 
+	/**
+	 * Return client ID queried by name
+	 * @param  string $name
+	 * @return mixed
+	 */
 	public function findIdByName($name)
 	{
 		if ($client = Client::select('id')->where('name', $name)->first())
@@ -92,8 +97,20 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	
 	/**
 	 * Create a new client record
-	 * @param  array $input
-	 * @return  int
+	 * @param  string  $name
+	 * @param  integer $active
+	 * @param  string  $address1
+	 * @param  string  $address2
+	 * @param  string  $city
+	 * @param  string  $state
+	 * @param  string  $zip
+	 * @param  string  $country
+	 * @param  string  $phone
+	 * @param  string  $fax
+	 * @param  string  $mobile
+	 * @param  string  $email
+	 * @param  string  $web
+	 * @return int
 	 */
 	public function create($name, $active = 1, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $email = null, $web = null)
 	{
@@ -118,8 +135,21 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	
 	/**
 	 * Update an existing client record
-	 * @param  array $input
-	 * @param  int $id
+	 * @param  integer $clientId
+	 * @param  string  $name
+	 * @param  integer $active
+	 * @param  string  $address1
+	 * @param  string  $address2
+	 * @param  string  $city
+	 * @param  string  $state
+	 * @param  string  $zip
+	 * @param  string  $country
+	 * @param  string  $phone
+	 * @param  string  $fax
+	 * @param  string  $mobile
+	 * @param  string  $email
+	 * @param  string  $web
+	 * @return void
 	 */
 	public function update($clientId, $name, $active, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $email = null, $web = null)
 	{

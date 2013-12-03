@@ -4,11 +4,21 @@ use \FI\Storage\Eloquent\Models\QuoteItemAmount;
 
 class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface {
 	
+	/**
+	 * Find a record
+	 * @param  int $id
+	 * @return QuoteItemAmount
+	 */
 	public function find($id)
 	{
 		return QuoteItemAmount::find($id);
 	}
 
+	/**
+	 * Find all records by quote id
+	 * @param  int $quoteId [description]
+	 * @return QuoteItemAmount
+	 */
 	public function findByQuoteId($quoteId)
 	{
 		return \DB::table('quote_item_amounts')
@@ -16,6 +26,14 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 		->get();
 	}
 	
+	/**
+	 * Create a record
+	 * @param  int $itemId
+	 * @param  float $subtotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @return void
+	 */
 	public function create($itemId, $subtotal, $taxTotal, $total)
 	{
 		QuoteItemAmount::create(
@@ -28,6 +46,14 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 		);
 	}
 	
+	/**
+	 * Update a record
+	 * @param  int $itemId
+	 * @param  float $subtotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @return void
+	 */
 	public function update($itemId, $subtotal, $taxTotal, $total)
 	{
 		$quoteItemAmount = QuoteItemAmount::where('item_id', $itemId)->first();
@@ -43,11 +69,21 @@ class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmoun
 		$quoteItemAmount->save();
 	}
 	
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		QuoteItemAmount::destroy($id);
 	}
 
+	/**
+	 * Delete a record by item id
+	 * @param  int $itemId
+	 * @return void
+	 */
 	public function deleteByItemId($itemId)
 	{
 		QuoteItemAmount::where('item_id', $itemId)->delete();

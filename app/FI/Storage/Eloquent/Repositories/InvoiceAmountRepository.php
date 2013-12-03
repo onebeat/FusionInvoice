@@ -4,11 +4,27 @@ use \FI\Storage\Eloquent\Models\InvoiceAmount;
 
 class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRepositoryInterface {
 	
+	/**
+	 * Get a single record
+	 * @param  int $id
+	 * @return InvoiceAmount
+	 */
 	public function find($id)
 	{
 		return InvoiceAmount::find($id);
 	}
 
+	/**
+	 * Create a record
+	 * @param  int $invoiceId
+	 * @param  float $itemSubtotal
+	 * @param  float $itemTaxTotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @param  float $paid
+	 * @param  float $balance
+	 * @return void
+	 */
 	public function create($invoiceId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
 	{
 		InvoiceAmount::create(
@@ -23,27 +39,19 @@ class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRep
 			)
 		);
 	}
-	
-	public function update($id, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
-	{
-		$invoiceAmount = InvoiceAmount::find($id);
 
-		$invoiceAmount->fill(
-			array(
-				'invoice_id'     => $invoiceId,
-				'item_subtotal'  => $itemSubtotal,
-				'item_tax_total' => $itemTaxTotal,
-				'tax_total'      => $taxTotal,
-				'total'          => $total,
-				'paid'           => $paid,
-				'balance'        => $balance
-			)
-		);
-
-		$invoiceAmount->save();
-	}
-
-	public function updateByInvoiceId($invoiceId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
+	/**
+	 * Update a record
+	 * @param  int $invoiceId
+	 * @param  float $itemSubtotal
+	 * @param  float $itemTaxTotal
+	 * @param  float $taxTotal
+	 * @param  float $total
+	 * @param  float $paid
+	 * @param  float $balance
+	 * @return void
+	 */
+	public function update($invoiceId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
 	{
 		$invoiceAmount = InvoiceAmount::where('invoice_id', $invoiceId)->first();
 
@@ -61,6 +69,11 @@ class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRep
 		$invoiceAmount->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		InvoiceAmount::destroy($id);

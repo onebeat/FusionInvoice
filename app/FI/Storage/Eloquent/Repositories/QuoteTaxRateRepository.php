@@ -4,16 +4,34 @@ use \FI\Storage\Eloquent\Models\QuoteTaxRate;
 
 class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface {
 
+	/**
+	 * Get a single record
+	 * @param  int $id
+	 * @return QuoteTaxRate
+	 */
 	public function find($id)
 	{
 		return QuoteTaxRate::find($id);
 	}
 
+	/**
+	 * Get a list of tax rates by quote id
+	 * @param  int $quoteId
+	 * @return QutoeTaxRate
+	 */
 	public function findByQuoteId($quoteId)
 	{
 		return QuoteTaxRate::where('quote_id', $quoteId)->get();
 	}
 
+	/**
+	 * Create a record
+	 * @param  int $quoteId
+	 * @param  int $taxRateId
+	 * @param  bool $includeItemTax
+	 * @param  float $taxTotal
+	 * @return void
+	 */
 	public function create($quoteId, $taxRateId, $includeItemTax, $taxTotal)
 	{
 		QuoteTaxRate::create(
@@ -26,6 +44,14 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 		);
 	}
 	
+	/**
+	 * Update a record
+	 * @param  int $quoteId
+	 * @param  int $taxRateId
+	 * @param  bool $includeItemTax
+	 * @param  float $taxTotal
+	 * @return void
+	 */
 	public function update($quoteId, $taxRateId, $includeItemTax, $taxTotal)
 	{
 		$quoteTaxRate = QuoteTaxRate::where('quote_id', $quoteId)->where('tax_rate_id', $taxRateId)->first();
@@ -40,6 +66,11 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 		$quoteTaxRate->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		QuoteTaxRate::destroy($id);

@@ -5,11 +5,22 @@ use FI\Classes\Date;
 
 class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInterface {
 
+	/**
+	 * Get all records
+	 * @return Invoice
+	 */
 	public function all()
 	{
 		return Invoice::all();
 	}
 
+	/**
+	 * Get a list of records by status
+	 * @param  int $page
+	 * @param  int  $numPerPage
+	 * @param  string  $status
+	 * @return Invoice
+	 */
 	public function getPagedByStatus($page = 1, $numPerPage = null, $status = 'all')
 	{
 		\DB::getPaginator()->setCurrentPage($page);
@@ -35,16 +46,35 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 		}
 	}
 
+	/**
+	 * Get a single record
+	 * @param  int $id
+	 * @return Invoice
+	 */
 	public function find($id)
 	{
 		return Invoice::with('items.amount')->find($id);
 	}
 
+	/**
+	 * Get a record by url key
+	 * @param  string $urlKey
+	 * @return Invoice
+	 */
 	public function findByUrlKey($urlKey)
 	{
 		return Invoice::where('url_key', $urlKey)->first();
 	}
 	
+	/**
+	 * Create a record
+	 * @param  int $clientId
+	 * @param  string $createdAt
+	 * @param  int $invoiceGroupId
+	 * @param  int $userId
+	 * @param  int $invoiceStatusId
+	 * @return int
+	 */
 	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId)
 	{
 		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
@@ -63,6 +93,15 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 			)->id;
 	}
 	
+	/**
+	 * Update a record
+	 * @param  int $invoiceId
+	 * @param  string $createdAt
+	 * @param  string $dueAt
+	 * @param  string $number
+	 * @param  int $invoiceStatusId
+	 * @return void
+	 */
 	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId)
 	{
 		$invoice = Invoice::find($invoiceId);
@@ -79,6 +118,11 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 		$invoice->save();
 	}
 	
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
 	public function delete($id)
 	{
 		$invoice = Invoice::find($id);

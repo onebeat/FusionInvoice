@@ -4,8 +4,8 @@ class NumberFormatter {
 
 	/**
 	 * Formats a number according to FI config
-	 * @param  decimal $number
-	 * @return decimal
+	 * @param  float $number
+	 * @return float
 	 */
 	public static function format($number)
 	{
@@ -14,8 +14,8 @@ class NumberFormatter {
 
 	/**
 	 * Unformats a formatted number
-	 * @param  decimal $number
-	 * @return decimal
+	 * @param  float $number
+	 * @return float
 	 */
 	public static function unformat($number)
 	{

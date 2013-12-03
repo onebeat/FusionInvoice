@@ -25,14 +25,14 @@ class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInter
 
 	/**
 	 * Saves settings submitted by the setting form
-	 * @param  array $input 
+	 * @param  string $key
+	 * @param  string $value
 	 * @return void
 	 */
 	public function save($key, $value)
 	{
 		if ($setting = Setting::where('setting_key', $key)->first())
 		{
-			$setting->setting_key   = $key;
 			$setting->setting_value = $value;
 			$setting->save();
 		}

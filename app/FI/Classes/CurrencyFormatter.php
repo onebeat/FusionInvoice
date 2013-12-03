@@ -4,8 +4,8 @@ class CurrencyFormatter extends NumberFormatter {
 	
 	/**
 	 * Formats currency according to FI config
-	 * @param  decimal $amount
-	 * @return decimal
+	 * @param  float $amount
+	 * @return string
 	 */
 	public static function format($amount)
 	{
