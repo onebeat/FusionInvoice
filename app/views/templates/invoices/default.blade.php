@@ -13,11 +13,10 @@
           $("#table").tablesorter({ 
               widgets: ['zebra'] 
           }); 
-      } 
-      ); 
-  </script>
+      }); 
+    </script>
 
-  <title>{{ trans('fi.invoice') }} #{{ $invoice->number }}</title>
+    <title>{{ trans('fi.invoice') }} #{{ $invoice->number }}</title>
 
 </head>
 
@@ -25,62 +24,59 @@
 
     <div id="page">
 
-        <div class="status draft">
-            <p>Paid</p>
+        <div class="status {{ $invoice->status_text }}">
+            
         </div>
         
         <p class="recipient-address">
             <strong>{{ $invoice->client->name }}</strong><br />
             {{ $invoice->client->address_1 }}<br />
-            {{ $invoice->client->city }}<br />
-            {{ $invoice->client->state }}<br />
-            {{ $invoice->client->zip }}</p>
+            {{ $invoice->client->city }}, {{ $invoice->client->state }} {{ $invoice->client->zip }}
+        </p>
 
-            <h1>{{ trans('fi.invoice') }} #{{ $invoice->number }}</h1>
-            <p class="terms"><strong>{{ $invoice->formatted_created_at }}</strong><br/>
-                {{ trans('fi.due_date') }} {{ $invoice->formatted_due_at }}</p>
+        <h1>{{ trans('fi.invoice') }} #{{ $invoice->number }}</h1>
+        <p class="terms"><strong>{{ $invoice->formatted_created_at }}</strong><br/>
+            {{ trans('fi.due_date') }} {{ $invoice->formatted_due_at }}</p>
 
-                <img src="images/company-logo.png" alt="yourlogo" class="company-logo" />
-                <p class="company-address">
-                    {{ $invoice->user->company }}<br/>
-                    {{ $invoice->user->address_1 }}<br/>
-                    {{ $invoice->user->city }}<br/>
-                    {{ $invoice->user->state }}<br/>
-                    {{ $invoice->user->zip }}<br/>
-                </p>
+            <img src="{{ asset('uploads/' . Config::get('fi.invoiceLogo')) }}" alt="yourlogo" class="company-logo" />
+            <p class="company-address">
+                {{ $invoice->user->company }}<br/>
+                {{ $invoice->user->address_1 }}<br/>
+                {{ $invoice->user->city }}, {{ $invoice->user->state }} {{ $invoice->user->zip }}
+            </p>
 
-                <table id="table" class="tablesorter" cellspacing="0"> 
-                    <thead> 
-                        <tr> 
-                            <th>{{ trans('fi.quantity') }}</th> 
-                            <th>{{ trans('fi.name') }}</th>
-                            <th>{{ trans('fi.description') }}</th>
-                            <th>{{ trans('fi.price') }}</th> 
-                            <th>{{ trans('fi.subtotal') }}</th> 
-                        </tr> 
-                    </thead> 
-                    <tbody>
-                        @foreach ($invoice->items as $item)
-                        <tr>
-                            <td>{{ $item->formatted_quantity }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>{{ $item->formatted_price }}</td>
-                            <td>{{ $item->amount->formatted_subtotal }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody> 
-                </table>
+            <table id="table" class="tablesorter" cellspacing="0"> 
+                <thead> 
+                    <tr> 
+                        <th>{{ trans('fi.quantity') }}</th> 
+                        <th>{{ trans('fi.name') }}</th>
+                        <th>{{ trans('fi.description') }}</th>
+                        <th>{{ trans('fi.price') }}</th> 
+                        <th>{{ trans('fi.subtotal') }}</th> 
+                    </tr> 
+                </thead> 
+                <tbody>
+                    @foreach ($invoice->items as $item)
+                    <tr>
+                        <td>{{ $item->formatted_quantity }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->formatted_price }}</td>
+                        <td>{{ $item->amount->formatted_subtotal }}</td>
+                    </tr>
+                    @endforeach
+                </tbody> 
+            </table>
 
-                <div class="total-due">
-                    <div class="total-heading"><p>{{ trans('fi.total') }}</p></div>
-                    <div class="total-amount"><p>{{ $invoice->amount->formatted_total }}</p></div>
-                </div>
-
-                <div style="clear: both;"></div>
-
+            <div class="total-due">
+                <div class="total-heading"><p>{{ trans('fi.total') }}</p></div>
+                <div class="total-amount"><p>{{ $invoice->amount->formatted_total }}</p></div>
             </div>
-            <div class="page-shadow"></div>
 
-        </body>
-        </html>
+            <div style="clear: both;"></div>
+
+        </div>
+        <div class="page-shadow"></div>
+
+    </body>
+</html>
