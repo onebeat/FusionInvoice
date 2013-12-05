@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder {
 		$email    = 'admin@admin.com';
 		$password = 'password';
 
-		$user->create($email, $password, 'Administrator');
+		$user->create($email, $password, 'Administrator', 'ACME, LLC', '1234 Acme Drive', null, 'Acme', 'TX', '12345');
 
 		echo "Created a user with these credentials:\n";
 		echo "\tEmail:\t\t$email\n";
