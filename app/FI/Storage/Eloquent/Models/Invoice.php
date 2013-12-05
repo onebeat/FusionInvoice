@@ -59,6 +59,27 @@ class Invoice extends \Eloquent {
         return Date::format($this->attributes['due_at']);
     }
 
+    public function getStatusTextAttribute()
+    {
+        switch ($this->attributes['invoice_status_id'])
+        {
+            case 1:
+                return 'draft';
+                break;
+            case 2:
+                return 'sent';
+                break;
+            case 3:
+                return 'paid';
+                break;
+            case 4:
+                return 'canceled';
+                break;
+            default:
+                return 'unknown';
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scopes
