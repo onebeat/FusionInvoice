@@ -52,7 +52,6 @@
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.invoice_logo') }}: </label>
 		<div class="controls">
-			{{ __DIR__ }}
 			{{ Form::file('invoice_logo') }}
 		</div>
 	</div>	
