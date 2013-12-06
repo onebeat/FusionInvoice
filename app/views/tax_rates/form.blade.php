@@ -33,7 +33,7 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.tax_rate_percent') }}: </label>
 		<div class="controls">
-			{{ Form::text('percent', (($editMode) ? $taxRate->formatted_percent : null), array('id' => 'percent')) }}
+			{{ Form::text('percent', (($editMode) ? $taxRate->formatted_numeric_percent : null), array('id' => 'percent')) }}
 		</div>
 	</div>
 
