@@ -49,7 +49,8 @@
                 created_at: $('#created_at').val(),
                 due_at: $('#due_at').val(),
                 invoice_status_id: $('#invoice_status_id').val(),
-                items: JSON.stringify(items)
+                items: JSON.stringify(items),
+                terms: $('#terms').val()
             },
             function(data) {
                 var response = JSON.parse(data);
@@ -173,6 +174,10 @@
 			</div>
 
             @include('invoices._show_item_table')
+
+            <p><strong>{{ trans('fi.terms') }}</strong></p>
+            {{ Form::textarea('terms', $invoice->terms, array('id' => 'terms', 'style' => 'width: 100%;')) }}
+            </div>
             
 		</div>
 		

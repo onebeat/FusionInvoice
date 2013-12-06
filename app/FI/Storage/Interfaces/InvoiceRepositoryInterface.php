@@ -33,7 +33,7 @@ interface InvoiceRepositoryInterface {
 	 * @param  int $invoiceStatusId
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId);
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId, $terms);
 	
 	/**
 	 * Update a record
@@ -44,7 +44,7 @@ interface InvoiceRepositoryInterface {
 	 * @param  int $invoiceStatusId
 	 * @return void
 	 */
-	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId);
+	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId, $terms);
 
 	/**
 	 * Delete a record

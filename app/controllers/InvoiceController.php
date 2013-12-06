@@ -69,7 +69,7 @@ class InvoiceController extends BaseController {
 			$clientId = $client->create(Input::get('client_name'));
 		}
 
-		$invoiceId = $this->invoice->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);
+		$invoiceId = $this->invoice->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1, Input::get('terms'));
 
 		\Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
 
@@ -96,7 +96,7 @@ class InvoiceController extends BaseController {
 
 		$input = Input::all();
 
-		$this->invoice->update($id, $input['created_at'], $input['due_at'], $input['number'], $input['invoice_status_id']);
+		$this->invoice->update($id, $input['created_at'], $input['due_at'], $input['number'], $input['invoice_status_id'], $input['terms']);
 
 		$items = json_decode(Input::get('items'));
 

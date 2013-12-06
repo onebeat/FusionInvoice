@@ -75,7 +75,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	 * @param  int $invoiceStatusId
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId)
+	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId, $terms = null)
 	{
 		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 
@@ -88,7 +88,8 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 				'number'            => $invoiceGroup->generateNumber($invoiceGroupId),
 				'user_id'           => $userId,
 				'invoice_status_id' => $invoiceStatusId,
-				'url_key'           => str_random(32)
+				'url_key'           => str_random(32),
+				'terms'             => $terms
 				)
 			)->id;
 	}
@@ -102,7 +103,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	 * @param  int $invoiceStatusId
 	 * @return void
 	 */
-	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId)
+	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId, $terms = null)
 	{
 		$invoice = Invoice::find($invoiceId);
 
@@ -111,7 +112,8 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 				'created_at'        => Date::unformat($createdAt),
 				'due_at'            => Date::unformat($dueAt),
 				'number'            => $number,
-				'invoice_status_id' => $invoiceStatusId
+				'invoice_status_id' => $invoiceStatusId,
+				'terms'             => $terms
 			)
 		);
 
