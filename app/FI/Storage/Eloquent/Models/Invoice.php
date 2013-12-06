@@ -54,9 +54,14 @@ class Invoice extends \Eloquent {
         return Date::format($this->attributes['updated_at']);
     }
 
-    public function getFormattedDueAtAttribute($value)
+    public function getFormattedDueAtAttribute()
     {
         return Date::format($this->attributes['due_at']);
+    }
+
+    public function getFormattedTermsAttribute()
+    {
+        return nl2br($this->attributes['terms']);
     }
 
     public function getStatusTextAttribute()
