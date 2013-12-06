@@ -8,6 +8,11 @@ class TaxRate extends \Eloquent {
 
 	public function getFormattedPercentAttribute()
 	{
+		return NumberFormatter::format($this->attributes['percent']) . '%';
+	}
+
+	public function getFormattedNumericPercentAttribute()
+	{
 		return NumberFormatter::format($this->attributes['percent']);
 	}
 
