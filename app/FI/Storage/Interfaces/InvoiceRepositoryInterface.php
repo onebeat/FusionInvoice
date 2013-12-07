@@ -16,6 +16,20 @@ interface InvoiceRepositoryInterface {
 	 * @return Invoice
 	 */
 	public function getPagedByStatus($page, $numPerPage, $status);
+
+	/**
+	 * Get a limited list of all invoices
+	 * @param  int $limit
+	 * @return Invoice
+	 */
+	public function getRecent($limit);
+
+	/**
+	 * Get a limited list of overdue records
+	 * @param  int $limit
+	 * @return Invoice
+	 */
+	public function getRecentOverdue($limit);
 	
 	/**
 	 * Get a single record

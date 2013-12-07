@@ -47,6 +47,26 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	}
 
 	/**
+	 * Get a limited list of all invoices
+	 * @param  int $limit
+	 * @return Invoice
+	 */
+	public function getRecent($limit)
+	{
+		return Invoice::with(array('amount', 'client'))->limit($limit)->get();
+	}
+
+	/**
+	 * Get a limited list of overdue records
+	 * @param  int $limit
+	 * @return Invoice
+	 */
+	public function getRecentOverdue($limit)
+	{
+		return Invoice::overdue()->with(array('amount', 'client'))->orderBy('due_at')->limit($limit)->get();
+	}
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Invoice
