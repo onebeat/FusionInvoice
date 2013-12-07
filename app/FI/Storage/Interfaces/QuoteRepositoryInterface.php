@@ -18,6 +18,13 @@ interface QuoteRepositoryInterface {
 	public function getPagedByStatus($page, $numPerPage, $status);
 
 	/**
+	 * Get a limited list of all records
+	 * @param  int $limit
+	 * @return Quote
+	 */
+	public function getRecent($limit);
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Quote

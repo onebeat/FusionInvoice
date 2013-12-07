@@ -44,6 +44,16 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	}
 
 	/**
+	 * Get a limited list of all records
+	 * @param  int $limit
+	 * @return Quote
+	 */
+	public function getRecent($limit)
+	{
+		return Quote::with(array('amount', 'client'))->limit($limit)->get();
+	}
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Quote
