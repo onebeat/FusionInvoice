@@ -85,6 +85,14 @@ class Invoice extends \Eloquent {
         }
     }
 
+    public function getIsOverdueAttribute()
+    {
+        if ($this->attributes['due_at'] < date('Y-m-d'))
+            return 1;
+
+        return 0;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scopes
@@ -109,5 +117,10 @@ class Invoice extends \Eloquent {
     public function scopeCanceled($query)
     {
         return $query->where('invoice_status_id', '=', 4);
+    }
+
+    public function scopeOverdue($query)
+    {
+        return $query->where('due_at', '<', \DB::raw('now()'));
     }
 }
