@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\QuoteAmount;
+use FI\Storage\Eloquent\Models\QuoteAmount;
 
 class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountRepositoryInterface {
 	

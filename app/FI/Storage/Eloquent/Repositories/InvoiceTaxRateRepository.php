@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\InvoiceTaxRate;
+use FI\Storage\Eloquent\Models\InvoiceTaxRate;
 
 class InvoiceTaxRateRepository implements \FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface {
 

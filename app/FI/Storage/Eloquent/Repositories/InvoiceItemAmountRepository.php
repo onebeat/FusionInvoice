@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\InvoiceItemAmount;
+use FI\Storage\Eloquent\Models\InvoiceItemAmount;
 
 class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemAmountRepositoryInterface {
 	

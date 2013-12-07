@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\InvoiceGroup;
+use FI\Storage\Eloquent\Models\InvoiceGroup;
 
 class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepositoryInterface {
 	

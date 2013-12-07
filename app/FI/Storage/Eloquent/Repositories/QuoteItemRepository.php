@@ -1,8 +1,8 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\QuoteItem;
-use \FI\Storage\Eloquent\Models\QuoteItemAmount;
-use \FI\Classes\NumberFormatter;
+use FI\Storage\Eloquent\Models\QuoteItem;
+use FI\Storage\Eloquent\Models\QuoteItemAmount;
+use FI\Classes\NumberFormatter;
 
 class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryInterface {
 

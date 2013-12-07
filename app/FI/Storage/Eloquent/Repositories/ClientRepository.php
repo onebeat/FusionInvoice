@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\Client;
+use FI\Storage\Eloquent\Models\Client;
 
 class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterface {
 	

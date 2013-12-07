@@ -1,8 +1,8 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\InvoiceItem;
-use \FI\Storage\Eloquent\Models\InvoiceItemAmount;
-use \FI\Classes\NumberFormatter;
+use FI\Storage\Eloquent\Models\InvoiceItem;
+use FI\Storage\Eloquent\Models\InvoiceItemAmount;
+use FI\Classes\NumberFormatter;
 
 class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemRepositoryInterface {
 

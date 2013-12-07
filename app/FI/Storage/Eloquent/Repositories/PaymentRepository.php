@@ -1,8 +1,8 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\Payment;
-use \FI\Classes\NumberFormatter;
-use \FI\Classes\Date;
+use FI\Storage\Eloquent\Models\Payment;
+use FI\Classes\NumberFormatter;
+use FI\Classes\Date;
 
 class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInterface {
 	

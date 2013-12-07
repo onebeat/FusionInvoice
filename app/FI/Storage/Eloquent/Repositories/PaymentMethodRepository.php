@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\PaymentMethod;
+use FI\Storage\Eloquent\Models\PaymentMethod;
 
 class PaymentMethodRepository implements \FI\Storage\Interfaces\PaymentMethodRepositoryInterface {
 	

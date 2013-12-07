@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\User;
+use FI\Storage\Eloquent\Models\User;
 
 class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 

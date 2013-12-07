@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\EmailTemplate;
+use FI\Storage\Eloquent\Models\EmailTemplate;
 
 class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRepositoryInterface {
 	

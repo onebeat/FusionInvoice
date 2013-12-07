@@ -1,6 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
-use \FI\Storage\Eloquent\Models\ClientNote;
+use FI\Storage\Eloquent\Models\ClientNote;
 
 class ClientNoteRepository implements \FI\Storage\Interfaces\ClientNoteRepositoryInterface {
 	
