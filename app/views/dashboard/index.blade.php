@@ -40,20 +40,19 @@
 				<table class="table no-margin">
 					<thead>
 						<tr>
-							@if (isset($quote_status_Totals))
-							<th><a href="<?php echo site_url($total['href']); ?>"><?php echo $total['label']; ?></a></th>
-							@endif
+							@foreach ($quoteStatuses as $quoteStatus)
+							<th><a href="#">{{ $quoteStatus['label'] }}</a></th>
+							@endforeach
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							@if (isset($quote_status_Totals))
-							<td class="<?php echo $total['class']; ?>"><?php echo format_currency($total['sum_total']); ?></td>
-							@endif
+							@foreach ($quoteStatuses as $key => $quoteStatus)
+							<td class="{{ $quoteStatus['status'] }}">{{ $quoteStatusAmounts[$key] }}</td>
+							@endforeach
 						</tr>
 					</tbody>
 				</table>
-
 			</div>
 
 			<div class="widget overview">
@@ -64,16 +63,16 @@
 				<table class="table no-margin">
 					<thead>
 						<tr>
-							@if (isset($invoice_status_totals))
-							<th><a href="<?php echo site_url($total['href']); ?>"><?php echo $total['label']; ?></a></th>
-							@endif
+							@foreach ($invoiceStatuses as $invoiceStatus)
+							<th><a href="#">{{ $invoiceStatus['label'] }}</a></th>
+							@endforeach
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							@if (isset($invoice_status_totals))
-							<td class="<?php echo $total['class']; ?>"><?php echo format_currency($total['sum_total']); ?></td>
-							@endif
+							@foreach ($invoiceStatuses as $key => $invoiceStatus)
+							<td class="{{ $invoiceStatus['status'] }}">{{ $invoiceStatusAmounts[$key] }}</td>
+							@endforeach
 						</tr>
 					</tbody>
 				</table>

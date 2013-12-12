@@ -42,4 +42,11 @@ interface InvoiceAmountRepositoryInterface {
 	 */
 	public function delete($id);
 
+	/**
+	 * Get a grouped list of amounts by status
+	 * @param  array $statuses
+	 * @return array
+	 */
+	public function getTotalsByStatus($statuses);
+
 }

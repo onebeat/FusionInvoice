@@ -1,5 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
+use FI\Classes\CurrencyFormatter;
 use FI\Storage\Eloquent\Models\QuoteAmount;
 
 class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountRepositoryInterface {
@@ -60,5 +61,32 @@ class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountReposit
 	public function delete($id)
 	{
 		QuoteAmount::destroy($id);
+	}
+
+	/**
+	 * Get a grouped list of amounts by status
+	 * @param  array $statuses
+	 * @return array
+	 */
+	public function getTotalsByStatus($statuses)
+	{
+		$amounts = array();
+
+		foreach ($statuses as $key => $status)
+		{
+			$amounts[$key] = CurrencyFormatter::format(0);
+		}
+
+		$quoteAmounts = QuoteAmount::select('quotes.quote_status_id', \DB::raw('SUM(quote_amounts.total) AS total'))
+		->join('quotes', 'quotes.id', '=', 'quote_amounts.quote_id')
+		->groupBy('quotes.quote_status_id')
+		->get();
+
+		foreach ($quoteAmounts as $quoteAmount)
+		{
+			$amounts[$quoteAmount->quote_status_id] = CurrencyFormatter::format($quoteAmount->total);
+		}
+
+		return $amounts;
 	}
 }
