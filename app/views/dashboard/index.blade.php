@@ -41,7 +41,7 @@
 					<thead>
 						<tr>
 							@foreach ($quoteStatuses as $quoteStatus)
-							<th><a href="#">{{ $quoteStatus['label'] }}</a></th>
+							<th><a href="{{ route('quotes.index', array($quoteStatus['status'])) }}">{{ $quoteStatus['label'] }}</a></th>
 							@endforeach
 						</tr>
 					</thead>
@@ -64,7 +64,7 @@
 					<thead>
 						<tr>
 							@foreach ($invoiceStatuses as $invoiceStatus)
-							<th><a href="#">{{ $invoiceStatus['label'] }}</a></th>
+							<th><a href="{{ route('invoices.index', array($invoiceStatus['status'])) }}">{{ $invoiceStatus['label'] }}</a></th>
 							@endforeach
 						</tr>
 					</thead>

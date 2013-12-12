@@ -30,16 +30,25 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 		switch ($status)
 		{
 			case 'draft':
-			return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $quote->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			case 'sent':
-			return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $quote->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'viewed':
+				return $quote->viewed()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'approved':
+				return $quote->approved()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'rejected':
+				return $quote->rejected()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			case 'canceled':
-			return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $quote->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			default:
-			return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $quote->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 

@@ -1,6 +1,6 @@
-<?php namespace FI\Classes;
+<?php namespace FI\Statuses;
 
-abstract class Statuses {
+class QuoteStatuses {
 
     /**
      * Returns the array of statuses
@@ -22,10 +22,18 @@ abstract class Statuses {
                 'label'  => trans('fi.sent')
             ),
             '3' => array(
-                'status' => 'paid',
-                'label'  => trans('fi.paid')
+                'status' => 'viewed',
+                'label'  => trans('fi.viewed')
             ),
             '4' => array(
+                'status' => 'approved',
+                'label'  => trans('fi.approved')
+            ),
+            '5' => array(
+                'status' => 'rejected',
+                'label'  => trans('fi.rejected')
+            ),
+            '6' => array(
                 'status' => 'canceled',
                 'label'  => trans('fi.canceled')
             )
@@ -38,7 +46,7 @@ abstract class Statuses {
      */
     public static function getList($statuses)
     {
-    	$return = array();
+        $return = array();
 
         foreach ($statuses as $key => $status)
         {
@@ -48,4 +56,13 @@ abstract class Statuses {
         return $return;
     }
 
+    public static function lists()
+    {
+        $statuses = self::statuses();
+
+        unset($statuses[0]);
+
+        return self::getList($statuses);
+    }
+	
 }

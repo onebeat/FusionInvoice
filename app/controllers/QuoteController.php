@@ -6,7 +6,7 @@ use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\QuoteValidator;
-use FI\Quotes\QuoteStatuses;
+use FI\Statuses\QuoteStatuses;
 use FI\Classes\Date;
 
 class QuoteController extends BaseController {

@@ -75,9 +75,12 @@ class Invoice extends \Eloquent {
                 return 'sent';
                 break;
             case 3:
-                return 'paid';
+                return 'viewed';
                 break;
             case 4:
+                return 'paid';
+                break;
+            case 5:
                 return 'canceled';
                 break;
             default:
@@ -109,14 +112,19 @@ class Invoice extends \Eloquent {
         return $query->where('invoice_status_id', '=', 2);
     }
 
-    public function scopePaid($query)
+    public function scopeViewed($query)
     {
         return $query->where('invoice_status_id', '=', 3);
     }
 
-    public function scopeCanceled($query)
+    public function scopePaid($query)
     {
         return $query->where('invoice_status_id', '=', 4);
+    }
+
+    public function scopeCanceled($query)
+    {
+        return $query->where('invoice_status_id', '=', 5);
     }
 
     public function scopeOverdue($query)

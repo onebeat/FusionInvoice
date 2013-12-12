@@ -6,7 +6,7 @@ use FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\InvoiceValidator;
-use FI\Invoices\InvoiceStatuses;
+use FI\Statuses\InvoiceStatuses;
 use FI\Classes\Date;
 
 class InvoiceController extends BaseController {

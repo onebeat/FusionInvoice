@@ -1,7 +1,7 @@
 <?php
 
-use FI\Quotes\QuoteStatuses;
-use FI\Invoices\InvoiceStatuses;
+use FI\Statuses\QuoteStatuses;
+use FI\Statuses\InvoiceStatuses;
 use FI\Storage\Interfaces\QuoteRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceRepositoryInterface;
 use FI\Storage\Interfaces\QuoteAmountRepositoryInterface;

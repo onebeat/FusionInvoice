@@ -30,19 +30,22 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 		switch ($status)
 		{
 			case 'draft':
-			return $invoice->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $invoice->draft()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			case 'sent':
-			return $invoice->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $invoice->sent()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
+			case 'viewed':
+				return $invoice->viewed()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			case 'paid':
-			return $invoice->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $invoice->paid()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			case 'canceled':
-			return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
-			break;
+				return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			default:
-			return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
 	}
 

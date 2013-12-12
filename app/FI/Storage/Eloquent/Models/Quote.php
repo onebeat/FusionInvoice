@@ -59,6 +59,33 @@ class Quote extends \Eloquent {
         return Date::format($this->attributes['expires_at']);
     }
 
+    public function getStatusTextAttribute()
+    {
+        switch ($this->attributes['quote_status_id'])
+        {
+            case 1:
+                return 'draft';
+                break;
+            case 2:
+                return 'sent';
+                break;
+            case 3:
+                return 'viewed';
+                break;
+            case 4:
+                return 'approved';
+                break;
+            case 5:
+                return 'rejected';
+                break;
+            case 6:
+                return 'canceled';
+                break;
+            default:
+                return 'unknown';
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scopes
@@ -75,8 +102,23 @@ class Quote extends \Eloquent {
         return $query->where('quote_status_id', '=', 2);
     }
 
-    public function scopeCanceled($query)
+    public function scopeViewed($query)
+    {
+        return $query->where('quote_status_id', '=', 3);
+    }
+
+    public function scopeApproved($query)
     {
         return $query->where('quote_status_id', '=', 4);
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->where('quote_status_id', '=', 5);
+    }
+
+    public function scopeCanceled($query)
+    {
+        return $query->where('quote_status_id', '=', 6);
     }
 }
