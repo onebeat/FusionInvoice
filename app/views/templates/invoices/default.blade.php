@@ -84,7 +84,7 @@
 
         <div class="invoice-status">
             <h3>Invoice Status</h3>
-            <strong>Invoice is <em>Unpaid</em></strong>
+            <strong>Invoice is <em>{{ trans('fi.' . $invoice->status_text) }}</em></strong>
         </div><!-- e: invoice-status -->
 
     </section><!-- e: invoice partis -->
