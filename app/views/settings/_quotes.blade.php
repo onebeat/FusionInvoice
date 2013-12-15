@@ -35,4 +35,11 @@
 		</div>
 	</div>
 
+	<div class="control-group">
+		<label class="control-label">{{ trans('fi.default_footer') }}: </label>
+		<div class="controls">
+			{{ Form::textarea('setting_quoteFooter', Config::get('fi.quoteFooter'), array('style' => 'width: 400px; height: 150px;')) }}
+		</div>
+	</div>
+
 </div>
