@@ -78,7 +78,8 @@ class QuoteController extends BaseController {
 			'number'           => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
 			'user_id'          => Auth::user()->id,
 			'quote_status_id'  => 1,
-			'url_key'          => str_random(32)
+			'url_key'          => str_random(32),
+			'footer'           => Input::get('footer')
 		);
 
 		$quoteId = $this->quote->create($input);
@@ -112,7 +113,8 @@ class QuoteController extends BaseController {
 			'number'          => $input['number'],
 			'created_at'      => Date::unformat($input['created_at']),
 			'expires_at'      => Date::unformat($input['expires_at']),
-			'quote_status_id' => $input['quote_status_id']
+			'quote_status_id' => $input['quote_status_id'],
+			'footer'          => $input['footer']
 		);
 
 		$this->quote->update($quote, $id);

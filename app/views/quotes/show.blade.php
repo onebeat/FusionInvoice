@@ -49,7 +49,8 @@
                 created_at: $('#created_at').val(),
                 expires_at: $('#expires_at').val(),
                 quote_status_id: $('#quote_status_id').val(),
-                items: JSON.stringify(items)
+                items: JSON.stringify(items),
+                footer: $('#footer').val()
             },
             function(data) {
                 var response = JSON.parse(data);
@@ -181,6 +182,15 @@
 			</div>
 
             @include('quotes._show_item_table')
+
+            <div class="row-fluid">
+
+                <div class="span12">
+                    <p><strong>{{ trans('fi.footer') }}</strong></p>
+                    {{ Form::textarea('footer', $quote->footer, array('id' => 'footer', 'style' => 'width: 100%;')) }}
+                </div>
+
+            </div>
             
 		</div>
 		
