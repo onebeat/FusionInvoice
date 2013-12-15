@@ -79,8 +79,8 @@ class InvoiceController extends BaseController {
 			'user_id'           => Auth::user()->id,
 			'invoice_status_id' => 1,
 			'url_key'           => str_random(32),
-			'terms'             => Input::get('terms'),
-			'footer'            => Input::get('footer')
+			'terms'             => Config::get('fi.invoiceTerms'),
+			'footer'            => Config::get('fi.invoiceFooter')
 		);
 
 		$invoiceId = $this->invoice->create($input);

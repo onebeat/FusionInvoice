@@ -79,7 +79,7 @@ class QuoteController extends BaseController {
 			'user_id'          => Auth::user()->id,
 			'quote_status_id'  => 1,
 			'url_key'          => str_random(32),
-			'footer'           => Input::get('footer')
+			'footer'           => Config::get('fi.quoteFooter')
 		);
 
 		$quoteId = $this->quote->create($input);
