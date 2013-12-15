@@ -13,12 +13,12 @@ class Footers extends Migration {
 	{
 		Schema::table('invoices', function($table)
 		{
-			$table->text('footer');
+			$table->text('footer')->nullable();
 		});
 
 		Schema::table('quotes', function($table)
 		{
-			$table->text('footer');
+			$table->text('footer')->nullable();
 		});
 	}
 
