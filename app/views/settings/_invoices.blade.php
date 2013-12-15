@@ -50,6 +50,13 @@
 	</div>
 
 	<div class="control-group">
+		<label class="control-label">{{ trans('fi.default_footer') }}: </label>
+		<div class="controls">
+			{{ Form::textarea('setting_invoiceFooter', Config::get('fi.invoiceFooter'), array('style' => 'width: 400px; height: 150px;')) }}
+		</div>
+	</div>
+
+	<div class="control-group">
 		<label class="control-label">{{ trans('fi.invoice_logo') }}: </label>
 		<div class="controls">
 			{{ Form::file('invoice_logo') }}

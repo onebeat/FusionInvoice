@@ -175,8 +175,20 @@
 
             @include('invoices._show_item_table')
 
-            <p><strong>{{ trans('fi.terms') }}</strong></p>
-            {{ Form::textarea('terms', $invoice->terms, array('id' => 'terms', 'style' => 'width: 100%;')) }}
+            <div class="row-fluid">
+
+                <div class="span6">
+                    <p><strong>{{ trans('fi.terms') }}</strong></p>
+                    {{ Form::textarea('terms', $invoice->terms, array('id' => 'terms', 'style' => 'width: 100%;')) }}
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <p><strong>{{ trans('fi.footer') }}</strong></p>
+                    {{ Form::textarea('footer', $invoice->footer, array('id' => 'footer', 'style' => 'width: 100%;')) }}
+                    </div>
+                </div>
+
             </div>
             
 		</div>
