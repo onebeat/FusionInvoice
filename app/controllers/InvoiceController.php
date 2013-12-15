@@ -7,6 +7,7 @@ use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\InvoiceValidator;
 use FI\Statuses\InvoiceStatuses;
+use FI\Classes\NumberFormatter;
 use FI\Classes\Date;
 
 class InvoiceController extends BaseController {
@@ -130,8 +131,8 @@ class InvoiceController extends BaseController {
 					'invoice_id'    => $item->invoice_id,
 					'name'          => $item->item_name,
 					'description'   => $item->item_description,
-					'quantity'      => $item->item_quantity,
-					'price'         => $item->item_price,
+					'quantity'      => NumberFormatter::unformat($item->item_quantity),
+					'price'         => NumberFormatter::unformat($item->item_price),
 					'tax_rate_id'   => $item->item_tax_rate_id,
 					'display_order' => $item->item_order
 				);

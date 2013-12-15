@@ -127,8 +127,8 @@ class QuoteController extends BaseController {
 					'quote_id'      => $item->quote_id,
 					'name'          => $item->item_name,
 					'description'   => $item->item_description,
-					'quantity'      => $item->item_quantity,
-					'price'         => $item->item_price,
+					'quantity'      => NumberFormatter::unformat($item->item_quantity),
+					'price'         => NumberFormatter::unformat($item->item_price),
 					'tax_rate_id'   => $item->item_tax_rate_id,
 					'display_order' => $item->item_order
 				);
