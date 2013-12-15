@@ -2,6 +2,7 @@
 
 use FI\Storage\Interfaces\ItemLookupRepositoryInterface;
 use FI\Validators\ItemLookupValidator;
+use FI\Classes\NumberFormatter;
 
 class ItemLookupController extends \BaseController {
 
@@ -51,6 +52,8 @@ class ItemLookupController extends \BaseController {
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
+        
+        $input['price'] = NumberFormatter::unformat($input['price']);
 
 		$this->itemLookup->create($input);
 		
@@ -87,6 +90,8 @@ class ItemLookupController extends \BaseController {
 			->withErrors($this->validator->errors())
 			->withInput();
 		}
+        
+        $input['price'] = NumberFormatter::unformat($input['price']);
 
 		$this->itemLookup->update($input, $id);
 

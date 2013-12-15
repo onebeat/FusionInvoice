@@ -53,7 +53,7 @@ class PaymentMethodController extends \BaseController {
 			->withInput();
 		}
 
-		$this->paymentMethod->create($input['name']);
+		$this->paymentMethod->create($input);
 		
 		return Redirect::route('paymentMethods.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -89,7 +89,7 @@ class PaymentMethodController extends \BaseController {
 			->withInput();
 		}
 
-		$this->paymentMethod->update($id, $input['name']);
+		$this->paymentMethod->update($input, $id);
 
 		return Redirect::route('paymentMethods.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));

@@ -46,41 +46,25 @@ class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRep
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  string $subject
-	 * @param  string $body
-	 * @return void
-	 */
-	public function create($name, $subject, $body)
+	 * @param  array $input
+	 * @return int
+	 */	
+	public function create($input)
 	{
-		EmailTemplate::create(
-			array(
-				'name'    => $name,
-				'subject' => $subject,
-				'body'    => $body
-			)
-		);
+		return EmailTemplate::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
-	 * @param  string $subject
-	 * @param  string $body
 	 * @return void
-	 */
-	public function update($id, $name, $subject, $body)
+	 */	
+	public function update($input, $id)
 	{
 		$emailTemplate = EmailTemplate::find($id);
 
-		$emailTemplate->fill(
-			array(
-				'name'    => $name,
-				'subject' => $subject,
-				'body'    => $body
-			)
-		);
+		$emailTemplate->fill($input);
 
 		$emailTemplate->save();
 	}

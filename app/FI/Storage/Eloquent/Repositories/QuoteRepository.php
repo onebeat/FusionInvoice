@@ -1,7 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Quote;
-use FI\Classes\Date;
 
 class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface {
 
@@ -84,29 +83,12 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 
 	/**
 	 * Create a record
-	 * @param  int $clientId
-	 * @param  string $createdAt
-	 * @param  int $invoiceGroupId
-	 * @param  int $userId
-	 * @param  int $quoteStatusId
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $quoteStatusId)
+	public function create($input)
 	{
-		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
-		
-		return Quote::create(
-			array(
-				'client_id'        => $clientId,
-				'created_at'       => Date::unformat($createdAt),
-				'expires_at'       => Date::incrementDateByDays($createdAt, \Config::get('fi.quotesExpireAfter')),
-				'invoice_group_id' => $invoiceGroupId,
-				'number'           => $invoiceGroup->generateNumber($invoiceGroupId),
-				'user_id'          => $userId,
-				'quote_status_id'  => $quoteStatusId,
-				'url_key'          => str_random(32)
-				)
-			)->id;
+		return Quote::create($input)->id;
 	}
 	
 	/**
@@ -118,18 +100,11 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	 * @param  int $quoteStatusId
 	 * @return void
 	 */
-	public function update($quoteId, $createdAt, $expiresAt, $number, $quoteStatusId)
+	public function update($input, $id)
 	{
-		$quote = Quote::find($quoteId);
+		$quote = Quote::find($id);
 
-		$quote->fill(
-			array(
-				'number'          => $number,
-				'created_at'      => Date::unformat($createdAt),
-				'expires_at'      => Date::unformat($expiresAt),
-				'quote_status_id' => $quoteStatusId
-			)
-		);
+		$quote->fill($input);
 
 		$quote->save();
 	}

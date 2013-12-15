@@ -18,29 +18,18 @@ interface QuoteItemRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  int $quoteId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($quoteId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
-	 * @param  int $quoteItemId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($quoteItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

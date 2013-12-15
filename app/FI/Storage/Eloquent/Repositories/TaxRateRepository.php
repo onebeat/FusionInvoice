@@ -1,7 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\TaxRate;
-use FI\Classes\NumberFormatter;
 
 class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInterface {
 	
@@ -47,37 +46,25 @@ class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInter
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  float $percent
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($name, $percent)
+	public function create($input)
 	{
-		TaxRate::create(
-			array(
-				'name'    => $name,
-				'percent' => NumberFormatter::unformat($percent)
-			)
-		);
+		return TaxRate::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
-	 * @param  float $percent
 	 * @return void
 	 */
-	public function update($id, $name, $percent)
+	public function update($input, $id)
 	{
 		$taxRate = TaxRate::find($id);
 
-		$taxRate->fill(
-			array(
-				'name'    => $name,
-				'percent' => NumberFormatter::unformat($percent)
-			)
-		);
+		$taxRate->fill($input);
 
 		$taxRate->save();
 	}

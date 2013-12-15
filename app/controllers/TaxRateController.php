@@ -2,6 +2,7 @@
 
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\TaxRateValidator;
+use FI\Classes\NumberFormatter;
 
 class TaxRateController extends \BaseController {
 	
@@ -52,7 +53,9 @@ class TaxRateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->taxRate->create($input['name'], $input['percent']);
+		$input['percent'] = NumberFormatter::unformat($input['percent']);
+
+		$this->taxRate->create($input);
 		
 		return Redirect::route('taxRates.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -88,7 +91,9 @@ class TaxRateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->taxRate->update($id, $input['name'], $input['percent']);
+		$input['percent'] = NumberFormatter::unformat($input['percent']);
+
+		$this->taxRate->update($input, $id);
 
 		return Redirect::route('taxRates.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));

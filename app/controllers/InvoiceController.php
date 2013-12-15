@@ -66,10 +66,23 @@ class InvoiceController extends BaseController {
 
 		if (!$clientId)
 		{
-			$clientId = $client->create(Input::get('client_name'));
+			$clientId = $client->create(array('name' => Input::get('client_name')));
 		}
 
-		$invoiceId = $this->invoice->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1, Input::get('terms'));
+		$input = array(
+			'client_id'         => $clientId,
+			'created_at'        => Date::unformat(Input::get('created_at')),
+			'due_at'            => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.invoicesDueAfter')),
+			'invoice_group_id'  => Input::get('invoice_group_id'),
+			'number'            => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
+			'user_id'           => Auth::user()->id,
+			'invoice_status_id' => 1,
+			'url_key'           => str_random(32),
+			'terms'             => Input::get('terms'),
+			'footer'            => Input::get('footer')
+		);
+
+		$invoiceId = $this->invoice->create($input);
 
 		\Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
 
@@ -96,7 +109,16 @@ class InvoiceController extends BaseController {
 
 		$input = Input::all();
 
-		$this->invoice->update($id, $input['created_at'], $input['due_at'], $input['number'], $input['invoice_status_id'], $input['terms']);
+		$invoice = array(
+			'number'            => $input['number'],
+			'created_at'        => Date::unformat($input['created_at']),
+			'due_at'            => Date::unformat($input['due_at']),
+			'invoice_status_id' => $input['invoice_status_id'],
+			'terms'             => $input['terms'],
+			'footer'            => $input['footer']
+		);
+
+		$this->invoice->update($invoice, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -104,22 +126,38 @@ class InvoiceController extends BaseController {
 		{
 			if ($item->item_name)
 			{
+				$itemRecord = array(
+					'invoice_id'    => $item->invoice_id,
+					'name'          => $item->item_name,
+					'description'   => $item->item_description,
+					'quantity'      => $item->item_quantity,
+					'price'         => $item->item_price,
+					'tax_rate_id'   => $item->item_tax_rate_id,
+					'display_order' => $item->item_order
+				);
+
 				if (!$item->item_id)
 				{
-					$itemId = $this->invoiceItem->create($item->invoice_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
+					$itemId = $this->invoiceItem->create($itemRecord);
 
 					\Event::fire('invoice.item.created', $itemId);
 				}
 				else
 				{
-					$this->invoiceItem->update($item->item_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
+					$this->invoiceItem->update($itemRecord, $item->item_id);
 				}
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
 					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
 
-					$itemLookup->create($item->item_name, $item->item_description, $item->item_price);
+					$itemLookupRecord = array(
+						'name'        => $item->item_name,
+						'description' => $item->item_description,
+						'price'       => $item->item_price
+					);
+
+					$itemLookup->create($itemLookupRecord);
 				}
 			}
 		}
@@ -202,7 +240,12 @@ class InvoiceController extends BaseController {
 	 */
 	public function saveInvoiceTax()
 	{
-		$this->invoiceTaxRate->create(Input::get('invoice_id'), Input::get('tax_rate_id'), Input::get('include_item_tax'), 0);
+		$this->invoiceTaxRate->create(array(
+			'invoice_id'       => Input::get('invoice_id'),
+			'tax_rate_id'      => Input::get('tax_rate_id'),
+			'include_item_tax' => Input::get('include_item_tax')
+			)
+		);
 
 		\Event::fire('invoice.modified', Input::get('invoice_id'));
 	}

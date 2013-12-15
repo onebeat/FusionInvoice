@@ -17,7 +17,15 @@ class QuoteEventProvider extends ServiceProvider {
 			$quoteAmount  = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
 			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 			
-			$quoteAmount->create($quoteId, 0, 0, 0, 0);
+			$quoteAmount->create(
+				array(
+					'quote_id'       => $quoteId,
+					'item_subtotal'  => 0,
+					'item_tax_total' => 0,
+					'tax_total'      => 0,
+					'total'          => 0
+				)
+			);
 
 			$invoiceGroup->incrementNextId($invoiceGroupId);
 		});
@@ -46,7 +54,14 @@ class QuoteEventProvider extends ServiceProvider {
             $taxTotal = $subtotal * ($taxRatePercent / 100);
             $total    = $subtotal + $taxTotal;
 
-			$quoteItemAmount->create($quoteItem->id, $subtotal, $taxTotal, $total);
+            $quoteItemAmount->create(
+            	array(
+                    'item_id'   => $quoteItem->id,
+                    'subtotal'  => $subtotal,
+                    'tax_total' => $taxTotal,
+                    'total'     => $total
+                )
+            );
 		});
 
 		// Calculate all quote amounts
@@ -103,17 +118,17 @@ class QuoteEventProvider extends ServiceProvider {
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
 			{
-				$quoteItemAmount->update($calculatedItemAmount['item_id'], $calculatedItemAmount['subtotal'], $calculatedItemAmount['tax_total'], $calculatedItemAmount['total']);
+				$quoteItemAmount->update($calculatedItemAmount, $calculatedItemAmount['item_id']);
 			}
 
 			// Update the quote tax rate records
-			foreach ($calculatedTaxRates as $calculatedQuoteTaxRate)
+			foreach ($calculatedTaxRates as $calculatedTaxRate)
 			{
-				$quoteTaxRate->update($quoteId, $calculatedQuoteTaxRate['tax_rate_id'], $calculatedQuoteTaxRate['include_item_tax'], $calculatedQuoteTaxRate['tax_total']);
+				$quoteTaxRate->update($calculatedTaxRate, $quoteId, $calculatedTaxRate['tax_rate_id']);
 			}
 
 			// Update the quote amount record
-			$quoteAmount->update($quoteId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total']);
+			$quoteAmount->update($calculatedAmount, $quoteId);
 		});
 	}
 }

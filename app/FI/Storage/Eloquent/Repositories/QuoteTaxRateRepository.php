@@ -26,42 +26,26 @@ class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepos
 
 	/**
 	 * Create a record
-	 * @param  int $quoteId
-	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($quoteId, $taxRateId, $includeItemTax, $taxTotal)
+	public function create($input)
 	{
-		QuoteTaxRate::create(
-			array(
-				'quote_id'         => $quoteId,
-				'tax_rate_id'      => $taxRateId,
-				'include_item_tax' => $includeItemTax,
-				'tax_total'        => $taxTotal
-			)
-		);
+		return QuoteTaxRate::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $quoteId
 	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
 	 * @return void
 	 */
-	public function update($quoteId, $taxRateId, $includeItemTax, $taxTotal)
+	public function update($input, $quoteId, $taxRateId)
 	{
 		$quoteTaxRate = QuoteTaxRate::where('quote_id', $quoteId)->where('tax_rate_id', $taxRateId)->first();
 
-		$quoteTaxRate->fill(
-			array(
-				'include_item_tax' => $includeItemTax,
-				'tax_total'        => $taxTotal
-			)
-		);
+		$quoteTaxRate->fill($input);
 
 		$quoteTaxRate->save();
 	}

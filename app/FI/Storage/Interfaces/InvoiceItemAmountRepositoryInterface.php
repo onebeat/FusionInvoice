@@ -18,23 +18,18 @@ interface InvoiceItemAmountRepositoryInterface {
 
 	/**
 	 * Create a record
-	 * @param  int $itemId
-	 * @param  float $subtotal
-	 * @param  float $taxTotal
-	 * @param  float $total
-	 * @return void
-	 */	
-	public function create($itemId, $subtotal, $taxTotal, $total);
+	 * @param  array $input
+	 * @return int
+	 */
+	public function create($input);
 
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $itemId
-	 * @param  float $subtotal
-	 * @param  float $taxTotal
-	 * @param  float $total
 	 * @return void
-	 */	
-	public function update($itemId, $subtotal, $taxTotal, $total);
+	 */
+	public function update($input, $itemId);
 
 	/**
 	 * Delete a record

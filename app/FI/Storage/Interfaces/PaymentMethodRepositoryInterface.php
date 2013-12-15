@@ -25,19 +25,18 @@ interface PaymentMethodRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($name);
+	public function create($input);
 
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
 	 * @return void
-	 */	
-	public function update($id, $name);
-
+	 */
+	public function update($input, $id);
 	/**
 	 * Delete a record
 	 * @param  int $id

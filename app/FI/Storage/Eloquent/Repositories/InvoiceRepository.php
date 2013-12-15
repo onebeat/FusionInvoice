@@ -1,7 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Invoice;
-use FI\Classes\Date;
 
 class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInterface {
 
@@ -17,7 +16,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	/**
 	 * Get a list of records by status
 	 * @param  int $page
-	 * @param  int  $numPerPage
+	 * @param  int $numPerPage
 	 * @param  string  $status
 	 * @return Invoice
 	 */
@@ -91,54 +90,25 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	
 	/**
 	 * Create a record
-	 * @param  int $clientId
-	 * @param  string $createdAt
-	 * @param  int $invoiceGroupId
-	 * @param  int $userId
-	 * @param  int $invoiceStatusId
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId, $terms = null)
+	public function create($input)
 	{
-		$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
-
-		return Invoice::create(
-			array(
-				'client_id'         => $clientId,
-				'created_at'        => Date::unformat($createdAt),
-				'due_at'            => Date::incrementDateByDays($createdAt, \Config::get('fi.invoicesDueAfter')),
-				'invoice_group_id'  => $invoiceGroupId,
-				'number'            => $invoiceGroup->generateNumber($invoiceGroupId),
-				'user_id'           => $userId,
-				'invoice_status_id' => $invoiceStatusId,
-				'url_key'           => str_random(32),
-				'terms'             => $terms
-				)
-			)->id;
+		return Invoice::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
-	 * @param  int $invoiceId
-	 * @param  string $createdAt
-	 * @param  string $dueAt
-	 * @param  string $number
-	 * @param  int $invoiceStatusId
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId, $terms = null)
+	public function update($input, $id)
 	{
-		$invoice = Invoice::find($invoiceId);
+		$invoice = Invoice::find($id);
 
-		$invoice->fill(
-			array(
-				'created_at'        => Date::unformat($createdAt),
-				'due_at'            => Date::unformat($dueAt),
-				'number'            => $number,
-				'invoice_status_id' => $invoiceStatusId,
-				'terms'             => $terms
-			)
-		);
+		$invoice->fill($input);
 
 		$invoice->save();
 	}

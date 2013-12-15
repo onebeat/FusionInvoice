@@ -1,8 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\Payment;
-use FI\Classes\NumberFormatter;
-use FI\Classes\Date;
 
 class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInterface {
 	
@@ -49,47 +47,25 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 
 	/**
 	 * Create a record
-	 * @param  int $invoiceId
-	 * @param  float $amount
-	 * @param  string $paidAt
-	 * @param  int $paymentMethodId
-	 * @param  string $note
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($invoiceId, $amount, $paidAt, $paymentMethodId, $note)
+	public function create($input)
 	{
-		Payment::create(
-			array(
-				'invoice_id'        => $invoiceId,
-				'payment_method_id' => $paymentMethodId,
-				'paid_at'           => Date::unformat($paidAt),
-				'amount'            => NumberFormatter::unformat($amount),
-				'note'              => $note
-			)
-		);
+		return Payment::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  float $amount
-	 * @param  string $paidAt
-	 * @param  int $paymentMethodId
-	 * @param  string $note
 	 * @return void
 	 */
-	public function update($id, $amount, $paidAt, $paymentMethodId, $note)
+	public function update($input, $id)
 	{
 		$payment = Payment::find($id);
 
-		$payment->fill(
-			array(
-				'payment_method_id' => $paymentMethodId,
-				'paid_at'           => Date::unformat($paidAt),
-				'amount'            => NumberFormatter::unformat($amount),
-				'note'              => $note
-			)
-		);
+		$payment->fill($input);
 
 		$payment->save();
 	}

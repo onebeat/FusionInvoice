@@ -11,25 +11,18 @@ interface QuoteAmountRepositoryInterface {
 
 	/**
 	 * Create a record
-	 * @param  int $quoteId
-	 * @param  float $itemSubtotal
-	 * @param  float $itemTaxTotal
-	 * @param  float $taxTotal
-	 * @param  float $total
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($quoteId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
-	 * @param  int $quoteId
-	 * @param  float $itemSubtotal
-	 * @param  float $itemTaxTotal
-	 * @param  float $taxTotal
-	 * @param  float $total
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($quoteId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

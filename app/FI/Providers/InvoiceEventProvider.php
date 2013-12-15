@@ -17,7 +17,17 @@ class InvoiceEventProvider extends ServiceProvider {
 			$invoiceAmount = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
 			$invoiceGroup  = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
 
-			$invoiceAmount->create($invoiceId, 0, 0, 0, 0, 0, 0);
+			$invoiceAmount->create(
+				array(
+					'invoice_id'     => $invoiceId,
+					'item_subtotal'  => 0,
+					'item_tax_total' => 0,
+					'tax_total'      => 0,
+					'total'          => 0,
+					'paid'           => 0,
+					'balance'        => 0
+				)
+			);
 
 			$invoiceGroup->incrementNextId($invoiceGroupId);
 		});
@@ -46,7 +56,14 @@ class InvoiceEventProvider extends ServiceProvider {
             $taxTotal = $subtotal * ($taxRatePercent / 100);
             $total    = $subtotal + $taxTotal;
 
-            $invoiceItemAmount->create($invoiceItem->id, $subtotal, $taxTotal, $total);
+            $invoiceItemAmount->create(
+            	array(
+                    'item_id'   => $invoiceItem->id,
+                    'subtotal'  => $subtotal,
+                    'tax_total' => $taxTotal,
+                    'total'     => $total
+                )
+            );
 		});
 
 		// Calculate all invoice amounts
@@ -106,17 +123,17 @@ class InvoiceEventProvider extends ServiceProvider {
 			// Update the item amount records
 			foreach ($calculatedItemAmounts as $calculatedItemAmount)
 			{
-				$invoiceItemAmount->update($calculatedItemAmount['item_id'], $calculatedItemAmount['subtotal'], $calculatedItemAmount['tax_total'], $calculatedItemAmount['total']);
+				$invoiceItemAmount->update($calculatedItemAmount, $calculatedItemAmount['item_id']);
 			}
 
 			// Update the invoice tax rate records
-			foreach ($calculatedTaxRates as $calculatedInvoiceTaxRate)
+			foreach ($calculatedTaxRates as $calculatedTaxRate)
 			{
-				$invoiceTaxRate->update($invoiceId, $calculatedInvoiceTaxRate['tax_rate_id'], $calculatedInvoiceTaxRate['include_item_tax'], $calculatedInvoiceTaxRate['tax_total']);
+				$invoiceTaxRate->update($calculatedTaxRate, $invoiceId, $calculatedTaxRate['tax_rate_id']);
 			}
 
 			// Update the invoice amount record
-			$invoiceAmount->update($invoiceId, $calculatedAmount['item_subtotal'], $calculatedAmount['item_tax_total'], $calculatedAmount['tax_total'], $calculatedAmount['total'], $calculatedAmount['paid'], $calculatedAmount['balance']);
+			$invoiceAmount->update($calculatedAmount, $invoiceId);
 		});
 
 	}

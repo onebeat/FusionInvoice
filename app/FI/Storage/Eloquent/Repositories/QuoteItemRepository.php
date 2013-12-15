@@ -2,7 +2,6 @@
 
 use FI\Storage\Eloquent\Models\QuoteItem;
 use FI\Storage\Eloquent\Models\QuoteItemAmount;
-use FI\Classes\NumberFormatter;
 
 class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryInterface {
 
@@ -28,55 +27,25 @@ class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryI
 	
 	/**
 	 * Create a record
-	 * @param  int $quoteId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($quoteId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
+	public function create($input)
 	{
-		return QuoteItem::create(
-			array(
-				'quote_id'      => $quoteId,
-				'name'          => $name,
-				'description'   => $description,
-				'quantity'      => NumberFormatter::unformat($quantity),
-				'price'         => NumberFormatter::unformat($price),
-				'tax_rate_id'   => $taxRateId,
-				'display_order' => $displayOrder
-				)
-			)->id;
+		return QuoteItem::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
-	 * @param  int $quoteItemId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($quoteItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
+	public function update($input, $id)
 	{
-		$quoteItem = QuoteItem::find($quoteItemId);
+		$quoteItem = QuoteItem::find($id);
 
-		$quoteItem->fill(
-			array(
-				'name'          => $name,
-				'description'   => $description,
-				'quantity'      => NumberFormatter::unformat($quantity),
-				'price'         => NumberFormatter::unformat($price),
-				'tax_rate_id'   => $taxRateId,
-				'display_order' => $displayOrder
-			)
-		);
+		$quoteItem->fill($input);
 		
 		$quoteItem->save();
 	}

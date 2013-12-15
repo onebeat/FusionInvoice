@@ -52,7 +52,11 @@ class UserController extends \BaseController {
 			->withInput();
 		}
 
-		$this->user->create($input['email'], $input['password'], $input['name'], $input['company'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['web']);
+		unset($input['password_confirmation']);
+
+		$input['password'] = Hash::make($input['password']);
+
+		$this->user->create($input);
 	
 		return Redirect::route('users.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -88,7 +92,7 @@ class UserController extends \BaseController {
 			->withInput();
 		}
 
-		$this->user->update($id, $input['email'], $input['name'], $input['company'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['web']);
+		$this->user->update($input, $id);
 
 		return Redirect::route('users.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));

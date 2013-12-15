@@ -17,56 +17,26 @@ class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRep
 
 	/**
 	 * Create a record
-	 * @param  int $invoiceId
-	 * @param  float $itemSubtotal
-	 * @param  float $itemTaxTotal
-	 * @param  float $taxTotal
-	 * @param  float $total
-	 * @param  float $paid
-	 * @param  float $balance
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($invoiceId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
+	public function create($input)
 	{
-		InvoiceAmount::create(
-			array(
-				'invoice_id'     => $invoiceId,
-				'item_subtotal'  => $itemSubtotal,
-				'item_tax_total' => $itemTaxTotal,
-				'tax_total'      => $taxTotal,
-				'total'          => $total,
-				'paid'           => $paid,
-				'balance'        => $balance
-			)
-		);
+		return InvoiceAmount::create($input)->id;
 	}
 
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $invoiceId
-	 * @param  float $itemSubtotal
-	 * @param  float $itemTaxTotal
-	 * @param  float $taxTotal
-	 * @param  float $total
-	 * @param  float $paid
-	 * @param  float $balance
 	 * @return void
 	 */
-	public function update($invoiceId, $itemSubtotal, $itemTaxTotal, $taxTotal, $total, $paid, $balance)
+	public function update($input, $invoiceId)
 	{
 		$invoiceAmount = InvoiceAmount::where('invoice_id', $invoiceId)->first();
 
-		$invoiceAmount->fill(
-			array(
-				'item_subtotal'  => $itemSubtotal,
-				'item_tax_total' => $itemTaxTotal,
-				'tax_total'      => $taxTotal,
-				'total'          => $total,
-				'paid'           => $paid,
-				'balance'        => $balance
-			)
-		);
-		
+		$invoiceAmount->fill($input);
+
 		$invoiceAmount->save();
 	}
 

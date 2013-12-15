@@ -53,7 +53,7 @@ class EmailTemplateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->emailTemplate->create($input['name'], $input['subject'], $input['body']);
+		$this->emailTemplate->create($input);
 		
 		return Redirect::route('emailTemplates.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -89,7 +89,7 @@ class EmailTemplateController extends \BaseController {
 			->withInput();
 		}
 
-		$this->emailTemplate->update($emailTemplateId, $input['name'], $input['subject'], $input['body']);
+		$this->emailTemplate->update($input, $emailTemplateId);
 
 		return Redirect::route('emailTemplates.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));

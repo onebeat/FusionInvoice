@@ -63,7 +63,7 @@ class ClientController extends \BaseController {
 			->withInput();
 		}
 
-		$this->client->create($input['name'], $input['active'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['email'], $input['web']);
+		$this->client->create($input);
 		
 		return Redirect::route('clients.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -110,7 +110,7 @@ class ClientController extends \BaseController {
 			->withInput();
 		}
 
-		$this->client->update($clientId, $input['name'], $input['active'], $input['address_1'], $input['address_2'], $input['city'], $input['state'], $input['zip'], $input['country'], $input['phone'], $input['fax'], $input['mobile'], $input['email'], $input['web']);
+		$this->client->update($input, $clientId);
 
 		return Redirect::route('clients.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));;

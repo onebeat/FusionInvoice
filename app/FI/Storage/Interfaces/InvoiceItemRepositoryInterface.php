@@ -18,29 +18,18 @@ interface InvoiceItemRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  int $invoiceId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($invoiceId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
-	 * @param  int $invoiceItemId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($invoiceItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

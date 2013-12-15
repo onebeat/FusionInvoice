@@ -18,23 +18,19 @@ interface QuoteTaxRateRepositoryInterface {
 
 	/**
 	 * Create a record
-	 * @param  int $quoteId
-	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
-	 * @return void
-	 */	
-	public function create($invoiceId, $taxRateId, $includeItemTax, $taxTotal);
-	
+	 * @param  array $input
+	 * @return int
+	 */
+	public function create($input);
+
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $quoteId
 	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
 	 * @return void
 	 */
-	public function update($quoteId, $taxRateId, $includeItemTax, $taxTotal);
+	public function update($input, $quoteId, $taxRateId);
 
 	/**
 	 * Delete a record

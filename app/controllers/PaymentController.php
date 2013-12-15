@@ -4,6 +4,7 @@ use FI\Storage\Interfaces\PaymentRepositoryInterface;
 use FI\Storage\Interfaces\PaymentMethodRepositoryInterface;
 use FI\Validators\PaymentValidator;
 use FI\Classes\NumberFormatter;
+use FI\Classes\Date;
 
 class PaymentController extends BaseController {
 
@@ -69,7 +70,10 @@ class PaymentController extends BaseController {
 			->withInput();
 		}
 
-		$this->payment->update($paymentId, $input['amount'], $input['paid_at'], $input['payment_method_id'], $input['note']);
+        $input['paid_at'] = Date::unformat($input['paid_at']);
+        $input['amount']  = NumberFormatter::unformat($input['amount']);
+
+		$this->payment->update($input, $paymentId);
 
 		\Event::fire('invoice.modified', array($invoiceId));
 
@@ -116,8 +120,11 @@ class PaymentController extends BaseController {
 		{
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
+        
+        $input['paid_at'] = Date::unformat($input['paid_at']);
+        $input['amount']  = NumberFormatter::unformat($input['amount']);
 
-		$this->payment->create($input['invoice_id'], $input['amount'], $input['paid_at'], $input['payment_method_id'], $input['note']);
+		$this->payment->create($input);
 
 		\Event::fire('invoice.modified', array($input['invoice_id']));
 

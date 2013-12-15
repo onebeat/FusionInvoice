@@ -25,20 +25,18 @@ interface TaxRateRepositoryInterface {
 
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  float $percent
+	 * @param  array $input
 	 * @return void
 	 */	
-	public function create($name, $percent);
+	public function create($input);
 
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
-	 * @param  float $percent
 	 * @return void
 	 */	
-	public function update($id, $name, $percent);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

@@ -50,7 +50,8 @@
                 due_at: $('#due_at').val(),
                 invoice_status_id: $('#invoice_status_id').val(),
                 items: JSON.stringify(items),
-                terms: $('#terms').val()
+                terms: $('#terms').val(),
+                footer: $('#footer').val()
             },
             function(data) {
                 var response = JSON.parse(data);
@@ -180,13 +181,11 @@
                 <div class="span6">
                     <p><strong>{{ trans('fi.terms') }}</strong></p>
                     {{ Form::textarea('terms', $invoice->terms, array('id' => 'terms', 'style' => 'width: 100%;')) }}
-                    </div>
                 </div>
 
                 <div class="span6">
                     <p><strong>{{ trans('fi.footer') }}</strong></p>
                     {{ Form::textarea('footer', $invoice->footer, array('id' => 'footer', 'style' => 'width: 100%;')) }}
-                    </div>
                 </div>
 
             </div>

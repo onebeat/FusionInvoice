@@ -33,25 +33,18 @@ interface QuoteRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  int $clientId
-	 * @param  string $createdAt
-	 * @param  int $invoiceGroupId
-	 * @param  int $userId
-	 * @param  int $quoteStatusId
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $quoteStatusId);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
-	 * @param  int $quoteId
-	 * @param  string $createdAt
-	 * @param  string $expiresAt
-	 * @param  string $number
-	 * @param  int $quoteStatusId
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($quoteId, $createdAt, $expiresAt, $number, $quoteStatusId);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

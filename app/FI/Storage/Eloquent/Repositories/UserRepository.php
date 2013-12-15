@@ -28,88 +28,31 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  string $email
-	 * @param  string $password
-	 * @param  string $name
-	 * @param  string $company
-	 * @param  string $address1
-	 * @param  string $address2
-	 * @param  string $city
-	 * @param  string $state
-	 * @param  string $zip
-	 * @param  string $country
-	 * @param  string $phone
-	 * @param  string $fax
-	 * @param  string $mobile
-	 * @param  string $web
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($email, $password, $name, $company = null, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $web = null)
+	public function create($input)
 	{
 		$user = new User;
 
-		$user->fill(
-			array(
-				'email'     => $email,
-				'name'      => $name,
-				'company'   => $company,
-				'address_1' => $address1,
-				'address_2' => $address2,
-				'city'      => $city,
-				'state'     => $state,
-				'zip'       => $zip,
-				'country'   => $country,
-				'phone'     => $phone,
-				'fax'       => $fax,
-				'mobile'    => $mobile,
-				'web'       => $web
-			)
-		);
+		$user->fill($input);
 
-		$user->password = \Hash::make($password);
+		$user->password = $input['password'];
 
 		$user->save();
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $email
-	 * @param  string $name
-	 * @param  string $company
-	 * @param  string $address1
-	 * @param  string $address2
-	 * @param  string $city
-	 * @param  string $state
-	 * @param  string $zip
-	 * @param  string $country
-	 * @param  string $phone
-	 * @param  string $fax
-	 * @param  string $mobile
-	 * @param  string $web
 	 * @return void
 	 */
-	public function update($id, $email, $name, $company = null, $address1 = null, $address2 = null, $city = null, $state = null, $zip = null, $country = null, $phone = null, $fax = null, $mobile = null, $web = null)
+	public function update($input, $id)
 	{
 		$user = User::find($id);
 
-		$user->fill(
-			array(
-				'email'     => $email,
-				'name'      => $name,
-				'company'   => $company,
-				'address_1' => $address1,
-				'address_2' => $address2,
-				'city'      => $city,
-				'state'     => $state,
-				'zip'       => $zip,
-				'country'   => $country,
-				'phone'     => $phone,
-				'fax'       => $fax,
-				'mobile'    => $mobile,
-				'web'       => $web
-			)
-		);
+		$user->fill($input);
 
 		$user->save();
 	}

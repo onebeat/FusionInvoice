@@ -2,7 +2,6 @@
 
 use FI\Storage\Eloquent\Models\InvoiceItem;
 use FI\Storage\Eloquent\Models\InvoiceItemAmount;
-use FI\Classes\NumberFormatter;
 
 class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemRepositoryInterface {
 
@@ -28,55 +27,25 @@ class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemReposit
 
 	/**
 	 * Create a record
-	 * @param  int $invoiceId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($invoiceId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
+	public function create($input)
 	{
-		return InvoiceItem::create(
-			array(
-				'invoice_id'    => $invoiceId,
-				'name'          => $name,
-				'description'   => $description,
-				'quantity'      => NumberFormatter::unformat($quantity),
-				'price'         => NumberFormatter::unformat($price),
-				'tax_rate_id'   => $taxRateId,
-				'display_order' => $displayOrder
-				)
-			)->id;
+		return InvoiceItem::create($input)->id;
 	}
 
 	/**
 	 * Update a record
-	 * @param  int $invoiceItemId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $quantity
-	 * @param  float $price
-	 * @param  int $taxRateId
-	 * @param  int $displayOrder
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($invoiceItemId, $name, $description, $quantity, $price, $taxRateId, $displayOrder)
+	public function update($input, $id)
 	{
-		$invoiceItem = InvoiceItem::find($invoiceItemId);
+		$invoiceItem = InvoiceItem::find($id);
 
-		$invoiceItem->fill(
-			array(
-				'name'          => $name,
-				'description'   => $description,
-				'quantity'      => NumberFormatter::unformat($quantity),
-				'price'         => NumberFormatter::unformat($price),
-				'tax_rate_id'   => $taxRateId,
-				'display_order' => $displayOrder
-				)
-			);
+		$invoiceItem->fill($input);
 		
 		$invoiceItem->save();
 	}

@@ -8,6 +8,7 @@ use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\QuoteValidator;
 use FI\Statuses\QuoteStatuses;
 use FI\Classes\Date;
+use FI\Classes\NumberFormatter;
 
 class QuoteController extends BaseController {
 
@@ -66,10 +67,21 @@ class QuoteController extends BaseController {
 
 		if (!$clientId)
 		{
-			$clientId = $client->create(Input::get('client_name'));
+			$clientId = $client->create(array('name' => Input::get('client_name')));
 		}
 
-		$quoteId = $this->quote->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);
+		$input = array(
+			'client_id'        => $clientId,
+			'created_at'       => Date::unformat(Input::get('created_at')),
+			'expires_at'       => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.quotesExpireAfter')),
+			'invoice_group_id' => Input::get('invoice_group_id'),
+			'number'           => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
+			'user_id'          => Auth::user()->id,
+			'quote_status_id'  => 1,
+			'url_key'          => str_random(32)
+		);
+
+		$quoteId = $this->quote->create($input);
 
 		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
 
@@ -96,7 +108,14 @@ class QuoteController extends BaseController {
 
 		$input = Input::all();
 
-		$this->quote->update($id, $input['created_at'], $input['expires_at'], $input['number'], $input['quote_status_id']);
+		$quote = array(
+			'number'          => $input['number'],
+			'created_at'      => Date::unformat($input['created_at']),
+			'expires_at'      => Date::unformat($input['expires_at']),
+			'quote_status_id' => $input['quote_status_id']
+		);
+
+		$this->quote->update($quote, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -104,22 +123,38 @@ class QuoteController extends BaseController {
 		{
 			if ($item->item_name)
 			{
+				$itemRecord = array(
+					'quote_id'      => $item->quote_id,
+					'name'          => $item->item_name,
+					'description'   => $item->item_description,
+					'quantity'      => $item->item_quantity,
+					'price'         => $item->item_price,
+					'tax_rate_id'   => $item->item_tax_rate_id,
+					'display_order' => $item->item_order
+				);
+
 				if (!$item->item_id)
 				{
-					$itemId = $this->quoteItem->create($item->quote_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
+					$itemId = $this->quoteItem->create($itemRecord);
 
 					\Event::fire('quote.item.created', $itemId);
 				}
 				else
 				{
-					$this->quoteItem->update($item->item_id, $item->item_name, $item->item_description, $item->item_quantity, $item->item_price, $item->item_tax_rate_id, $item->item_order);
+					$this->quoteItem->update($itemRecord, $item->item_id);
 				}
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
 					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
 
-					$itemLookup->create($item->item_name, $item->item_description, $item->item_price);
+					$itemLookupRecord = array(
+						'name'        => $item->item_name,
+						'description' => $item->item_description,
+						'price'       => NumberFormatter::unformat($item->item_price)
+					);
+
+					$itemLookup->create($itemLookupRecord);
 				}
 			}
 		}
@@ -243,10 +278,21 @@ class QuoteController extends BaseController {
 
 		if (!$clientId)
 		{
-			$clientId = $client->create(Input::get('client_name'));
+			$clientId = $client->create(array('name' => Input::get('client_name')));
 		}
 
-		$quoteId = $this->quote->create($clientId, Input::get('created_at'), Input::get('invoice_group_id'), Auth::user()->id, 1);
+		$quoteId = $this->quote->create(
+			array(
+				'client_id'        => $clientId,
+				'created_at'       => Date::unformat(Input::get('created_at')),
+				'expires_at'       => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.quotesExpireAfter')),
+				'invoice_group_id' => Input::get('invoice_group_id'),
+				'number'           => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
+				'user_id'          => Auth::user()->id,
+				'quote_status_id'  => 1,
+				'url_key'          => str_random(32)
+			)
+		);		
 
 		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
 
@@ -254,7 +300,17 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			$itemId = $this->quoteItem->create($quoteId, $item->name, $item->description, $item->quantity, $item->price, $item->tax_rate_id, $item->display_order);
+			$itemId = $this->quoteItem->create(
+				array(
+					'quote_id'      => $quoteId,
+					'name'          => $item->name,
+					'description'   => $item->description,
+					'quantity'      => $item->quantity,
+					'price'         => $item->price,
+					'tax_rate_id'   => $item->tax_rate_id,
+					'display_order' => $item->display_order
+				)
+			);
 
 			\Event::fire('quote.item.created', $itemId);
 		}
@@ -277,10 +333,21 @@ class QuoteController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$invoice = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+		$invoice     = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
 		$invoiceItem = App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
 
-		$invoiceId = $invoice->create($input['client_id'], $input['created_at'], $input['invoice_group_id'], Auth::user()->id, 1);
+		$record = array(
+			'client_id'         => $input['client_id'],
+			'created_at'        => Date::unformat($input['created_at']),
+			'due_at'            => Date::incrementDateByDays($input['created_at'], Config::get('fi.invoicesDueAfter')),
+			'invoice_group_id'  => $input['invoice_group_id'],
+			'number'            => $this->invoiceGroup->generateNumber($input['invoice_group_id']),
+			'user_id'           => Auth::user()->id,
+			'invoice_status_id' => 1,
+			'url_key'           => str_random(32)
+		);
+
+		$invoiceId = $invoice->create($record);
 
 		\Event::fire('invoice.created', array($invoiceId, $input['invoice_group_id']));
 
@@ -288,7 +355,17 @@ class QuoteController extends BaseController {
 
 		foreach ($items as $item)
 		{
-			$itemId = $invoiceItem->create($invoiceId, $item->name, $item->description, $item->quantity, $item->price, $item->tax_rate_id, $item->display_order);
+			$itemRecord = array(
+				'invoice_id'    => $invoiceId,
+				'name'          => $item->name,
+				'description'   => $item->description,
+				'quantity'      => $item->quantity,
+				'price'         => $item->price,
+				'tax_rate_id'   => $item->tax_rate_id,
+				'display_order' => $item->display_order
+			);
+
+			$itemId = $invoiceItem->create($itemRecord);
 
 			\Event::fire('invoice.item.created', $itemId);
 		}
@@ -303,7 +380,13 @@ class QuoteController extends BaseController {
 	 */
 	public function saveQuoteTax()
 	{
-		$this->quoteTaxRate->create(Input::get('quote_id'), Input::get('tax_rate_id'), Input::get('include_item_tax'), 0);
+		$this->quoteTaxRate->create(
+			array(
+				'quote_id'         => Input::get('quote_id'), 
+				'tax_rate_id'      => Input::get('tax_rate_id'), 
+				'include_item_tax' => Input::get('include_item_tax')
+			)
+		);
 
 		\Event::fire('quote.modified', Input::get('quote_id'));
 	}

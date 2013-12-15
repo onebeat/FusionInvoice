@@ -40,25 +40,18 @@ interface InvoiceRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  int $clientId
-	 * @param  string $createdAt
-	 * @param  int $invoiceGroupId
-	 * @param  int $userId
-	 * @param  int $invoiceStatusId
+	 * @param  array $input
 	 * @return int
 	 */
-	public function create($clientId, $createdAt, $invoiceGroupId, $userId, $invoiceStatusId, $terms);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
-	 * @param  int $invoiceId
-	 * @param  string $createdAt
-	 * @param  string $dueAt
-	 * @param  string $number
-	 * @param  int $invoiceStatusId
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($invoiceId, $createdAt, $dueAt, $number, $invoiceStatusId, $terms);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

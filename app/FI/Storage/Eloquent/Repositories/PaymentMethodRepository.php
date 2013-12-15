@@ -46,33 +46,25 @@ class PaymentMethodRepository implements \FI\Storage\Interfaces\PaymentMethodRep
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($name)
+	public function create($input)
 	{
-		PaymentMethod::create(
-			array(
-				'name' => $name
-			)
-		);
+		return PaymentMethod::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
 	 * @return void
 	 */
-	public function update($id, $name)
+	public function update($input, $id)
 	{
 		$paymentMethod = PaymentMethod::find($id);
 
-		$paymentMethod->fill(
-			array(
-				'name' => $name
-			)
-		);
+		$paymentMethod->fill($input);
 
 		$paymentMethod->save();
 	}

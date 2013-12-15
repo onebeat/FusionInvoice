@@ -39,28 +39,18 @@ interface InvoiceGroupRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  int $nextId
-	 * @param  int $leftPad
-	 * @param  string $prefix
-	 * @param  bool $prefixYear
-	 * @param  bool $prefixMonth
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
-	 * @param  int $nextId
-	 * @param  int $leftPad
-	 * @param  string $prefix
-	 * @param  bool $prefixYear
-	 * @param  bool $prefixMonth
 	 * @return void
 	 */
-	public function update($id, $name, $nextId, $leftPad, $prefix, $prefixYear, $prefixMonth);
+	public function update($input, $id);
 
 	/**
 	 * Delete a record

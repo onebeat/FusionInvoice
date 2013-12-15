@@ -1,7 +1,6 @@
 <?php namespace FI\Storage\Eloquent\Repositories;
 
 use FI\Storage\Eloquent\Models\ItemLookup;
-use FI\Classes\NumberFormatter;
 
 class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositoryInterface {
 	
@@ -48,41 +47,25 @@ class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositor
 	
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $price
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($name, $description, $price)
+	public function create($input)
 	{
-		ItemLookup::create(
-			array(
-				'name'        => $name,
-				'description' => $description,
-				'price'       => NumberFormatter::unformat($price)
-			)
-		);
+		return ItemLookup::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
-	 * @param  int $itemLookupId
-	 * @param  string $name
-	 * @param  string $description
-	 * @param  float $price
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
-	public function update($itemLookupId, $name, $description, $price)
+	public function update($input, $id)
 	{
-		$itemLookup = ItemLookup::find($itemLookupId);
+		$itemLookup = ItemLookup::find($id);
 
-		$itemLookup->fill(
-			array(
-				'name'        => $name,
-				'description' => $description,
-				'price'       => NumberFormatter::unformat($price)
-			)
-		);
+		$itemLookup->fill($input);
 		
 		$itemLookup->save();
 	}

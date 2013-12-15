@@ -25,22 +25,18 @@ interface EmailTemplateRepositoryInterface {
 
 	/**
 	 * Create a record
-	 * @param  string $name
-	 * @param  string $subject
-	 * @param  string $body
-	 * @return void
-	 */	
-	public function create($name, $subject, $body);
+	 * @param  array $input
+	 * @return int
+	 */
+	public function create($input);
 
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $id
-	 * @param  string $name
-	 * @param  string $subject
-	 * @param  string $body
 	 * @return void
-	 */	
-	public function update($id, $name, $subject, $body);
+	 */
+	public function update($input, $id);
 
 	/**
 	 * Delete a record by id

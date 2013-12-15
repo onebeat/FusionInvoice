@@ -11,23 +11,19 @@ interface InvoiceTaxRateRepositoryInterface {
 	
 	/**
 	 * Create a record
-	 * @param  int $invoiceId
-	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($invoiceId, $taxRateId, $includeItemTax, $taxTotal);
-	
+	public function create($input);
+
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $invoiceId
 	 * @param  int $taxRateId
-	 * @param  bool $includeItemTax
-	 * @param  float $taxTotal
 	 * @return void
 	 */
-	public function update($invoiceId, $taxRateId, $includeItemTax, $taxTotal);
+	public function update($input, $invoiceId, $taxRateId);
 
 	/**
 	 * Delete a record

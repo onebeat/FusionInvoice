@@ -28,43 +28,25 @@ class InvoiceItemAmountRepository implements \FI\Storage\Interfaces\InvoiceItemA
 	
 	/**
 	 * Create a record
-	 * @param  int $itemId
-	 * @param  float $subtotal
-	 * @param  float $taxTotal
-	 * @param  float $total
-	 * @return void
+	 * @param  array $input
+	 * @return int
 	 */
-	public function create($itemId, $subtotal, $taxTotal, $total)
+	public function create($input)
 	{
-		InvoiceItemAmount::create(
-			array(
-				'item_id'   => $itemId,
-				'subtotal'  => $subtotal,
-				'tax_total' => $taxTotal,
-				'total'     => $total
-			)
-		);
+		return InvoiceItemAmount::create($input)->id;
 	}
 	
 	/**
 	 * Update a record
+	 * @param  array $input
 	 * @param  int $itemId
-	 * @param  float $subtotal
-	 * @param  float $taxTotal
-	 * @param  float $total
 	 * @return void
 	 */
-	public function update($itemId, $subtotal, $taxTotal, $total)
+	public function update($input, $itemId)
 	{
 		$invoiceItemAmount = InvoiceItemAmount::where('item_id', $itemId)->first();
 
-		$invoiceItemAmount->fill(
-			array(
-				'subtotal'  => $subtotal,
-				'tax_total' => $taxTotal,
-				'total'     => $total
-			)
-		);
+		$invoiceItemAmount->fill($input);
 
 		$invoiceItemAmount->save();
 	}
