@@ -40,6 +40,8 @@ class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
 		$user->password = $input['password'];
 
 		$user->save();
+
+		return $user->id;
 	}
 	
 	/**
