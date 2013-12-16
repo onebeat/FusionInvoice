@@ -12,6 +12,11 @@ class QuoteItem extends \Eloquent {
         return $this->hasOne('FI\Storage\Eloquent\Models\QuoteItemAmount', 'item_id');
     }
 
+    public function taxRate()
+    {
+        return $this->belongsTo('FI\Storage\Eloquent\Models\TaxRate');
+    }
+
     public function getFormattedQuantityAttribute()
     {
     	return NumberFormatter::format($this->attributes['quantity']);
