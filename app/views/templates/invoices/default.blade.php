@@ -78,8 +78,8 @@
 
 
             <div class="invoice-status">
-                <h3>Invoice Status</h3>
-                <strong>Invoice is <em>{{ trans('fi.' . $invoice->status_text) }}</em></strong>
+                <h3>{{ trans('fi.status') }}</h3>
+                <strong><em>{{ trans('fi.' . $invoice->status_text) }}</em></strong>
             </div><!-- e: invoice-status -->
 
         </section><!-- e: invoice partis -->
@@ -159,7 +159,7 @@
             </div><!-- e: invoice totals -->
 
             <div class="invoice-notes">
-                <h6>Notes &amp; Information:</h6>
+                <h6>{{ trans('fi.terms_and_conditions') }}:</h6>
                 <p>{{ $invoice->formatted_terms }}</p>
             </div><!-- e: invoice-notes -->
 
@@ -167,7 +167,7 @@
 
         <footer id="footer">
             <p>
-                Custom invoice footer content
+                {{ $invoice->footer }}
             </p>
         </footer>
 
