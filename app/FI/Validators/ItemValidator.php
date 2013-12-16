@@ -11,18 +11,50 @@ class ItemValidator extends Validator {
 
 	public function validateMulti($inputs, $rulesVar = 'rules')
 	{
-		$validateInputs = array();
+		$inputs = (array) $inputs;
 
 		foreach ($inputs as $input)
 		{
 			$input = (array) $input;
-			$input['item_price']    = NumberFormatter::unformat($input['item_price']);
+
+			$input['item_price'] = NumberFormatter::unformat($input['item_price']);
 			$input['item_quantity'] = NumberFormatter::unformat($input['item_quantity']);
 
-			$validateInputs[] = $input;
-		}
+			$validator = \Validator::make($input, static::$$rulesVar);
 
-		return parent::validateMulti($validateInputs, $rulesVar);
+			$validator->sometimes('item_name', 'required', function($input)
+			{
+				if ($input['item_quantity'] or $input['item_price'])
+				{
+					return true;
+				}
+			});
+
+			$validator->sometimes('item_price', 'required', function($input)
+			{
+				if ($input['item_quantity'] or $input['item_name'])
+				{
+					return true;
+				}
+			});
+
+			$validator->sometimes('item_quantity', 'required', function($input)
+			{
+				if ($input['item_name'] or $input['item_price'])
+				{
+					return true;
+				}
+			});
+
+			if ($validator->fails())
+			{
+				$this->errors = $validator->messages();
+
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }
