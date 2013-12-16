@@ -17,10 +17,6 @@ class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInter
 		{
 			\Config::set('fi.' . $setting->setting_key, $setting->setting_value);
 		}
-
-		// @TODO - find a better place for this to live
-		$dateFormats = Date::formats();
-		\Config::set('fi.datepickerFormat', $dateFormats[\Config::get('fi.dateFormat')]['datepicker']);
 	}
 
 	/**

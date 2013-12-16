@@ -10,6 +10,9 @@ class StartProvider extends ServiceProvider {
         {
             $settings = \App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
             $settings->setAll();
+
+            $dateFormats = \FI\Classes\Date::formats();
+            \Config::set('fi.datepickerFormat', $dateFormats[\Config::get('fi.dateFormat')]['datepicker']);
         });
     }
 
