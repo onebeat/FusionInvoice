@@ -80,6 +80,7 @@ return array(
 	'fax_number'                         => 'Fax Number',
 	'first'                              => 'First',
 	'footer'                             => 'Footer',
+	'from'                               => 'From',
 	'general'                            => 'General',
 	'guest_url'                          => 'Guest URL',
 	'id'                                 => 'ID',
@@ -186,8 +187,9 @@ return array(
 	'tax_rate_placement'                 => 'Tax Rate Placement',
 	'tax_rates'                          => 'Tax Rates',
 	'taxes'                              => 'Taxes',
-	'terms'                              => 'Terms',
+	'terms_and_conditions'               => 'Terms and Conditions',
 	'thousands_separator'                => 'Thousands Separator',
+	'to'                                 => 'To',
 	'total'                              => 'Total',
 	'totals'                             => 'Totals',
 	'total_balance'                      => 'Total Balance',
@@ -214,4 +216,4 @@ return array(
 	'year_prefix'                        => 'Year Prefix',
 	'yes'                                => 'Yes',
 	'zip_code'                           => 'Zip Code'
-	);
+);
