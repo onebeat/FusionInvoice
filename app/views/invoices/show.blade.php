@@ -179,7 +179,7 @@
             <div class="row-fluid">
 
                 <div class="span6">
-                    <p><strong>{{ trans('fi.terms') }}</strong></p>
+                    <p><strong>{{ trans('fi.terms_and_conditions') }}</strong></p>
                     {{ Form::textarea('terms', $invoice->terms, array('id' => 'terms', 'style' => 'width: 100%;')) }}
                 </div>
 
