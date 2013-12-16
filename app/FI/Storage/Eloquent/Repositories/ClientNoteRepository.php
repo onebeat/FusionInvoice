@@ -13,6 +13,16 @@ class ClientNoteRepository implements \FI\Storage\Interfaces\ClientNoteRepositor
 	{
 		return ClientNote::find($id);
 	}
+
+	/**
+	 * Get all records by client id
+	 * @param  int $clientId
+	 * @return ClientNote
+	 */
+	public function getForClient($clientId)
+	{
+		return ClientNote::forClient($clientId)->orderBy('created_at', 'DESC')->get();
+	}
 	
 	/**
 	 * Create a record

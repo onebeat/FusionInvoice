@@ -24,7 +24,7 @@ class Client extends \Eloquent {
 
 	public function notes()
 	{
-		return $this->hasMany('FI\Storage\Eloquent\Models\ClientNote');
+		return $this->hasMany('FI\Storage\Eloquent\Models\ClientNote')->orderBy('created_at', 'DESC');
 	}
 
     /*

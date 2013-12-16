@@ -7,31 +7,14 @@
 
 		$('#save_client_note').click(function()
 		{
-			$.post("{{ route('clients.ajax.saveNote') }}",
-			{
-				client_id: $('#client_id').val(),
-				client_note: $('#client_note').val()
-			}, function(data) {
-				var response = JSON.parse(data);
-				if (response.success == '1')
-				{
-					// The validation was successful
-					$('.control-group').removeClass('error');
-					$('#client_note').val('');
-
-					$('#notes_list').load("{{ route('clients.ajax.loadNotes') }}",
-					{
-						client_id: {{ $client->id }}
-					});
-				}
-				else
-				{
-					// The validation was not successful
-					$('.control-group').removeClass('error');
-					for (var key in response.validation_errors) {
-						$('#' + key).parent().parent().addClass('error');
-					}
-				}
+			$.post("{{ route('clients.ajax.saveNote') }}", {
+				client_id: {{ $client->id }},
+				note: $('#note').val()
+			}, function() {
+				$('#notes_list').load("{{ route('clients.ajax.loadNotes') }}", {
+					client_id: {{ $client->id }}
+				});
+				$('#note').val('');
 			});
 		});
 
@@ -56,7 +39,7 @@
 	<div class="tab-content">
 		
 		<div id="clientDetails" class="tab-pane tab-info active">
-            
+
 			<div class="profile">
 
 				<div class="primaryInfo row">
@@ -106,9 +89,9 @@
 			<div class="notes">
 
 				<div id="notes_list">
-					@TODO - DISPLAY NOTES
+					@include('clients._notes')
 				</div>
-                
+
 				<form>
 					<input type="hidden" name="client_id" id="client_id" value="{{ $client->id }}">
 					<fieldset>
@@ -116,7 +99,7 @@
 						<legend>{{ trans('fi.notes') }}</legend>
 						<div class="control-group">
 							<div class="controls">
-								<textarea id="client_note"></textarea>
+								<textarea id="note"></textarea>
 							</div>
 						</div>
 
@@ -142,7 +125,6 @@
 		<li><a data-toggle="tab" href="#clientQuotes">{{ trans('fi.quotes') }}</a></li>
 		<li><a data-toggle="tab" href="#clientInvoices">{{ trans('fi.invoices') }}</a></li>
 	</ul>
-
 
 </div>
 

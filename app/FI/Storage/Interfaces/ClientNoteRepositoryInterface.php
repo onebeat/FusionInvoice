@@ -8,6 +8,13 @@ interface ClientNoteRepositoryInterface {
 	 * @return ClientNote
 	 */	
 	public function find($id);
+
+	/**
+	 * Get all records by client id
+	 * @param  int $clientId
+	 * @return ClientNote
+	 */
+	public function getForClient($clientId);
 	
 	/**
 	 * Create a record

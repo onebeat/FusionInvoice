@@ -1,6 +1,7 @@
 <?php
 
 use FI\Storage\Interfaces\ClientRepositoryInterface;
+use FI\Validators\ClientNoteValidator;
 use FI\Validators\ClientValidator;
 
 class ClientController extends \BaseController {
@@ -76,8 +77,12 @@ class ClientController extends \BaseController {
 	 */
 	public function show($clientId)
 	{
+		$client      = $this->client->find($clientId);
+		$clientNotes = $client->notes;
+
 		return View::make('clients.view')
-		->with('client', $this->client->find($clientId));
+		->with('client', $client)
+		->with('clientNotes', $clientNotes);
 	}
 
 	/**
@@ -132,6 +137,32 @@ class ClientController extends \BaseController {
 	public function ajaxNameLookup()
 	{
 		return $this->client->lookupByName(Input::get('query'));
+	}
+
+	public function ajaxSaveNote()
+	{
+		$clientNote = App::make('FI\Storage\Interfaces\ClientNoteRepositoryInterface');
+		$input      = Input::all();
+		$validator  = new ClientNoteValidator;
+
+		if (!$validator->validate($input))
+		{
+			return json_encode(array('success' => 0, 'message' => $validator->errors()->first()));
+		}
+
+		$clientNote->create($input);
+
+		return json_encode(array('success', 1));
+	}
+
+	public function ajaxLoadNotes()
+	{
+		$clientNote = App::make('FI\Storage\Interfaces\ClientNoteRepositoryInterface');
+
+		$clientNotes = $clientNote->getForClient(Input::get('client_id'));
+
+		return View::make('clients._notes')
+		->with('clientNotes', $clientNotes);
 	}
 
 }
