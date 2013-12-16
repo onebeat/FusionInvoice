@@ -317,6 +317,20 @@ class QuoteController extends BaseController {
 			\Event::fire('quote.item.created', $itemId);
 		}
 
+		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId(Input::get('quote_id'));
+
+		foreach ($quoteTaxRates as $quoteTaxRate)
+		{
+			$this->quoteTaxRate->create(
+				array(
+					'quote_id'         => $quoteId,
+					'tax_rate_id'      => $quoteTaxRate->tax_rate_id,
+					'include_item_tax' => $quoteTaxRate->include_item_tax,
+					'tax_total'        => $quoteTaxRate->tax_total
+				)
+			);
+		}
+
 		\Event::fire('quote.modified', $quoteId);
 
 		return json_encode(array('success' => 1, 'id' => $quoteId));
@@ -335,8 +349,9 @@ class QuoteController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$invoice     = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
-		$invoiceItem = App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
+		$invoice        = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+		$invoiceItem    = App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
+		$invoiceTaxRate = App::make('FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface');
 
 		$record = array(
 			'client_id'         => $input['client_id'],
@@ -370,6 +385,20 @@ class QuoteController extends BaseController {
 			$itemId = $invoiceItem->create($itemRecord);
 
 			\Event::fire('invoice.item.created', $itemId);
+		}
+
+		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId($input['quote_id']);
+
+		foreach ($quoteTaxRates as $quoteTaxRate)
+		{
+			$invoiceTaxRate->create(
+				array(
+					'invoice_id'       => $invoiceId,
+					'tax_rate_id'      => $quoteTaxRate->tax_rate_id,
+					'include_item_tax' => $quoteTaxRate->include_item_tax,
+					'tax_total'        => $quoteTaxRate->tax_total
+				)
+			);
 		}
 
 		\Event::fire('invoice.modified', $invoiceId);
