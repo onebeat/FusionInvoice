@@ -277,5 +277,93 @@ class InvoiceController extends BaseController {
 
 		return Redirect::route('invoices.index');
 	}
+
+	/**
+	 * Displays modal to copy invoice
+	 * @return View
+	 */
+	public function modalCopyInvoice()
+	{
+		$invoice = $this->invoice->find(Input::get('invoice_id'));
+
+		return View::make('invoices._modal_copy_invoice')
+		->with('invoice', $invoice)
+		->with('invoiceGroups', $this->invoiceGroup->lists())
+		->with('created_at', Date::format())
+		->with('user_id', Auth::user()->id);
+	}
+
+	/**
+	 * Attempt to copy an invoice
+	 * @return Redirect
+	 */
+	public function copyInvoice()
+	{
+		if (!$this->validator->validate(Input::all(), 'createRules'))
+		{
+			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
+		}
+
+		$client = App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+
+		$clientId = $client->findIdByName(Input::get('client_name'));
+
+		if (!$clientId)
+		{
+			$clientId = $client->create(array('name' => Input::get('client_name')));
+		}
+
+		$invoiceId = $this->invoice->create(
+			array(
+				'client_id'         => $clientId,
+				'created_at'        => Date::unformat(Input::get('created_at')),
+				'due_at'            => Date::incrementDateByDays(Input::get('created_at'), Config::get('fi.invoicesDueAfter')),
+				'invoice_group_id'  => Input::get('invoice_group_id'),
+				'number'            => $this->invoiceGroup->generateNumber(Input::get('invoice_group_id')),
+				'user_id'           => Auth::user()->id,
+				'invoice_status_id' => 1,
+				'url_key'           => str_random(32)
+			)
+		);		
+
+		\Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
+
+		$items = $this->invoiceItem->findByInvoiceId(Input::get('invoice_id'));
+
+		foreach ($items as $item)
+		{
+			$itemId = $this->invoiceItem->create(
+				array(
+					'invoice_id'    => $invoiceId,
+					'name'          => $item->name,
+					'description'   => $item->description,
+					'quantity'      => $item->quantity,
+					'price'         => $item->price,
+					'tax_rate_id'   => $item->tax_rate_id,
+					'display_order' => $item->display_order
+				)
+			);
+
+			\Event::fire('invoice.item.created', $itemId);
+		}
+
+		$invoiceTaxRates = $this->invoiceTaxRate->findByInvoiceId(Input::get('invoice_id'));
+
+		foreach ($invoiceTaxRates as $invoiceTaxRate)
+		{
+			$this->invoiceTaxRate->create(
+				array(
+					'invoice_id'       => $invoiceId,
+					'tax_rate_id'      => $invoiceTaxRate->tax_rate_id,
+					'include_item_tax' => $invoiceTaxRate->include_item_tax,
+					'tax_total'        => $invoiceTaxRate->tax_total
+				)
+			);
+		}
+
+		\Event::fire('invoice.modified', $invoiceId);
+
+		return json_encode(array('success' => 1, 'id' => $invoiceId));
+	}
 	
 }

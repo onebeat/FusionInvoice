@@ -86,6 +86,8 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('invoices/modal/add_invoice_tax', array('uses' => 'InvoiceController@modalAddInvoiceTax', 'as' => 'invoices.ajax.modalAddInvoiceTax'));
 	Route::post('invoices/modal/save_invoice_tax', array('uses' => 'InvoiceController@saveInvoiceTax', 'as' => 'invoices.ajax.saveInvoiceTax'));
+	Route::post('invoices/modal/copy_invoice', array('uses' => 'InvoiceController@modalCopyInvoice', 'as' => 'invoices.ajax.modalCopyInvoice'));
+	Route::post('invoices/ajax/copy_invoice', array('uses' => 'InvoiceController@copyInvoice', 'as' => 'invoices.ajax.copyInvoice'));
 	Route::post('invoices/create', array('uses' => 'InvoiceController@store', 'as' => 'invoices.store'));
 	Route::post('invoices/{invoice}/update', array('uses' => 'InvoiceController@update', 'as' => 'invoices.update'));
 

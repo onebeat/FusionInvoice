@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('jscript')
 
 <script type="text/javascript">
 
@@ -85,6 +85,12 @@
 
 </script>
 
+@include('invoices._copy_invoice')
+
+@stop
+
+@section('content')
+
 <div class="headerbar">
 	<h1>{{ trans('fi.invoice') }} #{{ $invoice->number }}</h1>
 
@@ -97,7 +103,7 @@
 				<li><a href="{{ route('invoices.preview', array($invoice->id)) }}" id="btn-view-invoice" target="_blank"><i class="icon-file-alt"></i> {{ trans('fi.view_invoice') }}</a></li>
 				<li><a href="javascript:void(0)"><i class="icon-envelope"></i> {{ trans('fi.send_email') }}</a></li>
                 <li><a href="javascript:void(0)" class="enter-payment" data-invoice-id="{{ $invoice->id }}" data-invoice-balance="{{ $invoice->amount->formatted_numeric_balance }}"><i class="icon-shopping-cart"></i> {{ trans('fi.enter_payment') }}</a></li>
-				<li><a href="javascript:void(0)" id="btn_copy_invoice" data-invoice-id="{{ $invoice->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_invoice') }}</a></li>
+				<li><a href="javascript:void(0)" id="btn-copy-invoice" data-invoice-id="{{ $invoice->id }}"><i class="icon-repeat"></i> {{ trans('fi.copy_invoice') }}</a></li>
 				<li><a href="{{ route('invoices.delete', array($invoice->id)) }}" onclick="return confirm('{{ trans('fi.delete_invoice_warning') }}');"><i class="icon-remove"></i> {{ trans('fi.delete') }}</a></li>
 			</ul>
 		</div>
