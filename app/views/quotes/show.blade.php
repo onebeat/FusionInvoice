@@ -90,8 +90,6 @@
 
 @section('content')
 
-
-
 <div class="headerbar">
 	<h1>{{ trans('fi.quote') }} #{{ $quote->number }}</h1>
 
