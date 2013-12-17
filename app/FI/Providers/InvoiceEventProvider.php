@@ -134,6 +134,14 @@ class InvoiceEventProvider extends ServiceProvider {
 
 			// Update the invoice amount record
 			$invoiceAmount->update($calculatedAmount, $invoiceId);
+
+			// Check to see if the invoice should be marked as paid
+			if ($calculatedAmount['total'] > 0 and $calculatedAmount['balance'] <= 0)
+			{
+				$invoice = \App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+
+				$invoice->update(array('invoice_status_id' => 4), $invoiceId);
+			}
 		});
 
 	}
