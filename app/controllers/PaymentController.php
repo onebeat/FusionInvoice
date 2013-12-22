@@ -1,23 +1,32 @@
 <?php
 
-use FI\Storage\Interfaces\PaymentRepositoryInterface;
-use FI\Storage\Interfaces\PaymentMethodRepositoryInterface;
-use FI\Validators\PaymentValidator;
-use FI\Classes\NumberFormatter;
 use FI\Classes\Date;
+use FI\Classes\NumberFormatter;
+use FI\Classes\CustomFields;
+use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
+use FI\Storage\Interfaces\PaymentCustomRepositoryInterface;
+use FI\Storage\Interfaces\PaymentMethodRepositoryInterface;
+use FI\Storage\Interfaces\PaymentRepositoryInterface;
+use FI\Validators\PaymentValidator;
 
 class PaymentController extends BaseController {
 
+	protected $customField;
 	protected $payment;
+	protected $paymentCustom;
 	protected $paymentMethod;
 	protected $validator;
 	
 	public function __construct(
-		PaymentRepositoryInterface $payment, 
+		CustomFieldRepositoryInterface $customField,
+		PaymentCustomRepositoryInterface $paymentCustom,
 		PaymentMethodRepositoryInterface $paymentMethod,
+		PaymentRepositoryInterface $payment, 
 		PaymentValidator $validator)
 	{
+		$this->customField   = $customField;
 		$this->payment       = $payment;
+		$this->paymentCustom = $paymentCustom;
 		$this->paymentMethod = $paymentMethod;
 		$this->validator     = $validator;
 	}
@@ -36,7 +45,8 @@ class PaymentController extends BaseController {
 
 	/**
 	 * Display form for existing record
-	 * @param  int $id
+	 * @param  int $paymentId
+	 * @param  int $invoiceId
 	 * @return View
 	 */
 	public function edit($paymentId, $invoiceId)
@@ -50,17 +60,22 @@ class PaymentController extends BaseController {
 		->with('editMode', true)
 		->with('payment', $payment)
 		->with('paymentMethods', $this->paymentMethod->lists())
-		->with('invoice', $invoice);
+		->with('invoice', $invoice)
+		->with('customFields', $this->customField->getByTable('payments'));;
 	}
 
 	/**
 	 * Validate and handle existing record form submission
-	 * @param  int $id
+	 * @param  int $paymentId
+	 * @param  int $invoiceId
 	 * @return RedirectResponse
 	 */
 	public function update($paymentId, $invoiceId)
 	{
 		$input = Input::all();
+
+		$custom = $input['custom'];
+		unset($input['custom']);
 
 		if (!$this->validator->validate($input))
 		{
@@ -74,6 +89,7 @@ class PaymentController extends BaseController {
         $input['amount']  = NumberFormatter::unformat($input['amount']);
 
 		$this->payment->update($input, $paymentId);
+		$this->paymentCustom->save($custom, $paymentId);
 
 		\Event::fire('invoice.modified', array($invoiceId));
 
@@ -83,7 +99,8 @@ class PaymentController extends BaseController {
 
 	/**
 	 * Delete a record
-	 * @param  int $id
+	 * @param  int $paymentId
+	 * @param  int $invoiceId
 	 * @return RedirectResponse
 	 */
 	public function delete($paymentId, $invoiceId)

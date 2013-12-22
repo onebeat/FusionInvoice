@@ -1,39 +1,47 @@
 <?php
 
-use FI\Storage\Interfaces\InvoiceRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceItemRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface;
+use FI\Classes\Date;
+use FI\Classes\NumberFormatter;
+use FI\Statuses\InvoiceStatuses;
+use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
+use FI\Storage\Interfaces\InvoiceCustomRepositoryInterface;
 use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
+use FI\Storage\Interfaces\InvoiceItemRepositoryInterface;
+use FI\Storage\Interfaces\InvoiceRepositoryInterface;
+use FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface;
 use FI\Storage\Interfaces\TaxRateRepositoryInterface;
 use FI\Validators\InvoiceValidator;
-use FI\Statuses\InvoiceStatuses;
-use FI\Classes\NumberFormatter;
-use FI\Classes\Date;
 
 class InvoiceController extends BaseController {
 
+	protected $client;
+	protected $customField;
 	protected $invoice;
+	protected $invoiceCustom;
+	protected $invoiceGroup;
 	protected $invoiceItem;
 	protected $invoiceTaxRate;
-	protected $validator;
-	protected $invoiceGroup;
-	protected $client;
 	protected $taxRate;
+	protected $validator;
 	
 	public function __construct(
-		InvoiceRepositoryInterface $invoice,
+		CustomFieldRepositoryInterface $customField,
+		InvoiceCustomRepositoryInterface $invoiceCustom,
+		InvoiceGroupRepositoryInterface $invoiceGroup,
 		InvoiceItemRepositoryInterface $invoiceItem,
+		InvoiceRepositoryInterface $invoice,
 		InvoiceTaxRateRepositoryInterface $invoiceTaxRate,
 		InvoiceValidator $validator,
-		InvoiceGroupRepositoryInterface $invoiceGroup,
 		TaxRateRepositoryInterface $taxRate)
 	{
+		$this->customField    = $customField;
 		$this->invoice        = $invoice;
+		$this->invoiceCustom  = $invoiceCustom;
+		$this->invoiceGroup   = $invoiceGroup;
 		$this->invoiceItem    = $invoiceItem;
 		$this->invoiceTaxRate = $invoiceTaxRate;
-		$this->validator      = $validator;
-		$this->invoiceGroup   = $invoiceGroup;
 		$this->taxRate        = $taxRate;
+		$this->validator      = $validator;
 	}
 
 	/**
@@ -108,7 +116,10 @@ class InvoiceController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $itemValidator->errors()->first()));
 		}
 
-		$input = Input::all();
+		$input  = Input::all();
+
+		$custom = (array) json_decode($input['custom']);
+		unset($input['custom']);
 
 		$invoice = array(
 			'number'            => $input['number'],
@@ -120,6 +131,7 @@ class InvoiceController extends BaseController {
 		);
 
 		$this->invoice->update($invoice, $id);
+		$this->invoiceCustom->save($custom, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -170,21 +182,17 @@ class InvoiceController extends BaseController {
 
 	/**
 	 * Display the invoice
-	 * @param  int $id [description]
+	 * @param  int $id
 	 * @return View
 	 */
 	public function show($id)
 	{
-		$invoice         = $this->invoice->find($id);
-		$statuses        = InvoiceStatuses::lists();
-		$taxRates        = $this->taxRate->lists();
-		$invoiceTaxRates = $this->invoiceTaxRate->findByInvoiceId($id);
-
 		return View::make('invoices.show')
-		->with('invoice', $invoice)
-		->with('statuses', $statuses)
-		->with('taxRates', $taxRates)
-		->with('invoiceTaxRates', $invoiceTaxRates);
+		->with('invoice', $this->invoice->find($id))
+		->with('statuses', InvoiceStatuses::lists())
+		->with('taxRates', $this->taxRate->lists())
+		->with('invoiceTaxRates', $this->invoiceTaxRate->findByInvoiceId($id))
+		->with('customFields', $this->customField->getByTable('invoices'));
 	}
 
 	/**
@@ -194,10 +202,8 @@ class InvoiceController extends BaseController {
 	 */
 	public function preview($id)
 	{
-		$invoice = $this->invoice->find($id);
-
 		return View::make('templates.invoices.' . str_replace('.blade.php', '', Config::get('fi.invoiceTemplate')))
-		->with('invoice', $invoice);
+		->with('invoice', $this->invoice->find($id));
 	}
 
 	/**

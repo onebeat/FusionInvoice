@@ -1,39 +1,45 @@
 <?php
 
-use FI\Storage\Interfaces\QuoteRepositoryInterface;
-use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
-use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
-use FI\Storage\Interfaces\TaxRateRepositoryInterface;
-use FI\Validators\QuoteValidator;
-use FI\Statuses\QuoteStatuses;
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
+use FI\Statuses\QuoteStatuses;
+use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
+use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
+use FI\Storage\Interfaces\QuoteCustomRepositoryInterface;
+use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
+use FI\Storage\Interfaces\QuoteRepositoryInterface;
+use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
+use FI\Storage\Interfaces\TaxRateRepositoryInterface;
+use FI\Validators\QuoteValidator;
 
 class QuoteController extends BaseController {
 
+	protected $client;
+	protected $invoiceGroup;
 	protected $quote;
 	protected $quoteItem;
 	protected $quoteTaxRate;
-	protected $validator;
-	protected $invoiceGroup;
-	protected $client;
 	protected $taxRate;
+	protected $validator;
 	
 	public function __construct(
-		QuoteRepositoryInterface $quote,
+		CustomFieldRepositoryInterface $customField,
+		InvoiceGroupRepositoryInterface $invoiceGroup,
+		QuoteCustomRepositoryInterface $quoteCustom,
 		QuoteItemRepositoryInterface $quoteItem,
+		QuoteRepositoryInterface $quote,
 		QuoteTaxRateRepositoryInterface $quoteTaxRate,
 		QuoteValidator $validator,
-		InvoiceGroupRepositoryInterface $invoiceGroup,
 		TaxRateRepositoryInterface $taxRate)
 	{
+		$this->customField  = $customField;
+		$this->invoiceGroup = $invoiceGroup;
 		$this->quote        = $quote;
+		$this->quoteCustom  = $quoteCustom;
 		$this->quoteItem    = $quoteItem;
 		$this->quoteTaxRate = $quoteTaxRate;
-		$this->validator    = $validator;
-		$this->invoiceGroup = $invoiceGroup;
 		$this->taxRate      = $taxRate;
+		$this->validator    = $validator;
 	}
 
 	/**
@@ -80,7 +86,7 @@ class QuoteController extends BaseController {
 			'quote_status_id'  => 1,
 			'url_key'          => str_random(32),
 			'footer'           => Config::get('fi.quoteFooter')
-		);
+			);
 
 		$quoteId = $this->quote->create($input);
 
@@ -109,15 +115,19 @@ class QuoteController extends BaseController {
 
 		$input = Input::all();
 
+		$custom = (array) json_decode($input['custom']);
+		unset($input['custom']);
+
 		$quote = array(
 			'number'          => $input['number'],
 			'created_at'      => Date::unformat($input['created_at']),
 			'expires_at'      => Date::unformat($input['expires_at']),
 			'quote_status_id' => $input['quote_status_id'],
 			'footer'          => $input['footer']
-		);
+			);
 
 		$this->quote->update($quote, $id);
+		$this->quoteCustom->save($custom, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -133,7 +143,7 @@ class QuoteController extends BaseController {
 					'price'         => NumberFormatter::unformat($item->item_price),
 					'tax_rate_id'   => $item->item_tax_rate_id,
 					'display_order' => $item->item_order
-				);
+					);
 
 				if (!$item->item_id)
 				{
@@ -154,7 +164,7 @@ class QuoteController extends BaseController {
 						'name'        => $item->item_name,
 						'description' => $item->item_description,
 						'price'       => NumberFormatter::unformat($item->item_price)
-					);
+						);
 
 					$itemLookup->create($itemLookupRecord);
 				}
@@ -182,7 +192,8 @@ class QuoteController extends BaseController {
 		->with('quote', $quote)
 		->with('statuses', $statuses)
 		->with('taxRates', $taxRates)
-		->with('quoteTaxRates', $quoteTaxRates);
+		->with('quoteTaxRates', $quoteTaxRates)
+		->with('customFields', $this->customField->getByTable('quotes'));
 	}
 
 	/**
@@ -293,8 +304,8 @@ class QuoteController extends BaseController {
 				'user_id'          => Auth::user()->id,
 				'quote_status_id'  => 1,
 				'url_key'          => str_random(32)
-			)
-		);		
+				)
+			);		
 
 		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
 
@@ -311,8 +322,8 @@ class QuoteController extends BaseController {
 					'price'         => $item->price,
 					'tax_rate_id'   => $item->tax_rate_id,
 					'display_order' => $item->display_order
-				)
-			);
+					)
+				);
 
 			\Event::fire('quote.item.created', $itemId);
 		}
@@ -327,8 +338,8 @@ class QuoteController extends BaseController {
 					'tax_rate_id'      => $quoteTaxRate->tax_rate_id,
 					'include_item_tax' => $quoteTaxRate->include_item_tax,
 					'tax_total'        => $quoteTaxRate->tax_total
-				)
-			);
+					)
+				);
 		}
 
 		\Event::fire('quote.modified', $quoteId);
@@ -362,7 +373,7 @@ class QuoteController extends BaseController {
 			'user_id'           => Auth::user()->id,
 			'invoice_status_id' => 1,
 			'url_key'           => str_random(32)
-		);
+			);
 
 		$invoiceId = $invoice->create($record);
 
@@ -380,7 +391,7 @@ class QuoteController extends BaseController {
 				'price'         => $item->price,
 				'tax_rate_id'   => $item->tax_rate_id,
 				'display_order' => $item->display_order
-			);
+				);
 
 			$itemId = $invoiceItem->create($itemRecord);
 
@@ -397,8 +408,8 @@ class QuoteController extends BaseController {
 					'tax_rate_id'      => $quoteTaxRate->tax_rate_id,
 					'include_item_tax' => $quoteTaxRate->include_item_tax,
 					'tax_total'        => $quoteTaxRate->tax_total
-				)
-			);
+					)
+				);
 		}
 
 		\Event::fire('invoice.modified', $invoiceId);
@@ -416,8 +427,8 @@ class QuoteController extends BaseController {
 				'quote_id'         => Input::get('quote_id'), 
 				'tax_rate_id'      => Input::get('tax_rate_id'), 
 				'include_item_tax' => Input::get('include_item_tax')
-			)
-		);
+				)
+			);
 
 		\Event::fire('quote.modified', Input::get('quote_id'));
 	}

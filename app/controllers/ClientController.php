@@ -1,18 +1,29 @@
 <?php
 
+use FI\Classes\CustomFields;
+use FI\Storage\Interfaces\ClientCustomRepositoryInterface;
 use FI\Storage\Interfaces\ClientRepositoryInterface;
+use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
 use FI\Validators\ClientNoteValidator;
 use FI\Validators\ClientValidator;
 
 class ClientController extends \BaseController {
 	
 	protected $client;
+	protected $clientCustom;
+	protected $customField;
 	protected $validator;
 	
-	public function __construct(ClientRepositoryInterface $client, ClientValidator $validator)
+	public function __construct(
+		ClientRepositoryInterface $client, 
+		ClientCustomRepositoryInterface $clientCustom,
+		CustomFieldRepositoryInterface $customField,
+		ClientValidator $validator)
 	{
-		$this->client    = $client;
-		$this->validator = $validator;
+		$this->client       = $client;
+		$this->clientCustom = $clientCustom;
+		$this->customField  = $customField;
+		$this->validator    = $validator;
 	}
 
 	/**
@@ -45,7 +56,8 @@ class ClientController extends \BaseController {
 	public function create()
 	{
 		return View::make('clients.form')
-		->with('editMode', false);
+		->with('editMode', false)
+		->with('customFields', $this->customField->getByTable('clients'));
 	}
 
 	/**
@@ -56,6 +68,9 @@ class ClientController extends \BaseController {
 	{
 		$input = Input::all();
 
+		$custom = $input['custom'];
+		unset($input['custom']);
+
 		if (!$this->validator->validate($input))
 		{
 			return Redirect::route('clients.create')
@@ -64,7 +79,8 @@ class ClientController extends \BaseController {
 			->withInput();
 		}
 
-		$this->client->create($input);
+		$clientId = $this->client->create($input);
+		$this->clientCustom->save($custom, $clientId);
 		
 		return Redirect::route('clients.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -93,9 +109,11 @@ class ClientController extends \BaseController {
 	public function edit($clientId)
 	{
 		$client = $this->client->find($clientId);
-		
+
 		return View::make('clients.form')
-		->with(array('editMode' => true, 'client' => $client));
+		->with('editMode', true)
+		->with('client', $client)
+		->with('customFields', $this->customField->getByTable('clients'));
 	}
 
 	/**
@@ -106,6 +124,9 @@ class ClientController extends \BaseController {
 	public function update($clientId)
 	{
 		$input = Input::all();
+		
+		$custom = $input['custom'];
+		unset($input['custom']);
 
 		if (!$this->validator->validate($input))
 		{	
@@ -116,6 +137,7 @@ class ClientController extends \BaseController {
 		}
 
 		$this->client->update($input, $clientId);
+		$this->clientCustom->save($custom, $clientId);
 
 		return Redirect::route('clients.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));;
