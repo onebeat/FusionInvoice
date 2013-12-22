@@ -27,6 +27,11 @@ class Client extends \Eloquent {
 		return $this->hasMany('FI\Storage\Eloquent\Models\ClientNote')->orderBy('created_at', 'DESC');
 	}
 
+	public function custom()
+	{
+		return $this->hasOne('FI\Storage\Eloquent\Models\ClientCustom');
+	}
+
     /*
     |--------------------------------------------------------------------------
     | Accessors

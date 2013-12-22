@@ -17,6 +17,11 @@ class Quote extends \Eloquent {
         return $this->belongsTo('FI\Storage\Eloquent\Models\Client');
     }
 
+    public function custom()
+    {
+        return $this->hasOne('FI\Storage\Eloquent\Models\QuoteCustom');
+    }
+
     public function amount()
     {
         return $this->hasOne('FI\Storage\Eloquent\Models\QuoteAmount');

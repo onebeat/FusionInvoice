@@ -13,6 +13,11 @@ class Payment extends \Eloquent {
     | Relationships
     |--------------------------------------------------------------------------
     */
+   
+    public function custom()
+    {
+        return $this->hasOne('FI\Storage\Eloquent\Models\PaymentCustom');
+    }
 
     public function invoice()
     {
