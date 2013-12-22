@@ -42,7 +42,7 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 	 */
 	public function find($id)
 	{
-		return Payment::find($id);
+		return Payment::with('custom')->find($id);
 	}
 
 	/**

@@ -77,7 +77,7 @@ class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterfa
 	{
 		$client = $this->initClient();
 
-		return $client->where('id', $id)->first();
+		return $client->with('custom')->where('id', $id)->first();
 	}
 
 	/**

@@ -75,7 +75,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	 */
 	public function find($id)
 	{
-		return Invoice::with('items.amount')->find($id);
+		return Invoice::with(array('items.amount', 'custom'))->find($id);
 	}
 
 	/**

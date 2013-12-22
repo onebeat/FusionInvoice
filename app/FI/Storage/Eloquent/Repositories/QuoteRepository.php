@@ -68,7 +68,7 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	 */
 	public function find($id)
 	{
-		return Quote::with('items.amount')->find($id);
+		return Quote::with(array('items.amount', 'custom'))->find($id);
 	}
 
 	/**
