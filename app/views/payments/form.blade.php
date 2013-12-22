@@ -47,6 +47,12 @@
 
 	</div>
 
+    <div class="row-fluid">
+        <div class="span12">
+ 			@include('custom_fields._custom_fields');
+        </div>
+    </div>
+
 </div>
 
 {{ Form::close() }}

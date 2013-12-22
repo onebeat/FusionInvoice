@@ -3,9 +3,9 @@
 @section('content')
 
 <script type="text/javascript">
-$(function() {
-   $('#name').focus(); 
-});
+    $(function() {
+     $('#name').focus(); 
+ });
 </script>
 
 @if ($editMode == true)
@@ -30,7 +30,7 @@ $(function() {
             <label class="control-label">{{ trans('fi.active_client') }}: </label>
             <div class="controls">
                 {{ Form::hidden('active', 0) }}
-            	{{ Form::checkbox('active', 1, true) }}
+                {{ Form::checkbox('active', 1, true) }}
             </div>
         </div>
 
@@ -44,7 +44,7 @@ $(function() {
     </fieldset>
     
     <div class="row-fluid">
-        
+
         <div class="span6">
             <fieldset>
                 <legend>{{ trans('fi.address') }}</legend>
@@ -136,6 +136,15 @@ $(function() {
             </fieldset>                
         </div>
         
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset>
+                <legend>{{ trans('fi.custom_fields') }}</legend>
+                @include('custom_fields._custom_fields');
+            </fieldset>
+        </div>
     </div>
 
 </div>

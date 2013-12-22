@@ -25,6 +25,7 @@
         $('#btn-save-quote').click(function() {
             var items = [];
             var item_order = 1;
+            var custom_fields = {};
             $('table tr.item').each(function() {
                 var row = {};
                 $(this).find('input,select,textarea').each(function() {
@@ -44,13 +45,19 @@
                 item_order++;
                 items.push(row);
             });
+
+            $('.custom-form-field').each(function() {
+                custom_fields[$(this).data('field-name')] = $(this).val();
+            });
+
             $.post("{{ route('quotes.update', array($quote->id)) }}", {
                 number: $('#number').val(),
                 created_at: $('#created_at').val(),
                 expires_at: $('#expires_at').val(),
                 quote_status_id: $('#quote_status_id').val(),
                 items: JSON.stringify(items),
-                footer: $('#footer').val()
+                footer: $('#footer').val(),
+                custom: JSON.stringify(custom_fields)
             },
             function(data) {
                 var response = JSON.parse(data);
@@ -119,7 +126,7 @@
     
     @include('layouts._alerts')
 
-    {{ Form::open(array('route' => array('quotes.update', $quote->id), 'class' => 'form-horizontal', 'id' => 'form-quote')) }}
+    {{ Form::model($quote, array('route' => array('quotes.update', $quote->id), 'class' => 'form-horizontal')) }}
 
 		<div class="quote">
 
@@ -188,6 +195,15 @@
                     {{ Form::textarea('footer', $quote->footer, array('id' => 'footer', 'style' => 'width: 100%;')) }}
                 </div>
 
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <fieldset>
+                        <legend>{{ trans('fi.custom_fields') }}</legend>
+                        @include('custom_fields._custom_fields')
+                    </fieldset>
+                </div>
             </div>
             
 		</div>
