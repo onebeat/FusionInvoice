@@ -58,7 +58,7 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	 */
 	public function getRecent($limit)
 	{
-		return Quote::with(array('amount', 'client'))->limit($limit)->get();
+		return Quote::with(array('amount', 'client'))->orderBy('created_at', 'DESC')->limit($limit)->get();
 	}
 
 	/**

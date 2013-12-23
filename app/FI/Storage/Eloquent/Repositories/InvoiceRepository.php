@@ -43,6 +43,9 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 			case 'canceled':
 				return $invoice->canceled()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 				break;
+			case 'overdue':
+				return $invoice->overdue()->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
+				break;
 			default:
 				return $invoice->paginate($numPerPage ?: \Config::get('defaultNumPerPage'));
 		}
@@ -55,7 +58,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	 */
 	public function getRecent($limit)
 	{
-		return Invoice::with(array('amount', 'client'))->limit($limit)->get();
+		return Invoice::with(array('amount', 'client'))->orderBy('created_at', 'DESC')->limit($limit)->get();
 	}
 
 	/**
