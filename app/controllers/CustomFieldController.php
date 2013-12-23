@@ -24,7 +24,8 @@ class CustomFieldController extends \BaseController {
 		$customFields = $this->customField->getPaged(Input::get('page'));
 
 		return View::make('custom_fields.index')
-		->with('customFields', $customFields);
+		->with('customFields', $customFields)
+		->with('tableNames', CustomFields::tableNames());
 	}
 
 	/**
@@ -35,8 +36,8 @@ class CustomFieldController extends \BaseController {
 	{
 		return View::make('custom_fields.form')
 		->with('editMode', false)
-		->with('table_names', CustomFields::tableNames())
-		->with('field_types', CustomFields::fieldTypes());
+		->with('tableNames', CustomFields::tableNames())
+		->with('fieldTypes', CustomFields::fieldTypes());
 	}
 
 	/**
@@ -77,8 +78,8 @@ class CustomFieldController extends \BaseController {
 		return View::make('custom_fields.form')
 		->with('editMode', true)
 		->with('customField', $customField)
-		->with('table_names', CustomFields::tableNames())
-		->with('field_types', CustomFields::fieldTypes());
+		->with('tableNames', CustomFields::tableNames())
+		->with('fieldTypes', CustomFields::fieldTypes());
 	}
 
 	/**
@@ -90,7 +91,9 @@ class CustomFieldController extends \BaseController {
 	{
 		$input = Input::all();
 
-		if (!$this->validator->validate($input))
+		unset($input['table_name']);
+
+		if (!$this->validator->validate($input, 'updateRules'))
 		{
 			return Redirect::route('customFields.edit', array($id))
 			->with('editMode', true)

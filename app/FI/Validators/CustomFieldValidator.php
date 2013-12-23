@@ -8,4 +8,9 @@ class CustomFieldValidator extends Validator {
 		'field_type'  => 'required'
 	);
 
+	static $updateRules = array(
+		'field_label' => 'required',
+		'field_type'  => 'required'
+	);
+
 }

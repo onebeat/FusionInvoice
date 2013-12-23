@@ -34,7 +34,7 @@
 		<tbody>
 			@foreach ($customFields as $customField)
 			<tr>
-				<td>{{ $customField->table_name }}</td>
+				<td>{{ $tableNames[$customField->table_name] }}</td>
 				<td>{{ $customField->column_name }}</td>
 				<td>{{ $customField->field_label }}</td>
 				<td>{{ $customField->field_type }}</td>

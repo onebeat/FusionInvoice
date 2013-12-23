@@ -26,7 +26,11 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.table_name') }}: </label>
 		<div class="controls">
-			{{ Form::select('table_name', $table_names) }}
+			@if ($editMode == true)
+			{{ Form::text('table_name', $tableNames[$customField->table_name], array('readonly' => 'readonly')) }}
+			@else
+			{{ Form::select('table_name', $tableNames) }}
+			@endif
 		</div>
 	</div>
 
@@ -40,7 +44,7 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.field_type') }}: </label>
 		<div class="controls">
-			{{ Form::select('field_type', $field_types) }}
+			{{ Form::select('field_type', $fieldTypes) }}
 		</div>
 	</div>
 
