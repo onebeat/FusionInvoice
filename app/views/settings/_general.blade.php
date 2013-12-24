@@ -8,6 +8,13 @@
 	</div>
 
 	<div class="control-group">
+		<label class="control-label">{{ trans('fi.timezone') }}: </label>
+		<div class="controls">
+			{{ Form::select('setting_timezone', $timezones, Config::get('fi.timezone'), array('class' => 'input-large')) }}
+		</div>
+	</div>
+
+	<div class="control-group">
 		<label class="control-label">{{ trans('fi.date_format') }}: </label>
 		<div class="controls">
 			{{ Form::select('setting_dateFormat', $dateFormats, Config::get('fi.dateFormat')) }}

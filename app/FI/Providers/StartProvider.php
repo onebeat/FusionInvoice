@@ -13,6 +13,8 @@ class StartProvider extends ServiceProvider {
 
             $dateFormats = \FI\Classes\Date::formats();
             \Config::set('fi.datepickerFormat', $dateFormats[\Config::get('fi.dateFormat')]['datepicker']);
+
+            date_default_timezone_set((\Config::get('fi.timezone') ?: \Config::get('app.timezone')));
         });
     }
 

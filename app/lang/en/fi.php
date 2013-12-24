@@ -199,6 +199,7 @@ return array(
 	'text'                               => 'Text',
 	'textarea'                           => 'Textarea',
 	'thousands_separator'                => 'Thousands Separator',
+	'timezone'                           => 'Timezone',
 	'to'                                 => 'To',
 	'total'                              => 'Total',
 	'totals'                             => 'Totals',

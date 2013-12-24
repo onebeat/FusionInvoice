@@ -35,35 +35,21 @@ class SettingController extends BaseController {
 	 */
 	public function index()
 	{
-		$languages                = Languages::listLanguages();
-		$currencySymbolPlacements = array('before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount'));
-		$taxRateDecimalPlaces     = array('2' => '2', '3' => '3');
-		$dateFormats              = Date::dropdownArray();
-		$invoiceTemplates         = InvoiceTemplates::lists();
-		$quoteTemplates           = QuoteTemplates::lists();
-		$emailTemplates           = $this->emailTemplates->lists();
-		$invoiceGroups            = $this->invoiceGroups->lists();
-		$taxRates                 = $this->taxRates->lists();
-		$emailSendMethods         = Email::listSendMethods();
-		$emailEncryptions         = Email::listEncryptions();
-		$yesNoArray               = array('0' => trans('fi.no'), '1' => trans('fi.yes'));
-
-
-
 		return View::make('settings.index')
 		->with(array(
-			'languages'                => $languages,
-			'currencySymbolPlacements' => $currencySymbolPlacements,
-			'taxRateDecimalPlaces'     => $taxRateDecimalPlaces,
-			'dateFormats'              => $dateFormats,
-			'invoiceTemplates'         => $invoiceTemplates,
-			'quoteTemplates'           => $quoteTemplates,
-			'emailTemplates'           => $emailTemplates,
-			'invoiceGroups'            => $invoiceGroups,
-			'taxRates'                 => $taxRates,
-			'emailSendMethods'         => $emailSendMethods,
-			'emailEncryptions'         => $emailEncryptions,
-			'yesNoArray'               => $yesNoArray
+			'languages'                => Languages::listLanguages(),
+			'currencySymbolPlacements' => array('before' => trans('fi.before_amount'), 'after' => trans('fi.after_amount')),
+			'taxRateDecimalPlaces'     => array('2' => '2', '3' => '3'),
+			'dateFormats'              => Date::dropdownArray(),
+			'invoiceTemplates'         => InvoiceTemplates::lists(),
+			'quoteTemplates'           => QuoteTemplates::lists(),
+			'emailTemplates'           => $this->emailTemplates->lists(),
+			'invoiceGroups'            => $this->invoiceGroups->lists(),
+			'taxRates'                 => $this->taxRates->lists(),
+			'emailSendMethods'         => Email::listSendMethods(),
+			'emailEncryptions'         => Email::listEncryptions(),
+			'yesNoArray'               => array('0' => trans('fi.no'), '1' => trans('fi.yes')),
+			'timezones'                => array_combine(timezone_identifiers_list(), timezone_identifiers_list())
 		));
 	}
 
