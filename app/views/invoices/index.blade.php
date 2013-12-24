@@ -19,6 +19,7 @@
 		@foreach ($statuses as $liStatus)
 			<li <?php if ($status == $liStatus['status']) { ?>class="active"<?php } ?>><a href="{{ route('invoices.index', array($liStatus['status'])) }}">{{ $liStatus['label'] }}</a></li>
 		@endforeach
+		<li @if ($status == 'overdue') class="active" @endif><a href="{{ route('invoices.index', array('overdue')) }}">Overdue</a></li>
 		</ul>
 	</div>
 

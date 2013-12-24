@@ -95,7 +95,7 @@ class Invoice extends \Eloquent {
 
     public function getIsOverdueAttribute()
     {
-        if ($this->attributes['due_at'] < date('Y-m-d'))
+        if ($this->attributes['due_at'] < date('Y-m-d') and $this->attributes['invoice_status_id'] <> 4)
             return 1;
 
         return 0;

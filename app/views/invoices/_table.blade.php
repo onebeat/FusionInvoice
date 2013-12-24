@@ -21,7 +21,7 @@
 			</td>
 			<td><a href="#" title="{{ trans('fi.edit') }}">{{ $invoice->number }}</a></td>
 			<td>{{ $invoice->formatted_created_at }}</td>
-			<td>{{ $invoice->formatted_due_at }}</td>
+			<td><span class="@if ($invoice->is_overdue) font-overdue @endif">{{ $invoice->formatted_due_at }}</span></td>
 			<td><a href="{{ route('clients.show', array($invoice->client->id)) }}" title="{{ trans('fi.view_client') }}">{{ $invoice->client->name }}</a></td>
 			<td style="text-align: right;">{{ $invoice->amount->formatted_total }}</td>
 			<td style="text-align: right; padding-right: 25px;">{{ $invoice->amount->formatted_balance }}</td>
