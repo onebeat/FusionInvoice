@@ -24,7 +24,7 @@ class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface
 	{
 		\DB::getPaginator()->setCurrentPage($page);
 
-		$quote = Quote::with(array('amount', 'client'));
+		$quote = Quote::with(array('amount', 'client'))->orderBy('created_at', 'DESC');
 
 		switch ($status)
 		{

@@ -24,7 +24,7 @@ class InvoiceRepository implements \FI\Storage\Interfaces\InvoiceRepositoryInter
 	{
 		\DB::getPaginator()->setCurrentPage($page);
 
-		$invoice = Invoice::with(array('amount', 'client'));
+		$invoice = Invoice::with(array('amount', 'client'))->orderBy('created_at', 'DESC');
 
 		switch ($status)
 		{
