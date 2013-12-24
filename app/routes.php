@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Routes: Sessions
+| Sessions
 |--------------------------------------------------------------------------
 */
 
@@ -12,7 +12,7 @@ Route::get('logout', array('uses' => 'SessionController@logout', 'as' => 'sessio
 
 /*
 |--------------------------------------------------------------------------
-| Routes: Public Document Routes
+| Public Document Routes
 |--------------------------------------------------------------------------
 */
 
@@ -22,16 +22,7 @@ Route::group(array('before' => 'auth'), function()
 {
 	/*
 	|--------------------------------------------------------------------------
-	| Routes: Dashboard
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('/', 'DashboardController@index');
-	Route::get('dashboard', array('uses' => 'DashboardController@index', 'as' => 'dashboard.index'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Clients
+	| Clients
 	|--------------------------------------------------------------------------
 	*/
 
@@ -49,7 +40,122 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Routes: Quotes
+	| Custom Fields
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('custom_fields', array('uses' => 'CustomFieldController@index', 'as' => 'customFields.index'));
+	Route::get('custom_fields/create', array('uses' => 'CustomFieldController@create', 'as' => 'customFields.create'));
+	Route::get('custom_fields/{customField}/edit', array('uses' => 'CustomFieldController@edit', 'as' => 'customFields.edit'));
+	Route::get('custom_fields/{customField}/delete', array('uses' => 'CustomFieldController@delete', 'as' => 'customFields.delete'));
+
+	Route::post('custom_fields', array('uses' => 'CustomFieldController@store', 'as' => 'customFields.store'));
+	Route::post('custom_fields/{customField}', array('uses' => 'CustomFieldController@update', 'as' => 'customFields.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Dashboard
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('/', 'DashboardController@index');
+	Route::get('dashboard', array('uses' => 'DashboardController@index', 'as' => 'dashboard.index'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Email Templates
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('email_templates', array('uses' => 'EmailTemplateController@index', 'as' => 'emailTemplates.index'));
+	Route::get('email_templates/create', array('uses' => 'EmailTemplateController@create', 'as' => 'emailTemplates.create'));
+	Route::get('email_templates/{emailTemplate}/edit', array('uses' => 'EmailTemplateController@edit', 'as' => 'emailTemplates.edit'));
+	Route::get('email_templates/{emailTemplate}/delete', array('uses' => 'EmailTemplateController@delete', 'as' => 'emailTemplates.delete'));
+
+	Route::post('email_templates', array('uses' => 'EmailTemplateController@store', 'as' => 'emailTemplates.store'));
+	Route::post('email_templates/{emailTemplate}', array('uses' => 'EmailTemplateController@update', 'as' => 'emailTemplates.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Invoice Groups
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('invoice_groups', array('uses' => 'InvoiceGroupController@index', 'as' => 'invoiceGroups.index'));
+	Route::get('invoice_groups/create', array('uses' => 'InvoiceGroupController@create', 'as' => 'invoiceGroups.create'));
+	Route::get('invoice_groups/{invoiceGroup}/edit', array('uses' => 'InvoiceGroupController@edit', 'as' => 'invoiceGroups.edit'));
+	Route::get('invoice_groups/{invoiceGroup}/delete', array('uses' => 'InvoiceGroupController@delete', 'as' => 'invoiceGroups.delete'));
+
+	Route::post('invoice_groups', array('uses' => 'InvoiceGroupController@store', 'as' => 'invoiceGroups.store'));
+	Route::post('invoice_groups/{invoiceGroup}', array('uses' => 'InvoiceGroupController@update', 'as' => 'invoiceGroups.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Invoices
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('invoices/status/{status?}', array('uses' => 'InvoiceController@index', 'as' => 'invoices.index'));
+	Route::get('invoices/modal/create', array('uses' => 'InvoiceController@modalCreate', 'as' => 'invoices.ajax.modalCreate'));
+	Route::get('invoices/{invoice}', array('uses' => 'InvoiceController@show', 'as' => 'invoices.show'));
+	Route::get('invoices/{invoice}/preview', array('uses' => 'InvoiceController@preview', 'as' => 'invoices.preview'));
+	Route::get('invoices/{invoice}/tax_rates/{tax_rate}/delete', array('uses' => 'InvoiceController@deleteInvoiceTax', 'as' => 'invoices.ajax.deleteInvoiceTax'));
+	Route::get('invoices/{invoice}/items/{item}/delete', array('uses' => 'InvoiceController@deleteItem', 'as' => 'invoices.items.delete'));
+	Route::get('invoices/{invoice}/delete', array('uses' => 'InvoiceController@delete', 'as' => 'invoices.delete'));
+
+	Route::post('invoices/modal/add_invoice_tax', array('uses' => 'InvoiceController@modalAddInvoiceTax', 'as' => 'invoices.ajax.modalAddInvoiceTax'));
+	Route::post('invoices/modal/save_invoice_tax', array('uses' => 'InvoiceController@saveInvoiceTax', 'as' => 'invoices.ajax.saveInvoiceTax'));
+	Route::post('invoices/modal/copy_invoice', array('uses' => 'InvoiceController@modalCopyInvoice', 'as' => 'invoices.ajax.modalCopyInvoice'));
+	Route::post('invoices/ajax/copy_invoice', array('uses' => 'InvoiceController@copyInvoice', 'as' => 'invoices.ajax.copyInvoice'));
+	Route::post('invoices/create', array('uses' => 'InvoiceController@store', 'as' => 'invoices.store'));
+	Route::post('invoices/{invoice}/update', array('uses' => 'InvoiceController@update', 'as' => 'invoices.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Item Lookups
+	|--------------------------------------------------------------------------
+	*/
+	Route::get('item_lookups', array('uses' => 'ItemLookupController@index', 'as' => 'itemLookups.index'));
+	Route::get('item_lookups/create', array('uses' => 'ItemLookupController@create', 'as' => 'itemLookups.create'));
+	Route::get('item_lookups/{itemLookup}/edit', array('uses' => 'ItemLookupController@edit', 'as' => 'itemLookups.edit'));
+	Route::get('item_lookups/{itemLookup}/delete', array('uses' => 'ItemLookupController@delete', 'as' => 'itemLookups.delete'));
+	Route::get('item_lookups/modal/add_lookup_item', array('uses' => 'ItemLookupController@modalAddLookupItem', 'as' => 'itemLookups.ajax.modalAddLookupItem'));
+
+	Route::post('item_lookups', array('uses' => 'ItemLookupController@store', 'as' => 'itemLookups.store'));
+	Route::post('item_lookups/{itemLookup}', array('uses' => 'ItemLookupController@update', 'as' => 'itemLookups.update'));
+	Route::post('item_lookups/ajax/process', array('uses' => 'ItemLookupController@process', 'as' => 'itemLookups.ajax.process'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Payment Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('payment_methods', array('uses' => 'PaymentMethodController@index', 'as' => 'paymentMethods.index'));
+	Route::get('payment_methods/create', array('uses' => 'PaymentMethodController@create', 'as' => 'paymentMethods.create'));
+	Route::get('payment_methods/{paymentMethod}/edit', array('uses' => 'PaymentMethodController@edit', 'as' => 'paymentMethods.edit'));
+	Route::get('payment_methods/{paymentMethod}/delete', array('uses' => 'PaymentMethodController@delete', 'as' => 'paymentMethods.delete'));
+
+	Route::post('payment_methods', array('uses' => 'PaymentMethodController@store', 'as' => 'paymentMethods.store'));
+	Route::post('payment_methods/{paymentMethod}', array('uses' => 'PaymentMethodController@update', 'as' => 'paymentMethods.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Payments
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('payments', array('uses' => 'PaymentController@index', 'as' => 'payments.index'));
+	Route::get('payments/{payment}/invoice/{invoice}', array('uses' => 'PaymentController@edit', 'as' => 'payments.edit'));
+	Route::get('payments/{payment}/invoice/{invoice}/delete', array('uses' => 'PaymentController@delete', 'as' => 'payments.delete'));
+
+	Route::post('payments/modal/enter_payment', array('uses' => 'PaymentController@modalEnterPayment', 'as' => 'payments.ajax.modalEnterPayment'));
+	Route::post('payments/ajax/create', array('uses' => 'PaymentController@ajaxStore', 'as' => 'payments.ajax.store'));
+	Route::post('payments/{payment}/invoice/{invoice}/update', array('uses' => 'PaymentController@update', 'as' => 'payments.update'));
+
+	/*
+	|--------------------------------------------------------------------------
+	| Quotes
 	|--------------------------------------------------------------------------
 	*/
 
@@ -72,84 +178,7 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Routes: Invoices
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('invoices/status/{status?}', array('uses' => 'InvoiceController@index', 'as' => 'invoices.index'));
-	Route::get('invoices/modal/create', array('uses' => 'InvoiceController@modalCreate', 'as' => 'invoices.ajax.modalCreate'));
-	Route::get('invoices/{invoice}', array('uses' => 'InvoiceController@show', 'as' => 'invoices.show'));
-	Route::get('invoices/{invoice}/preview', array('uses' => 'InvoiceController@preview', 'as' => 'invoices.preview'));
-	Route::get('invoices/{invoice}/tax_rates/{tax_rate}/delete', array('uses' => 'InvoiceController@deleteInvoiceTax', 'as' => 'invoices.ajax.deleteInvoiceTax'));
-	Route::get('invoices/{invoice}/items/{item}/delete', array('uses' => 'InvoiceController@deleteItem', 'as' => 'invoices.items.delete'));
-	Route::get('invoices/{invoice}/delete', array('uses' => 'InvoiceController@delete', 'as' => 'invoices.delete'));
-
-	Route::post('invoices/modal/add_invoice_tax', array('uses' => 'InvoiceController@modalAddInvoiceTax', 'as' => 'invoices.ajax.modalAddInvoiceTax'));
-	Route::post('invoices/modal/save_invoice_tax', array('uses' => 'InvoiceController@saveInvoiceTax', 'as' => 'invoices.ajax.saveInvoiceTax'));
-	Route::post('invoices/modal/copy_invoice', array('uses' => 'InvoiceController@modalCopyInvoice', 'as' => 'invoices.ajax.modalCopyInvoice'));
-	Route::post('invoices/ajax/copy_invoice', array('uses' => 'InvoiceController@copyInvoice', 'as' => 'invoices.ajax.copyInvoice'));
-	Route::post('invoices/create', array('uses' => 'InvoiceController@store', 'as' => 'invoices.store'));
-	Route::post('invoices/{invoice}/update', array('uses' => 'InvoiceController@update', 'as' => 'invoices.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Payments
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('payments', array('uses' => 'PaymentController@index', 'as' => 'payments.index'));
-	Route::get('payments/{payment}/invoice/{invoice}', array('uses' => 'PaymentController@edit', 'as' => 'payments.edit'));
-	Route::get('payments/{payment}/invoice/{invoice}/delete', array('uses' => 'PaymentController@delete', 'as' => 'payments.delete'));
-
-	Route::post('payments/modal/enter_payment', array('uses' => 'PaymentController@modalEnterPayment', 'as' => 'payments.ajax.modalEnterPayment'));
-	Route::post('payments/ajax/create', array('uses' => 'PaymentController@ajaxStore', 'as' => 'payments.ajax.store'));
-	Route::post('payments/{payment}/invoice/{invoice}/update', array('uses' => 'PaymentController@update', 'as' => 'payments.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Email Templates
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('email_templates', array('uses' => 'EmailTemplateController@index', 'as' => 'emailTemplates.index'));
-	Route::get('email_templates/create', array('uses' => 'EmailTemplateController@create', 'as' => 'emailTemplates.create'));
-	Route::get('email_templates/{emailTemplate}/edit', array('uses' => 'EmailTemplateController@edit', 'as' => 'emailTemplates.edit'));
-	Route::get('email_templates/{emailTemplate}/delete', array('uses' => 'EmailTemplateController@delete', 'as' => 'emailTemplates.delete'));
-
-	Route::post('email_templates', array('uses' => 'EmailTemplateController@store', 'as' => 'emailTemplates.store'));
-	Route::post('email_templates/{emailTemplate}', array('uses' => 'EmailTemplateController@update', 'as' => 'emailTemplates.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Invoice Groups
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('invoice_groups', array('uses' => 'InvoiceGroupController@index', 'as' => 'invoiceGroups.index'));
-	Route::get('invoice_groups/create', array('uses' => 'InvoiceGroupController@create', 'as' => 'invoiceGroups.create'));
-	Route::get('invoice_groups/{invoiceGroup}/edit', array('uses' => 'InvoiceGroupController@edit', 'as' => 'invoiceGroups.edit'));
-	Route::get('invoice_groups/{invoiceGroup}/delete', array('uses' => 'InvoiceGroupController@delete', 'as' => 'invoiceGroups.delete'));
-
-	Route::post('invoice_groups', array('uses' => 'InvoiceGroupController@store', 'as' => 'invoiceGroups.store'));
-	Route::post('invoice_groups/{invoiceGroup}', array('uses' => 'InvoiceGroupController@update', 'as' => 'invoiceGroups.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Payment Methods
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('payment_methods', array('uses' => 'PaymentMethodController@index', 'as' => 'paymentMethods.index'));
-	Route::get('payment_methods/create', array('uses' => 'PaymentMethodController@create', 'as' => 'paymentMethods.create'));
-	Route::get('payment_methods/{paymentMethod}/edit', array('uses' => 'PaymentMethodController@edit', 'as' => 'paymentMethods.edit'));
-	Route::get('payment_methods/{paymentMethod}/delete', array('uses' => 'PaymentMethodController@delete', 'as' => 'paymentMethods.delete'));
-
-	Route::post('payment_methods', array('uses' => 'PaymentMethodController@store', 'as' => 'paymentMethods.store'));
-	Route::post('payment_methods/{paymentMethod}', array('uses' => 'PaymentMethodController@update', 'as' => 'paymentMethods.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Settings
+	| Settings
 	|--------------------------------------------------------------------------
 	*/
 
@@ -158,7 +187,7 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Routes: Tax Rates
+	| Tax Rates
 	|--------------------------------------------------------------------------
 	*/
 
@@ -172,22 +201,7 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Routes: Item Lookups
-	|--------------------------------------------------------------------------
-	*/
-	Route::get('item_lookups', array('uses' => 'ItemLookupController@index', 'as' => 'itemLookups.index'));
-	Route::get('item_lookups/create', array('uses' => 'ItemLookupController@create', 'as' => 'itemLookups.create'));
-	Route::get('item_lookups/{itemLookup}/edit', array('uses' => 'ItemLookupController@edit', 'as' => 'itemLookups.edit'));
-	Route::get('item_lookups/{itemLookup}/delete', array('uses' => 'ItemLookupController@delete', 'as' => 'itemLookups.delete'));
-	Route::get('item_lookups/modal/add_lookup_item', array('uses' => 'ItemLookupController@modalAddLookupItem', 'as' => 'itemLookups.ajax.modalAddLookupItem'));
-
-	Route::post('item_lookups', array('uses' => 'ItemLookupController@store', 'as' => 'itemLookups.store'));
-	Route::post('item_lookups/{itemLookup}', array('uses' => 'ItemLookupController@update', 'as' => 'itemLookups.update'));
-	Route::post('item_lookups/ajax/process', array('uses' => 'ItemLookupController@process', 'as' => 'itemLookups.ajax.process'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Users
+	| Users
 	|--------------------------------------------------------------------------
 	*/
 
@@ -199,19 +213,5 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('users', array('uses' => 'UserController@store', 'as' => 'users.store'));
 	Route::post('users/{user}', array('uses' => 'UserController@update', 'as' => 'users.update'));
-
-	/*
-	|--------------------------------------------------------------------------
-	| Routes: Custom Fields
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('custom_fields', array('uses' => 'CustomFieldController@index', 'as' => 'customFields.index'));
-	Route::get('custom_fields/create', array('uses' => 'CustomFieldController@create', 'as' => 'customFields.create'));
-	Route::get('custom_fields/{customField}/edit', array('uses' => 'CustomFieldController@edit', 'as' => 'customFields.edit'));
-	Route::get('custom_fields/{customField}/delete', array('uses' => 'CustomFieldController@delete', 'as' => 'customFields.delete'));
-
-	Route::post('custom_fields', array('uses' => 'CustomFieldController@store', 'as' => 'customFields.store'));
-	Route::post('custom_fields/{customField}', array('uses' => 'CustomFieldController@update', 'as' => 'customFields.update'));
 
 });
