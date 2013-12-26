@@ -15,6 +15,14 @@ interface InvoiceItemRepositoryInterface {
 	 * @return InvoiceItem
 	 */
 	public function findByInvoiceId($invoiceId);
+
+	/**
+	 * Get a list of records by invoice date range
+	 * @param  string $from
+	 * @param  string $to
+	 * @return InvoiceItem
+	 */
+	public function getByDateRange($from, $to);
 	
 	/**
 	 * Create a record

@@ -26,6 +26,17 @@ class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemReposit
 	}
 
 	/**
+	 * Get a list of records by invoice date range
+	 * @param  string $from
+	 * @param  string $to
+	 * @return InvoiceItem
+	 */
+	public function getByDateRange($from, $to)
+	{
+		return InvoiceItem::byDateRange($from, $to)->orderBy('name')->get();
+	}
+
+	/**
 	 * Create a record
 	 * @param  array $input
 	 * @return int

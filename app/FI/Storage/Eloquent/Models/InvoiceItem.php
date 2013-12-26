@@ -7,15 +7,32 @@ class InvoiceItem extends \Eloquent {
 
 	protected $guarded = array('id');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+   
     public function amount()
     {
         return $this->hasOne('FI\Storage\Eloquent\Models\InvoiceItemAmount', 'item_id');
+    }
+
+    public function invoice()
+    {
+        return $this->belongsTo('FI\Storage\Eloquent\Models\Invoice');
     }
 
     public function taxRate()
     {
         return $this->belongsTo('FI\Storage\Eloquent\Models\TaxRate');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
 
     public function getFormattedQuantityAttribute()
     {
@@ -31,5 +48,24 @@ class InvoiceItem extends \Eloquent {
     {
     	return CurrencyFormatter::format($this->attributes['price']);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
+
+    public function scopeByDateRange($query, $from, $to)
+    {
+        // return $query->whereIn('invoice_id IN'), \DB::raw('(SELECT id FROM invoices WHERE created_at >= ? and created_at <= ?)', array($from, $to)));
+        // return $query->whereIn('invoice_id', \DB::raw('(SELECT id FROM invoices WHERE created_at >= ? and created_at <= ?)', array($from, $to)));
+        return $query->whereIn('invoice_id', function($query) use ($from, $to) {
+            $query->select('id')
+            ->from('invoices')
+            ->where('created_at', '>=', $from)
+            ->where('created_at', '<=', $to);
+            // \DB::raw('SELECT id FROM invoices WHERE created_at >= ? AND created_at <= ?', array($from, $to));
+        });
+    } 
 
 }

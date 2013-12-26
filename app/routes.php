@@ -178,6 +178,15 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
+	| Reports
+	|--------------------------------------------------------------------------
+	*/
+
+	Route::get('reports/item_sales', array('uses' => 'ItemSalesReportController@index', 'as' => 'reports.itemSales'));
+	Route::post('reports/item_sales', array('uses' => 'ItemSalesReportController@ajaxRunReport', 'as' => 'reports.itemSales.ajax.run'));
+
+	/*
+	|--------------------------------------------------------------------------
 	| Settings
 	|--------------------------------------------------------------------------
 	*/
