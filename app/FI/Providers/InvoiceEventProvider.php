@@ -14,8 +14,8 @@ class InvoiceEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: invoice.created');
 
-			$invoiceAmount = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
-			$invoiceGroup  = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+			$invoiceAmount = \App::make('InvoiceAmountRepository');
+			$invoiceGroup  = \App::make('InvoiceGroupRepository');
 
 			$invoiceAmount->create(
 				array(
@@ -37,9 +37,9 @@ class InvoiceEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: invoice.item.created');
 
-			$invoiceItem       = \App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
-            $invoiceItemAmount = \App::make('FI\Storage\Interfaces\InvoiceItemAmountRepositoryInterface');
-            $taxRate           = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
+			$invoiceItem       = \App::make('InvoiceItemRepository');
+            $invoiceItemAmount = \App::make('InvoiceItemAmountRepository');
+            $taxRate           = \App::make('TaxRateRepository');
 
             $invoiceItem = $invoiceItem->find($itemId);
 
@@ -72,12 +72,12 @@ class InvoiceEventProvider extends ServiceProvider {
 			\Log::info('Event Handler: invoice.modified');
 
 			// Resolve ALL THE THINGS
-			$invoiceItem       = \App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
-			$invoiceItemAmount = \App::make('FI\Storage\Interfaces\InvoiceItemAmountRepositoryInterface');
-			$invoiceAmount     = \App::make('FI\Storage\Interfaces\InvoiceAmountRepositoryInterface');
-			$invoiceTaxRate    = \App::make('FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface');
-			$taxRate           = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
-			$payment           = \App::make('FI\Storage\Interfaces\PaymentRepositoryInterface');
+			$invoiceItem       = \App::make('InvoiceItemRepository');
+			$invoiceItemAmount = \App::make('InvoiceItemAmountRepository');
+			$invoiceAmount     = \App::make('InvoiceAmountRepository');
+			$invoiceTaxRate    = \App::make('InvoiceTaxRateRepository');
+			$taxRate           = \App::make('TaxRateRepository');
+			$payment           = \App::make('PaymentRepository');
 
 			// Retrieve the required records
 			$items           = $invoiceItem->findByInvoiceId($invoiceId);
@@ -138,7 +138,7 @@ class InvoiceEventProvider extends ServiceProvider {
 			// Check to see if the invoice should be marked as paid
 			if ($calculatedAmount['total'] > 0 and $calculatedAmount['balance'] <= 0)
 			{
-				$invoice = \App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+				$invoice = \App::make('InvoiceRepository');
 
 				$invoice->update(array('invoice_status_id' => 4), $invoiceId);
 			}

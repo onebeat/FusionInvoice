@@ -14,8 +14,8 @@ class QuoteEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: quote.created');
 
-			$quoteAmount  = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
-			$invoiceGroup = \App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+			$quoteAmount  = \App::make('QuoteAmountRepository');
+			$invoiceGroup = \App::make('InvoiceGroupRepository');
 			
 			$quoteAmount->create(
 				array(
@@ -35,9 +35,9 @@ class QuoteEventProvider extends ServiceProvider {
 		{
 			\Log::info('Event Handler: quote.item.created');
 
-			$quoteItem       = \App::make('FI\Storage\Interfaces\QuoteItemRepositoryInterface');
-            $quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
-            $taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
+			$quoteItem       = \App::make('QuoteItemRepository');
+            $quoteItemAmount = \App::make('QuoteItemAmountRepository');
+            $taxRate         = \App::make('TaxRateRepository');
 
             $quoteItem = $quoteItem->find($itemId);
 
@@ -70,11 +70,11 @@ class QuoteEventProvider extends ServiceProvider {
 			\Log::info('Event Handler: quote.modified');
 
 			// Resolve ALL THE THINGS
-			$quoteItem       = \App::make('FI\Storage\Interfaces\QuoteItemRepositoryInterface');
-			$quoteItemAmount = \App::make('FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface');
-			$quoteAmount     = \App::make('FI\Storage\Interfaces\QuoteAmountRepositoryInterface');
-			$quoteTaxRate    = \App::make('FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface');
-			$taxRate         = \App::make('FI\Storage\Interfaces\TaxRateRepositoryInterface');
+			$quoteItem       = \App::make('QuoteItemRepository');
+			$quoteItemAmount = \App::make('QuoteItemAmountRepository');
+			$quoteAmount     = \App::make('QuoteAmountRepository');
+			$quoteTaxRate    = \App::make('QuoteTaxRateRepository');
+			$taxRate         = \App::make('TaxRateRepository');
 
 			// Retrieve the required records
 			$items         = $quoteItem->findByQuoteId($quoteId);
