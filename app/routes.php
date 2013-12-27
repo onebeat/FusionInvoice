@@ -184,6 +184,8 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('reports/item_sales', array('uses' => 'ItemSalesReportController@index', 'as' => 'reports.itemSales'));
 	Route::post('reports/item_sales', array('uses' => 'ItemSalesReportController@ajaxRunReport', 'as' => 'reports.itemSales.ajax.run'));
+	Route::get('reports/payments_collected', array('uses' => 'PaymentsCollectedReportController@index', 'as' => 'reports.paymentsCollected'));
+	Route::post('reports/payments_collected', array('uses' => 'PaymentsCollectedReportController@ajaxRunReport', 'as' => 'reports.paymentsCollected.ajax.run'));
 
 	/*
 	|--------------------------------------------------------------------------

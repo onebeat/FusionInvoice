@@ -115,7 +115,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fi.reports') }}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ route('reports.itemSales') }}">{{ trans('fi.item_sales') }}</a></li>
-								<li><a href="#">{{ trans('fi.payments_collected') }}</a></li>
+								<li><a href="{{ route('reports.paymentsCollected') }}">{{ trans('fi.payments_collected') }}</a></li>
 								<li><a href="#">{{ trans('fi.revenue_by_client') }}</a></li>
 								<li><a href="#">{{ trans('fi.tax_summary') }}</a></li>
 							</ul>

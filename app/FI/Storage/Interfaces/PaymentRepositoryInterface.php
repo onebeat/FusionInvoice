@@ -24,6 +24,14 @@ interface PaymentRepositoryInterface {
 	public function getTotalPaidByInvoiceId($invoiceId);
 
 	/**
+	 * Get a list of records by date range
+	 * @param  string $from
+	 * @param  string $to
+	 * @return Payment
+	 */
+	public function getByDateRange($from, $to);
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Payment

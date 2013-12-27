@@ -50,4 +50,15 @@ class Payment extends \Eloquent {
         return NumberFormatter::format($this->attributes['amount']);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
+   
+    public function scopeByDateRange($query, $from, $to)
+    {
+        return $query->where('paid_at', '>=', $from)->where('paid_at', '<=', $to);
+    }
+
 }
