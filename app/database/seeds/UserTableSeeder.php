@@ -11,12 +11,23 @@ class UserTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		$user = App::make('FI\Storage\Interfaces\UserRepositoryInterface');
+		$user = App::make('UserRepository');
 
 		$email    = 'admin@admin.com';
 		$password = 'password';
 
-		$user->create($email, $password, 'Administrator', 'ACME, LLC', '1234 Acme Drive', null, 'Acme', 'TX', '12345');
+		$user->create(
+			array(
+				'email'     => $email,
+				'password'  => Hash::make($password),
+				'name'      => 'Administrator',
+				'company'   => 'ACME, LLC',
+				'address_1' => '1234 Acme Drive',
+				'city'      => 'Acme',
+				'state'     => 'TX',
+				'zip'       => '12345'
+			)
+		);
 
 		echo "Created a user with these credentials:\n";
 		echo "\tEmail:\t\t$email\n";

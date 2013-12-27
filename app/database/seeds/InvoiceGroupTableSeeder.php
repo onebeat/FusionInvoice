@@ -4,11 +4,29 @@ class InvoiceGroupTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		$invoiceGroup = App::make('FI\Storage\Interfaces\InvoiceGroupRepositoryInterface');
+		$invoiceGroup = App::make('InvoiceGroupRepository');
 
-		$invoiceGroup->create(trans('fi.invoice_default'), 1, 0, 'INV', 0, 0);
+		$invoiceGroup->create(
+			array(
+				'name'         => trans('fi.invoice_default'), 
+				'next_id'      => 1, 
+				'left_pad'     => 0, 
+				'prefix'       => 'INV', 
+				'prefix_year'  => 0, 
+				'prefix_month' => 0
+			)
+		);
 
-		$invoiceGroup->create(trans('fi.quote_default'), 1, 0, 'QUO', 0, 0);
+		$invoiceGroup->create(
+			array(
+				'name'         => trans('fi.quote_default'), 
+				'next_id'      => 1, 
+				'left_pad'     => 0, 
+				'prefix'       => 'QUO', 
+				'prefix_year'  => 0, 
+				'prefix_month' => 0
+			)
+		);
 	}
 
 }

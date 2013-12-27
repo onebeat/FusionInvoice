@@ -4,7 +4,7 @@ class SettingTableSeeder extends Seeder {
 	
 	public function run()
 	{
-		$settingRepo = App::make('FI\Storage\Interfaces\SettingRepositoryInterface');
+		$settingRepo = App::make('SettingRepository');
 		
 		$settings = array(
 			array(
