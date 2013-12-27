@@ -110,4 +110,14 @@ class Date {
 
 		return $date->format('Y-m-d');
 	}
+
+	/**
+	 * Returns the short name of the month from a numeric representation
+	 * @param  int $n
+	 * @return string
+	 */
+	public static function getMonthShortName($n)
+	{
+		return date('M', mktime(0, 0, 0, $n, 1, date('Y')));
+	}
 }
