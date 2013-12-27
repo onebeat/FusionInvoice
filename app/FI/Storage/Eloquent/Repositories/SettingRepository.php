@@ -3,7 +3,7 @@
 use FI\Storage\Eloquent\Models\Setting;
 use FI\Classes\Date;
 
-class SettingRepository implements \FI\Storage\Interfaces\SettingRepositoryInterface {
+class SettingRepository {
 
 	/**
 	 * Used during app start to place settings in Config

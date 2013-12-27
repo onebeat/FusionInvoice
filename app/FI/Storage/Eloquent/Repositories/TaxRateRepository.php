@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\TaxRate;
 
-class TaxRateRepository implements \FI\Storage\Interfaces\TaxRateRepositoryInterface {
+class TaxRateRepository {
 	
 	/**
 	 * Get a list of all records

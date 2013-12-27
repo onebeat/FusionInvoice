@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\Quote;
 
-class QuoteRepository implements \FI\Storage\Interfaces\QuoteRepositoryInterface {
+class QuoteRepository {
 
 	/**
 	 * Get a list of all records

@@ -3,7 +3,7 @@
 use FI\Classes\CurrencyFormatter;
 use FI\Storage\Eloquent\Models\QuoteAmount;
 
-class QuoteAmountRepository implements \FI\Storage\Interfaces\QuoteAmountRepositoryInterface {
+class QuoteAmountRepository {
 	
 	/**
 	 * Get a single record

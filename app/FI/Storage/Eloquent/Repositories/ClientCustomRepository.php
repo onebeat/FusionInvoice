@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\ClientCustom;
 
-class ClientCustomRepository implements \FI\Storage\Interfaces\ClientCustomRepositoryInterface {
+class ClientCustomRepository {
 
 	public function save($input, $clientId)
 	{

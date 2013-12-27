@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\ItemLookup;
 
-class ItemLookupRepository implements \FI\Storage\Interfaces\ItemLookupRepositoryInterface {
+class ItemLookupRepository {
 	
 	/**
 	 * Get a list of all records

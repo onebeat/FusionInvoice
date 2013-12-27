@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\PaymentCustom;
 
-class PaymentCustomRepository implements \FI\Storage\Interfaces\PaymentCustomRepositoryInterface {
+class PaymentCustomRepository {
 
 	public function save($input, $paymentId)
 	{

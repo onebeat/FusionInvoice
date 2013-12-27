@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\QuoteCustom;
 
-class QuoteCustomRepository implements \FI\Storage\Interfaces\QuoteCustomRepositoryInterface {
+class QuoteCustomRepository {
 
 	public function save($input, $quoteId)
 	{

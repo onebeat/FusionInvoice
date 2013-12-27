@@ -3,7 +3,7 @@
 use FI\Storage\Eloquent\Models\InvoiceItem;
 use FI\Storage\Eloquent\Models\InvoiceItemAmount;
 
-class InvoiceItemRepository implements \FI\Storage\Interfaces\InvoiceItemRepositoryInterface {
+class InvoiceItemRepository {
 
 	/**
 	 * Get a single record

@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\User;
 
-class UserRepository implements \FI\Storage\Interfaces\UserRepositoryInterface {
+class UserRepository {
 
 	/**
 	 * Get a paged list of records

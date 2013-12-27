@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\CustomField;
 
-class CustomFieldRepository implements \FI\Storage\Interfaces\CustomFieldRepositoryInterface {
+class CustomFieldRepository {
 	
 	/**
 	 * Get a list of all records

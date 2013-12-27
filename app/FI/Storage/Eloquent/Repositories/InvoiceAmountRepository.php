@@ -3,7 +3,7 @@
 use FI\Classes\CurrencyFormatter;
 use FI\Storage\Eloquent\Models\InvoiceAmount;
 
-class InvoiceAmountRepository implements \FI\Storage\Interfaces\InvoiceAmountRepositoryInterface {
+class InvoiceAmountRepository {
 	
 	/**
 	 * Get a single record

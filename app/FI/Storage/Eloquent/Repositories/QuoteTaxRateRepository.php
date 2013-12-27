@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\QuoteTaxRate;
 
-class QuoteTaxRateRepository implements \FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface {
+class QuoteTaxRateRepository {
 
 	/**
 	 * Get a single record

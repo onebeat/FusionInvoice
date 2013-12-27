@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\QuoteItemAmount;
 
-class QuoteItemAmountRepository implements \FI\Storage\Interfaces\QuoteItemAmountRepositoryInterface {
+class QuoteItemAmountRepository {
 	
 	/**
 	 * Find a record

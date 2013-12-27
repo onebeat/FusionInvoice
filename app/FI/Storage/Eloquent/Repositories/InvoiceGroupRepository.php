@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\InvoiceGroup;
 
-class InvoiceGroupRepository implements \FI\Storage\Interfaces\InvoiceGroupRepositoryInterface {
+class InvoiceGroupRepository {
 	
 	/**
 	 * Get all records

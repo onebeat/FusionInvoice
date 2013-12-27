@@ -3,7 +3,7 @@
 use FI\Storage\Eloquent\Models\QuoteItem;
 use FI\Storage\Eloquent\Models\QuoteItemAmount;
 
-class QuoteItemRepository implements \FI\Storage\Interfaces\QuoteItemRepositoryInterface {
+class QuoteItemRepository {
 
 	/**
 	 * Get a single record

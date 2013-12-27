@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\InvoiceTaxRate;
 
-class InvoiceTaxRateRepository implements \FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface {
+class InvoiceTaxRateRepository {
 
 	/**
 	 * Get a single record

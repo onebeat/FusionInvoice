@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\InvoiceCustom;
 
-class InvoiceCustomRepository implements \FI\Storage\Interfaces\InvoiceCustomRepositoryInterface {
+class InvoiceCustomRepository {
 
 	public function save($input, $invoiceId)
 	{

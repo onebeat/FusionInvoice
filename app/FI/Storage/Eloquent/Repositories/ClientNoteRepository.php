@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\ClientNote;
 
-class ClientNoteRepository implements \FI\Storage\Interfaces\ClientNoteRepositoryInterface {
+class ClientNoteRepository {
 	
 	/**
 	 * Get a single record

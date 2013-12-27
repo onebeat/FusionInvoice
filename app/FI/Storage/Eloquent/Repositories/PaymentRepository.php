@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\Payment;
 
-class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInterface {
+class PaymentRepository {
 	
 	/**
 	 * Get a list of all records

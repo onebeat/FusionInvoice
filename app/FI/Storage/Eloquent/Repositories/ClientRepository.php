@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\Client;
 
-class ClientRepository implements \FI\Storage\Interfaces\ClientRepositoryInterface {
+class ClientRepository {
 	
 	/**
 	 * Get a list of all clients

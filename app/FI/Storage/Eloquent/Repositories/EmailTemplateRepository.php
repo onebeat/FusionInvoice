@@ -2,7 +2,7 @@
 
 use FI\Storage\Eloquent\Models\EmailTemplate;
 
-class EmailTemplateRepository implements \FI\Storage\Interfaces\EmailTemplateRepositoryInterface {
+class EmailTemplateRepository {
 	
 	/**
 	 * Get all records
