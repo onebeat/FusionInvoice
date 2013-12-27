@@ -107,7 +107,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'FI\Providers\StartProvider',
+		'FI\Providers\StorageProvider',
+		'FI\Providers\ControllerProvider',
+		'FI\Providers\SettingProvider',
 		'FI\Providers\QuoteEventProvider',
 		'FI\Providers\InvoiceEventProvider',
 		'Profiler\ProfilerServiceProvider'
