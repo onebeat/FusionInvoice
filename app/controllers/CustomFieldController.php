@@ -1,7 +1,5 @@
 <?php
 
-use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
-use FI\Validators\CustomFieldValidator;
 use FI\Classes\CustomFields;
 
 class CustomFieldController extends \BaseController {
@@ -9,7 +7,7 @@ class CustomFieldController extends \BaseController {
 	protected $customField;
 	protected $validator;
 
-	public function __construct(CustomFieldRepositoryInterface $customField, CustomFieldValidator $validator)
+	public function __construct($customField, $validator)
 	{
 		$this->customField	 = $customField;
 		$this->validator	 = $validator;

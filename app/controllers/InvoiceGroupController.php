@@ -1,17 +1,14 @@
 <?php
 
-use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
-use FI\Validators\InvoiceGroupValidator;
-
 class InvoiceGroupController extends \BaseController {
 	
 	protected $invoiceGroup;
 	protected $validator;
 	
-	public function __construct(InvoiceGroupRepositoryInterface $invoiceGroup, InvoiceGroupValidator $validator)
+	public function __construct($invoiceGroup, $validator)
 	{
 		$this->invoiceGroup = $invoiceGroup;
-		$this->validator = $validator;
+		$this->validator    = $validator;
 	}
 
 	/**

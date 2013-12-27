@@ -3,13 +3,12 @@
 use FI\Classes\CurrencyFormatter;
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
-use FI\Storage\Interfaces\InvoiceItemRepositoryInterface;
 
 class ItemSalesReportController extends BaseController {
 
 	protected $invoiceItem;
 
-	public function __construct(InvoiceItemRepositoryInterface $invoiceItem)
+	public function __construct($invoiceItem)
 	{
 		$this->invoiceItem = $invoiceItem;
 	}

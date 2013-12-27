@@ -2,13 +2,12 @@
 
 use FI\Classes\CurrencyFormatter;
 use FI\Classes\Date;
-use FI\Storage\Interfaces\PaymentRepositoryInterface;
 
 class RevenueByClientReportController extends BaseController {
 
 	protected $payment;
 
-	public function __construct(PaymentRepositoryInterface $payment)
+	public function __construct($payment)
 	{
 		$this->payment = $payment;
 	}

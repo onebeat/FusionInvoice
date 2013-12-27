@@ -3,18 +3,9 @@
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
 use FI\Statuses\QuoteStatuses;
-use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
-use FI\Storage\Interfaces\QuoteCustomRepositoryInterface;
-use FI\Storage\Interfaces\QuoteItemRepositoryInterface;
-use FI\Storage\Interfaces\QuoteRepositoryInterface;
-use FI\Storage\Interfaces\QuoteTaxRateRepositoryInterface;
-use FI\Storage\Interfaces\TaxRateRepositoryInterface;
-use FI\Validators\QuoteValidator;
 
 class QuoteController extends BaseController {
 
-	protected $client;
 	protected $invoiceGroup;
 	protected $quote;
 	protected $quoteItem;
@@ -22,15 +13,7 @@ class QuoteController extends BaseController {
 	protected $taxRate;
 	protected $validator;
 	
-	public function __construct(
-		CustomFieldRepositoryInterface $customField,
-		InvoiceGroupRepositoryInterface $invoiceGroup,
-		QuoteCustomRepositoryInterface $quoteCustom,
-		QuoteItemRepositoryInterface $quoteItem,
-		QuoteRepositoryInterface $quote,
-		QuoteTaxRateRepositoryInterface $quoteTaxRate,
-		QuoteValidator $validator,
-		TaxRateRepositoryInterface $taxRate)
+	public function __construct($customField, $invoiceGroup, $quoteCustom, $quoteItem, $quote, $quoteTaxRate, $taxRate, $validator)
 	{
 		$this->customField  = $customField;
 		$this->invoiceGroup = $invoiceGroup;
@@ -62,7 +45,7 @@ class QuoteController extends BaseController {
 	 */
 	public function store()
 	{
-		$client = \App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+		$client = \App::make('ClientRepository');
 
 		if (!$this->validator->validate(Input::all(), 'createRules'))
 		{
@@ -158,7 +141,7 @@ class QuoteController extends BaseController {
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
-					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
+					$itemLookup = \App::make('ItemLookupRepository');
 
 					$itemLookupRecord = array(
 						'name'        => $item->item_name,
@@ -285,7 +268,7 @@ class QuoteController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$client = App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+		$client = App::make('ClientRepository');
 
 		$clientId = $client->findIdByName(Input::get('client_name'));
 
@@ -360,9 +343,9 @@ class QuoteController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$invoice        = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
-		$invoiceItem    = App::make('FI\Storage\Interfaces\InvoiceItemRepositoryInterface');
-		$invoiceTaxRate = App::make('FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface');
+		$invoice        = App::make('InvoiceRepository');
+		$invoiceItem    = App::make('InvoiceItemRepository');
+		$invoiceTaxRate = App::make('InvoiceTaxRateRepository');
 
 		$record = array(
 			'client_id'         => $input['client_id'],

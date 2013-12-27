@@ -1,7 +1,5 @@
 <?php
 
-use FI\Storage\Interfaces\TaxRateRepositoryInterface;
-use FI\Validators\TaxRateValidator;
 use FI\Classes\NumberFormatter;
 
 class TaxRateController extends \BaseController {
@@ -9,7 +7,7 @@ class TaxRateController extends \BaseController {
 	protected $taxRate;
 	protected $validator;
 	
-	public function __construct(TaxRateRepositoryInterface $taxRate, TaxRateValidator $validator)
+	public function __construct($taxRate, $validator)
 	{
 		$this->taxRate = $taxRate;
 		$this->validator = $validator;

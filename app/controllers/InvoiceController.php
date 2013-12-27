@@ -3,18 +3,9 @@
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
 use FI\Statuses\InvoiceStatuses;
-use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceCustomRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceItemRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceTaxRateRepositoryInterface;
-use FI\Storage\Interfaces\TaxRateRepositoryInterface;
-use FI\Validators\InvoiceValidator;
 
 class InvoiceController extends BaseController {
 
-	protected $client;
 	protected $customField;
 	protected $invoice;
 	protected $invoiceCustom;
@@ -24,15 +15,7 @@ class InvoiceController extends BaseController {
 	protected $taxRate;
 	protected $validator;
 	
-	public function __construct(
-		CustomFieldRepositoryInterface $customField,
-		InvoiceCustomRepositoryInterface $invoiceCustom,
-		InvoiceGroupRepositoryInterface $invoiceGroup,
-		InvoiceItemRepositoryInterface $invoiceItem,
-		InvoiceRepositoryInterface $invoice,
-		InvoiceTaxRateRepositoryInterface $invoiceTaxRate,
-		InvoiceValidator $validator,
-		TaxRateRepositoryInterface $taxRate)
+	public function __construct($customField, $invoice, $invoiceCustom, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $taxRate, $validator)
 	{
 		$this->customField    = $customField;
 		$this->invoice        = $invoice;
@@ -64,7 +47,7 @@ class InvoiceController extends BaseController {
 	 */
 	public function store()
 	{
-		$client = \App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+		$client = \App::make('ClientRepository');
 
 		if (!$this->validator->validate(Input::all(), 'createRules'))
 		{
@@ -162,7 +145,7 @@ class InvoiceController extends BaseController {
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
-					$itemLookup = \App::make('FI\Storage\Interfaces\ItemLookupRepositoryInterface');
+					$itemLookup = \App::make('ItemLookupRepository');
 
 					$itemLookupRecord = array(
 						'name'        => $item->item_name,
@@ -310,7 +293,7 @@ class InvoiceController extends BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$client = App::make('FI\Storage\Interfaces\ClientRepositoryInterface');
+		$client = App::make('ClientRepository');
 
 		$clientId = $client->findIdByName(Input::get('client_name'));
 

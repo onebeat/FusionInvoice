@@ -1,17 +1,14 @@
 <?php
 
-use FI\Storage\Interfaces\PaymentMethodRepositoryInterface;
-use FI\Validators\PaymentMethodValidator;
-
 class PaymentMethodController extends \BaseController {
 	
 	protected $paymentMethod;
 	protected $validator;
 	
-	public function __construct(PaymentMethodRepositoryInterface $paymentMethod, PaymentMethodValidator $validator)
+	public function __construct($paymentMethod, $validator)
 	{
 		$this->paymentMethod = $paymentMethod;
-		$this->validator = $validator;
+		$this->validator     = $validator;
 	}
 
 	/**

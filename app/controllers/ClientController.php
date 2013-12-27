@@ -1,11 +1,7 @@
 <?php
 
 use FI\Classes\CustomFields;
-use FI\Storage\Interfaces\ClientCustomRepositoryInterface;
-use FI\Storage\Interfaces\ClientRepositoryInterface;
-use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
 use FI\Validators\ClientNoteValidator;
-use FI\Validators\ClientValidator;
 
 class ClientController extends \BaseController {
 	
@@ -14,11 +10,7 @@ class ClientController extends \BaseController {
 	protected $customField;
 	protected $validator;
 	
-	public function __construct(
-		ClientRepositoryInterface $client, 
-		ClientCustomRepositoryInterface $clientCustom,
-		CustomFieldRepositoryInterface $customField,
-		ClientValidator $validator)
+	public function __construct($client, $clientCustom, $customField, $validator)
 	{
 		$this->client       = $client;
 		$this->clientCustom = $clientCustom;
@@ -163,7 +155,7 @@ class ClientController extends \BaseController {
 
 	public function ajaxSaveNote()
 	{
-		$clientNote = App::make('FI\Storage\Interfaces\ClientNoteRepositoryInterface');
+		$clientNote = App::make('ClientNoteRepository');
 		$input      = Input::all();
 		$validator  = new ClientNoteValidator;
 
@@ -179,7 +171,7 @@ class ClientController extends \BaseController {
 
 	public function ajaxLoadNotes()
 	{
-		$clientNote = App::make('FI\Storage\Interfaces\ClientNoteRepositoryInterface');
+		$clientNote = App::make('ClientNoteRepository');
 
 		$clientNotes = $clientNote->getForClient(Input::get('client_id'));
 

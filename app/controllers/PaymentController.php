@@ -3,11 +3,6 @@
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
 use FI\Classes\CustomFields;
-use FI\Storage\Interfaces\CustomFieldRepositoryInterface;
-use FI\Storage\Interfaces\PaymentCustomRepositoryInterface;
-use FI\Storage\Interfaces\PaymentMethodRepositoryInterface;
-use FI\Storage\Interfaces\PaymentRepositoryInterface;
-use FI\Validators\PaymentValidator;
 
 class PaymentController extends BaseController {
 
@@ -17,12 +12,7 @@ class PaymentController extends BaseController {
 	protected $paymentMethod;
 	protected $validator;
 	
-	public function __construct(
-		CustomFieldRepositoryInterface $customField,
-		PaymentCustomRepositoryInterface $paymentCustom,
-		PaymentMethodRepositoryInterface $paymentMethod,
-		PaymentRepositoryInterface $payment, 
-		PaymentValidator $validator)
+	public function __construct($customField, $paymentCustom, $paymentMethod, $payment, $validator)
 	{
 		$this->customField   = $customField;
 		$this->payment       = $payment;
@@ -51,7 +41,7 @@ class PaymentController extends BaseController {
 	 */
 	public function edit($paymentId, $invoiceId)
 	{
-		$invoice = App::make('FI\Storage\Interfaces\InvoiceRepositoryInterface');
+		$invoice = App::make('InvoiceRepository');
 
 		$payment = $this->payment->find($paymentId);
 		$invoice = $invoice->find($invoiceId);

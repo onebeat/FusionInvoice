@@ -1,7 +1,5 @@
 <?php
 
-use FI\Storage\Interfaces\ItemLookupRepositoryInterface;
-use FI\Validators\ItemLookupValidator;
 use FI\Classes\NumberFormatter;
 
 class ItemLookupController extends \BaseController {
@@ -9,7 +7,7 @@ class ItemLookupController extends \BaseController {
 	protected $itemLookup;
 	protected $validator;
 
-	public function __construct(ItemLookupRepositoryInterface $itemLookup, ItemLookupValidator $validator)
+	public function __construct($itemLookup, $validator)
 	{
 		$this->itemLookup = $itemLookup;
 		$this->validator = $validator;

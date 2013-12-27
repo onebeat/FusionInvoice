@@ -1,17 +1,14 @@
 <?php
 
-use FI\Storage\Interfaces\EmailTemplateRepositoryInterface;
-use FI\Validators\EmailTemplateValidator;
-
 class EmailTemplateController extends \BaseController {
 	
 	protected $emailTemplate;
 	protected $validator;
 	
-	public function __construct(EmailTemplateRepositoryInterface $emailTemplate, EmailTemplateValidator $validator)
+	public function __construct($emailTemplate, $validator)
 	{
 		$this->emailTemplate = $emailTemplate;
-		$this->validator = $validator;
+		$this->validator     = $validator;
 	}
 
 	/**

@@ -1,12 +1,10 @@
 <?php
 
-use FI\Validators\SessionValidator;
-
 class SessionController extends BaseController {
 
 	protected $validator;
 
-	public function __construct(SessionValidator $validator)
+	public function __construct($validator)
 	{
 		$this->validator = $validator;
 	}

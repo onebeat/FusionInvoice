@@ -5,10 +5,6 @@ use FI\Classes\Date;
 use FI\Classes\Email;
 use FI\Templates\QuoteTemplates;
 use FI\Templates\InvoiceTemplates;
-use FI\Storage\Interfaces\SettingRepositoryInterface as Settings;
-use FI\Storage\Interfaces\EmailTemplateRepositoryInterface as EmailTemplates;
-use FI\Storage\Interfaces\InvoiceGroupRepositoryInterface as InvoiceGroups;
-use FI\Storage\Interfaces\TaxRateRepositoryInterface as TaxRates;
 
 class SettingController extends BaseController {
 
@@ -17,11 +13,7 @@ class SettingController extends BaseController {
 	protected $invoiceGroups;
 	protected $taxRates;
 
-	public function __construct(
-		Settings $settings, 
-		EmailTemplates $emailTemplates, 
-		InvoiceGroups $invoiceGroups,
-		TaxRates $taxRates)
+	public function __construct($settings, $emailTemplates, $invoiceGroups, $taxRates)
 	{
 		$this->settings       = $settings;
 		$this->emailTemplates = $emailTemplates;

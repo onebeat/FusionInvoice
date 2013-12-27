@@ -2,10 +2,6 @@
 
 use FI\Statuses\QuoteStatuses;
 use FI\Statuses\InvoiceStatuses;
-use FI\Storage\Interfaces\QuoteRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceRepositoryInterface;
-use FI\Storage\Interfaces\QuoteAmountRepositoryInterface;
-use FI\Storage\Interfaces\InvoiceAmountRepositoryInterface;
 
 class DashboardController extends BaseController {
 	
@@ -14,11 +10,7 @@ class DashboardController extends BaseController {
 	protected $invoiceAmount;
 	protected $quoteAmount;
 
-	public function __construct(
-		InvoiceRepositoryInterface $invoice, 
-		QuoteRepositoryInterface $quote,
-		InvoiceAmountRepositoryInterface $invoiceAmount,
-		QuoteAmountRepositoryInterface $quoteAmount)
+	public function __construct($invoice, $quote, $invoiceAmount, $quoteAmount)
 	{
 		$this->invoice       = $invoice;
 		$this->quote         = $quote;

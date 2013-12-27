@@ -1,12 +1,10 @@
 <?php
 
-use FI\Storage\Interfaces\QuoteRepositoryInterface;
-
 class PublicQuoteController extends BaseController {
 
 	protected $quote;
 
-	public function __construct(QuoteRepositoryInterface $quote)
+	public function __construct($quote)
 	{
 		$this->quote = $quote;
 	}

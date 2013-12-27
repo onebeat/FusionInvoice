@@ -1,14 +1,11 @@
 <?php
 
-use FI\Storage\Interfaces\UserRepositoryInterface;
-use FI\Validators\UserValidator;
-
 class UserController extends \BaseController {
 
 	protected $user;
 	protected $validator;
 
-	public function __construct(UserRepositoryInterface $user, UserValidator $validator)
+	public function __construct($user, $validator)
 	{
 		$this->user      = $user;
 		$this->validator = $validator;
