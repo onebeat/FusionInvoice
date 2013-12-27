@@ -47,6 +47,16 @@ class PaymentRepository implements \FI\Storage\Interfaces\PaymentRepositoryInter
 	}
 
 	/**
+	 * Get a list of records by year
+	 * @param  int $year
+	 * @return Payment
+	 */
+	public function getByYear($year)
+	{
+		return Payment::byYear($year)->get();
+	}
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Payment

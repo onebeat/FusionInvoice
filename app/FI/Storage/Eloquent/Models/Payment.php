@@ -61,4 +61,9 @@ class Payment extends \Eloquent {
         return $query->where('paid_at', '>=', $from)->where('paid_at', '<=', $to);
     }
 
+    public function scopeByYear($query, $year)
+    {
+        return $query->where(\DB::raw('YEAR(paid_at)'), '=', $year);
+    }
+
 }

@@ -32,6 +32,13 @@ interface PaymentRepositoryInterface {
 	public function getByDateRange($from, $to);
 
 	/**
+	 * Get a list of records by year
+	 * @param  int $year
+	 * @return Payment
+	 */
+	public function getByYear($year);
+
+	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Payment

@@ -230,6 +230,7 @@ return array(
 	'web'                                => 'Web',
 	'web_address'                        => 'Web Address',
 	'welcome'                            => 'Welcome',
+	'year'                               => 'Year',
 	'year_prefix'                        => 'Year Prefix',
 	'yes'                                => 'Yes',
 	'zip_code'                           => 'Zip Code'
