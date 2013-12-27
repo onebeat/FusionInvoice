@@ -57,14 +57,11 @@ class InvoiceItem extends \Eloquent {
 
     public function scopeByDateRange($query, $from, $to)
     {
-        // return $query->whereIn('invoice_id IN'), \DB::raw('(SELECT id FROM invoices WHERE created_at >= ? and created_at <= ?)', array($from, $to)));
-        // return $query->whereIn('invoice_id', \DB::raw('(SELECT id FROM invoices WHERE created_at >= ? and created_at <= ?)', array($from, $to)));
         return $query->whereIn('invoice_id', function($query) use ($from, $to) {
             $query->select('id')
             ->from('invoices')
             ->where('created_at', '>=', $from)
             ->where('created_at', '<=', $to);
-            // \DB::raw('SELECT id FROM invoices WHERE created_at >= ? AND created_at <= ?', array($from, $to));
         });
     } 
 
