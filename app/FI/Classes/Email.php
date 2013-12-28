@@ -15,9 +15,9 @@ class Email {
 	static function listEncryptions()
 	{
 		return array(
-			'0'    => trans('fi.none'), 
+			'0'   => trans('fi.none'), 
 			'ssl' => 'SSL', 
-			'tls'  => 'TLS'
+			'tls' => 'TLS'
 		);
 	}
 
