@@ -25,17 +25,21 @@ class StorageProvider extends ServiceProvider {
         $app->bind('InvoiceRepository', 'FI\Storage\Eloquent\Repositories\InvoiceRepository');
         $app->bind('InvoiceTaxRateRepository', 'FI\Storage\Eloquent\Repositories\InvoiceTaxRateRepository');
         $app->bind('ItemLookupRepository', 'FI\Storage\Eloquent\Repositories\ItemLookupRepository');
+        $app->bind('ItemSalesReportRepository', 'FI\Storage\Eloquent\Repositories\ItemSalesReportRepository');
         $app->bind('PaymentCustomRepository', 'FI\Storage\Eloquent\Repositories\PaymentCustomRepository');
         $app->bind('PaymentMethodRepository', 'FI\Storage\Eloquent\Repositories\PaymentMethodRepository');
         $app->bind('PaymentRepository', 'FI\Storage\Eloquent\Repositories\PaymentRepository');
+        $app->bind('PaymentsCollectedReportRepository', 'FI\Storage\Eloquent\Repositories\PaymentsCollectedReportRepository');
         $app->bind('QuoteAmountRepository', 'FI\Storage\Eloquent\Repositories\QuoteAmountRepository');
         $app->bind('QuoteCustomRepository', 'FI\Storage\Eloquent\Repositories\QuoteCustomRepository');
         $app->bind('QuoteItemAmountRepository', 'FI\Storage\Eloquent\Repositories\QuoteItemAmountRepository');
         $app->bind('QuoteItemRepository', 'FI\Storage\Eloquent\Repositories\QuoteItemRepository');
         $app->bind('QuoteRepository', 'FI\Storage\Eloquent\Repositories\QuoteRepository');
         $app->bind('QuoteTaxRateRepository', 'FI\Storage\Eloquent\Repositories\QuoteTaxRateRepository');
+        $app->bind('RevenueByClientReportRepository', 'FI\Storage\Eloquent\Repositories\RevenueByClientReportRepository');
         $app->bind('SettingRepository', 'FI\Storage\Eloquent\Repositories\SettingRepository');
         $app->bind('TaxRateRepository', 'FI\Storage\Eloquent\Repositories\TaxRateRepository');
+        $app->bind('TaxSummaryReportRepository', 'FI\Storage\Eloquent\Repositories\TaxSummaryReportRepository');
         $app->bind('UserRepository', 'FI\Storage\Eloquent\Repositories\UserRepository');
     }
 
