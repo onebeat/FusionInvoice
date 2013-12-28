@@ -51,10 +51,10 @@ class CustomTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('client_custom');
-		Schema::drop('invoice_custom');
-		Schema::drop('quote_custom');
-		Schema::drop('payment_custom');
+		Schema::drop('clients_custom');
+		Schema::drop('invoices_custom');
+		Schema::drop('quotes_custom');
+		Schema::drop('payments_custom');
 	}
 
 }
