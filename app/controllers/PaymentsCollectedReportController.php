@@ -1,15 +1,14 @@
 <?php
 
-use FI\Classes\CurrencyFormatter;
 use FI\Classes\Date;
 
 class PaymentsCollectedReportController extends BaseController {
 
-	protected $payment;
+	protected $paymentsCollectedReport;
 
-	public function __construct($payment)
+	public function __construct($paymentsCollectedReport)
 	{
-		$this->payment = $payment;
+		$this->paymentsCollectedReport = $paymentsCollectedReport;
 	}
 	
 	public function index()
@@ -19,28 +18,8 @@ class PaymentsCollectedReportController extends BaseController {
 
 	public function ajaxRunReport()
 	{
-		$results = array('payments' => array(), 'total' => 0);
-
-		$payments = $this->payment->getByDateRange(Date::unformat(Input::get('from_date')), Date::unformat(Input::get('to_date')));
-
-		foreach ($payments as $payment)
-		{
-			$results['payments'][] = array(
-				'client_name'    => $payment->invoice->client->name,
-				'invoice_number' => $payment->invoice->number,
-				'payment_method' => $payment->payment_method->name,
-				'note'           => $payment->note,
-				'date'           => $payment->formatted_paid_at,
-				'amount'         => $payment->formatted_amount
-			);
-
-			$results['total'] += $payment->amount;
-		}
-
-		$results['total'] = CurrencyFormatter::format($results['total']);
-
 		return View::make('reports._payments_collected')
-		->with('results', $results);
+		->with('results', $this->paymentsCollectedReport->getResults(Date::unformat(Input::get('from_date')), Date::unformat(Input::get('to_date'))));
 	}
 
 }

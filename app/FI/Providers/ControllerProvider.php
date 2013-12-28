@@ -81,7 +81,7 @@ class ControllerProvider extends ServiceProvider {
         $app->bind('ItemSalesReportController', function($app)
         {
             return new \ItemSalesReportController(
-                $app->make('InvoiceItemRepository')
+                $app->make('ItemSalesReportRepository')
             );
         });
 
@@ -107,7 +107,7 @@ class ControllerProvider extends ServiceProvider {
         $app->bind('PaymentsCollectedReportController', function($app)
         {
             return new \PaymentsCollectedReportController(
-                $app->make('PaymentRepository')
+                $app->make('PaymentsCollectedReportRepository')
             );
         });
 
@@ -135,7 +135,7 @@ class ControllerProvider extends ServiceProvider {
         $app->bind('RevenueByClientReportController', function($app)
         {
             return new \RevenueByClientReportController(
-                $app->make('PaymentRepository')
+                $app->make('RevenueByClientReportRepository')
             );
         });
 
@@ -161,6 +161,13 @@ class ControllerProvider extends ServiceProvider {
             return new \TaxRateController(
                 $app->make('TaxRateRepository'),
                 new \FI\Validators\TaxRateValidator
+            );
+        });
+
+        $app->bind('TaxSummaryReportController', function($app)
+        {
+            return new \TaxSummaryReportController(
+                $app->make('TaxSummaryReportRepository')
             );
         });
 
