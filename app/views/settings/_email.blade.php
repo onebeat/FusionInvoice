@@ -1,11 +1,11 @@
 <script type="text/javascript">
 $(function() {
     
-    $('#emailSmtpPassword').val('');
+    $('#mailPassword').val('');
 
     updateEmailOptions();
 
-    $('#emailSendMethod').change(function() {
+    $('#mailDriver').change(function() {
 
         updateEmailOptions();
 
@@ -15,14 +15,14 @@ $(function() {
 
         $('.email-option').hide();
 
-        emailSendMethod = $('#emailSendMethod').val();
+        mailDriver = $('#mailDriver').val();
 
-        if (emailSendMethod == 'smtp') {
+        if (mailDriver == 'smtp') {
 
             $('.smtp-option').show();
 
         }
-        else if (emailSendMethod == 'sendmail') {
+        else if (mailDriver == 'sendmail') {
 
             $('.sendmail-option').show();
 
@@ -37,49 +37,49 @@ $(function() {
 	<div class="control-group">
 		<label class="control-label">{{ trans('fi.email_send_method') }}: </label>
 		<div class="controls">
-            {{ Form::select('setting_emailSendMethod', $emailSendMethods, Config::get('fi.emailSendMethod'), array('id' => 'emailSendMethod')) }}
+            {{ Form::select('setting_mailDriver', $emailSendMethods, Config::get('fi.mailDriver'), array('id' => 'mailDriver')) }}
 		</div>
 	</div>
 
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_host_address') }}: </label>
         <div class="controls">
-            {{ Form::text('setting_emailSmtpHostAddress', Config::get('fi.emailSmtpHostAddress')) }}
+            {{ Form::text('setting_mailHost', Config::get('fi.mailHost')) }}
         </div>
     </div>
 
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_host_port') }}: </label>
         <div class="controls">
-            {{ Form::text('setting_emailSmtpHostPort', Config::get('fi.emailSmtpHostPort')) }}
+            {{ Form::text('setting_mailPort', Config::get('fi.mailPort')) }}
         </div>
     </div>
 
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_username') }}: </label>
         <div class="controls">
-            {{ Form::text('setting_emailSmtpUsername', Config::get('fi.emailSmtpUsername')) }}
+            {{ Form::text('setting_mailUsername', Config::get('fi.mailUsername')) }}
         </div>
     </div>
 
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_password') }}: </label>
         <div class="controls">
-            {{ Form::password('setting_emailSmtpPassword', array('id' => 'emailSmtpPassword')) }}
+            {{ Form::password('setting_mailPassword', array('id' => 'mailPassword')) }}
         </div>
     </div>
 
     <div class="control-group smtp-option email-option">
         <label class="control-label">{{ trans('fi.smtp_encryption_type') }}: </label>
         <div class="controls">
-            {{ Form::select('setting_emailSmtpEncryption', $emailEncryptions, Config::get('fi.emailSmtpEncryption')) }}
+            {{ Form::select('setting_mailEncryption', $emailEncryptions, Config::get('fi.mailEncryption')) }}
         </div>
     </div>
 
     <div class="control-group sendmail-option email-option">
         <label class="control-label">{{ trans('fi.sendmail_path') }}: </label>
         <div class="controls">
-            {{ Form::text('setting_emailSendmailPath', Config::get('fi.emailSendmailPath')) }}
+            {{ Form::text('setting_mailSendmail', Config::get('fi.mailSendmail')) }}
         </div>
     </div>    
 

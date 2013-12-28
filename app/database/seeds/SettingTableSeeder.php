@@ -104,31 +104,31 @@ class SettingTableSeeder extends Seeder {
 				'setting_value' => '0'
 			),
 			array(
-				'setting_key'   => 'emailSendMethod',
+				'setting_key'   => 'mailDriver',
 				'setting_value' => ''
 			),
 			array(
-				'setting_key'   => 'emailSmtpHostAddress',
+				'setting_key'   => 'mailHost',
 				'setting_value' => ''
 			),
 			array(
-				'setting_key'   => 'emailSmtpHostPort',
+				'setting_key'   => 'mailPort',
 				'setting_value' => ''
 			),
 			array(
-				'setting_key'   => 'emailSmtpUsername',
+				'setting_key'   => 'mailUsername',
 				'setting_value' => ''
 			),
 			array(
-				'setting_key'   => 'emailSmtpPassword',
+				'setting_key'   => 'mailPassword',
 				'setting_value' => ''
 			),
 			array(
-				'setting_key'   => 'emailSmtpEncryption',
+				'setting_key'   => 'mailEncryption',
 				'setting_value' => '0'
 			),
 			array(
-				'setting_key'   => 'emailSendmailPath',
+				'setting_key'   => 'mailSendmail',
 				'setting_value' => ''
 			)
 		);

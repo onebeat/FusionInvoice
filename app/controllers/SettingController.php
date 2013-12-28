@@ -1,10 +1,10 @@
 <?php
 
-use FI\Classes\Languages;
 use FI\Classes\Date;
 use FI\Classes\Email;
-use FI\Templates\QuoteTemplates;
+use FI\Classes\Languages;
 use FI\Templates\InvoiceTemplates;
+use FI\Templates\QuoteTemplates;
 
 class SettingController extends BaseController {
 
@@ -55,9 +55,23 @@ class SettingController extends BaseController {
 		{
 			if (substr($key, 0, 8) == 'setting_')
 			{
-				$key = substr($key, 8);
+				$skipSave = false;
 				
-				$this->settings->save($key, $value);
+				$key = substr($key, 8);
+
+				if ($key == 'mailPassword' and $value)
+				{
+					$value = Crypt::encrypt($value);
+				}
+				elseif ($key == 'mailPassword' and !$value)
+				{
+					$skipSave = true;
+				}
+
+				if (!$skipSave)
+				{
+					$this->settings->save($key, $value);
+				}
 			}
 		}
 
