@@ -63,6 +63,6 @@ class InvoiceItem extends \Eloquent {
             ->where('created_at', '>=', $from)
             ->where('created_at', '<=', $to);
         });
-    } 
+    }
 
 }

@@ -36,27 +36,6 @@ class PaymentRepository {
 	}
 
 	/**
-	 * Get a list of records by date range
-	 * @param  string $from
-	 * @param  string $to
-	 * @return Payment
-	 */
-	public function getByDateRange($from, $to)
-	{
-		return Payment::byDateRange($from, $to)->orderBy('paid_at')->get();
-	}
-
-	/**
-	 * Get a list of records by year
-	 * @param  int $year
-	 * @return Payment
-	 */
-	public function getByYear($year)
-	{
-		return Payment::byYear($year)->get();
-	}
-
-	/**
 	 * Get a single record
 	 * @param  int $id
 	 * @return Payment
