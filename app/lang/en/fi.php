@@ -199,6 +199,7 @@ return array(
 	'tax_rate_placement'                 => 'Tax Rate Placement',
 	'tax_rates'                          => 'Tax Rates',
 	'tax_summary'                        => 'Tax Summary',
+	'taxable_amount'                     => 'Taxable Amount',
 	'taxes'                              => 'Taxes',
 	'terms_and_conditions'               => 'Terms and Conditions',
 	'text'                               => 'Text',
