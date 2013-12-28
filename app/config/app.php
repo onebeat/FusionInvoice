@@ -109,7 +109,7 @@ return array(
 
 		'FI\Providers\StorageProvider',
 		'FI\Providers\ControllerProvider',
-		'FI\Providers\SettingProvider',
+		'FI\Providers\ConfigProvider',
 		'FI\Providers\QuoteEventProvider',
 		'FI\Providers\InvoiceEventProvider',
 		'Profiler\ProfilerServiceProvider'
