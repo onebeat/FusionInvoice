@@ -449,7 +449,7 @@ class QuoteController extends BaseController {
 
 		return View::make('quotes._modal_mail')
 		->with('quoteId', $quote->id)
-		->with('redirectTo', Input::get('redirect_to'))
+		->with('redirectTo', Input::get('redirectTo'))
 		->with('to', $quote->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.quote') . ' #' . $quote->number);

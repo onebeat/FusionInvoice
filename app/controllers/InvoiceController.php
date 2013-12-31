@@ -361,7 +361,7 @@ class InvoiceController extends BaseController {
 
 		return View::make('invoices._modal_mail')
 		->with('invoiceId', $invoice->id)
-		->with('redirectTo', Input::get('redirect_to'))
+		->with('redirectTo', Input::get('redirectTo'))
 		->with('to', $invoice->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.invoice') . ' #' . $invoice->number);

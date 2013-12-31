@@ -144,7 +144,7 @@ class PaymentController extends BaseController {
 
 		return View::make('payments._modal_mail')
 		->with('paymentId', $payment->id)
-		->with('redirectTo', Input::get('redirect_to'))
+		->with('redirectTo', Input::get('redirectTo'))
 		->with('to', $payment->invoice->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.payment_receipt_for_invoice', array('invoiceNumber' => $payment->invoice->number)));
