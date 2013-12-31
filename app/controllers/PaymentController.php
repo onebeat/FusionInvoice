@@ -136,7 +136,29 @@ class PaymentController extends BaseController {
 		\Event::fire('invoice.modified', array($input['invoice_id']));
 
 		return json_encode(array('success' => 1));
+	}
 
+	public function modalMailPayment()
+	{
+		$payment = $this->payment->find(Input::get('payment_id'));
+
+		return View::make('payments._modal_mail')
+		->with('paymentId', $payment->id)
+		->with('to', $payment->invoice->client->email)
+		->with('cc', \Config::get('fi.mailCcDefault'))
+		->with('subject', trans('fi.payment_receipt_for_invoice', array('invoiceNumber' => $payment->invoice->number)));
+	}
+
+	public function mailPayment()
+	{
+		$payment = $this->payment->find(Input::get('payment_id'));
+
+		Mail::send('templates.emails.payment_receipt', array('payment' => $payment), function($message) use ($payment)
+		{
+		    $message->from($payment->invoice->user->email)
+		    ->to(Input::get('to'), $payment->invoice->client->name)
+		    ->subject(Input::get('subject'));
+		});
 	}
 
 }

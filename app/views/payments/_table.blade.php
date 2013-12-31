@@ -33,6 +33,11 @@
 							</a>
 						</li>
 						<li>
+							<a href="javascript:void(0)" class="mail-payment-receipt" data-payment-id="{{ $payment->id }}">
+								<i class="icon-envelope"></i> {{ trans('fi.email_receipt') }}
+							</a>
+						</li>
+						<li>
 							<a href="{{ route('payments.delete', array($payment->id, $payment->invoice_id)) }}" onclick="return confirm('{{ trans('fi.delete_record_warning') }}');">
 								<i class="icon-trash"></i> {{ trans('fi.delete') }}
 							</a>
