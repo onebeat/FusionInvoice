@@ -442,5 +442,28 @@ class QuoteController extends BaseController {
 
 		return Redirect::route('quotes.index');
 	}
+
+	public function modalMailQuote()
+	{
+		$quote = $this->quote->find(Input::get('quote_id'));
+
+		return View::make('quotes._modal_mail')
+		->with('quoteId', $quote->id)
+		->with('to', $quote->client->email)
+		->with('cc', \Config::get('fi.mailCcDefault'))
+		->with('subject', trans('fi.quote') . ' #' . $quote->number);
+	}
+
+	public function mailQuote()
+	{
+		$quote = $this->quote->find(Input::get('quote_id'));
+
+		Mail::send('templates.emails.quote', array('quote' => $quote), function($message) use ($quote)
+		{
+		    $message->from($quote->user->email)
+		    ->to(Input::get('to'), $quote->client->name)
+		    ->subject(Input::get('subject'));
+		});
+	}
 	
 }

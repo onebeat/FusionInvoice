@@ -354,5 +354,28 @@ class InvoiceController extends BaseController {
 
 		return json_encode(array('success' => 1, 'id' => $invoiceId));
 	}
+
+	public function modalMailInvoice()
+	{
+		$invoice = $this->invoice->find(Input::get('invoice_id'));
+
+		return View::make('invoices._modal_mail')
+		->with('invoiceId', $invoice->id)
+		->with('to', $invoice->client->email)
+		->with('cc', \Config::get('fi.mailCcDefault'))
+		->with('subject', trans('fi.invoice') . ' #' . $invoice->number);
+	}
+
+	public function mailInvoice()
+	{
+		$invoice = $this->invoice->find(Input::get('invoice_id'));
+
+		Mail::send('templates.emails.invoice', array('invoice' => $invoice), function($message) use ($invoice)
+		{
+		    $message->from($invoice->user->email)
+		    ->to(Input::get('to'), $invoice->client->name)
+		    ->subject(Input::get('subject'));
+		});
+	}
 	
 }

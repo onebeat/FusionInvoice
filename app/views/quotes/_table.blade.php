@@ -38,7 +38,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:void(0)" data-quote-id="{{ $quote->id }}">
 								<i class="icon-envelope"></i> {{ trans('fi.send_email') }}
 							</a>
 						</li>

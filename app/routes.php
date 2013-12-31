@@ -17,6 +17,7 @@ Route::get('logout', array('uses' => 'SessionController@logout', 'as' => 'sessio
 */
 
 Route::get('public/quote/{quoteKey}', array('uses' => 'PublicQuoteController@show', 'as' => 'public.quote.show'));
+Route::get('public/invoice/{invoiceKey}', array('uses' => 'PublicInvoiceController@show', 'as' => 'public.invoice.show'));
 
 Route::group(array('before' => 'auth'), function()
 {
@@ -106,6 +107,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('invoices/modal/add_invoice_tax', array('uses' => 'InvoiceController@modalAddInvoiceTax', 'as' => 'invoices.ajax.modalAddInvoiceTax'));
 	Route::post('invoices/modal/save_invoice_tax', array('uses' => 'InvoiceController@saveInvoiceTax', 'as' => 'invoices.ajax.saveInvoiceTax'));
 	Route::post('invoices/modal/copy_invoice', array('uses' => 'InvoiceController@modalCopyInvoice', 'as' => 'invoices.ajax.modalCopyInvoice'));
+	Route::post('invoices/modal/mail', array('uses' => 'InvoiceController@modalMailInvoice', 'as' => 'invoices.ajax.modalMailInvoice'));
+	Route::post('invoices/mail', array('uses' => 'InvoiceController@mailInvoice', 'as' => 'invoices.ajax.mailInvoice'));
 	Route::post('invoices/ajax/copy_invoice', array('uses' => 'InvoiceController@copyInvoice', 'as' => 'invoices.ajax.copyInvoice'));
 	Route::post('invoices/create', array('uses' => 'InvoiceController@store', 'as' => 'invoices.store'));
 	Route::post('invoices/{invoice}/update', array('uses' => 'InvoiceController@update', 'as' => 'invoices.update'));
@@ -172,6 +175,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('quotes/modal/quote_to_invoice', array('uses' => 'QuoteController@modalQuoteToInvoice', 'as' => 'quotes.ajax.modalQuoteToInvoice'));
 	Route::post('quotes/quote_to_invoice', array('uses' => 'QuoteController@quoteToInvoice', 'as' => 'quotes.ajax.quoteToInvoice'));
 	Route::post('quotes/modal/copy_quote', array('uses' => 'QuoteController@modalCopyQuote', 'as' => 'quotes.ajax.modalCopyQuote'));
+	Route::post('quotes/modal/mail', array('uses' => 'QuoteController@modalMailQuote', 'as' => 'quotes.ajax.modalMailQuote'));
+	Route::post('quotes/mail', array('uses' => 'QuoteController@mailQuote', 'as' => 'quotes.ajax.mailQuote'));
 	Route::post('quotes/ajax/copy_quote', array('uses' => 'QuoteController@copyQuote', 'as' => 'quotes.ajax.copyQuote'));
 	Route::post('quotes/create', array('uses' => 'QuoteController@store', 'as' => 'quotes.store'));
 	Route::post('quotes/{quote}/update', array('uses' => 'QuoteController@update', 'as' => 'quotes.update'));

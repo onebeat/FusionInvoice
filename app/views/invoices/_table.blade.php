@@ -19,7 +19,7 @@
 			<td>
                 <span class="label {{ $statuses[$invoice->invoice_status_id]['status'] }}">{{ $statuses[$invoice->invoice_status_id]['label'] }}</span>
 			</td>
-			<td><a href="#" title="{{ trans('fi.edit') }}">{{ $invoice->number }}</a></td>
+			<td><a href="{{ route('invoices.show', array($invoice->id)) }}" title="{{ trans('fi.edit') }}">{{ $invoice->number }}</a></td>
 			<td>{{ $invoice->formatted_created_at }}</td>
 			<td><span class="@if ($invoice->is_overdue) font-overdue @endif">{{ $invoice->formatted_due_at }}</span></td>
 			<td><a href="{{ route('clients.show', array($invoice->client->id)) }}" title="{{ trans('fi.view_client') }}">{{ $invoice->client->name }}</a></td>
@@ -40,7 +40,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="javascript:void(0)" class="mail-invoice" data-invoice-id="{{ $invoice->id }}">
 								<i class="icon-envelope"></i> {{ trans('fi.send_email') }}
 							</a>
 						</li>

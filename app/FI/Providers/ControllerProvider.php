@@ -111,6 +111,13 @@ class ControllerProvider extends ServiceProvider {
             );
         });
 
+        $app->bind('PublicInvoiceController', function($app)
+        {
+            return new \PublicInvoiceController(
+                $app->make('InvoiceRepository')
+            );
+        });
+
         $app->bind('PublicQuoteController', function($app)
         {
             return new \PublicQuoteController(
