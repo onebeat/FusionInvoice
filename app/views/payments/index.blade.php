@@ -7,7 +7,8 @@
 
 		$('.mail-payment-receipt').click(function() {
 			$('#modal-placeholder').load("{{ route('payments.ajax.modalMailPayment') }}", { 
-				payment_id: $(this).data('payment-id')
+				payment_id: $(this).data('payment-id'),
+				redirect_to: $(this).data('redirect-to')
 			});
 		});
 

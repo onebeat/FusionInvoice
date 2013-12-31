@@ -59,13 +59,15 @@
 
                 $('.mail-invoice').click(function() {
 					$('#modal-placeholder').load("{{ route('invoices.ajax.modalMailInvoice') }}", { 
-						invoice_id: $(this).data('invoice-id')
+						invoice_id: $(this).data('invoice-id'),
+						redirect_to: $(this).data('redirect-to')
 					});
                 });
 
                 $('.mail-quote').click(function() {
 					$('#modal-placeholder').load("{{ route('quotes.ajax.modalMailQuote') }}", { 
-						quote_id: $(this).data('quote-id')
+						quote_id: $(this).data('quote-id'),
+						redirect_to: $(this).data('redirect-to')
 					});
                 });
             });

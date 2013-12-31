@@ -40,7 +40,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="javascript:void(0)" class="mail-invoice" data-invoice-id="{{ $invoice->id }}">
+							<a href="javascript:void(0)" class="mail-invoice" data-invoice-id="{{ $invoice->id }}" data-redirect-to="{{ Request::url() }}">
 								<i class="icon-envelope"></i> {{ trans('fi.send_email') }}
 							</a>
 						</li>

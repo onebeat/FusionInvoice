@@ -3,7 +3,7 @@
 	$(function() {
 
 		$('#mail-payment-receipt').modal('show');
-        
+
 		$('#btn-mail-payment-receipt-confirm').click(function() {
 
 			$.post("{{ route('payments.ajax.mailPayment') }}", {
@@ -12,7 +12,14 @@
 				cc: $('#cc').val(),
 				subject: $('#subject').val()
 			}, function(data) {
-				alert(data);
+				var response = JSON.parse(data);
+
+				if (response.success == '1') {
+					window.location = "{{ $redirectTo }}";
+				}
+				else {
+					alert(response.message);
+				}
 			});
 		});
 	});
@@ -51,7 +58,7 @@
 		</div>
 
 		<div class="modal-footer">
-            <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="icon-white icon-remove"></i> {{ trans('fi.cancel') }}</button>
+			<button class="btn btn-danger" type="button" data-dismiss="modal"><i class="icon-white icon-remove"></i> {{ trans('fi.cancel') }}</button>
 			<button class="btn btn-primary" id="btn-mail-payment-receipt-confirm" type="button"><i class="icon-white icon-ok"></i> {{ trans('fi.send') }}</button>
 		</div>
 

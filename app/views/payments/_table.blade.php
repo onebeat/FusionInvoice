@@ -33,7 +33,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="javascript:void(0)" class="mail-payment-receipt" data-payment-id="{{ $payment->id }}">
+							<a href="javascript:void(0)" class="mail-payment-receipt" data-payment-id="{{ $payment->id }}" data-redirect-to="{{ Request::url() }}">
 								<i class="icon-envelope"></i> {{ trans('fi.email_receipt') }}
 							</a>
 						</li>

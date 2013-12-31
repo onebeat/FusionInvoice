@@ -361,6 +361,7 @@ class InvoiceController extends BaseController {
 
 		return View::make('invoices._modal_mail')
 		->with('invoiceId', $invoice->id)
+		->with('redirectTo', Input::get('redirect_to'))
 		->with('to', $invoice->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.invoice') . ' #' . $invoice->number);
@@ -370,12 +371,21 @@ class InvoiceController extends BaseController {
 	{
 		$invoice = $this->invoice->find(Input::get('invoice_id'));
 
-		Mail::send('templates.emails.invoice', array('invoice' => $invoice), function($message) use ($invoice)
+		try
 		{
-		    $message->from($invoice->user->email)
-		    ->to(Input::get('to'), $invoice->client->name)
-		    ->subject(Input::get('subject'));
-		});
+			Mail::send('templates.emails.invoice', array('invoice' => $invoice), function($message) use ($invoice)
+			{
+				$message->from($invoice->user->email)
+				->to(Input::get('to'), $invoice->client->name)
+				->subject(Input::get('subject'));
+			});
+
+			return json_encode(array('success' => 1));
+		}
+		catch (Exception $e)
+		{
+			return json_encode(array('success' => 0, 'message' => $e->getMessage()));
+		}
 	}
 	
 }

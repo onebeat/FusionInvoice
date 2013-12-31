@@ -75,8 +75,8 @@ class PaymentController extends BaseController {
 			->withInput();
 		}
 
-        $input['paid_at'] = Date::unformat($input['paid_at']);
-        $input['amount']  = NumberFormatter::unformat($input['amount']);
+		$input['paid_at'] = Date::unformat($input['paid_at']);
+		$input['amount']  = NumberFormatter::unformat($input['amount']);
 
 		$this->payment->update($input, $paymentId);
 		$this->paymentCustom->save($custom, $paymentId);
@@ -127,9 +127,9 @@ class PaymentController extends BaseController {
 		{
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
-        
-        $input['paid_at'] = Date::unformat($input['paid_at']);
-        $input['amount']  = NumberFormatter::unformat($input['amount']);
+
+		$input['paid_at'] = Date::unformat($input['paid_at']);
+		$input['amount']  = NumberFormatter::unformat($input['amount']);
 
 		$this->payment->create($input);
 
@@ -144,6 +144,7 @@ class PaymentController extends BaseController {
 
 		return View::make('payments._modal_mail')
 		->with('paymentId', $payment->id)
+		->with('redirectTo', Input::get('redirect_to'))
 		->with('to', $payment->invoice->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.payment_receipt_for_invoice', array('invoiceNumber' => $payment->invoice->number)));
@@ -153,12 +154,21 @@ class PaymentController extends BaseController {
 	{
 		$payment = $this->payment->find(Input::get('payment_id'));
 
-		Mail::send('templates.emails.payment_receipt', array('payment' => $payment), function($message) use ($payment)
+		try
 		{
-		    $message->from($payment->invoice->user->email)
-		    ->to(Input::get('to'), $payment->invoice->client->name)
-		    ->subject(Input::get('subject'));
-		});
+			Mail::send('templates.emails.payment_receipt', array('payment' => $payment), function($message) use ($payment)
+			{
+				$message->from($payment->invoice->user->email)
+				->to(Input::get('to'), $payment->invoice->client->name)
+				->subject(Input::get('subject'));
+			});
+
+			return json_encode(array('success' => 1));
+		}
+		catch (Exception $e)
+		{
+			return json_encode(array('success' => 0, 'message' => $e->getMessage()));
+		}
 	}
 
 }

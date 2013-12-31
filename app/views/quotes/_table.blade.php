@@ -38,7 +38,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="javascript:void(0)" data-quote-id="{{ $quote->id }}">
+							<a href="javascript:void(0)" class="mail-quote" data-quote-id="{{ $quote->id }}" data-redirect-to="{{ Request::url() }}">
 								<i class="icon-envelope"></i> {{ trans('fi.send_email') }}
 							</a>
 						</li>

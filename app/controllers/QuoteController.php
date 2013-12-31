@@ -449,6 +449,7 @@ class QuoteController extends BaseController {
 
 		return View::make('quotes._modal_mail')
 		->with('quoteId', $quote->id)
+		->with('redirectTo', Input::get('redirect_to'))
 		->with('to', $quote->client->email)
 		->with('cc', \Config::get('fi.mailCcDefault'))
 		->with('subject', trans('fi.quote') . ' #' . $quote->number);
@@ -458,12 +459,21 @@ class QuoteController extends BaseController {
 	{
 		$quote = $this->quote->find(Input::get('quote_id'));
 
-		Mail::send('templates.emails.quote', array('quote' => $quote), function($message) use ($quote)
+		try
 		{
-		    $message->from($quote->user->email)
-		    ->to(Input::get('to'), $quote->client->name)
-		    ->subject(Input::get('subject'));
-		});
+			Mail::send('templates.emails.quote', array('quote' => $quote), function($message) use ($quote)
+			{
+				$message->from($quote->user->email)
+				->to(Input::get('to'), $quote->client->name)
+				->subject(Input::get('subject'));
+			});
+
+			return json_encode(array('success' => 1));
+		}
+		catch (Exception $e)
+		{
+			return json_encode(array('success' => 0, 'message' => $e->getMessage()));
+		}
 	}
 	
 }

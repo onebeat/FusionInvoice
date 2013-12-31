@@ -3,7 +3,7 @@
 	$(function() {
 
 		$('#mail-invoice').modal('show');
-        
+		
 		$('#btn-mail-invoice-confirm').click(function() {
 
 			$.post("{{ route('invoices.ajax.mailInvoice') }}", {
@@ -12,7 +12,14 @@
 				cc: $('#cc').val(),
 				subject: $('#subject').val()
 			}, function(data) {
-				alert(data);
+				var response = JSON.parse(data);
+
+				if (response.success == '1') {
+					window.location = "{{ $redirectTo }}";
+				}
+				else {
+					alert(response.message);
+				}
 			});
 		});
 	});
