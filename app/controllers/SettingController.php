@@ -24,12 +24,6 @@ class SettingController extends BaseController {
 	protected $settings;
 
 	/**
-	 * Email template repository
-	 * @var EmailTemplateRepository
-	 */
-	protected $emailTemplates;
-
-	/**
 	 * Invoice group repository
 	 * @var InvoiceGroupRepository
 	 */
@@ -44,14 +38,12 @@ class SettingController extends BaseController {
 	/**
 	 * Dependency injection
 	 * @param SettingRepository $settings
-	 * @param EmailTemplateRepository $emailTemplates
 	 * @param InvoiceGroupRepository $invoiceGroups
 	 * @param TaxRateRepository $taxRates
 	 */
-	public function __construct($settings, $emailTemplates, $invoiceGroups, $taxRates)
+	public function __construct($settings, $invoiceGroups, $taxRates)
 	{
 		$this->settings       = $settings;
-		$this->emailTemplates = $emailTemplates;
 		$this->invoiceGroups  = $invoiceGroups;
 		$this->taxRates       = $taxRates;
 	}
@@ -70,7 +62,6 @@ class SettingController extends BaseController {
 			'dateFormats'              => Date::dropdownArray(),
 			'invoiceTemplates'         => InvoiceTemplates::lists(),
 			'quoteTemplates'           => QuoteTemplates::lists(),
-			'emailTemplates'           => $this->emailTemplates->lists(),
 			'invoiceGroups'            => $this->invoiceGroups->lists(),
 			'taxRates'                 => $this->taxRates->lists(),
 			'emailSendMethods'         => Email::listSendMethods(),

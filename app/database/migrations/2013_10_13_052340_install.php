@@ -52,17 +52,6 @@ class Install extends Migration {
 			$table->index('client_id');
 		});
 
-		Schema::create('email_templates', function($table)
-		{
-			$table->increments('id');
-			$table->timestamps();
-			$table->string('name');
-			$table->string('subject');
-			$table->text('body');
-
-			$table->index('name');
-		});
-
 		Schema::create('invoices', function($table)
 		{
 			$table->increments('id');
@@ -304,7 +293,6 @@ class Install extends Migration {
 	{
 		Schema::drop('clients');
 		Schema::drop('client_notes');
-		Schema::drop('email_templates');
 		Schema::drop('invoices');
 		Schema::drop('invoice_amounts');
 		Schema::drop('invoice_groups');

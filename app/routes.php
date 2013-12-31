@@ -64,20 +64,6 @@ Route::group(array('before' => 'auth'), function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Email Templates
-	|--------------------------------------------------------------------------
-	*/
-
-	Route::get('email_templates', array('uses' => 'EmailTemplateController@index', 'as' => 'emailTemplates.index'));
-	Route::get('email_templates/create', array('uses' => 'EmailTemplateController@create', 'as' => 'emailTemplates.create'));
-	Route::get('email_templates/{emailTemplate}/edit', array('uses' => 'EmailTemplateController@edit', 'as' => 'emailTemplates.edit'));
-	Route::get('email_templates/{emailTemplate}/delete', array('uses' => 'EmailTemplateController@delete', 'as' => 'emailTemplates.delete'));
-
-	Route::post('email_templates', array('uses' => 'EmailTemplateController@store', 'as' => 'emailTemplates.store'));
-	Route::post('email_templates/{emailTemplate}', array('uses' => 'EmailTemplateController@update', 'as' => 'emailTemplates.update'));
-
-	/*
-	|--------------------------------------------------------------------------
 	| Invoice Groups
 	|--------------------------------------------------------------------------
 	*/

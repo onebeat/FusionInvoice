@@ -51,14 +51,6 @@ class ControllerProvider extends ServiceProvider {
             );
         });
 
-        $app->bind('EmailTemplateController', function($app)
-        {
-            return new \EmailTemplateController(
-                $app->make('EmailTemplateRepository'),
-                new \FI\Validators\EmailTemplateValidator
-            );
-        });
-
         $app->bind('InvoiceController', function($app)
         {
             return new \InvoiceController(
@@ -168,7 +160,6 @@ class ControllerProvider extends ServiceProvider {
         {
             return new \SettingController(
                 $app->make('SettingRepository'),
-                $app->make('EmailTemplateRepository'),
                 $app->make('InvoiceGroupRepository'),
                 $app->make('TaxRateRepository')
             );

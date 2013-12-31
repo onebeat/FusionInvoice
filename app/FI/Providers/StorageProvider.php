@@ -27,7 +27,6 @@ class StorageProvider extends ServiceProvider {
         $app->bind('ClientRepository', 'FI\Storage\Eloquent\Repositories\ClientRepository');
         $app->bind('ClientCustomRepository', 'FI\Storage\Eloquent\Repositories\ClientCustomRepository');
         $app->bind('CustomFieldRepository', 'FI\Storage\Eloquent\Repositories\CustomFieldRepository');
-        $app->bind('EmailTemplateRepository', 'FI\Storage\Eloquent\Repositories\EmailTemplateRepository');
         $app->bind('InvoiceAmountRepository', 'FI\Storage\Eloquent\Repositories\InvoiceAmountRepository');
         $app->bind('InvoiceCustomRepository', 'FI\Storage\Eloquent\Repositories\InvoiceCustomRepository');
         $app->bind('InvoiceGroupRepository', 'FI\Storage\Eloquent\Repositories\InvoiceGroupRepository');

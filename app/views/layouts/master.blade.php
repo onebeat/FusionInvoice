@@ -152,7 +152,6 @@
 							<a href="#" class="tip icon dropdown-toggle" data-toggle="dropdown" data-original-title="{{ trans('fi.settings') }}" data-placement="bottom"><i class="icon-cog"></i></a>
 							<ul class="dropdown-menu">
                                 <li><a href="{{ route('customFields.index') }}">{{ trans('fi.custom_fields') }}</a></li>
-								<li>{{ link_to_route('emailTemplates.index', trans('fi.email_templates')) }}</li>
                                 <li><a href="#">{{ trans('fi.import_data') }}</a></li>
 								<li>{{ link_to_route('invoiceGroups.index', trans('fi.invoice_groups')) }}</li>
                                 <li><a href="{{ route('itemLookups.index') }}">{{ trans('fi.item_lookups') }}</a></li>

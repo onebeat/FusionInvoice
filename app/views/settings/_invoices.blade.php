@@ -8,27 +8,6 @@
 	</div>
 
 	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_email_template') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoiceEmailTemplate', $emailTemplates, Config::get('fi.invoiceEmailTemplate')) }}
-		</div>
-	</div>
-    
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.email_template_paid') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoiceEmailTemplatePaid', $emailTemplates, Config::get('fi.invoiceEmailTemplatePaid')) }}
-		</div>
-	</div>
-    
-	<div class="control-group">
-		<label class="control-label">{{ trans('fi.email_template_overdue') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_invoiceEmailTemplateOverdue', $emailTemplates, Config::get('fi.invoiceEmailTemplateOverdue')) }}
-		</div>
-	</div>
-
-	<div class="control-group">
 		<label class="control-label">{{ trans('fi.invoices_due_after') }}: </label>
 		<div class="controls">
 			{{ Form::text('setting_invoicesDueAfter', Config::get('fi.invoicesDueAfter'), array('class' => 'input-small')) }}

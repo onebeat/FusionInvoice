@@ -8,13 +8,6 @@
 	</div>
     
 	<div class="control-group">
-		<label class="control-label">{{ trans('fi.default_email_template') }}: </label>
-		<div class="controls">
-			{{ Form::select('setting_quoteEmailTemplate', $emailTemplates, Config::get('fi.quoteEmailTemplate')) }}
-		</div>
-	</div>
-
-	<div class="control-group">
 		<label class="control-label">{{ trans('fi.quotes_expire_after') }}: </label>
 		<div class="controls">
 			{{ Form::text('setting_quotesExpireAfter', Config::get('fi.quotesExpireAfter'), array('class' => 'input-small')) }}

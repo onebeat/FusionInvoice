@@ -73,18 +73,6 @@ class SettingTableSeeder extends Seeder {
 				'setting_value' => '2'
 			),
 			array(
-				'setting_key'   => 'invoiceEmailTemplate',
-				'setting_value' => '0'
-			),
-			array(
-				'setting_key'   => 'invoiceEmailTemplatePaid',
-				'setting_value' => '0'
-			),
-			array(
-				'setting_key'   => 'invoiceEmailTemplateOverdue',
-				'setting_value' => '0'
-			),
-			array(
 				'setting_key'   => 'invoiceTerms',
 				'setting_value' => ''
 			),
@@ -94,10 +82,6 @@ class SettingTableSeeder extends Seeder {
 			),
 			array(
 				'setting_key'   => 'markInvoicesSentPdf',
-				'setting_value' => '0'
-			),
-			array(
-				'setting_key'   => 'quoteEmailTemplate',
 				'setting_value' => '0'
 			),
 			array(
