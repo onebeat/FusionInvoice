@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of FusionInvoice.
+ *
+ * (c) FusionInvoice, LLC <jessedterry@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use FI\Classes\Date;
 use FI\Classes\NumberFormatter;
 use FI\Statuses\InvoiceStatuses;
@@ -373,7 +382,9 @@ class InvoiceController extends BaseController {
 
 		try
 		{
-			Mail::send('templates.emails.invoice', array('invoice' => $invoice), function($message) use ($invoice)
+			$template = ($invoice->is_overdue) ? 'templates.emails.invoice_overdue' : 'templates.emails.invoice';
+
+			Mail::send($template, array('invoice' => $invoice), function($message) use ($invoice)
 			{
 				$message->from($invoice->user->email)
 				->to(Input::get('to'), $invoice->client->name)
