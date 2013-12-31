@@ -13,12 +13,20 @@ namespace FI\Validators;
 
 class QuoteValidator extends Validator {
 
+	/**
+	 * The validation create rules
+	 * @var array
+	 */
 	static $createRules = array(
 		'created_at'       => 'required',
 		'client_name'      => 'required',
 		'invoice_group_id' => 'required'
 	);
 
+	/**
+	 * The validation update rules
+	 * @var array
+	 */
 	static $updateRules = array(
 		'created_at'      => 'required',
 		'expires_at'      => 'required',
@@ -26,6 +34,10 @@ class QuoteValidator extends Validator {
 		'quote_status_id' => 'required'
 	);
 
+	/**
+	 * The validation rules for converting to invoice
+	 * @var array
+	 */
 	static $toInvoiceRules = array(
 		'client_id'        => 'required',
 		'created_at'       => 'required',

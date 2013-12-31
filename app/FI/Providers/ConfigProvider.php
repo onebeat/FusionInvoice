@@ -16,13 +16,13 @@ use Illuminate\Support\ServiceProvider;
 class ConfigProvider extends ServiceProvider {
 
     /**
-     * Do nothing...
+     * Register the service provider
      * @return void
      */
     public function register() {}
 
     /**
-     * Register the system settings
+     * Bootstrap the application events
      * @return void
      */
     public function boot()

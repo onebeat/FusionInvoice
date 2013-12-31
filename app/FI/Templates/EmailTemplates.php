@@ -13,6 +13,10 @@ namespace FI\Templates;
 
 class EmailTemplates extends Templates {
 	
+	/**
+	 * Returns an array of email templates
+	 * @return array
+	 */
 	public static function lists()
 	{
 		return parent::listTemplates(app_path() . '/views/templates/emails');

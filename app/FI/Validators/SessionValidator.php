@@ -13,6 +13,10 @@ namespace FI\Validators;
 
 class SessionValidator extends Validator {
 
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'email'    => 'required',
 		'password' => 'required'

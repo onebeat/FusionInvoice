@@ -13,6 +13,10 @@ namespace FI\Classes;
 
 class Languages {
 	
+	/**
+	 * Provide a list of the available language translations
+	 * @return array
+	 */
 	static function listLanguages()
 	{
 		$directories = Directory::listContents(app_path() . '/lang');

@@ -15,6 +15,7 @@ abstract class Templates {
 
 	/**
 	 * Returns an array of templates
+	 * @param  string $path
 	 * @return array
 	 */
 	public static function listTemplates($path)

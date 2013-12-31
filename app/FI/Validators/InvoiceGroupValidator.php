@@ -13,6 +13,10 @@ namespace FI\Validators;
 
 class InvoiceGroupValidator extends Validator {
 
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'name'     => 'required',
 		'next_id'  => 'required|integer',

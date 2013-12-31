@@ -10,10 +10,24 @@
  */
 
 class InvoiceGroupController extends \BaseController {
-	
+
+	/**
+	 * Invoice group repository
+	 * @var InvoiceGroupRepository
+	 */
 	protected $invoiceGroup;
+
+	/**
+	 * Invoice group validator
+	 * @var InvoiceGroupValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param InvoiceGroupRepository $invoiceGroup
+	 * @param InvoiceValidator $validator
+	 */
 	public function __construct($invoiceGroup, $validator)
 	{
 		$this->invoiceGroup = $invoiceGroup;

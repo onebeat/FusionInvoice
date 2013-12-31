@@ -25,6 +25,10 @@ class InvoiceCalculator extends Calculator implements PayableInterface {
 		$this->calculatePayments();
 	}
 
+	/**
+	 * Set the total paid amount
+	 * @param float $totalPaid
+	 */
 	public function setTotalPaid($totalPaid)
 	{
 		if ($totalPaid)
@@ -37,6 +41,10 @@ class InvoiceCalculator extends Calculator implements PayableInterface {
 		}
 	}
 
+	/**
+	 * Calculate additional properties
+	 * @return void
+	 */
 	public function calculatePayments()
 	{
 		$this->calculatedAmount['balance'] = $this->calculatedAmount['total'] - $this->calculatedAmount['paid'];

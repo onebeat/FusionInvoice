@@ -13,12 +13,20 @@ namespace FI\Validators;
 
 class CustomFieldValidator extends Validator {
 
+	/**
+	 * The validation create rules
+	 * @var array
+	 */
 	static $rules = array(
 		'table_name'  => 'required',
 		'field_label' => 'required',
 		'field_type'  => 'required'
 	);
 
+	/**
+	 * The validation update rules
+	 * @var array
+	 */
 	static $updateRules = array(
 		'field_label' => 'required',
 		'field_type'  => 'required'

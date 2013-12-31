@@ -13,6 +13,10 @@ namespace FI\Templates;
 
 class InvoiceTemplates extends Templates {
 
+	/**
+	 * Returns an array of invoice templates
+	 * @return array
+	 */
 	public static function lists()
 	{
 		return parent::listTemplates(app_path() . '/views/templates/invoices');

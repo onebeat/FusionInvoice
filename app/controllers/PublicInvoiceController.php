@@ -11,8 +11,16 @@
 
 class PublicInvoiceController extends BaseController {
 
+	/**
+	 * Invoice repository
+	 * @var InvoiceRepository
+	 */
 	protected $invoice;
 
+	/**
+	 * Dependency injection
+	 * @param InvoiceRepository $invoice
+	 */
 	public function __construct($invoice)
 	{
 		$this->invoice = $invoice;

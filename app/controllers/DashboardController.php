@@ -14,11 +14,37 @@ use FI\Statuses\InvoiceStatuses;
 
 class DashboardController extends BaseController {
 	
+	/**
+	 * Invoice repository
+	 * @var InvoiceRepository
+	 */
 	protected $invoice;
+
+	/**
+	 * Quote repository
+	 * @var QuoteRepository
+	 */
 	protected $quote;
+
+	/**
+	 * Invoice amount repository
+	 * @var InvoiceAmountRepository
+	 */
 	protected $invoiceAmount;
+
+	/**
+	 * Quote amount repository
+	 * @var QuoteAmountRepository
+	 */
 	protected $quoteAmount;
 
+	/**
+	 * Dependency injection
+	 * @param InvoiceRepository $invoice
+	 * @param QuoteRepository $quote
+	 * @param InvoiceAmountRepository $invoiceAmount
+	 * @param QuoteAmountRepository $quoteAmount
+	 */
 	public function __construct($invoice, $quote, $invoiceAmount, $quoteAmount)
 	{
 		$this->invoice       = $invoice;
@@ -27,6 +53,10 @@ class DashboardController extends BaseController {
 		$this->quoteAmount   = $quoteAmount;
 	}
 
+	/**
+	 * Display the dashboard
+	 * @return View
+	 */
 	public function index()
 	{
 		$invoiceStatuses = InvoiceStatuses::statuses();

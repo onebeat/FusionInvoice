@@ -14,12 +14,22 @@ namespace FI\Validators;
 use FI\Classes\NumberFormatter;
 
 class ItemValidator extends Validator {
-	
+
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'item_quantity' => 'numeric',
 		'item_price'    => 'numeric'
 	);
 
+	/**
+	 * Allow multiple validations
+	 * @param  array $inputs
+	 * @param  string $rulesVar
+	 * @return bool
+	 */
 	public function validateMulti($inputs, $rulesVar = 'rules')
 	{
 		$inputs = (array) $inputs;

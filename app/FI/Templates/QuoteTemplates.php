@@ -13,6 +13,10 @@ namespace FI\Templates;
 
 class QuoteTemplates extends Templates {
 
+	/**
+	 * Returns an array of quote templates
+	 * @return array
+	 */
 	public static function lists()
 	{
 		return parent::listTemplates(app_path() . '/views/templates/quotes');

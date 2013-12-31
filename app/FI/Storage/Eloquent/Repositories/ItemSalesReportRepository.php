@@ -17,6 +17,12 @@ use FI\Storage\Eloquent\Models\InvoiceItem;
 
 class ItemSalesReportRepository {
 	
+	/**
+	 * Get the report results
+	 * @param  string $fromDate
+	 * @param  string $toDate
+	 * @return array
+	 */
 	public function getResults($fromDate, $toDate)
 	{
 		$results = array();

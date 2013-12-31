@@ -13,13 +13,25 @@ use FI\Classes\Date;
 
 class RevenueByClientReportController extends BaseController {
 
+	/**
+	 * Revenue by client report repository
+	 * @var RevenueByClientReportRepository
+	 */
 	protected $revenueByClientReport;
 
+	/**
+	 * Dependency injection
+	 * @param RevenueByClientReportRepository $revenueByClientReport
+	 */
 	public function __construct($revenueByClientReport)
 	{
 		$this->revenueByClientReport = $revenueByClientReport;
 	}
 	
+	/**
+	 * Display the report interface
+	 * @return View
+	 */
 	public function index()
 	{
 		$years = range(date('Y') - 10, date('Y'));
@@ -29,6 +41,10 @@ class RevenueByClientReportController extends BaseController {
 		->with('years', $years);
 	}
 
+	/**
+	 * Run the report and display the results
+	 * @return View
+	 */
 	public function ajaxRunReport()
 	{
 		$months  = array();

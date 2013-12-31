@@ -13,18 +13,34 @@ use FI\Classes\Date;
 
 class ItemSalesReportController extends BaseController {
 
+	/**
+	 * Item sales report repository
+	 * @var ItemSalesReportRepository
+	 */
 	protected $itemSalesReport;
 
+	/**
+	 * Dependency injection
+	 * @param ItemSalesReportRepository $itemSalesReport
+	 */
 	public function __construct($itemSalesReport)
 	{
 		$this->itemSalesReport = $itemSalesReport;
 	}
 	
+	/**
+	 * Display the report interface
+	 * @return View
+	 */
 	public function index()
 	{
 		return View::make('reports.item_sales');
 	}
 
+	/**
+	 * Run the report and display the results
+	 * @return View
+	 */
 	public function ajaxRunReport()
 	{
 		return View::make('reports._item_sales')

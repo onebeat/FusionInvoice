@@ -16,6 +16,11 @@ use FI\Storage\Eloquent\Models\Payment;
 
 class RevenueByClientReportRepository {
 	
+	/**
+	 * Get the report results
+	 * @param  int $year
+	 * @return array
+	 */
 	public function getResults($year)
 	{
 		$results = array();

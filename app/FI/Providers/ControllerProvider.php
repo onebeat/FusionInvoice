@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 class ControllerProvider extends ServiceProvider {
 
     /**
-     * Define the controller dependencies
+     * Register the service provider
      * @return void
      */
     public function register()

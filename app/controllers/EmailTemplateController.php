@@ -11,9 +11,23 @@
 
 class EmailTemplateController extends \BaseController {
 	
+	/**
+	 * Email template repository
+	 * @var EmailTemplateRepository
+	 */
 	protected $emailTemplate;
+
+	/**
+	 * Email template validator
+	 * @var EmailTemplateValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param EmailTemplateRepository $emailTemplate
+	 * @param EmailTemplateValidator $validator
+	 */
 	public function __construct($emailTemplate, $validator)
 	{
 		$this->emailTemplate = $emailTemplate;

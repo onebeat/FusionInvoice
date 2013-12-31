@@ -13,9 +13,23 @@ use FI\Classes\NumberFormatter;
 
 class TaxRateController extends \BaseController {
 	
+	/**
+	 * Tax rate repository
+	 * @var TaxRateRepository
+	 */
 	protected $taxRate;
+
+	/**
+	 * Tax rate validator
+	 * @var TaxRateValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param TaxRateRepository $taxRate
+	 * @param TaxRateValidator $validator
+	 */
 	public function __construct($taxRate, $validator)
 	{
 		$this->taxRate = $taxRate;

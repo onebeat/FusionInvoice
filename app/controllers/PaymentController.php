@@ -15,12 +15,44 @@ use FI\Classes\CustomFields;
 
 class PaymentController extends BaseController {
 
+	/**
+	 * Custom field repository
+	 * @var CustomFieldRepository
+	 */
 	protected $customField;
+
+	/**
+	 * Payment repository
+	 * @var PaymentRepository
+	 */
 	protected $payment;
+
+	/**
+	 * Payment custom repository
+	 * @var PaymentCustomRepository
+	 */
 	protected $paymentCustom;
+
+	/**
+	 * Payment method repository
+	 * @var PaymentMethodRepository
+	 */
 	protected $paymentMethod;
+
+	/**
+	 * Payment validator
+	 * @var PaymentValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param CustomFieldRepository $customField
+	 * @param PaymentCustomRepository $paymentCustom
+	 * @param PaymentMethodRepository $paymentMethod
+	 * @param PaymentRepository $payment
+	 * @param PaymentValidator $validator
+	 */
 	public function __construct($customField, $paymentCustom, $paymentMethod, $payment, $validator)
 	{
 		$this->customField   = $customField;
@@ -128,6 +160,10 @@ class PaymentController extends BaseController {
 		->with('redirectTo', Input::get('redirectTo'));
 	}
 
+	/**
+	 * Attempt to save payment from modal
+	 * @return json
+	 */
 	public function ajaxStore()
 	{
 		$input = Input::all();
@@ -147,6 +183,10 @@ class PaymentController extends BaseController {
 		return json_encode(array('success' => 1));
 	}
 
+	/**
+	 * Display the modal to send mail
+	 * @return View
+	 */
 	public function modalMailPayment()
 	{
 		$payment = $this->payment->find(Input::get('payment_id'));
@@ -159,6 +199,10 @@ class PaymentController extends BaseController {
 		->with('subject', trans('fi.payment_receipt_for_invoice', array('invoiceNumber' => $payment->invoice->number)));
 	}
 
+	/**
+	 * Attempt to send the mail
+	 * @return json
+	 */
 	public function mailPayment()
 	{
 		$payment = $this->payment->find(Input::get('payment_id'));

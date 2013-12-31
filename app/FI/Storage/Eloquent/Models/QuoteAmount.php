@@ -15,6 +15,10 @@ use FI\Classes\CurrencyFormatter;
 
 class QuoteAmount extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
     /*

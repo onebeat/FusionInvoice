@@ -16,8 +16,18 @@ use FI\Classes\NumberFormatter;
 
 class QuoteItem extends \Eloquent {
 
+    /**
+     * Guarded properties
+     * @var array
+     */
 	protected $guarded = array('id');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+   
     public function amount()
     {
         return $this->hasOne('FI\Storage\Eloquent\Models\QuoteItemAmount', 'item_id');
@@ -28,6 +38,12 @@ class QuoteItem extends \Eloquent {
         return $this->belongsTo('FI\Storage\Eloquent\Models\TaxRate');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+   
     public function getFormattedQuantityAttribute()
     {
     	return NumberFormatter::format($this->attributes['quantity']);

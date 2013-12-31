@@ -13,9 +13,23 @@ use FI\Classes\CustomFields;
 
 class CustomFieldController extends \BaseController {
 
+	/**
+	 * Custom field repository
+	 * @var CustomFieldRepository
+	 */
 	protected $customField;
+
+	/**
+	 * Custom field validator
+	 * @var CustomFieldValidator
+	 */
 	protected $validator;
 
+	/**
+	 * Dependency injection
+	 * @param CustomFieldRepository $customField
+	 * @param CustomFieldValidator $validator
+	 */
 	public function __construct($customField, $validator)
 	{
 		$this->customField	 = $customField;

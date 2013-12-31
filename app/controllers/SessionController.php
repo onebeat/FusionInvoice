@@ -11,18 +11,34 @@
 
 class SessionController extends BaseController {
 
+	/**
+	 * Session validator
+	 * @var SessionValidator
+	 */
 	protected $validator;
 
+	/**
+	 * Dependency injection
+	 * @param SessionValidator $validator
+	 */
 	public function __construct($validator)
 	{
 		$this->validator = $validator;
 	}
 	
+	/**
+	 * Display the login form
+	 * @return View
+	 */
 	public function login()
 	{
 		return View::make('login');
 	}
 
+	/**
+	 * Attempt to authenticate the user
+	 * @return Redirect
+	 */
 	public function attempt()
 	{
 		if (!$this->validator->validate(Input::all()))
@@ -38,6 +54,10 @@ class SessionController extends BaseController {
 		return Redirect::route('dashboard.index');
 	}
 
+	/**
+	 * Log the user out
+	 * @return Redirect
+	 */
 	public function logout()
 	{
 		Auth::logout();

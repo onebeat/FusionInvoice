@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 class StorageProvider extends ServiceProvider {
 
     /**
-     * Bind the storage repositories
+     * Register the service provider
      * @return void
      */
     public function register()

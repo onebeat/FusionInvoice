@@ -12,7 +12,11 @@
 namespace FI\Storage\Eloquent\Models;
 
 class CustomField extends \Eloquent {
-	
+
+    /**
+     * Guarded properties
+     * @var array
+     */	
 	protected $guarded = array('id');
 
     /*

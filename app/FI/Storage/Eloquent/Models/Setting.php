@@ -13,6 +13,10 @@ namespace FI\Storage\Eloquent\Models;
 
 class Setting extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
 }

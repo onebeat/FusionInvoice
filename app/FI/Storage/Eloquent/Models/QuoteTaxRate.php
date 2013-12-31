@@ -15,13 +15,29 @@ use FI\Classes\CurrencyFormatter;
 
 class QuoteTaxRate extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+   
 	public function taxRate()
 	{
 		return $this->belongsTo('\FI\Storage\Eloquent\Models\TaxRate');
 	}
 
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+   
 	public function getFormattedTaxTotalAttribute()
 	{
 		return CurrencyFormatter::format($this->attributes['tax_total']);

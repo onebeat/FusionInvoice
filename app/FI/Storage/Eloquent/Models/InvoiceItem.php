@@ -16,6 +16,10 @@ use FI\Classes\NumberFormatter;
 
 class InvoiceItem extends \Eloquent {
 
+    /**
+     * Guarded properties
+     * @var array
+     */
 	protected $guarded = array('id');
 
     /*

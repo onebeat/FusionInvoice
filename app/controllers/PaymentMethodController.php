@@ -11,9 +11,23 @@
 
 class PaymentMethodController extends \BaseController {
 	
+	/**
+	 * Payment method repository
+	 * @var PaymentMethodRepository
+	 */
 	protected $paymentMethod;
+
+	/**
+	 * Payment method validator
+	 * @var PaymentMethodValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param PaymentMethodRepository $paymentMethod
+	 * @param PaymentMethodValidator $validator
+	 */
 	public function __construct($paymentMethod, $validator)
 	{
 		$this->paymentMethod = $paymentMethod;

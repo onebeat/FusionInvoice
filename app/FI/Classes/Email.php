@@ -13,6 +13,10 @@ namespace FI\Classes;
 
 class Email {
 	
+	/**
+	 * Provide a list of send methods
+	 * @return array
+	 */
 	static function listSendMethods()
 	{
 		return array(
@@ -23,6 +27,10 @@ class Email {
 		);
 	}
 
+	/**
+	 * Provide a list of encryption methods
+	 * @return array
+	 */
 	static function listEncryptions()
 	{
 		return array(

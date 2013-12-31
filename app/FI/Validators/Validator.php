@@ -13,8 +13,18 @@ namespace FI\Validators;
 
 abstract class Validator {
 	
+	/**
+	 * Validation errors
+	 * @var MessageBag
+	 */
 	protected $errors;
 	
+	/**
+	 * Run the validation
+	 * @param  array $input
+	 * @param  string $rulesVar
+	 * @return bool
+	 */
 	public function validate($input, $rulesVar = 'rules')
 	{
 		$validator = \Validator::make($input, static::$$rulesVar);
@@ -29,6 +39,12 @@ abstract class Validator {
 		return true;
 	}
 
+	/**
+	 * Allow multiple validations
+	 * @param  array $inputs
+	 * @param  string $rulesVar
+	 * @return bool
+	 */
 	public function validateMulti($inputs, $rulesVar = 'rules')
 	{
 		$inputs = (array) $inputs;
@@ -48,6 +64,10 @@ abstract class Validator {
 		return true;
 	}
 
+	/**
+	 * Set the errors
+	 * @return void
+	 */
 	public function errors()
 	{
 		return $this->errors;

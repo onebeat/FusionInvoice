@@ -13,8 +13,22 @@ namespace FI\Storage\Eloquent\Models;
 
 class ClientCustom extends \Eloquent {
 
-	protected $table      = 'clients_custom';
+	/**
+	 * The table name
+	 * @var string
+	 */
+	protected $table = 'clients_custom';
+
+	/**
+	 * The primary key
+	 * @var string
+	 */
 	protected $primaryKey = 'client_id';
-	protected $guarded    = array();
+
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
+	protected $guarded = array();
 
 }

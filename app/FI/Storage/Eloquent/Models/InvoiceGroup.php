@@ -13,6 +13,10 @@ namespace FI\Storage\Eloquent\Models;
 
 class InvoiceGroup extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
 }

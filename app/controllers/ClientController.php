@@ -14,11 +14,37 @@ use FI\Validators\ClientNoteValidator;
 
 class ClientController extends \BaseController {
 	
+	/**
+	 * Client repository
+	 * @var ClientRepository
+	 */
 	protected $client;
+
+	/**
+	 * Client custom repository
+	 * @var ClientCustomRepository
+	 */
 	protected $clientCustom;
+
+	/**
+	 * Custom field repository
+	 * @var CustomFieldRepository
+	 */
 	protected $customField;
+
+	/**
+	 * Client validator
+	 * @var ClientValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param ClientRepository $client
+	 * @param ClientCustomRepository $clientCustom
+	 * @param CustomFieldRepository $customField
+	 * @param ClientValidator $validator
+	 */
 	public function __construct($client, $clientCustom, $customField, $validator)
 	{
 		$this->client       = $client;
@@ -157,11 +183,19 @@ class ClientController extends \BaseController {
 		->with('alert', trans('fi.record_successfully_deleted'));;
 	}
 
+	/**
+	 * Return a json list of records matching the provided query
+	 * @return json
+	 */
 	public function ajaxNameLookup()
 	{
 		return $this->client->lookupByName(Input::get('query'));
 	}
 
+	/**
+	 * Save a new client note
+	 * @return json
+	 */
 	public function ajaxSaveNote()
 	{
 		$clientNote = App::make('ClientNoteRepository');
@@ -178,6 +212,10 @@ class ClientController extends \BaseController {
 		return json_encode(array('success', 1));
 	}
 
+	/**
+	 * Return a partial view to reload client notes
+	 * @return View
+	 */
 	public function ajaxLoadNotes()
 	{
 		$clientNote = App::make('ClientNoteRepository');

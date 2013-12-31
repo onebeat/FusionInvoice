@@ -18,6 +18,10 @@ use FI\Storage\Eloquent\Models\User;
 
 class UserTableSeeder extends Seeder {
 	
+	/**
+	 * Create the default user for development purposes
+	 * @return void
+	 */
 	public function run()
 	{
 		$user = App::make('UserRepository');

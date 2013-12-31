@@ -13,6 +13,10 @@ namespace FI\Validators;
 
 class EmailTemplateValidator extends Validator {
 
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'name'    => 'required',
 		'subject' => 'required',

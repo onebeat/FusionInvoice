@@ -13,8 +13,22 @@ namespace FI\Storage\Eloquent\Models;
 
 class InvoiceCustom extends \Eloquent {
 
-	protected $table      = 'invoices_custom';
+	/**
+	 * The table name
+	 * @var string
+	 */
+	protected $table = 'invoices_custom';
+
+	/**
+	 * The primary key
+	 * @var string
+	 */
 	protected $primaryKey = 'invoice_id';
-	protected $guarded    = array();
+
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
+	protected $guarded = array();
 
 }

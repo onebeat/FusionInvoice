@@ -13,9 +13,23 @@ use FI\Classes\NumberFormatter;
 
 class ItemLookupController extends \BaseController {
 
+	/**
+	 * Item lookup repository
+	 * @var ItemLookupRepository
+	 */
 	protected $itemLookup;
+
+	/**
+	 * Item lookup validator
+	 * @var ItemLookupValidator
+	 */
 	protected $validator;
 
+	/**
+	 * Dependency injection
+	 * @param ItemLookupRepository $itemLookup
+	 * @param ItemLookupValidator $validator
+	 */
 	public function __construct($itemLookup, $validator)
 	{
 		$this->itemLookup = $itemLookup;
@@ -119,12 +133,20 @@ class ItemLookupController extends \BaseController {
 		->with('alert', trans('fi.record_successfully_deleted'));
 	}
     
+    /**
+     * Display the modal to add a lookup item
+     * @return View
+     */
 	public function modalAddLookupItem()
 	{
 		return View::make('item_lookups._modal_item_lookups')
 		->with('items', $this->itemLookup->all());
 	}
 
+	/**
+	 * Returns a list of items based on their ids
+	 * @return json
+	 */
     public function process()
     {
     	$items = $this->itemLookup->getByIds(Input::get('item_lookup_ids'));

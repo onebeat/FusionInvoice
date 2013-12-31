@@ -11,6 +11,10 @@
 
 class InvoiceGroupTableSeeder extends Seeder {
 	
+	/**
+	 * Create the default invoice groups
+	 * @return void
+	 */
 	public function run()
 	{
 		$invoiceGroup = App::make('InvoiceGroupRepository');

@@ -15,15 +15,65 @@ use FI\Statuses\InvoiceStatuses;
 
 class InvoiceController extends BaseController {
 
+	/**
+	 * Custom field repository
+	 * @var CustomFieldRepository
+	 */
 	protected $customField;
+
+	/**
+	 * Invoice repository
+	 * @var InvoiceRepository
+	 */
 	protected $invoice;
+
+	/**
+	 * Invoice custom repository
+	 * @var InvoiceCustomRepository
+	 */
 	protected $invoiceCustom;
+
+	/**
+	 * Invoice group repository
+	 * @var InvoiceGroupRepository
+	 */
 	protected $invoiceGroup;
+
+	/**
+	 * Invoice item repository
+	 * @var InvoiceItemRepository
+	 */
 	protected $invoiceItem;
+
+	/**
+	 * Invoice tax rate repository
+	 * @var InvoiceTaxRateRepository
+	 */
 	protected $invoiceTaxRate;
+
+	/**
+	 * Tax rate repository
+	 * @var TaxRateRepository
+	 */
 	protected $taxRate;
+
+	/**
+	 * Invoice validator
+	 * @var InvoiceValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param CustomFieldRepository $customField
+	 * @param InvoiceRepository $invoice
+	 * @param InvoiceCustomRepository $invoiceCustom
+	 * @param InvoiceGroupRepository $invoiceGroup
+	 * @param InvoiceItemRepository $invoiceItem
+	 * @param InvoiceTaxRateRepository $invoiceTaxRate
+	 * @param TaxRateRepository $taxRate
+	 * @param InvoiceValidator $validator
+	 */
 	public function __construct($customField, $invoice, $invoiceCustom, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $taxRate, $validator)
 	{
 		$this->customField    = $customField;
@@ -52,7 +102,7 @@ class InvoiceController extends BaseController {
 
 	/**
 	 * Accept post data to create invoice
-	 * @return JSON array
+	 * @return json
 	 */
 	public function store()
 	{
@@ -92,7 +142,8 @@ class InvoiceController extends BaseController {
 
 	/**
 	 * Accept post data to update invoice
-	 * @return JSON array
+	 * @param  int $id
+	 * @return json
 	 */
 	public function update($id)
 	{
@@ -266,12 +317,12 @@ class InvoiceController extends BaseController {
 
 	/**
 	 * Deletes a invoice
-	 * @param  int
+	 * @param  int $id
 	 * @return Redirect
 	 */
-	public function delete($invoiceId)
+	public function delete($id)
 	{
-		$this->invoice->delete($invoiceId);
+		$this->invoice->delete($id);
 
 		return Redirect::route('invoices.index');
 	}
@@ -364,6 +415,10 @@ class InvoiceController extends BaseController {
 		return json_encode(array('success' => 1, 'id' => $invoiceId));
 	}
 
+	/**
+	 * Display the modal to send mail
+	 * @return View
+	 */
 	public function modalMailInvoice()
 	{
 		$invoice = $this->invoice->find(Input::get('invoice_id'));
@@ -376,6 +431,10 @@ class InvoiceController extends BaseController {
 		->with('subject', trans('fi.invoice') . ' #' . $invoice->number);
 	}
 
+	/**
+	 * Attempt to send the mail
+	 * @return json
+	 */
 	public function mailInvoice()
 	{
 		$invoice = $this->invoice->find(Input::get('invoice_id'));

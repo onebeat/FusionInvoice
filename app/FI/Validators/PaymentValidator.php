@@ -14,7 +14,11 @@ namespace FI\Validators;
 use FI\Classes\NumberFormatter;
 
 class PaymentValidator extends Validator {
-	
+
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'invoice_id'        => 'required',
 		'paid_at'           => 'required',
@@ -22,6 +26,7 @@ class PaymentValidator extends Validator {
 		'payment_method_id' => 'required'
 	);
 
+	// @TODO - This doesn't belong here
 	public function validate($input, $rulesVar = 'rules')
 	{
 		$input['amount'] = NumberFormatter::unformat($input['amount']);

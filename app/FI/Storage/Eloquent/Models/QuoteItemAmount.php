@@ -15,8 +15,18 @@ use FI\Classes\CurrencyFormatter;
 
 class QuoteItemAmount extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+   
 	public function getFormattedSubtotalAttribute()
 	{
 		return CurrencyFormatter::format($this->attributes['subtotal']);

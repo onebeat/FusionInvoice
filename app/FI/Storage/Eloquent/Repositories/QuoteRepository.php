@@ -104,11 +104,8 @@ class QuoteRepository {
 	
 	/**
 	 * Update a record
-	 * @param  int $quoteId
-	 * @param  string $createdAt
-	 * @param  string $expiresAt
-	 * @param  string $number
-	 * @param  int $quoteStatusId
+	 * @param  array $input
+	 * @param  int $id
 	 * @return void
 	 */
 	public function update($input, $id)

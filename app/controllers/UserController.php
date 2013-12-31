@@ -11,9 +11,23 @@
 
 class UserController extends \BaseController {
 
+	/**
+	 * The user repository
+	 * @var UserRepository
+	 */
 	protected $user;
+
+	/**
+	 * The user validator
+	 * @var UserValidator
+	 */
 	protected $validator;
 
+	/**
+	 * Dependency injection
+	 * @param UserRepository $user
+	 * @param UserValidator $validator
+	 */
 	public function __construct($user, $validator)
 	{
 		$this->user      = $user;

@@ -15,13 +15,59 @@ use FI\Statuses\QuoteStatuses;
 
 class QuoteController extends BaseController {
 
+	/**
+	 * Invoice group repository
+	 * @var InvoiceGroupRepository
+	 */
 	protected $invoiceGroup;
+
+	/**
+	 * Quote repository
+	 * @var QuoteRepository
+	 */
 	protected $quote;
+
+	/**
+	 * Quote custom repository
+	 * @var QuoteCustomRepository
+	 */
+	protected $quoteCustom;
+
+	/**
+	 * Quote item repository
+	 * @var QuoteItemRepository
+	 */
 	protected $quoteItem;
+
+	/**
+	 * Quote tax rate repository
+	 * @var QuoteTaxRateRepository
+	 */
 	protected $quoteTaxRate;
+
+	/**
+	 * Tax rate repository
+	 * @var TaxRateRepository
+	 */
 	protected $taxRate;
+
+	/**
+	 * Quote validator
+	 * @var QuoteValidator
+	 */
 	protected $validator;
 	
+	/**
+	 * Dependency injection
+	 * @param CustomFieldRepository $customField
+	 * @param InvoiceGroupRepository $invoiceGroup
+	 * @param QuoteCustomRepository $quoteCustom
+	 * @param QuoteItemRepository $quoteItem
+	 * @param QuoteRepository $quote
+	 * @param QuoteTaxRateRepository $quoteTaxRate
+	 * @param TaxRateRepository $taxRate
+	 * @param QuoteValidator $validator
+	 */
 	public function __construct($customField, $invoiceGroup, $quoteCustom, $quoteItem, $quote, $quoteTaxRate, $taxRate, $validator)
 	{
 		$this->customField  = $customField;
@@ -50,7 +96,7 @@ class QuoteController extends BaseController {
 
 	/**
 	 * Accept post data to create quote
-	 * @return JSON array
+	 * @return json
 	 */
 	public function store()
 	{
@@ -89,7 +135,8 @@ class QuoteController extends BaseController {
 
 	/**
 	 * Accept post data to update quote
-	 * @return JSON array
+	 * @param int $id
+	 * @return json
 	 */
 	public function update($id)
 	{
@@ -442,7 +489,7 @@ class QuoteController extends BaseController {
 
 	/**
 	 * Deletes a quote
-	 * @param  int
+	 * @param  int $quoteId
 	 * @return Redirect
 	 */
 	public function delete($quoteId)
@@ -452,6 +499,10 @@ class QuoteController extends BaseController {
 		return Redirect::route('quotes.index');
 	}
 
+	/**
+	 * Display the modal to send mail
+	 * @return View
+	 */
 	public function modalMailQuote()
 	{
 		$quote = $this->quote->find(Input::get('quote_id'));
@@ -464,6 +515,10 @@ class QuoteController extends BaseController {
 		->with('subject', trans('fi.quote') . ' #' . $quote->number);
 	}
 
+	/**
+	 * Attempt to send the mail
+	 * @return json
+	 */
 	public function mailQuote()
 	{
 		$quote = $this->quote->find(Input::get('quote_id'));

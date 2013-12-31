@@ -15,6 +15,12 @@ use FI\Storage\Eloquent\Models\QuoteCustom;
 
 class QuoteCustomRepository {
 
+	/**
+	 * Save the record
+	 * @param  array $input
+	 * @param  int $quoteId
+	 * @return void
+	 */
 	public function save($input, $quoteId)
 	{
 		$record = (QuoteCustom::find($quoteId)) ?: new QuoteCustom;

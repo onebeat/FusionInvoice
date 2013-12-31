@@ -13,6 +13,10 @@ namespace FI\Validators;
 
 class ClientNoteValidator extends Validator {
 
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'client_id' => 'required',
 		'note'      => 'required'

@@ -15,6 +15,10 @@ use FI\Classes\Date;
 
 class ClientNote extends \Eloquent {
 	
+    /**
+     * Guarded properties
+     * @var array
+     */
 	protected $guarded = array('id');
 
     /*

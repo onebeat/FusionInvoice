@@ -13,6 +13,10 @@ namespace FI\Classes;
 
 class CustomFields {
 
+	/**
+	 * Provide an array of available custom table names
+	 * @return array
+	 */
 	public static function tableNames()
 	{
 		return array(
@@ -23,6 +27,10 @@ class CustomFields {
 		);
 	}
 
+	/**
+	 * Provide an array of available custom field types
+	 * @return array
+	 */
 	public static function fieldtypes()
 	{
 		return array(

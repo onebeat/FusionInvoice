@@ -15,11 +15,16 @@ use FI\Classes\NumberFormatter;
 
 class TaxRateValidator extends Validator {
 
+	/**
+	 * The validation rules
+	 * @var array
+	 */
 	static $rules = array(
 		'name'    => 'required',
 		'percent' => 'required|numeric'
 	);
 
+	// @TODO - This doesn't belong here
 	public function validate($input, $rulesVar = 'rules')
 	{
 		$input['percent'] = NumberFormatter::unformat($input['percent']);

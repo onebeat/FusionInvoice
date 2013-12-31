@@ -13,12 +13,20 @@ namespace FI\Validators;
 
 class UserValidator extends Validator {
 
+	/**
+	 * The validation create rules
+	 * @var array
+	 */
 	static $createRules = array(
 		'email'    => 'required|email',
 		'password' => 'required|confirmed',
 		'name'     => 'required'
 	);
 
+	/**
+	 * The validation update rules
+	 * @var array
+	 */
 	static $updateRules = array(
 		'email'    => 'required|email',
 		'name'     => 'required'

@@ -11,6 +11,10 @@
 
 class SettingTableSeeder extends Seeder {
 	
+	/**
+	 * Insert some default settings
+	 * @return void
+	 */
 	public function run()
 	{
 		$settingRepo = App::make('SettingRepository');

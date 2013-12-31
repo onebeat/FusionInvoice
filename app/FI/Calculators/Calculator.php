@@ -13,14 +13,45 @@ namespace FI\Calculators;
 
 abstract class Calculator {
 
+	/**
+	 * The id of the quote or invoice
+	 * @var int
+	 */
 	protected $id;
-	protected $items    = array();
+
+	/**
+	 * An array to store items
+	 * @var array
+	 */
+	protected $items = array();
+
+	/**
+	 * An array to store tax rates
+	 * @var array
+	 */
 	protected $taxRates = array();
 	
+	/**
+	 * An array to store calculated item amounts
+	 * @var array
+	 */
 	protected $calculatedItemAmounts = array();
-	protected $calculatedTaxRates    = array();
-	protected $calculatedAmount      = array();
 
+	/**
+	 * An array to store calculated tax rates
+	 * @var array
+	 */
+	protected $calculatedTaxRates = array();
+
+	/**
+	 * An array to store overall calculated amounts
+	 * @var array
+	 */
+	protected $calculatedAmount = array();
+
+	/**
+	 * Initialize the calculated amount array
+	 */
 	public function __construct()
 	{
 		$this->calculatedAmount = array(

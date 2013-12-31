@@ -15,8 +15,18 @@ use FI\Classes\NumberFormatter;
 
 class TaxRate extends \Eloquent {
 
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+   
 	public function getFormattedPercentAttribute()
 	{
 		return NumberFormatter::format($this->attributes['percent']) . '%';

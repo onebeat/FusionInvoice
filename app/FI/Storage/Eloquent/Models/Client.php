@@ -15,6 +15,10 @@ use FI\Classes\CurrencyFormatter;
 
 class Client extends \Eloquent {
 	
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
 	protected $guarded = array('id');
 	
     /*

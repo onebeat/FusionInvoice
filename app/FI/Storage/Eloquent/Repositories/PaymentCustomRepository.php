@@ -15,6 +15,12 @@ use FI\Storage\Eloquent\Models\PaymentCustom;
 
 class PaymentCustomRepository {
 
+	/**
+	 * Save the record
+	 * @param  array $input
+	 * @param  int $paymentId
+	 * @return void
+	 */
 	public function save($input, $paymentId)
 	{
 		$record = (PaymentCustom::find($paymentId)) ?: new PaymentCustom;

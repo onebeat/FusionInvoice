@@ -11,8 +11,16 @@
 
 class PublicQuoteController extends BaseController {
 
+	/**
+	 * Quote repository
+	 * @var QuoteRepository
+	 */
 	protected $quote;
 
+	/**
+	 * Dependency injection
+	 * @param QuoteRepository $quote
+	 */
 	public function __construct($quote)
 	{
 		$this->quote = $quote;

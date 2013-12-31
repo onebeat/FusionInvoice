@@ -13,12 +13,20 @@ namespace FI\Validators;
 
 class InvoiceValidator extends Validator {
 
+	/**
+	 * The validation create rules
+	 * @var array
+	 */
 	static $createRules = array(
 		'created_at'       => 'required',
 		'client_name'      => 'required',
 		'invoice_group_id' => 'required'
 	);
 
+	/**
+	 * The validation update rules
+	 * @var array
+	 */
 	static $updateRules = array(
 		'created_at'        => 'required',
 		'due_at'            => 'required',

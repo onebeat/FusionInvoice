@@ -13,18 +13,34 @@ use FI\Classes\Date;
 
 class PaymentsCollectedReportController extends BaseController {
 
+	/**
+	 * Payments collected report repository
+	 * @var PaymentsCollectedReportRepository
+	 */
 	protected $paymentsCollectedReport;
 
+	/**
+	 * Dependency injection
+	 * @param PaymentsCollectedReportRepository $paymentsCollectedReport
+	 */
 	public function __construct($paymentsCollectedReport)
 	{
 		$this->paymentsCollectedReport = $paymentsCollectedReport;
 	}
 	
+	/**
+	 * Display the report interface
+	 * @return View
+	 */
 	public function index()
 	{
 		return View::make('reports.payments_collected');
 	}
 
+	/**
+	 * Run the report and display the results
+	 * @return View
+	 */
 	public function ajaxRunReport()
 	{
 		return View::make('reports._payments_collected')

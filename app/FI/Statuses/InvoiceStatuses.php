@@ -49,6 +49,7 @@ class InvoiceStatuses {
 
     /**
      * Return a flattened array of statuses
+     * @param  array $statuses
      * @return array
      */
     public static function getList($statuses)
@@ -63,6 +64,10 @@ class InvoiceStatuses {
         return $return;
     }
 
+    /**
+     * Returns an array of statuses to populate dropdown list
+     * @return array
+     */
     public static function lists()
     {
         $statuses = self::statuses();

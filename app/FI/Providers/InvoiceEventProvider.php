@@ -16,8 +16,16 @@ use FI\Calculators\InvoiceCalculator;
 
 class InvoiceEventProvider extends ServiceProvider {
 
+	/**
+	 * Register the service provider
+	 * @return void
+	 */
 	public function register() {}
 
+	/**
+	 * Bootstrap the application events
+	 * @return void
+	 */
 	public function boot()
 	{
 		// Create the empty invoice amount record

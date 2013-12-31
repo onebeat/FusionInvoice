@@ -15,6 +15,12 @@ use FI\Storage\Eloquent\Models\ClientCustom;
 
 class ClientCustomRepository {
 
+	/**
+	 * Save the record
+	 * @param  array $input
+	 * @param  int $clientId
+	 * @return void
+	 */
 	public function save($input, $clientId)
 	{
 		$record = (ClientCustom::find($clientId)) ?: new ClientCustom;

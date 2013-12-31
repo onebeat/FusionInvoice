@@ -13,6 +13,11 @@ namespace FI\Classes;
 
 class Pager {
 
+	/**
+	 * Create the pager for an Eloquent object
+	 * @param  Model $object
+	 * @return string
+	 */
 	public static function create($object)
 	{
 		$currentPage  = $object->getCurrentPage();

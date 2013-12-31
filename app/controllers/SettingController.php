@@ -17,11 +17,37 @@ use FI\Templates\QuoteTemplates;
 
 class SettingController extends BaseController {
 
+	/**
+	 * Setting repository
+	 * @var SettingRepository
+	 */
 	protected $settings;
+
+	/**
+	 * Email template repository
+	 * @var EmailTemplateRepository
+	 */
 	protected $emailTemplates;
+
+	/**
+	 * Invoice group repository
+	 * @var InvoiceGroupRepository
+	 */
 	protected $invoiceGroups;
+
+	/**
+	 * Tax rate repository
+	 * @var TaxRateRepository
+	 */
 	protected $taxRates;
 
+	/**
+	 * Dependency injection
+	 * @param SettingRepository $settings
+	 * @param EmailTemplateRepository $emailTemplates
+	 * @param InvoiceGroupRepository $invoiceGroups
+	 * @param TaxRateRepository $taxRates
+	 */
 	public function __construct($settings, $emailTemplates, $invoiceGroups, $taxRates)
 	{
 		$this->settings       = $settings;

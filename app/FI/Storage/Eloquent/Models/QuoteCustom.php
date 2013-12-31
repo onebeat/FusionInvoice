@@ -13,8 +13,22 @@ namespace FI\Storage\Eloquent\Models;
 
 class QuoteCustom extends \Eloquent {
 
-	protected $table      = 'quotes_custom';
+	/**
+	 * The table name
+	 * @var string
+	 */
+	protected $table = 'quotes_custom';
+
+	/**
+	 * The primary key
+	 * @var string
+	 */
 	protected $primaryKey = 'quote_id';
-	protected $guarded    = array();
+
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
+	protected $guarded = array();
 
 }

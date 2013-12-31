@@ -82,6 +82,11 @@ class Date {
 		return $return;
 	}
 
+	/**
+	 * Converts a stored date to the user formatted date
+	 * @param  date $date 	The yyyy-mm-dd standardized date
+	 * @return date 		The user formatted date
+	 */
 	public static function format($date = null)
 	{
 		$date = new \DateTime($date);
@@ -91,8 +96,8 @@ class Date {
 
 	/**
 	 * Converts a user submitted date back to standard yyyy-mm-dd format
-	 * @param  date $date 	The user submitted date
-	 * @return date 		The yyyy-mm-dd standardized date
+	 * @param  date $userDate	The user submitted date
+	 * @return date 			The yyyy-mm-dd standardized date
 	 */
 	public static function unformat($userDate = null)
 	{

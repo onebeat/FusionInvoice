@@ -15,6 +15,12 @@ use FI\Storage\Eloquent\Models\InvoiceCustom;
 
 class InvoiceCustomRepository {
 
+	/**
+	 * Save the record
+	 * @param  array $input
+	 * @param  int $invoiceId
+	 * @return void
+	 */
 	public function save($input, $invoiceId)
 	{
 		$record = (InvoiceCustom::find($invoiceId)) ?: new InvoiceCustom;

@@ -13,8 +13,22 @@ namespace FI\Storage\Eloquent\Models;
 
 class PaymentCustom extends \Eloquent {
 
-	protected $table      = 'payments_custom';
+	/**
+	 * The table name
+	 * @var string
+	 */
+	protected $table = 'payments_custom';
+
+	/**
+	 * The primary key
+	 * @var string
+	 */
 	protected $primaryKey = 'payment_id';
-	protected $guarded    = array();
+
+	/**
+	 * Guarded properties
+	 * @var array
+	 */
+	protected $guarded = array();
 
 }

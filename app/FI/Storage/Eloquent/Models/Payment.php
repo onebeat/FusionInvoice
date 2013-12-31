@@ -17,6 +17,10 @@ use FI\Classes\NumberFormatter;
 
 class Payment extends \Eloquent {
 
+    /**
+     * Guarded properties
+     * @var array
+     */
 	protected $guarded = array('id');
 
     /*
