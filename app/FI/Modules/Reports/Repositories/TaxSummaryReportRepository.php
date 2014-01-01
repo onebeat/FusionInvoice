@@ -34,7 +34,7 @@ class TaxSummaryReportRepository {
 		{
 			$percent = NumberFormatter::format($invoiceItem->taxRate->percent);
 
-			if (isset($results[$invoiceItem->taxRate->name . ' (' . $percent . ')']))
+			if (isset($results[$invoiceItem->taxRate->name . ' (' . $percent . '%)']))
 			{
 				$results[$invoiceItem->taxRate->name . ' (' . $percent . '%)']['taxable_amount'] += $invoiceItem->amount->subtotal;
 				$results[$invoiceItem->taxRate->name . ' (' . $percent . '%)']['taxes'] += $invoiceItem->amount->tax_total;
@@ -52,7 +52,7 @@ class TaxSummaryReportRepository {
 		{
 			$percent = NumberFormatter::format($invoiceTaxRate->taxRate->percent);
 
-			if (isset($results[$invoiceTaxRate->taxRate->name . ' (' . $percent . ')']))
+			if (isset($results[$invoiceTaxRate->taxRate->name . ' (' . $percent . '%)']))
 			{
 				if ($invoiceTaxRate->include_item_tax)
 				{
