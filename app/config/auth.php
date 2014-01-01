@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'FI\Storage\Eloquent\Models\User',
+	'model' => 'FI\Modules\Users\Models\User',
 
 	/*
 	|--------------------------------------------------------------------------

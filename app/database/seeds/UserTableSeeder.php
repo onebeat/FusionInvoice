@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use FI\Storage\Eloquent\Models\User;
+use FI\Modules\Users\Models\User;
 
 /**
  * This file exists for development purposes and will

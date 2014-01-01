@@ -107,11 +107,25 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'FI\Providers\StorageProvider',
-		'FI\Providers\ControllerProvider',
 		'FI\Providers\ConfigProvider',
-		'FI\Providers\QuoteEventProvider',
-		'FI\Providers\InvoiceEventProvider',
+		'FI\Modules\Clients\Providers\ModuleProvider',
+		'FI\Modules\CustomFields\Providers\ModuleProvider',
+		'FI\Modules\Dashboard\Providers\ModuleProvider',
+		'FI\Modules\InvoiceGroups\Providers\ModuleProvider',
+		'FI\Modules\Invoices\Providers\ModuleProvider',
+		'FI\Modules\ItemLookups\Providers\ModuleProvider',
+		'FI\Modules\PaymentMethods\Providers\ModuleProvider',
+		'FI\Modules\Payments\Providers\ModuleProvider',
+		'FI\Modules\Quotes\Providers\ModuleProvider',
+		'FI\Modules\Reports\Providers\ModuleProvider',
+		'FI\Modules\Sessions\Providers\ModuleProvider',
+		'FI\Modules\Settings\Providers\ModuleProvider',
+		'FI\Modules\TaxRates\Providers\ModuleProvider',
+		'FI\Modules\Users\Providers\ModuleProvider',
+
+		'FI\Modules\Quotes\Providers\QuoteEventProvider',
+		'FI\Modules\Invoices\Providers\InvoiceEventProvider',
+
 		'Profiler\ProfilerServiceProvider'
 
 	),
