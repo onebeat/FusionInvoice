@@ -114,8 +114,11 @@ class PaymentController extends \BaseController {
 	{
 		$input = Input::all();
 
-		$custom = $input['custom'];
-		unset($input['custom']);
+		if (Input::has('custom'))
+		{
+			$custom = $input['custom'];
+			unset($input['custom']);
+		}
 
 		if (!$this->validator->validate($input))
 		{
@@ -129,7 +132,11 @@ class PaymentController extends \BaseController {
 		$input['amount']  = NumberFormatter::unformat($input['amount']);
 
 		$this->payment->update($input, $paymentId);
-		$this->paymentCustom->save($custom, $paymentId);
+
+		if (Input::has('custom'))
+		{
+			$this->paymentCustom->save($custom, $paymentId);
+		}
 
 		\Event::fire('invoice.modified', array($invoiceId));
 

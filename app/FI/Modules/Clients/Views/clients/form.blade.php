@@ -142,7 +142,7 @@
         <div class="span12">
             <fieldset>
                 <legend>{{ trans('fi.custom_fields') }}</legend>
-                @include('custom_fields._custom_fields');
+                @include('custom_fields._custom_fields')
             </fieldset>
         </div>
     </div>

@@ -102,8 +102,11 @@ class ClientController extends \BaseController {
 	{
 		$input = Input::all();
 
-		$custom = $input['custom'];
-		unset($input['custom']);
+		if (Input::has('custom'))
+		{
+			$custom = $input['custom'];
+			unset($input['custom']);
+		}
 
 		if (!$this->validator->validate($input))
 		{
@@ -114,7 +117,11 @@ class ClientController extends \BaseController {
 		}
 
 		$clientId = $this->client->create($input);
-		$this->clientCustom->save($custom, $clientId);
+
+		if (Input::has('custom'))
+		{
+			$this->clientCustom->save($custom, $clientId);
+		}
 		
 		return Redirect::route('clients.index')
 		->with('alertSuccess', trans('fi.record_successfully_created'));
@@ -159,8 +166,11 @@ class ClientController extends \BaseController {
 	{
 		$input = Input::all();
 		
-		$custom = $input['custom'];
-		unset($input['custom']);
+		if (Input::has('custom'))
+		{
+			$custom = $input['custom'];
+			unset($input['custom']);
+		}
 
 		if (!$this->validator->validate($input))
 		{	
@@ -171,7 +181,11 @@ class ClientController extends \BaseController {
 		}
 
 		$this->client->update($input, $clientId);
-		$this->clientCustom->save($custom, $clientId);
+
+		if (Input::has('custom'))
+		{
+			$this->clientCustom->save($custom, $clientId);
+		}
 
 		return Redirect::route('clients.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));;

@@ -49,7 +49,7 @@
 
     <div class="row-fluid">
         <div class="span12">
- 			@include('custom_fields._custom_fields');
+ 			@include('custom_fields._custom_fields')
         </div>
     </div>
 
