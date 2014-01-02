@@ -149,5 +149,29 @@ class QuoteEventProvider extends ServiceProvider {
 			// Update the quote amount record
 			$quoteAmount->update($calculatedAmount, $quoteId);
 		});
+
+		\Event::listen('quote.deleted', function($quoteId)
+		{
+			$quoteAmount  = \App::make('QuoteAmountRepository');
+			$quoteItem    = \App::make('QuoteItemRepository');
+			$quoteTaxRate = \App::make('QuoteTaxRateRepository');
+
+			$quoteAmounts  = $quoteAmount->findByQuoteId($quoteId);
+			$quoteItems    = $quoteItem->findByQuoteId($quoteId);
+			$quoteTaxRates = $quoteTaxRate->findByQuoteId($quoteId);
+
+			foreach ($quoteTaxRates as $quoteTaxRate)
+			{
+				$quoteTaxRate->delete();
+			}
+
+			foreach ($quoteItems as $quoteItem)
+			{
+				$quoteItem->amount->delete();
+				$quoteItem->delete();
+			}
+
+			$quoteAmounts->delete();
+		});
 	}
 }

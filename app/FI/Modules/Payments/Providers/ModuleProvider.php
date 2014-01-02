@@ -28,6 +28,8 @@ class ModuleProvider extends ServiceProvider {
 
 	public function register()
 	{
+        $this->app->register('FI\Modules\Payments\Providers\PaymentEventProvider');
+
         $this->app->bind('PaymentRepository', 'FI\Modules\Payments\Repositories\PaymentRepository');
         $this->app->bind('PaymentValidator', 'FI\Modules\Payments\Validators\PaymentValidator');
 

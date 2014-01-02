@@ -27,6 +27,16 @@ class InvoiceAmountRepository {
 	}
 
 	/**
+	 * Get a list of records by invoice id
+	 * @param  int $invoiceId
+	 * @return InvoiceAmount
+	 */
+	public function findByInvoiceId($invoiceId)
+	{
+		return InvoiceAmount::where('invoice_id', '=', $invoiceId)->first();
+	}
+
+	/**
 	 * Create a record
 	 * @param  array $input
 	 * @return int

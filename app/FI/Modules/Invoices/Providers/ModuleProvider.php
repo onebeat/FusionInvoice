@@ -28,6 +28,8 @@ class ModuleProvider extends ServiceProvider {
 
 	public function register()
 	{
+        $this->app->register('FI\Modules\Invoices\Providers\InvoiceEventProvider');
+
         $this->app->bind('InvoiceAmountRepository', 'FI\Modules\Invoices\Repositories\InvoiceAmountRepository');
         $this->app->bind('InvoiceItemAmountRepository', 'FI\Modules\Invoices\Repositories\InvoiceItemAmountRepository');
         $this->app->bind('InvoiceItemRepository', 'FI\Modules\Invoices\Repositories\InvoiceItemRepository');

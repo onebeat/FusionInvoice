@@ -57,6 +57,16 @@ class PaymentRepository {
 	}
 
 	/**
+	 * Get a list of records by invoice id
+	 * @param  int $invoiceId
+	 * @return Payment
+	 */
+	public function findByInvoiceId($invoiceId)
+	{
+		return Payment::where('invoice_id', '=', $invoiceId)->get();
+	}
+
+	/**
 	 * Create a record
 	 * @param  array $input
 	 * @return int
@@ -89,6 +99,8 @@ class PaymentRepository {
 	public function delete($id)
 	{
 		Payment::destroy($id);
+
+		\Event::fire('payment.deleted', array($id));
 	}
 	
 }

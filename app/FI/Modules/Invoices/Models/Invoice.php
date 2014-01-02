@@ -27,6 +27,11 @@ class Invoice extends \Eloquent {
     |--------------------------------------------------------------------------
     */
 
+    public function amount()
+    {
+        return $this->hasOne('FI\Modules\Invoices\Models\InvoiceAmount');
+    }
+
     public function client()
     {
         return $this->belongsTo('FI\Modules\Clients\Models\Client');
@@ -37,15 +42,15 @@ class Invoice extends \Eloquent {
         return $this->hasOne('FI\Modules\CustomFields\Models\InvoiceCustom');
     }
 
-    public function amount()
-    {
-        return $this->hasOne('FI\Modules\Invoices\Models\InvoiceAmount');
-    }
-
     public function items()
     {
         return $this->hasMany('FI\Modules\Invoices\Models\InvoiceItem')
         ->orderBy('display_order');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany('FI\Modules\Payments\Models\Payment');
     }
 
     public function taxRates()

@@ -28,6 +28,8 @@ class ModuleProvider extends ServiceProvider {
 
 	public function register()
 	{
+        $this->app->register('FI\Modules\CustomFields\Providers\CustomFieldEventProvider');
+
         $this->app->bind('CustomFieldRepository', 'FI\Modules\CustomFields\Repositories\CustomFieldRepository');
         $this->app->bind('ClientCustomRepository', 'FI\Modules\CustomFields\Repositories\ClientCustomRepository');
         $this->app->bind('InvoiceCustomRepository', 'FI\Modules\CustomFields\Repositories\InvoiceCustomRepository');

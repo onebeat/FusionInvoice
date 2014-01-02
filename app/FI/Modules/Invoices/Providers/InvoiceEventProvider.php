@@ -163,5 +163,29 @@ class InvoiceEventProvider extends ServiceProvider {
 			}
 		});
 
+		\Event::listen('invoice.deleted', function($invoiceId)
+		{
+			$invoiceAmount  = \App::make('InvoiceAmountRepository');
+			$invoiceItem    = \App::make('InvoiceItemRepository');
+			$invoiceTaxRate = \App::make('InvoiceTaxRateRepository');
+
+			$invoiceAmounts  = $invoiceAmount->findByInvoiceId($invoiceId);
+			$invoiceItems    = $invoiceItem->findByInvoiceId($invoiceId);
+			$invoiceTaxRates = $invoiceTaxRate->findByInvoiceId($invoiceId);
+
+			foreach ($invoiceTaxRates as $invoiceTaxRate)
+			{
+				$invoiceTaxRate->delete();
+			}
+
+			foreach ($invoiceItems as $invoiceItem)
+			{
+				$invoiceItem->amount->delete();
+				$invoiceItem->delete();
+			}
+
+			$invoiceAmounts->delete();
+		});
+
 	}
 }

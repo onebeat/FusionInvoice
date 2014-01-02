@@ -134,22 +134,9 @@ class InvoiceRepository {
 	 */
 	public function delete($id)
 	{
-		$invoice = Invoice::find($id);
+		Invoice::destroy($id);
 
-		foreach ($invoice->items as $item)
-		{
-			$item->amount->delete();
-			$item->delete();
-		}
-
-		foreach ($invoice->taxRates as $taxRate)
-		{
-			$taxRate->delete();
-		}
-
-		$invoice->amount->delete();
-
-		$invoice->delete();
+		\Event::fire('invoice.deleted', array($id));
 	}
 	
 }

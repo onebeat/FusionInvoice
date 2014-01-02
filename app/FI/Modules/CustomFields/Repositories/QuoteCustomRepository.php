@@ -32,4 +32,14 @@ class QuoteCustomRepository {
 		$record->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
+	public function delete($id)
+	{
+		QuoteCustom::destroy($id);
+	}
+
 }

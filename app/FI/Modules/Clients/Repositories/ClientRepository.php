@@ -139,6 +139,8 @@ class ClientRepository {
 	public function delete($id)
 	{
 		Client::destroy($id);
+
+		\Event::fire('client.deleted', array($id));
 	}
 
 	/**

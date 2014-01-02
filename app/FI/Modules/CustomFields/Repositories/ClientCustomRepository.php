@@ -32,4 +32,14 @@ class ClientCustomRepository {
 		$record->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
+	public function delete($id)
+	{
+		ClientCustom::destroy($id);
+	}
+
 }

@@ -32,4 +32,14 @@ class InvoiceCustomRepository {
 		$record->save();
 	}
 
+	/**
+	 * Delete a record
+	 * @param  int $id
+	 * @return void
+	 */
+	public function delete($id)
+	{
+		InvoiceCustom::destroy($id);
+	}
+
 }

@@ -124,22 +124,9 @@ class QuoteRepository {
 	 */
 	public function delete($id)
 	{
-		$quote = Quote::find($id);
+		Quote::destroy($id);
 
-		foreach ($quote->items as $item)
-		{
-			$item->amount->delete();
-			$item->delete();
-		}
-
-		foreach ($quote->taxRates as $taxRate)
-		{
-			$taxRate->delete();
-		}
-
-		$quote->amount->delete();
-
-		$quote->delete();
+		\Event::fire('quote.deleted', array($id));
 	}
 
 }

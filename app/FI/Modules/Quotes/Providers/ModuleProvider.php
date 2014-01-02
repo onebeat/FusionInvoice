@@ -28,6 +28,8 @@ class ModuleProvider extends ServiceProvider {
 
 	public function register()
 	{
+        $this->app->register('FI\Modules\Quotes\Providers\QuoteEventProvider');
+
         $this->app->bind('QuoteAmountRepository', 'FI\Modules\Quotes\Repositories\QuoteAmountRepository');
         $this->app->bind('QuoteItemAmountRepository', 'FI\Modules\Quotes\Repositories\QuoteItemAmountRepository');
         $this->app->bind('QuoteItemRepository', 'FI\Modules\Quotes\Repositories\QuoteItemRepository');

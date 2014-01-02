@@ -25,6 +25,16 @@ class QuoteAmountRepository {
 	{
 		return QuoteAmount::find($id);
 	}
+
+	/**
+	 * Get a list of records by invoice id
+	 * @param  int $quoteId
+	 * @return QuoteAmount
+	 */
+	public function findByQuoteId($quoteId)
+	{
+		return QuoteAmount::where('quote_id', '=', $quoteId)->first();
+	}
 	
 	/**
 	 * Create a record
