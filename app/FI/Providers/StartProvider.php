@@ -35,9 +35,6 @@ class StartProvider extends ServiceProvider {
         $this->app->register('FI\Modules\TaxRates\Providers\ModuleProvider');
         $this->app->register('FI\Modules\Users\Providers\ModuleProvider');
 
-        $this->app->register('FI\Modules\Quotes\Providers\QuoteEventProvider');
-        $this->app->register('FI\Modules\Invoices\Providers\InvoiceEventProvider');
-
         $this->app->register('Profiler\ProfilerServiceProvider');
 
     }
