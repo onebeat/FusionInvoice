@@ -177,9 +177,9 @@
 			<ul>
 				<li><a href="{{ route('dashboard.index') }}"><img alt="" src="{{ asset('assets/img/icons/dashboard24x24.png') }}" title="{{ trans('fi.dashboard') }}" /></a></li>
 				<li><a href="{{ route('clients.index') }}"><img alt="" src="{{ asset('assets/img/icons/clients24x24.png') }}" title="{{ trans('fi.clients') }}" /></a></li>
-				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/quotes24x24.png') }}" title="{{ trans('fi.quotes') }}" /></a></li>
-				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/invoices24x24.png') }}" title="{{ trans('fi.invoices') }}" /></a></li>
-				<li><a href="#"><img alt="" src="{{ asset('assets/img/icons/payments24x24.png') }}" title="{{ trans('fi.payments') }}" /></a></li>
+				<li><a href="{{ route('quotes.index') }}"><img alt="" src="{{ asset('assets/img/icons/quotes24x24.png') }}" title="{{ trans('fi.quotes') }}" /></a></li>
+				<li><a href="{{ route('invoices.index') }}"><img alt="" src="{{ asset('assets/img/icons/invoices24x24.png') }}" title="{{ trans('fi.invoices') }}" /></a></li>
+				<li><a href="{{ route('payments.index') }}"><img alt="" src="{{ asset('assets/img/icons/payments24x24.png') }}" title="{{ trans('fi.payments') }}" /></a></li>
 			</ul>
 
 		</div>
