@@ -166,7 +166,7 @@ class PaymentController extends \BaseController {
 	 */
 	public function modalEnterPayment()
 	{
-		$date = FI\Classes\Date::format();
+		$date = Date::format();
 		
 		return View::make('payments._modal_enter_payment')
 		->with('invoice_id', Input::get('invoice_id'))

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\ItemLookups\Validators;
 
-class ItemLookupValidator extends Validator {
+class ItemLookupValidator extends \FI\Validators\Validator {
 	
 	/**
 	 * The validation rules

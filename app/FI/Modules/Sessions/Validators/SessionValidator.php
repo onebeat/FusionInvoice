@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\Sessions\Validators;
 
-class ClientNoteValidator extends Validator {
+class SessionValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation rules
 	 * @var array
 	 */
 	static $rules = array(
-		'client_id' => 'required',
-		'note'      => 'required'
+		'email'    => 'required',
+		'password' => 'required'
 	);
 
 }

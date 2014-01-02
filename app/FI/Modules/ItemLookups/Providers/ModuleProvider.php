@@ -29,12 +29,13 @@ class ModuleProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('ItemLookupRepository', 'FI\Modules\ItemLookups\Repositories\ItemLookupRepository');
+        $this->app->bind('ItemLookupValidator', 'FI\Modules\ItemLookups\Validators\ItemLookupValidator');
 
         $this->app->bind('ItemLookupController', function($app)
         {
             return new \FI\Modules\ItemLookups\Controllers\ItemLookupController(
                 $app->make('ItemLookupRepository'),
-                new \FI\Validators\ItemLookupValidator
+                $app->make('ItemLookupValidator')
             );
         });
 	}

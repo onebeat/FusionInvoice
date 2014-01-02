@@ -33,6 +33,8 @@ class ModuleProvider extends ServiceProvider {
         $this->app->bind('InvoiceItemRepository', 'FI\Modules\Invoices\Repositories\InvoiceItemRepository');
         $this->app->bind('InvoiceRepository', 'FI\Modules\Invoices\Repositories\InvoiceRepository');
         $this->app->bind('InvoiceTaxRateRepository', 'FI\Modules\Invoices\Repositories\InvoiceTaxRateRepository');
+        $this->app->bind('InvoiceValidator', 'FI\Modules\Invoices\Validators\InvoiceValidator');
+        $this->app->bind('InvoiceItemValidator', 'FI\Validators\ItemValidator');
 
         $this->app->bind('InvoiceController', function($app)
         {
@@ -44,7 +46,8 @@ class ModuleProvider extends ServiceProvider {
                 $app->make('InvoiceItemRepository'),
                 $app->make('InvoiceTaxRateRepository'),
                 $app->make('TaxRateRepository'),
-                new \FI\Validators\InvoiceValidator
+                $app->make('InvoiceValidator'),
+                $app->make('InvoiceItemValidator')
             );
         });
 

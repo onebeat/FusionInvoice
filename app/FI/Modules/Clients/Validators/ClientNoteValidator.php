@@ -9,18 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\Clients\Validators;
 
-class InvoiceGroupValidator extends Validator {
+class ClientNoteValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation rules
 	 * @var array
 	 */
 	static $rules = array(
-		'name'     => 'required',
-		'next_id'  => 'required|integer',
-		'left_pad' => 'required|numeric'
+		'client_id' => 'required',
+		'note'      => 'required'
 	);
 
 }

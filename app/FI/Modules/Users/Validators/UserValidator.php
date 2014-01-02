@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\Users\Validators;
 
-class InvoiceValidator extends Validator {
+class UserValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation create rules
 	 * @var array
 	 */
 	static $createRules = array(
-		'created_at'       => 'required',
-		'client_name'      => 'required',
-		'invoice_group_id' => 'required'
+		'email'    => 'required|email',
+		'password' => 'required|confirmed',
+		'name'     => 'required'
 	);
 
 	/**
@@ -28,10 +28,8 @@ class InvoiceValidator extends Validator {
 	 * @var array
 	 */
 	static $updateRules = array(
-		'created_at'        => 'required',
-		'due_at'            => 'required',
-		'number'            => 'required',
-		'invoice_status_id' => 'required'
+		'email'    => 'required|email',
+		'name'     => 'required'
 	);
 
 }

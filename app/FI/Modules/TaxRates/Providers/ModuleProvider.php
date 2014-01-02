@@ -29,12 +29,13 @@ class ModuleProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('TaxRateRepository', 'FI\Modules\TaxRates\Repositories\TaxRateRepository');
+        $this->app->bind('TaxRateValidator', 'FI\Modules\TaxRates\Validators\TaxRateValidator');
 
         $this->app->bind('TaxRateController', function($app)
         {
             return new \FI\Modules\TaxRates\Controllers\TaxRateController(
                 $app->make('TaxRateRepository'),
-                new \FI\Validators\TaxRateValidator
+                $app->make('TaxRateValidator')
             );
         });
 	}

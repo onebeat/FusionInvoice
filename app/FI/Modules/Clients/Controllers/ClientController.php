@@ -34,6 +34,18 @@ class ClientController extends \BaseController {
 	protected $clientCustom;
 
 	/**
+	 * Client note repository
+	 * @var ClientNoteRepository
+	 */
+	protected $clientNote;
+
+	/**
+	 * Client note validator
+	 * @var ClientNoteValidator
+	 */
+	protected $clientNoteValidator;
+
+	/**
 	 * Custom field repository
 	 * @var CustomFieldRepository
 	 */
@@ -52,12 +64,14 @@ class ClientController extends \BaseController {
 	 * @param CustomFieldRepository $customField
 	 * @param ClientValidator $validator
 	 */
-	public function __construct($client, $clientCustom, $customField, $validator)
+	public function __construct($client, $clientCustom, $clientNote, $clientNoteValidator, $customField, $validator)
 	{
-		$this->client       = $client;
-		$this->clientCustom = $clientCustom;
-		$this->customField  = $customField;
-		$this->validator    = $validator;
+		$this->client              = $client;
+		$this->clientCustom        = $clientCustom;
+		$this->clientNote          = $clientNote;
+		$this->clientNoteValidator = $clientNoteValidator;
+		$this->customField         = $customField;
+		$this->validator           = $validator;
 	}
 
 	/**
@@ -219,16 +233,14 @@ class ClientController extends \BaseController {
 	 */
 	public function ajaxSaveNote()
 	{
-		$clientNote = App::make('ClientNoteRepository');
 		$input      = Input::all();
-		$validator  = new ClientNoteValidator;
 
-		if (!$validator->validate($input))
+		if (!$this->clientNoteValidator->validate($input))
 		{
 			return json_encode(array('success' => 0, 'message' => $validator->errors()->first()));
 		}
 
-		$clientNote->create($input);
+		$this->clientNote->create($input);
 
 		return json_encode(array('success', 1));
 	}
@@ -239,9 +251,7 @@ class ClientController extends \BaseController {
 	 */
 	public function ajaxLoadNotes()
 	{
-		$clientNote = App::make('ClientNoteRepository');
-
-		$clientNotes = $clientNote->getForClient(Input::get('client_id'));
+		$clientNotes = $this->clientNote->getForClient(Input::get('client_id'));
 
 		return View::make('clients._notes')
 		->with('clientNotes', $clientNotes);

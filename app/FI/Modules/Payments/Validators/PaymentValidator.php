@@ -9,25 +9,27 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\Payments\Validators;
 
 use FI\Classes\NumberFormatter;
 
-class TaxRateValidator extends Validator {
+class PaymentValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation rules
 	 * @var array
 	 */
 	static $rules = array(
-		'name'    => 'required',
-		'percent' => 'required|numeric'
+		'invoice_id'        => 'required',
+		'paid_at'           => 'required',
+		'amount'            => 'required|numeric',
+		'payment_method_id' => 'required'
 	);
 
 	// @TODO - This doesn't belong here
 	public function validate($input, $rulesVar = 'rules')
 	{
-		$input['percent'] = NumberFormatter::unformat($input['percent']);
+		$input['amount'] = NumberFormatter::unformat($input['amount']);
 
 		return parent::validate($input, $rulesVar);
 	}

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\PaymentMethods\Validators;
 
-class ClientValidator extends Validator {
+class PaymentMethodValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation rules

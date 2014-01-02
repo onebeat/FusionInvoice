@@ -29,12 +29,13 @@ class ModuleProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('InvoiceGroupRepository', 'FI\Modules\InvoiceGroups\Repositories\InvoiceGroupRepository');
+        $this->app->bind('InvoiceGroupValidator', 'FI\Modules\InvoiceGroups\Validators\InvoiceGroupValidator');
 
         $this->app->bind('InvoiceGroupController', function($app)
         {
             return new \FI\Modules\InvoiceGroups\Controllers\InvoiceGroupController(
                 $app->make('InvoiceGroupRepository'),
-                new \FI\Validators\InvoiceGroupValidator
+                $app->make('InvoiceGroupValidator')
             );
         });
 	}

@@ -73,6 +73,12 @@ class InvoiceController extends \BaseController {
 	 * @var InvoiceValidator
 	 */
 	protected $validator;
+
+	/**
+	 * Invoice item validator
+	 * @var ItemValidator
+	 */
+	protected $itemValidator;
 	
 	/**
 	 * Dependency injection
@@ -84,8 +90,9 @@ class InvoiceController extends \BaseController {
 	 * @param InvoiceTaxRateRepository $invoiceTaxRate
 	 * @param TaxRateRepository $taxRate
 	 * @param InvoiceValidator $validator
+	 * @param ItemValidator $itemValidator
 	 */
-	public function __construct($customField, $invoice, $invoiceCustom, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $taxRate, $validator)
+	public function __construct($customField, $invoice, $invoiceCustom, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $taxRate, $validator, $itemValidator)
 	{
 		$this->customField    = $customField;
 		$this->invoice        = $invoice;
@@ -95,6 +102,7 @@ class InvoiceController extends \BaseController {
 		$this->invoiceTaxRate = $invoiceTaxRate;
 		$this->taxRate        = $taxRate;
 		$this->validator      = $validator;
+		$this->itemValidator = $itemValidator;
 	}
 
 	/**
@@ -163,11 +171,9 @@ class InvoiceController extends \BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		$itemValidator = App::make('FI\Validators\ItemValidator');
-
-		if (!$itemValidator->validateMulti(json_decode(Input::get('items'))))
+		if (!$this->itemValidator->validateMulti(json_decode(Input::get('items'))))
 		{
-			return json_encode(array('success' => 0, 'message' => $itemValidator->errors()->first()));
+			return json_encode(array('success' => 0, 'message' => $this->itemValidator->errors()->first()));
 		}
 
 		$input  = Input::all();

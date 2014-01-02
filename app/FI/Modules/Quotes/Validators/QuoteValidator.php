@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\Quotes\Validators;
 
-class QuoteValidator extends Validator {
+class QuoteValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation create rules

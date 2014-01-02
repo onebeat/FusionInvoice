@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace FI\Validators;
+namespace FI\Modules\CustomFields\Validators;
 
-class CustomFieldValidator extends Validator {
+class CustomFieldValidator extends \FI\Validators\Validator {
 
 	/**
 	 * The validation create rules

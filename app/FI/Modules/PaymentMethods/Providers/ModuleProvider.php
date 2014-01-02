@@ -29,12 +29,13 @@ class ModuleProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('PaymentMethodRepository', 'FI\Modules\PaymentMethods\Repositories\PaymentMethodRepository');
+        $this->app->bind('PaymentMethodValidator', 'FI\Modules\PaymentMethods\Validators\PaymentMethodValidator');
 
         $this->app->bind('PaymentMethodController', function($app)
         {
             return new \FI\Modules\PaymentMethods\Controllers\PaymentMethodController(
                 $app->make('PaymentMethodRepository'),
-                new \FI\Validators\PaymentMethodValidator
+                $app->make('PaymentMethodValidator')
             );
         });
 	}
