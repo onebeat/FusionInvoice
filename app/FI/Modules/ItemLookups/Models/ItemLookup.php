@@ -11,6 +11,8 @@
 
 namespace FI\Modules\ItemLookups\Models;
 
+use FI\Classes\CurrencyFormatter;
+
 class ItemLookup extends \Eloquent {
 
 	/**
@@ -18,5 +20,16 @@ class ItemLookup extends \Eloquent {
 	 * @var array
 	 */
 	protected $guarded = array('id');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
+	public function getFormattedPriceAttribute()
+	{
+		return CurrencyFormatter::format($this->attributes['price']);
+	}
 
 }

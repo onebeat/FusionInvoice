@@ -34,7 +34,7 @@
 			<tr>
 				<td>{{ $itemLookup->name }}</td>
 				<td>{{ $itemLookup->description }}</td>
-				<td>{{ $itemLookup->price }}</td>
+				<td>{{ $itemLookup->formatted_price }}</td>
 				<td>
 					<div class="options btn-group">
 						<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> {{ trans('fi.options') }}</a>
