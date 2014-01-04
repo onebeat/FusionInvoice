@@ -33,9 +33,7 @@ class ModuleProvider extends ServiceProvider {
         $this->app->bind('SettingController', function($app)
         {
             return new \FI\Modules\Settings\Controllers\SettingController(
-                $app->make('SettingRepository'),
-                $app->make('InvoiceGroupRepository'),
-                $app->make('TaxRateRepository')
+                $app->make('SettingRepository')
             );
         });
 	}

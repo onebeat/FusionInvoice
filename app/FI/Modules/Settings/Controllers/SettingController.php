@@ -11,6 +11,7 @@
 
 namespace FI\Modules\Settings\Controllers;
 
+use App;
 use Config;
 use Input;
 use Redirect;
@@ -31,28 +32,12 @@ class SettingController extends \BaseController {
 	protected $settings;
 
 	/**
-	 * Invoice group repository
-	 * @var InvoiceGroupRepository
-	 */
-	protected $invoiceGroups;
-
-	/**
-	 * Tax rate repository
-	 * @var TaxRateRepository
-	 */
-	protected $taxRates;
-
-	/**
 	 * Dependency injection
 	 * @param SettingRepository $settings
-	 * @param InvoiceGroupRepository $invoiceGroups
-	 * @param TaxRateRepository $taxRates
 	 */
-	public function __construct($settings, $invoiceGroups, $taxRates)
+	public function __construct($settings)
 	{
 		$this->settings       = $settings;
-		$this->invoiceGroups  = $invoiceGroups;
-		$this->taxRates       = $taxRates;
 	}
 	
 	/**
@@ -69,8 +54,8 @@ class SettingController extends \BaseController {
 			'dateFormats'              => Date::dropdownArray(),
 			'invoiceTemplates'         => InvoiceTemplates::lists(),
 			'quoteTemplates'           => QuoteTemplates::lists(),
-			'invoiceGroups'            => $this->invoiceGroups->lists(),
-			'taxRates'                 => $this->taxRates->lists(),
+			'invoiceGroups'            => App::make('InvoiceGroupRepository')->lists(),
+			'taxRates'                 => App::make('TaxRateRepository')->lists(),
 			'emailSendMethods'         => Email::listSendMethods(),
 			'emailEncryptions'         => Email::listEncryptions(),
 			'yesNoArray'               => array('0' => trans('fi.no'), '1' => trans('fi.yes')),
