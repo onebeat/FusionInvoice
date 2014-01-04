@@ -260,9 +260,13 @@ class InvoiceController extends \BaseController {
 	 */
 	public function modalAddInvoiceTax()
 	{
+		$taxRates = App::make('TaxRateRepository')->lists();
+
+		unset($taxRates[0]);
+
 		return View::make('invoices._modal_add_invoice_tax')
 		->with('invoice_id', Input::get('invoice_id'))
-		->with('taxRates', App::make('TaxRateRepository')->lists());
+		->with('taxRates', $taxRates);
 	}
 
 	/**

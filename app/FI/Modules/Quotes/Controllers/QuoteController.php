@@ -266,9 +266,13 @@ class QuoteController extends \BaseController {
 	 */
 	public function modalAddQuoteTax()
 	{
+		$taxRates = App::make('TaxRateRepository')->lists();
+
+		unset($taxRates[0]);
+
 		return View::make('quotes._modal_add_quote_tax')
 		->with('quote_id', Input::get('quote_id'))
-		->with('taxRates', App::make('TaxRateRepository')->lists());
+		->with('taxRates', $taxRates);
 	}
 
 	/**
