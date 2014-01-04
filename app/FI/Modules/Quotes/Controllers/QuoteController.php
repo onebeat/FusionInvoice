@@ -14,6 +14,7 @@ namespace FI\Modules\Quotes\Controllers;
 use App;
 use Auth;
 use Config;
+use Event;
 use Input;
 use Mail;
 use Redirect;
@@ -120,8 +121,6 @@ class QuoteController extends \BaseController {
 
 		$quoteId = $this->quote->create($input);
 
-		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
-
 		return json_encode(array('success' => 1, 'id' => $quoteId));
 	}
 
@@ -179,8 +178,6 @@ class QuoteController extends \BaseController {
 				if (!$item->item_id)
 				{
 					$itemId = $this->quoteItem->create($itemRecord);
-
-					\Event::fire('quote.item.created', $itemId);
 				}
 				else
 				{
@@ -202,7 +199,7 @@ class QuoteController extends \BaseController {
 			}
 		}
 
-		\Event::fire('quote.modified', $id);
+		Event::fire('quote.modified', $id);
 
 		return json_encode(array('success' => 1));
 	}
@@ -249,8 +246,6 @@ class QuoteController extends \BaseController {
 	public function deleteItem($quoteId, $itemId)
 	{
 		$this->quoteItem->delete($itemId);
-
-		\Event::fire('quote.modified', $quoteId);
 
 		return Redirect::route('quotes.show', array($quoteId));
 	}
@@ -336,9 +331,7 @@ class QuoteController extends \BaseController {
 				'quote_status_id'  => 1,
 				'url_key'          => str_random(32)
 				)
-			);		
-
-		\Event::fire('quote.created', array($quoteId, Input::get('invoice_group_id')));
+			);
 
 		$items = $this->quoteItem->findByQuoteId(Input::get('quote_id'));
 
@@ -353,10 +346,8 @@ class QuoteController extends \BaseController {
 					'price'         => $item->price,
 					'tax_rate_id'   => $item->tax_rate_id,
 					'display_order' => $item->display_order
-					)
-				);
-
-			\Event::fire('quote.item.created', $itemId);
+				)
+			);
 		}
 
 		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId(Input::get('quote_id'));
@@ -373,7 +364,7 @@ class QuoteController extends \BaseController {
 				);
 		}
 
-		\Event::fire('quote.modified', $quoteId);
+		Event::fire('quote.modified', $quoteId);
 
 		return json_encode(array('success' => 1, 'id' => $quoteId));
 	}
@@ -408,8 +399,6 @@ class QuoteController extends \BaseController {
 
 		$invoiceId = $invoice->create($record);
 
-		\Event::fire('invoice.created', array($invoiceId, $input['invoice_group_id']));
-
 		$items = $this->quoteItem->findByQuoteId($input['quote_id']);
 
 		foreach ($items as $item)
@@ -425,8 +414,6 @@ class QuoteController extends \BaseController {
 				);
 
 			$itemId = $invoiceItem->create($itemRecord);
-
-			\Event::fire('invoice.item.created', $itemId);
 		}
 
 		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId($input['quote_id']);
@@ -443,8 +430,6 @@ class QuoteController extends \BaseController {
 				);
 		}
 
-		\Event::fire('invoice.modified', $invoiceId);
-
 		return json_encode(array('success' => 1, 'redirectTo' => route('invoices.show', array('invoice' => $invoiceId))));
 	}
 
@@ -458,10 +443,8 @@ class QuoteController extends \BaseController {
 				'quote_id'         => Input::get('quote_id'), 
 				'tax_rate_id'      => Input::get('tax_rate_id'), 
 				'include_item_tax' => Input::get('include_item_tax')
-				)
-			);
-
-		\Event::fire('quote.modified', Input::get('quote_id'));
+			)
+		);
 	}
 
 	/**
@@ -473,8 +456,6 @@ class QuoteController extends \BaseController {
 	public function deleteQuoteTax($quoteId, $quoteTaxRateId)
 	{
 		$this->quoteTaxRate->delete($quoteTaxRateId);
-
-		\Event::fire('quote.modified', $quoteId);
 
 		return Redirect::route('quotes.show', array($quoteId));
 	}

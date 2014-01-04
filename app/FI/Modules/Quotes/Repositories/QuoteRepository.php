@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Quotes\Repositories;
 
+use Event;
+
 use FI\Modules\Quotes\Models\Quote;
 
 class QuoteRepository {
@@ -99,7 +101,11 @@ class QuoteRepository {
 	 */
 	public function create($input)
 	{
-		return Quote::create($input)->id;
+		$id = Quote::create($input)->id;
+
+		Event::fire('quote.created', array($id, $input['invoice_group_id']));
+
+		return $id;
 	}
 	
 	/**

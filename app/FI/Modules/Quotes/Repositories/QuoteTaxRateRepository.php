@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Quotes\Repositories;
 
+use Event;
+
 use FI\Modules\Quotes\Models\QuoteTaxRate;
 
 class QuoteTaxRateRepository {
@@ -42,7 +44,11 @@ class QuoteTaxRateRepository {
 	 */
 	public function create($input)
 	{
-		return QuoteTaxRate::create($input)->id;
+		$id = QuoteTaxRate::create($input)->id;
+
+		Event::fire('quote.modified', $input['quote_id']);
+
+		return $id;
 	}
 	
 	/**
@@ -68,7 +74,13 @@ class QuoteTaxRateRepository {
 	 */
 	public function delete($id)
 	{
-		QuoteTaxRate::destroy($id);
+		$quoteTaxRate = QuoteTaxRate::find($id);
+
+		$quoteId = $quoteTaxRate->quote_id;
+
+		$quoteTaxRate->delete();
+
+		Event::fire('quote.modified', $quoteId);
 	}
 	
 }

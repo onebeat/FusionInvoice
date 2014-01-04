@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Quotes\Repositories;
 
+use Event;
+
 use FI\Modules\Quotes\Models\QuoteItem;
 use FI\Modules\Quotes\Models\QuoteItemAmount;
 
@@ -43,7 +45,11 @@ class QuoteItemRepository {
 	 */
 	public function create($input)
 	{
-		return QuoteItem::create($input)->id;
+		$id = QuoteItem::create($input)->id;
+
+		Event::fire('quote.item.created', $id);
+
+		return $id;
 	}
 	
 	/**
@@ -70,8 +76,12 @@ class QuoteItemRepository {
 	{
 		$quoteItem = QuoteItem::find($id);
 
+		$quoteId = $quoteItem->quote_id;
+
 		$quoteItem->amount->delete();
 		$quoteItem->delete();
+
+		\Event::fire('quote.modified', $quoteId);
 	}
 	
 }
