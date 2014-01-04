@@ -47,13 +47,10 @@ class ModuleProvider extends ServiceProvider {
         $this->app->bind('QuoteController', function($app)
         {
             return new \FI\Modules\Quotes\Controllers\QuoteController(
-                $app->make('CustomFieldRepository'),
                 $app->make('InvoiceGroupRepository'),
-                $app->make('QuoteCustomRepository'),
                 $app->make('QuoteItemRepository'),
                 $app->make('QuoteRepository'),
                 $app->make('QuoteTaxRateRepository'),
-                $app->make('TaxRateRepository'),
                 $app->make('QuoteValidator')
             );
         });

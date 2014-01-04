@@ -38,12 +38,6 @@ class QuoteController extends \BaseController {
 	protected $quote;
 
 	/**
-	 * Quote custom repository
-	 * @var QuoteCustomRepository
-	 */
-	protected $quoteCustom;
-
-	/**
 	 * Quote item repository
 	 * @var QuoteItemRepository
 	 */
@@ -56,12 +50,6 @@ class QuoteController extends \BaseController {
 	protected $quoteTaxRate;
 
 	/**
-	 * Tax rate repository
-	 * @var TaxRateRepository
-	 */
-	protected $taxRate;
-
-	/**
 	 * Quote validator
 	 * @var QuoteValidator
 	 */
@@ -69,24 +57,18 @@ class QuoteController extends \BaseController {
 	
 	/**
 	 * Dependency injection
-	 * @param CustomFieldRepository $customField
 	 * @param InvoiceGroupRepository $invoiceGroup
-	 * @param QuoteCustomRepository $quoteCustom
 	 * @param QuoteItemRepository $quoteItem
 	 * @param QuoteRepository $quote
 	 * @param QuoteTaxRateRepository $quoteTaxRate
-	 * @param TaxRateRepository $taxRate
 	 * @param QuoteValidator $validator
 	 */
-	public function __construct($customField, $invoiceGroup, $quoteCustom, $quoteItem, $quote, $quoteTaxRate, $taxRate, $validator)
+	public function __construct($invoiceGroup, $quoteItem, $quote, $quoteTaxRate, $validator)
 	{
-		$this->customField  = $customField;
 		$this->invoiceGroup = $invoiceGroup;
 		$this->quote        = $quote;
-		$this->quoteCustom  = $quoteCustom;
 		$this->quoteItem    = $quoteItem;
 		$this->quoteTaxRate = $quoteTaxRate;
-		$this->taxRate      = $taxRate;
 		$this->validator    = $validator;
 	}
 
@@ -176,7 +158,7 @@ class QuoteController extends \BaseController {
 			);
 
 		$this->quote->update($quote, $id);
-		$this->quoteCustom->save($custom, $id);
+		App::make('QuoteCustomRepository')->save($custom, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -234,7 +216,7 @@ class QuoteController extends \BaseController {
 	{
 		$quote         = $this->quote->find($id);
 		$statuses      = QuoteStatuses::lists();
-		$taxRates      = $this->taxRate->lists();
+		$taxRates      = App::make('TaxRateRepository')->lists();
 		$quoteTaxRates = $this->quoteTaxRate->findByQuoteId($id);
 
 		return View::make('quotes.show')
@@ -242,7 +224,7 @@ class QuoteController extends \BaseController {
 		->with('statuses', $statuses)
 		->with('taxRates', $taxRates)
 		->with('quoteTaxRates', $quoteTaxRates)
-		->with('customFields', $this->customField->getByTable('quotes'));
+		->with('customFields', App::make('CustomFieldRepository')->getByTable('quotes'));
 	}
 
 	/**
@@ -291,7 +273,7 @@ class QuoteController extends \BaseController {
 	{
 		return View::make('quotes._modal_add_quote_tax')
 		->with('quote_id', Input::get('quote_id'))
-		->with('taxRates', $this->taxRate->lists());
+		->with('taxRates', App::make('TaxRateRepository')->lists());
 	}
 
 	/**
