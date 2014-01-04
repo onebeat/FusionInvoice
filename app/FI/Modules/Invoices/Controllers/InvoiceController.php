@@ -276,8 +276,6 @@ class InvoiceController extends \BaseController {
 			'include_item_tax' => Input::get('include_item_tax')
 			)
 		);
-
-		Event::fire('invoice.modified', Input::get('invoice_id'));
 	}
 
 	/**

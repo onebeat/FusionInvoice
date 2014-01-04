@@ -44,7 +44,11 @@ class InvoiceTaxRateRepository {
 	 */
 	public function create($input)
 	{
-		return InvoiceTaxRate::create($input)->id;
+		$id = InvoiceTaxRate::create($input)->id;
+
+		Event::fire('invoice.modified', $input['invoice_id']);
+
+		return $id;
 	}
 	
 	/**
