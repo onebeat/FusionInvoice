@@ -114,8 +114,6 @@ class PaymentController extends \BaseController {
 			App::make('PaymentCustomRepository')->save($custom, $paymentId);
 		}
 
-		\Event::fire('invoice.modified', array($invoiceId));
-
 		return Redirect::route('payments.index')
 		->with('alertInfo', trans('fi.record_successfully_updated'));
 	}
@@ -129,8 +127,6 @@ class PaymentController extends \BaseController {
 	public function delete($paymentId, $invoiceId)
 	{
 		$this->payment->delete($paymentId);
-
-		\Event::fire('invoice.modified', array($invoiceId));
 
 		return Redirect::route('payments.index')
 		->with('alert', trans('fi.record_successfully_deleted'));
@@ -169,8 +165,6 @@ class PaymentController extends \BaseController {
 		$input['amount']  = NumberFormatter::unformat($input['amount']);
 
 		$this->payment->create($input);
-
-		\Event::fire('invoice.modified', array($input['invoice_id']));
 
 		return json_encode(array('success' => 1));
 	}

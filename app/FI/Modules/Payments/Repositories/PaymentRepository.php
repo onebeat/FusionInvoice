@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Payments\Repositories;
 
+use Event;
+
 use FI\Modules\Payments\Models\Payment;
 
 class PaymentRepository {
@@ -73,7 +75,11 @@ class PaymentRepository {
 	 */
 	public function create($input)
 	{
-		return Payment::create($input)->id;
+		$id = Payment::create($input)->id;
+
+		Event::fire('invoice.modified', array($input['invoice_id']));
+
+		return $id;
 	}
 	
 	/**
@@ -89,6 +95,8 @@ class PaymentRepository {
 		$payment->fill($input);
 
 		$payment->save();
+
+		Event::fire('invoice.modified', array($input['invoice_id']));
 	}
 	
 	/**
@@ -98,9 +106,14 @@ class PaymentRepository {
 	 */
 	public function delete($id)
 	{
-		Payment::destroy($id);
+		$payment = Payment::find($id);
 
-		\Event::fire('payment.deleted', array($id));
+		$invoiceId = $payment->invoice_id;
+
+		$payment->delete($id);
+
+		Event::fire('invoice.modified', array($invoiceId));
+		Event::fire('payment.deleted', array($id));
 	}
 	
 }
