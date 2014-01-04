@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Invoices\Repositories;
 
+use Event;
+
 use FI\Modules\Invoices\Models\Invoice;
 
 class InvoiceRepository {
@@ -109,7 +111,11 @@ class InvoiceRepository {
 	 */
 	public function create($input)
 	{
-		return Invoice::create($input)->id;
+		$invoiceId = Invoice::create($input)->id;
+
+		Event::fire('invoice.created', array($invoiceId, $input['invoice_group_id']));
+
+		return $invoiceId;
 	}
 	
 	/**

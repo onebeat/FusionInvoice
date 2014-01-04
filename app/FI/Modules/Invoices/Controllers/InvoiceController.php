@@ -122,8 +122,6 @@ class InvoiceController extends \BaseController {
 
 		$invoiceId = $this->invoice->create($input);
 
-		Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
-
 		return json_encode(array('success' => 1, 'id' => $invoiceId));
 	}
 
@@ -360,8 +358,6 @@ class InvoiceController extends \BaseController {
 				'url_key'           => str_random(32)
 			)
 		);		
-
-		Event::fire('invoice.created', array($invoiceId, Input::get('invoice_group_id')));
 
 		$items = $this->invoiceItem->findByInvoiceId(Input::get('invoice_id'));
 
