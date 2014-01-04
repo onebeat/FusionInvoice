@@ -145,6 +145,7 @@ class PaymentController extends \BaseController {
 		->with('balance', Input::get('balance'))
 		->with('date', $date)
 		->with('paymentMethods', App::make('PaymentMethodRepository')->all())
+		->with('customFields', App::make('CustomFieldRepository')->getByTable('payments'))
 		->with('redirectTo', Input::get('redirectTo'));
 	}
 
@@ -156,6 +157,9 @@ class PaymentController extends \BaseController {
 	{
 		$input = Input::all();
 
+		$custom = (array) json_decode($input['custom']);
+		unset($input['custom']);
+
 		if (!$this->validator->validate($input))
 		{
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
@@ -164,7 +168,9 @@ class PaymentController extends \BaseController {
 		$input['paid_at'] = Date::unformat($input['paid_at']);
 		$input['amount']  = NumberFormatter::unformat($input['amount']);
 
-		$this->payment->create($input);
+		$paymentId = $this->payment->create($input);
+
+		App::make('PaymentCustomRepository')->save($custom, $paymentId);
 
 		return json_encode(array('success' => 1));
 	}

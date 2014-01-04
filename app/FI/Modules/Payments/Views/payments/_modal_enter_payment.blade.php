@@ -11,12 +11,19 @@
 
         $('#btn-modal-payment-submit').click(function()
         {
+        	var custom_fields = {};
+
+            $('.custom-form-field').each(function() {
+                custom_fields[$(this).data('field-name')] = $(this).val();
+            });
+
             $.post("{{ route('payments.ajax.store') }}", {
                 invoice_id: $('#invoice_id').val(),
                 amount: $('#payment_amount').val(),
                 payment_method_id: $('#payment_method_id').val(),
                 paid_at: $('#payment_date').val(),
-                note: $('#payment_note').val()
+                note: $('#payment_note').val(),
+                custom: JSON.stringify(custom_fields)
             },
             function(data) {
                 var response = JSON.parse(data);
@@ -90,6 +97,9 @@
 				</div>
 
 			</div>
+
+			@include('custom_fields._custom_fields')
+
 		</form>
 	</div>
 
