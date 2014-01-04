@@ -11,13 +11,11 @@
 
 namespace FI\Modules\Clients\Controllers;
 
-use App;
 use Input;
 use Redirect;
 use View;
 
 use FI\Classes\CustomFields;
-use FI\Validators\ClientNoteValidator;
 
 class ClientController extends \BaseController {
 	
@@ -61,6 +59,8 @@ class ClientController extends \BaseController {
 	 * Dependency injection
 	 * @param ClientRepository $client
 	 * @param ClientCustomRepository $clientCustom
+	 * @param ClientNoteRepository $clientNote
+	 * @param ClientNoteValidator $clientNoteValidator
 	 * @param CustomFieldRepository $customField
 	 * @param ClientValidator $validator
 	 */
