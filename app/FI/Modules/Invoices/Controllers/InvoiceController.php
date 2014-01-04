@@ -180,9 +180,7 @@ class InvoiceController extends \BaseController {
 
 				if (!$item->item_id)
 				{
-					$itemId = $this->invoiceItem->create($itemRecord);
-
-					Event::fire('invoice.item.created', $itemId);
+					$this->invoiceItem->create($itemRecord);
 				}
 				else
 				{
@@ -363,7 +361,7 @@ class InvoiceController extends \BaseController {
 
 		foreach ($items as $item)
 		{
-			$itemId = $this->invoiceItem->create(
+			$this->invoiceItem->create(
 				array(
 					'invoice_id'    => $invoiceId,
 					'name'          => $item->name,
@@ -374,8 +372,6 @@ class InvoiceController extends \BaseController {
 					'display_order' => $item->display_order
 				)
 			);
-
-			Event::fire('invoice.item.created', $itemId);
 		}
 
 		$invoiceTaxRates = $this->invoiceTaxRate->findByInvoiceId(Input::get('invoice_id'));

@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Invoices\Repositories;
 
+use Event;
+
 use FI\Modules\Invoices\Models\InvoiceItem;
 use FI\Modules\Invoices\Models\InvoiceItemAmount;
 
@@ -43,7 +45,11 @@ class InvoiceItemRepository {
 	 */
 	public function create($input)
 	{
-		return InvoiceItem::create($input)->id;
+		$id = InvoiceItem::create($input)->id;
+
+		Event::fire('invoice.item.created', $id);
+
+		return $id;
 	}
 
 	/**
