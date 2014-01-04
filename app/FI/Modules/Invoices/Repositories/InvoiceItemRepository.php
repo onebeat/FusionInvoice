@@ -76,8 +76,12 @@ class InvoiceItemRepository {
 	{
 		$invoiceItem = InvoiceItem::find($id);
 
+		$invoiceId = $invoiceItem->invoice_id;
+
 		$invoiceItem->amount->delete();
 		$invoiceItem->delete();
+
+		Event::fire('invoice.modified', $invoiceId);
 	}
 	
 }

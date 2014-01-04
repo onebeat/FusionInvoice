@@ -241,8 +241,6 @@ class InvoiceController extends \BaseController {
 	{
 		$this->invoiceItem->delete($itemId);
 
-		Event::fire('invoice.modified', $invoiceId);
-
 		return Redirect::route('invoices.show', array($invoiceId));
 	}
 
@@ -291,8 +289,6 @@ class InvoiceController extends \BaseController {
 	public function deleteInvoiceTax($invoiceId, $invoiceTaxRateId)
 	{
 		$this->invoiceTaxRate->delete($invoiceTaxRateId);
-
-		Event::fire('invoice.modified', $invoiceId);
 
 		return Redirect::route('invoices.show', array($invoiceId));
 	}

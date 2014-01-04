@@ -11,6 +11,8 @@
 
 namespace FI\Modules\Invoices\Repositories;
 
+use Event;
+
 use FI\Modules\Invoices\Models\InvoiceTaxRate;
 
 class InvoiceTaxRateRepository {
@@ -68,7 +70,13 @@ class InvoiceTaxRateRepository {
 	 */
 	public function delete($id)
 	{
-		InvoiceTaxRate::destroy($id);
+		$invoiceTaxRate = InvoiceTaxRate::find($id);
+
+		$invoiceId = $invoiceTaxRate->invoice_id;
+
+		$invoiceTaxRate->delete();
+
+		Event::fire('invoice.modified', $invoiceId);
 	}
 	
 }
