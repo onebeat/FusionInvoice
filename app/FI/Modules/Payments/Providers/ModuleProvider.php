@@ -36,9 +36,6 @@ class ModuleProvider extends ServiceProvider {
         $this->app->bind('PaymentController', function($app)
         {
             return new \FI\Modules\Payments\Controllers\PaymentController(
-                $app->make('CustomFieldRepository'),
-                $app->make('PaymentCustomRepository'),
-                $app->make('PaymentMethodRepository'),
                 $app->make('PaymentRepository'),
                 $app->make('PaymentValidator')
             );

@@ -25,28 +25,10 @@ use FI\Classes\CustomFields;
 class PaymentController extends \BaseController {
 
 	/**
-	 * Custom field repository
-	 * @var CustomFieldRepository
-	 */
-	protected $customField;
-
-	/**
 	 * Payment repository
 	 * @var PaymentRepository
 	 */
 	protected $payment;
-
-	/**
-	 * Payment custom repository
-	 * @var PaymentCustomRepository
-	 */
-	protected $paymentCustom;
-
-	/**
-	 * Payment method repository
-	 * @var PaymentMethodRepository
-	 */
-	protected $paymentMethod;
 
 	/**
 	 * Payment validator
@@ -56,18 +38,12 @@ class PaymentController extends \BaseController {
 	
 	/**
 	 * Dependency injection
-	 * @param CustomFieldRepository $customField
-	 * @param PaymentCustomRepository $paymentCustom
-	 * @param PaymentMethodRepository $paymentMethod
 	 * @param PaymentRepository $payment
 	 * @param PaymentValidator $validator
 	 */
-	public function __construct($customField, $paymentCustom, $paymentMethod, $payment, $validator)
+	public function __construct($payment, $validator)
 	{
-		$this->customField   = $customField;
 		$this->payment       = $payment;
-		$this->paymentCustom = $paymentCustom;
-		$this->paymentMethod = $paymentMethod;
 		$this->validator     = $validator;
 	}
 
@@ -99,9 +75,9 @@ class PaymentController extends \BaseController {
 		return View::make('payments.form')
 		->with('editMode', true)
 		->with('payment', $payment)
-		->with('paymentMethods', $this->paymentMethod->lists())
+		->with('paymentMethods', App::make('PaymentMethodRepository')->lists())
 		->with('invoice', $invoice)
-		->with('customFields', $this->customField->getByTable('payments'));;
+		->with('customFields', App::make('CustomFieldRepository')->getByTable('payments'));;
 	}
 
 	/**
@@ -135,7 +111,7 @@ class PaymentController extends \BaseController {
 
 		if (Input::has('custom'))
 		{
-			$this->paymentCustom->save($custom, $paymentId);
+			App::make('PaymentCustomRepository')->save($custom, $paymentId);
 		}
 
 		\Event::fire('invoice.modified', array($invoiceId));
@@ -172,7 +148,7 @@ class PaymentController extends \BaseController {
 		->with('invoice_id', Input::get('invoice_id'))
 		->with('balance', Input::get('balance'))
 		->with('date', $date)
-		->with('paymentMethods', $this->paymentMethod->all())
+		->with('paymentMethods', App::make('PaymentMethodRepository')->all())
 		->with('redirectTo', Input::get('redirectTo'));
 	}
 
