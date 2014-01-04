@@ -41,15 +41,11 @@ class ModuleProvider extends ServiceProvider {
         $this->app->bind('InvoiceController', function($app)
         {
             return new \FI\Modules\Invoices\Controllers\InvoiceController(
-                $app->make('CustomFieldRepository'),
                 $app->make('InvoiceRepository'),
-                $app->make('InvoiceCustomRepository'),
                 $app->make('InvoiceGroupRepository'),
                 $app->make('InvoiceItemRepository'),
                 $app->make('InvoiceTaxRateRepository'),
-                $app->make('TaxRateRepository'),
-                $app->make('InvoiceValidator'),
-                $app->make('InvoiceItemValidator')
+                $app->make('InvoiceValidator')
             );
         });
 

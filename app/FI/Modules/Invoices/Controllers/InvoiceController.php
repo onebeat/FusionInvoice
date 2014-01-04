@@ -27,22 +27,10 @@ use FI\Statuses\InvoiceStatuses;
 class InvoiceController extends \BaseController {
 
 	/**
-	 * Custom field repository
-	 * @var CustomFieldRepository
-	 */
-	protected $customField;
-
-	/**
 	 * Invoice repository
 	 * @var InvoiceRepository
 	 */
 	protected $invoice;
-
-	/**
-	 * Invoice custom repository
-	 * @var InvoiceCustomRepository
-	 */
-	protected $invoiceCustom;
 
 	/**
 	 * Invoice group repository
@@ -63,46 +51,26 @@ class InvoiceController extends \BaseController {
 	protected $invoiceTaxRate;
 
 	/**
-	 * Tax rate repository
-	 * @var TaxRateRepository
-	 */
-	protected $taxRate;
-
-	/**
 	 * Invoice validator
 	 * @var InvoiceValidator
 	 */
 	protected $validator;
-
-	/**
-	 * Invoice item validator
-	 * @var ItemValidator
-	 */
-	protected $itemValidator;
 	
 	/**
 	 * Dependency injection
-	 * @param CustomFieldRepository $customField
 	 * @param InvoiceRepository $invoice
-	 * @param InvoiceCustomRepository $invoiceCustom
 	 * @param InvoiceGroupRepository $invoiceGroup
 	 * @param InvoiceItemRepository $invoiceItem
 	 * @param InvoiceTaxRateRepository $invoiceTaxRate
-	 * @param TaxRateRepository $taxRate
 	 * @param InvoiceValidator $validator
-	 * @param ItemValidator $itemValidator
 	 */
-	public function __construct($customField, $invoice, $invoiceCustom, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $taxRate, $validator, $itemValidator)
+	public function __construct($invoice, $invoiceGroup, $invoiceItem, $invoiceTaxRate, $validator)
 	{
-		$this->customField    = $customField;
 		$this->invoice        = $invoice;
-		$this->invoiceCustom  = $invoiceCustom;
 		$this->invoiceGroup   = $invoiceGroup;
 		$this->invoiceItem    = $invoiceItem;
 		$this->invoiceTaxRate = $invoiceTaxRate;
-		$this->taxRate        = $taxRate;
 		$this->validator      = $validator;
-		$this->itemValidator = $itemValidator;
 	}
 
 	/**
@@ -171,9 +139,11 @@ class InvoiceController extends \BaseController {
 			return json_encode(array('success' => 0, 'message' => $this->validator->errors()->first()));
 		}
 
-		if (!$this->itemValidator->validateMulti(json_decode(Input::get('items'))))
+		$itemValidator = App::make('InvoiceItemValidator');
+
+		if (!$itemValidator->validateMulti(json_decode(Input::get('items'))))
 		{
-			return json_encode(array('success' => 0, 'message' => $this->itemValidator->errors()->first()));
+			return json_encode(array('success' => 0, 'message' => $itemValidator->errors()->first()));
 		}
 
 		$input  = Input::all();
@@ -191,7 +161,8 @@ class InvoiceController extends \BaseController {
 		);
 
 		$this->invoice->update($invoice, $id);
-		$this->invoiceCustom->save($custom, $id);
+
+		App::make('InvoiceCustomRepository')->save($custom, $id);
 
 		$items = json_decode(Input::get('items'));
 
@@ -222,15 +193,13 @@ class InvoiceController extends \BaseController {
 
 				if (isset($item->save_item_as_lookup) and $item->save_item_as_lookup)
 				{
-					$itemLookup = App::make('ItemLookupRepository');
-
 					$itemLookupRecord = array(
 						'name'        => $item->item_name,
 						'description' => $item->item_description,
 						'price'       => $item->item_price
 					);
 
-					$itemLookup->create($itemLookupRecord);
+					App::make('ItemLookupRepository')->create($itemLookupRecord);
 				}
 			}
 		}
@@ -250,9 +219,9 @@ class InvoiceController extends \BaseController {
 		return View::make('invoices.show')
 		->with('invoice', $this->invoice->find($id))
 		->with('statuses', InvoiceStatuses::lists())
-		->with('taxRates', $this->taxRate->lists())
+		->with('taxRates', App::make('TaxRateRepository')->lists())
 		->with('invoiceTaxRates', $this->invoiceTaxRate->findByInvoiceId($id))
-		->with('customFields', $this->customField->getByTable('invoices'));
+		->with('customFields', App::make('CustomFieldRepository')->getByTable('invoices'));
 	}
 
 	/**
@@ -299,7 +268,7 @@ class InvoiceController extends \BaseController {
 	{
 		return View::make('invoices._modal_add_invoice_tax')
 		->with('invoice_id', Input::get('invoice_id'))
-		->with('taxRates', $this->taxRate->lists());
+		->with('taxRates', App::make('TaxRateRepository')->lists());
 	}
 
 	/**
